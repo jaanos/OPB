@@ -3,8 +3,6 @@ title: "Osnove podatkovnih baz"
 output:
   ioslides_presentation:
     incremental: yes
-  beamer_presentation:
-    incremental: yes
 ---
 
 # Sistemi za upravljanje podatkovnih baz
@@ -127,7 +125,7 @@ CREATE TABELE transakcija (
 );
 ```
 
-## Celoten SQL - narečje PSQLite {.smaller}
+## [Banka](banka.sql) - celoten SQL, narečje PSQLite {.smaller}
 
 ```{sql}
 CREATE TABLE kraj (
@@ -158,7 +156,7 @@ CREATE TABELE transakcija (
 );
 ```
 
-## Banka - SQL - Postgres {.smaller}
+## [Banka](banka.postgresql) - narečje Postgres - 1 {.smaller}
 
 ```{sql}
 --- VERZIJA ZA POSTGRESQL ---
@@ -190,7 +188,7 @@ CREATE TABLE oseba (
 
 ```
 
-## [Banka](banka.postgresql) - SQL - Postgres {.smaller}
+## [Banka](banka.postgresql) - narečje Postgres - 2 {.smaller}
 ```{sql}
 ----------------------------------------------------------------------
 -- tabela racunov
