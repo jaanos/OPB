@@ -190,7 +190,7 @@ CREATE TABLE oseba (
 
 ```
 
-## Banka - SQL - Postgres {.smaller}
+## [Banka](banka.postgresql) - SQL - Postgres {.smaller}
 ```{sql}
 ----------------------------------------------------------------------
 -- tabela racunov
