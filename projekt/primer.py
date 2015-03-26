@@ -11,7 +11,7 @@ debug(True)
 
 @get('/')
 def index():
-    cur.execute("SELECT * FROM oseba")
+    cur.execute("SELECT * FROM oseba ORDER BY id")
     return template('komitenti.html', osebe=cur.fetchall())
 
 @get('/transakcije/:x/')
