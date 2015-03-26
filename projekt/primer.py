@@ -11,12 +11,12 @@ debug(True)
 
 @get('/')
 def index():
-    cur.execute("SELECT * FROM oseba")
+    cur.execute("SELECT * FROM oseba ORDER BY id")
     return template('komitenti.html', osebe=cur.fetchall())
 
 @get('/transakcije/:x/')
 def transakcije(x):
-    cur.execute("SELECT * FROM transakcija WHERE znesek > %s ORDER BY znesek", [x])
+    cur.execute("SELECT * FROM transakcija WHERE znesek > %s ORDER BY znesek, id", [x])
     return template('transakcije.html', x=x, transakcije=cur.fetchall())
 
 
