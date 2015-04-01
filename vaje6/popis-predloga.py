@@ -15,7 +15,7 @@ import urllib.request # Knjižnica za delo s spletom
 BAZA = "popis.sqlite3"
 
 # URL, na katerem dobimo podatke
-URL = "https://raw.githubusercontent.com/janos/OPB14-15/master/vaje6/popis.csv"
+URL = "https://raw.githubusercontent.com/jaanos/OPB14-15/master/vaje6/popis.csv"
 
 ### Program
 
