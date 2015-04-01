@@ -28,7 +28,15 @@ baza = sqlite3.connect(BAZA)
 # Naredimo tabelo kraj, če je še ni
 baza.execute('''CREATE TABLE IF NOT EXISTS obcina (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
-  name TEXT
+  ime TEXT,
+  povrsina REAL,
+  prebivalstvo INTEGER,
+  gostota REAL,
+  naselja INTEGER,
+  ustanovitev INTEGER,
+  pokrajina TEXT,
+  regija TEXT,
+  odcepitev TEXT
 )''')
 
 # Naredimo tabelo podatki, če je še ni
@@ -45,16 +53,17 @@ baza.execute('''CREATE TABLE IF NOT EXISTS podatki (
 # Pomožna funkcija, ki vrne id občine in jo po potrebi doda v bazo
 def getObcina(x):
     c = baza.cursor()
-    c.execute("SELECT id FROM obcina WHERE name = ?", [x])
+    c.execute("SELECT id FROM obcina WHERE ime = ?", [x])
     r = c.fetchone()
     id = -1
     if r == None:
-        c.execute("INSERT INTO obcina (name) VALUES (?)", (x,))
+        c.execute("INSERT INTO obcina (ime) VALUES (?)", (x,))
         id = c.lastrowid
         print("Nova občina %s, id = %s" % (x, id))
     else:
         id = r[0]
     c.close()
+    return id
     
 # Pomožna funkcija za normalizacijo spola
 def getSpol(s):

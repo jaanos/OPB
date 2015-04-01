@@ -13,14 +13,14 @@ tbl.podatki <- tbl(baza, "podatki")
 join <- select(mutate(inner_join(tbl.obcina, tbl.podatki,
                                  by = c("id" = "obcina")),
                       semester = leto %||% "/" %||% polletje),
-               obcina = name, semester, spol, starost, stevilo)
+               obcina = ime, semester, spol, starost, stevilo)
 skupine <- group_by(join, semester)
 
 # Prebivalstvo Slovenije
 summarise(skupine, stevilo = sum(stevilo))
 
 # Mlajši od 30 let v Ljubljani
-summarise(filter(skupine, name == "Ljubljana" & starost < 30),
+summarise(filter(skupine, ime == "Ljubljana" & starost < 30),
           stevilo = sum(stevilo))
 
 # Poiščimo nekaj občin z največjima deležema moških in žensk
