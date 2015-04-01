@@ -2,7 +2,7 @@ library(dplyr)    # Knjižnica za delo s podatki
 library(RSQLite)  # Knjižnica za povezavo z bazo
 
 # Datoteka, v kateri je baza
-BAZA <- "popis-poln.sqlite3"
+BAZA <- "popis.sqlite3"
 
 # Povežemo se na obstoječo bazo
 baza <- src_sqlite(BAZA)
