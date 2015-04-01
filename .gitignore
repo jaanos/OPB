@@ -4,5 +4,6 @@ __pycache__
 *.log
 *.out
 *.pyc
+*.sqlite3
 .DS_Store
 .Rproj.user
