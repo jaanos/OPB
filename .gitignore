@@ -6,4 +6,5 @@ __pycache__
 *.pyc
 *.sqlite3
 .DS_Store
+.Rhistory
 .Rproj.user
