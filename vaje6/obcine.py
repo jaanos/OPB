@@ -94,13 +94,19 @@ class HTMLParser:
             # Vrstica: zapišemo prebrane podatke v bazo
             if name == 'tr':
                 if len(self.row) > 1:
-                    self.row[2] = float(re.sub(r',', '.', self.row[2]))
-                    self.row[3] = int(re.sub(r'\.', '', self.row[3]))
-                    # TODO: počisti še ostale vrednosti
-                    self.row[0] = getObcina(self.row[1])
+                    row = [None if x == "-" or x == "" else x for x in self.row]
+                    row[2] = float(re.sub(r',', '.', row[2]))
+                    row[3] = int(re.sub(r'\.', '', row[3]))
+                    row[4] = int(re.sub(r'\*', '', row[4]))
+                    if row[5] != None:
+                        row[5] = int(re.sub(r'\*', '', row[5]))
+                    if row[9] != None:
+                        row[9] = re.sub(r'\*', '', re.sub(r' \(.*\)', '', re.sub(r'^.*, ', '', row[9])))
+                    row[0] = getObcina(self.row[1])
+                    print("Uvažam podatke za občino %s..." % row[1])
                     baza.execute('''
                         REPLACE INTO obcina VALUES (?,?,?,?,?,?,?,?,?,?)
-                    ''', self.row)
+                    ''', row)
                 self.row = None
             # Celica: dodamo v vrstico
             elif name == 'td':
