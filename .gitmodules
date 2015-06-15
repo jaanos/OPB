@@ -1,0 +1,3 @@
+[submodule "oddaje/ARSO"]
+	path = oddaje/ARSO
+	url = git@bitbucket.org:jureslak/arso-opb.git
