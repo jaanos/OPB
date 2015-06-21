@@ -1,3 +1,6 @@
 [submodule "oddaje/ARSO"]
 	path = oddaje/ARSO
 	url = git@bitbucket.org:jureslak/arso-opb.git
+[submodule "oddaje/Optimizacija-donosnosti-portfelja"]
+	path = oddaje/Optimizacija-donosnosti-portfelja
+	url = git@github.com:zangrjol/Optimizacija-donosnosti-portfelja.git
