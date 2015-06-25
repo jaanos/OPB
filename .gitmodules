@@ -4,3 +4,6 @@
 [submodule "oddaje/Optimizacija-donosnosti-portfelja"]
 	path = oddaje/Optimizacija-donosnosti-portfelja
 	url = git@github.com:zangrjol/Optimizacija-donosnosti-portfelja.git
+[submodule "oddaje/naravne-nesrece"]
+	path = oddaje/naravne-nesrece
+	url = git@bitbucket.org:jernejzagar/naravne-nesrece.git
