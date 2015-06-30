@@ -7,3 +7,6 @@
 [submodule "oddaje/naravne-nesrece"]
 	path = oddaje/naravne-nesrece
 	url = git@bitbucket.org:jernejzagar/naravne-nesrece.git
+[submodule "oddaje/atlas"]
+	path = oddaje/atlas
+	url = git@bitbucket.org:ZigaLuksic/opb-atlas.git
