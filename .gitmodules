@@ -10,3 +10,12 @@
 [submodule "oddaje/atlas"]
 	path = oddaje/atlas
 	url = git@bitbucket.org:ZigaLuksic/opb-atlas.git
+[submodule "oddaje/hribi"]
+	path = oddaje/hribi
+	url = git@bitbucket.org:spelaskvarc/hribi.git
+[submodule "oddaje/breeds-database"]
+	path = oddaje/breeds-database
+	url = git@bitbucket.org:LenaBencina/breeds-database.git
+[submodule "oddaje/transport"]
+	path = oddaje/transport
+	url = git@bitbucket.org:anzejcurk/opb-transport.git
