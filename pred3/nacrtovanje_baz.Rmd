@@ -109,7 +109,8 @@ Normalizacija v ustrezno obliko poteka na naslednji način:
 
 ## <a href="http://holowczak.com/database-normalization/6/">2NF</a> 
 
-- Pogoj: vsi stolpci v relaciji so imajo samo eno funkcijsko odvisnost, in sicer od primarnega ključa.
+- Pogoj: za vsak izbor ključa `A1, ..., An` in vsak odvisni stolpec `B` velja, da `B` ni odvisen od nobenega delnega ključa (npr. da velja `A1 -> B` ali `A2, A3 -> B`.
+- Obstajajo samo funkcionalne odvisnosti od potencialnih ključev.
 - V praksi: če je primarni ključ določen z enim stolpcem, smo v 2NF.
 - Zato včasih dodamo umetne primarne ključe.
 
@@ -118,13 +119,14 @@ Normalizacija v ustrezno obliko poteka na naslednji način:
 - Pogoj: relacija je v 2NF in nimamo tranzitivnih funkcionalnih odvisnosti.
 - Tranzitivna funkcionalna odvisnost: 
     - iz `A -> B`, `B -> C` sledi `A -> C`.
+- Če smo v 2NF, se nam tranzitivnost lahko zgodi znotraj ključa oz. znotraj odvisnih stolpcev.
 
 ## <a href="http://holowczak.com/database-normalization/8/">BCNF</a>
 
-- Pogoj: za vsako funkcionalno odvisnost oblike:
-     - `A1, ..., An -> B` velja, 
-     - da stolpci `A1, ..., An` predstavljajo primarni ključ.
-
+- Pogoj: relacija je v 3NF in za vsako funkcionalno odvisnost oblike:
+`A1, ..., An -> B` velja, da stolpci `A1, ..., An` predstavljajo ključ.
+- Torej: ne obstajajo nobene druge funkcionalne odvisnosti razen od ključev
+- Ponavadi normaliziramo vsaj do te oblike.
 
 ## <a href="http://holowczak.com/database-normalization/8/">4NF</a>
 
