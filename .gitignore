@@ -1,0 +1,10 @@
+*~
+__pycache__
+*.aux
+*.log
+*.out
+*.pyc
+*.sqlite3
+.DS_Store
+.Rhistory
+.Rproj.user
