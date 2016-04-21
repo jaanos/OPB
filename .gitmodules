@@ -19,3 +19,6 @@
 [submodule "oddaje/transport"]
 	path = oddaje/transport
 	url = git@bitbucket.org:anzejcurk/opb-transport.git
+[submodule "oddaje/Ekipa-da-te-skipa"]
+	path = oddaje/Ekipa-da-te-skipa
+	url = https://github.com/MathBB/Ekipa-da-te-skipa.git
