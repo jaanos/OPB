@@ -12,10 +12,6 @@
 * Avtorji: Jernej Žagar, Maša Vinter, Tadej Šnajder
 * Repozitorij: https://bitbucket.org/jernejzagar/naravne-nesrece
 
-## Atlas
-* Avtorji: Žiga Lukšič, Nika Eržen
-* Repozitorij: https://bitbucket.org/ZigaLuksic/opb-atlas
-
 ## Hribi
 * Avtorji: Benjamin Medvešček Murovec, Špela Škvarč
 * Repozitorij: https://bitbucket.org/spelaskvarc/hribi
