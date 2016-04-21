@@ -440,9 +440,15 @@ AND actor.name &lt;&gt; &#39;Al Pacino&#39;</pre></li>
 <li>za <code>VALUES</code> lahko naštejemo več vektorjev vrednosti (vrstic) in jih ločimo z vejico.</li>
 </ul>
 
-</article></slide><slide class=''><hgroup><h2>UPDATE</h2></hgroup><article  id="update">
+</article></slide><slide class=''><hgroup><h2>INSERT</h2></hgroup><article  id="insert-1">
 
 <ul class = 'build'>
+<li><p>Vstavljamo lahko tudi rezultat <code>SELECT</code> stavka, če se ujema s shemo tabele.</p>
+
+<pre class = 'prettyprint lang-{sql}'>INSERT into tabela 
+    SELECT ... </pre>
+
+</article></slide><slide class=''><hgroup><h2>UPDATE</h2></hgroup><article  id="update"></li>
 <li>popravljanje vrednosti v tabeli v vrsticah, ki zadoščajo pogojem ter stolpcih v teh vrsticah, ki jih želimo spremeniti.</li>
 <li><pre class = 'prettyprint lang-{sql}'>UPDATE ime_tabele SET st1 = v1, st2 = v2, ... WHERE pogoj</pre></li>
 </ul>

@@ -422,7 +422,7 @@ SELECT movie.title, actor.name FROM
     AND actor.name <> 'Al Pacino'
 ```
 
-## INSERT
+## INSERT 
 
 - `INSERT` - stavek za vstavljanje vrstic.
 -
@@ -441,6 +441,13 @@ INSERT INTO ime_tabele (stolpec_1, stolpec_2, ...,stolpec_n)
     - Ostali se nastavijo na `NULL` ali privzeto vrednost.
 - za `VALUES` lahko naštejemo več vektorjev vrednosti (vrstic) in jih ločimo z vejico.    
 
+## INSERT
+
+- Vstavljamo lahko tudi rezultat `SELECT` stavka, če se ujema s shemo tabele.
+```{sql}
+INSERT into tabela 
+        SELECT ... 
+```
 ## UPDATE
 
 - popravljanje vrednosti v tabeli v vrsticah, ki zadoščajo pogojem ter stolpcih v teh vrsticah, ki jih želimo spremeniti.
