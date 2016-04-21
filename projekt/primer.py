@@ -1,13 +1,18 @@
 #!/usr/bin/python
 # -*- encoding: utf-8 -*-
- 
+
+# uvozimo bottle.py
 from bottle import *
-import auth
+
+# uvozimo ustrezne podatke za povezavo
+import auth_public as auth
+
+# uvozimo psycopg2
 import psycopg2, psycopg2.extensions, psycopg2.extras
 psycopg2.extensions.register_type(psycopg2.extensions.UNICODE) # se znebimo problemov s sumniki
 
-# Odkomentiraj, če želiš sporočila o napakah
-debug(True)
+# odkomentiraj, če želiš sporočila o napakah
+# debug(True)
 
 @get('/')
 def index():

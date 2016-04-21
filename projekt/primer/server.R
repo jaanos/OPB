@@ -2,7 +2,7 @@ library(shiny)
 library(dplyr)
 library(RPostgreSQL)
 
-source("../auth.R")
+source("../auth_public.R")
 
 shinyServer(function(input, output) {
   conn <- src_postgres(dbname = db, host = host,
