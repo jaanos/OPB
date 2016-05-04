@@ -4,11 +4,13 @@ library(RPostgreSQL)
 
 source("auth.R")
 
+# Povežemo se z gonilnikom za PostgreSQL
+drv <- dbDriver("PostgreSQL")      
+
 # Uporabimo tryCatch,
 # da prisilimo prekinitev povezave v primeru napake
 tryCatch({
-  # Povežemo se z gonilnikom za PostgreSQL
-  drv <- dbDriver("PostgreSQL")
+  # Vzpostavimo povezavo
   conn <- dbConnect(drv, dbname = db, host = host,
                     user = user, password = password)
   
