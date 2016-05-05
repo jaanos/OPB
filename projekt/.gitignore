@@ -10,3 +10,4 @@ __pycache__
 .RData
 auth.py
 auth.R
+Thumbs.db
