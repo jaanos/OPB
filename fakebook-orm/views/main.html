@@ -1,0 +1,37 @@
+% rebase('base.html', title='Fakebook')
+
+%if sporocilo:
+  <div class="alert {{sporocilo[0]}} alert-dismissable">{{sporocilo[1]}}
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+  </div>
+%end
+
+<form id="trac-forma" class="form-horizontal" method="post" action="/trac/new/">
+<fieldset>
+
+<!-- Form Name -->
+<legend>Kva dogaja?</legend>
+
+<!-- Textarea -->
+<div class="control-group">
+  <label class="control-label" for="trac"></label>
+  <div class="controls">
+    <textarea id="trac" name="trac"></textarea>
+  </div>
+</div>
+
+<!-- Button -->
+<div class="control-group">
+  <label class="control-label" for="singlebutton"></label>
+  <div class="controls">
+    <button id="singlebutton" name="singlebutton" class="btn btn-primary">Kulsko!</button>
+  </div>
+</div>
+
+</fieldset>
+</form>
+
+%for (tid,avtor,avtor_ime,cas,vsebina,komentarji) in traci:
+% include('trac.html', tid=tid, avtor=avtor, avtor_ime=avtor_ime, cas=cas, vsebina=vsebina, komentarji=komentarji)
+%end
+
