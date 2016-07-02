@@ -1,3 +1,6 @@
 [submodule "oddaje/Profit"]
 	path = oddaje/Profit
 	url = https://github.com/vrle/Profit.git
+[submodule "oddaje/fan-fiction-stats"]
+	path = oddaje/fan-fiction-stats
+	url = git@bitbucket.org:Emayla/fan-fiction-stats.git
