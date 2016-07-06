@@ -7,3 +7,6 @@
 [submodule "oddaje/Music"]
 	path = oddaje/Music
 	url = git@bitbucket.org:opbteam/projekt.git
+[submodule "oddaje/Sanjsko-potovanje"]
+	path = oddaje/Sanjsko-potovanje
+	url = https://github.com/UrskaT/OPB_2016-Sanjsko_potovanje_nadOPB2014.git
