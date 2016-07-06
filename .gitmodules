@@ -4,3 +4,6 @@
 [submodule "oddaje/fan-fiction-stats"]
 	path = oddaje/fan-fiction-stats
 	url = git@bitbucket.org:Emayla/fan-fiction-stats.git
+[submodule "oddaje/Music"]
+	path = oddaje/Music
+	url = git@bitbucket.org:opbteam/projekt.git
