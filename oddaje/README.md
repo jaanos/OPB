@@ -15,3 +15,7 @@
 ## Sanjsko potovanje
 * Avtorica: Urška Tomšič
 * Repozitorij: https://github.com/UrskaT/OPB_2016-Sanjsko_potovanje_nadOPB2014
+
+## Glasbene lestvice
+* Avtorja: Damjan Manevski, Just Bajželj
+* Repozitorij: https://github.com/damjanm/Glasbene-lestvice
