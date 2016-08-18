@@ -3,10 +3,10 @@
 	url = https://github.com/vrle/Profit.git
 [submodule "oddaje/fan-fiction-stats"]
 	path = oddaje/fan-fiction-stats
-	url = git@bitbucket.org:Emayla/fan-fiction-stats.git
+	url = https://bitbucket.org/Emayla/fan-fiction-stats.git
 [submodule "oddaje/Music"]
 	path = oddaje/Music
-	url = git@bitbucket.org:opbteam/projekt.git
+	url = https://bitbucket.org/opbteam/projekt.git
 [submodule "oddaje/Sanjsko-potovanje"]
 	path = oddaje/Sanjsko-potovanje
 	url = https://github.com/UrskaT/OPB_2016-Sanjsko_potovanje_nadOPB2014.git
@@ -15,4 +15,4 @@
 	url = https://github.com/damjanm/Glasbene-lestvice.git
 [submodule "oddaje/Zlocini"]
 	path = oddaje/Zlocini
-	url = git@bitbucket.org:Annch/gorile.git
+	url = https://bitbucket.org/Annch/gorile.git
