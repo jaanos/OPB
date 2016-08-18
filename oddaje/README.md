@@ -19,3 +19,7 @@
 ## Glasbene lestvice
 * Avtorja: Damjan Manevski, Just Bajželj
 * Repozitorij: https://github.com/damjanm/Glasbene-lestvice
+
+## Zločini
+* Avtorice: Ana Borovac, Neža Dimec, Katarina Černe
+* Repozitorij: https://bitbucket.org/Annch/gorile

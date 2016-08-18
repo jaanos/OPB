@@ -13,3 +13,6 @@
 [submodule "oddaje/Glasbene-lestvice"]
 	path = oddaje/Glasbene-lestvice
 	url = https://github.com/damjanm/Glasbene-lestvice.git
+[submodule "oddaje/Zlocini"]
+	path = oddaje/Zlocini
+	url = git@bitbucket.org:Annch/gorile.git
