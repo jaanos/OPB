@@ -16,3 +16,6 @@
 [submodule "oddaje/Zlocini"]
 	path = oddaje/Zlocini
 	url = https://bitbucket.org/Annch/gorile.git
+[submodule "oddaje/Avtomobili"]
+	path = oddaje/Avtomobili
+	url = https://github.com/qwer317/opbprojekt.git
