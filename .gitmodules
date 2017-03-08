@@ -1,21 +1,21 @@
-[submodule "oddaje/Profit"]
-	path = oddaje/Profit
+[submodule "oddaje/2016/Profit"]
+	path = oddaje/2016/Profit
 	url = https://github.com/vrle/Profit.git
-[submodule "oddaje/fan-fiction-stats"]
-	path = oddaje/fan-fiction-stats
+[submodule "oddaje/2016/fan-fiction-stats"]
+	path = oddaje/2016/fan-fiction-stats
 	url = https://bitbucket.org/Emayla/fan-fiction-stats.git
-[submodule "oddaje/Music"]
-	path = oddaje/Music
+[submodule "oddaje/2016/Music"]
+	path = oddaje/2016/Music
 	url = https://bitbucket.org/opbteam/projekt.git
-[submodule "oddaje/Sanjsko-potovanje"]
-	path = oddaje/Sanjsko-potovanje
+[submodule "oddaje/2016/Sanjsko-potovanje"]
+	path = oddaje/2016/Sanjsko-potovanje
 	url = https://github.com/UrskaT/OPB_2016-Sanjsko_potovanje_nadOPB2014.git
-[submodule "oddaje/Glasbene-lestvice"]
-	path = oddaje/Glasbene-lestvice
+[submodule "oddaje/2016/Glasbene-lestvice"]
+	path = oddaje/2016/Glasbene-lestvice
 	url = https://github.com/damjanm/Glasbene-lestvice.git
-[submodule "oddaje/Zlocini"]
-	path = oddaje/Zlocini
+[submodule "oddaje/2016/Zlocini"]
+	path = oddaje/2016/Zlocini
 	url = https://bitbucket.org/Annch/gorile.git
-[submodule "oddaje/Avtomobili"]
-	path = oddaje/Avtomobili
+[submodule "oddaje/2016/Avtomobili"]
+	path = oddaje/2016/Avtomobili
 	url = https://github.com/qwer317/opbprojekt.git
