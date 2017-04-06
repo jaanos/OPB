@@ -4,6 +4,7 @@ __pycache__
 *.log
 *.out
 *.pyc
+*.pdf
 .DS_Store
 .Rhistory
 .Rproj.user
