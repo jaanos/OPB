@@ -5,6 +5,7 @@ __pycache__
 *.out
 *.pyc
 *.pdf
+*.sqlite3
 .DS_Store
 .Rhistory
 .Rproj.user
