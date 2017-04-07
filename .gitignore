@@ -4,6 +4,7 @@ __pycache__
 *.log
 *.out
 *.pyc
+*.pdf
 *.sqlite3
 .DS_Store
 .Rhistory
