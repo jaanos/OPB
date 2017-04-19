@@ -4,7 +4,13 @@ __pycache__
 *.log
 *.out
 *.pyc
+*.pdf
+*.sqlite
 *.sqlite3
 .DS_Store
 .Rhistory
 .Rproj.user
+.RData
+auth.py
+auth.R
+Thumbs.db
