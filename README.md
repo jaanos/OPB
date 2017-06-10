@@ -9,4 +9,4 @@ Vzorec in gradivo za izdelavo projekta
 
 ### [oddaje](oddaje)
 
-Oddani projekti iz preteklih let
+Oddani projekti

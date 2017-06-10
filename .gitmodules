@@ -19,3 +19,6 @@
 [submodule "oddaje/2016/Avtomobili"]
 	path = oddaje/2016/Avtomobili
 	url = https://github.com/qwer317/opbprojekt.git
+[submodule "oddaje/2017/Trgovina"]
+	path = oddaje/2017/Trgovina
+	url = https://github.com/MarvinHerzog/Trgovina.git
