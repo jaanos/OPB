@@ -28,3 +28,6 @@
 [submodule "oddaje/2017/beernburger"]
 	path = oddaje/2017/beernburger
 	url = https://github.com/campovski/beernburger.git
+[submodule "oddaje/2017/Smucarski-center"]
+	path = oddaje/2017/Smucarski-center
+	url = https://github.com/KrusecN13/Smucarski-center.git

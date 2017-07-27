@@ -11,3 +11,7 @@
 ## Pivo in burger
 * Avtor: Marcel Čampa
 * Repozitorij: https://github.com/campovski/beernburger
+
+## Smučarski center
+* Avtorji: Kevin Štampar, Nika Krušec, Andrej Sokolič
+* Repozitorij: https://github.com/KrusecN13/Smucarski-center
