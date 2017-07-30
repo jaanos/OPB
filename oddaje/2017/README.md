@@ -15,3 +15,7 @@
 ## Smučarski center
 * Avtorji: Kevin Štampar, Nika Krušec, Andrej Sokolič
 * Repozitorij: https://github.com/KrusecN13/Smucarski-center
+
+## Formula 1
+* Avtorji: Domen Hadalin, Uroš Krampelj, Jure Zukanovič
+* Repozitorij: https://github.com/UrosKrampelj/Formula-1
