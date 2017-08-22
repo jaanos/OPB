@@ -34,3 +34,6 @@
 [submodule "oddaje/2017/Formula-1"]
 	path = oddaje/2017/Formula-1
 	url = https://github.com/UrosKrampelj/Formula-1.git
+[submodule "oddaje/2017/Fuzbal"]
+	path = oddaje/2017/Fuzbal
+	url = https://github.com/GalDrnovsek/Fuzbal.git

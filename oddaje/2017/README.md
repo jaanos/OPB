@@ -19,3 +19,7 @@
 ## Formula 1
 * Avtorji: Domen Hadalin, Uroš Krampelj, Jure Zukanovič
 * Repozitorij: https://github.com/UrosKrampelj/Formula-1
+
+## Fuzbal
+* Avtorji: Gal Drnovšek, Žan Tavčar, Jan Perme
+* Repozitorij: https://github.com/GalDrnovsek/Fuzbal
