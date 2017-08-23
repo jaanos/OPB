@@ -37,3 +37,6 @@
 [submodule "oddaje/2017/Fuzbal"]
 	path = oddaje/2017/Fuzbal
 	url = https://github.com/GalDrnovsek/Fuzbal.git
+[submodule "oddaje/2017/Potovalni_prirocnik"]
+	path = oddaje/2017/Potovalni_prirocnik
+	url = https://github.com/rahlocutnacigra/Potovalni_prirocnik.git

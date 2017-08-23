@@ -23,3 +23,7 @@
 ## Fuzbal
 * Avtorji: Gal Drnovšek, Žan Tavčar, Jan Perme
 * Repozitorij: https://github.com/GalDrnovsek/Fuzbal
+
+## Potovalni priročnik
+* Avtorici: Manca Cör, Lara Luckmann
+* Repozitorij: https://github.com/rahlocutnacigra/Potovalni_prirocnik
