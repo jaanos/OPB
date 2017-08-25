@@ -27,3 +27,7 @@
 ## Potovalni priročnik
 * Avtorici: Manca Cör, Lara Luckmann
 * Repozitorij: https://github.com/rahlocutnacigra/Potovalni_prirocnik
+
+## Oglasi prevozov
+* Avtorja: Matic Noč, Luka Pavešič
+* Repozitorij: https://github.com/nocmatic/prevozi
