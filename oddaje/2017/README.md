@@ -31,3 +31,7 @@
 ## Oglasi prevozov
 * Avtorja: Matic Noč, Luka Pavešič
 * Repozitorij: https://github.com/nocmatic/prevozi
+
+## IMDB iskalnik
+* Avtor: Andraž Naglič
+* Repozitorij: https://bitbucket.org/NaglicA12/opb-projekt

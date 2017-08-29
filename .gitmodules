@@ -43,3 +43,6 @@
 [submodule "oddaje/2017/prevozi"]
 	path = oddaje/2017/prevozi
 	url = https://github.com/nocmatic/prevozi.git
+[submodule "oddaje/2017/opb-projekt"]
+	path = oddaje/2017/opb-projekt
+	url = git@bitbucket.org:NaglicA12/opb-projekt.git
