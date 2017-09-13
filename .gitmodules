@@ -46,3 +46,6 @@
 [submodule "oddaje/2017/opb-projekt"]
 	path = oddaje/2017/opb-projekt
 	url = git@bitbucket.org:NaglicA12/opb-projekt.git
+[submodule "oddaje/2017/uganke"]
+	path = oddaje/2017/uganke
+	url = https://github.com/lukalajovic/uganke.git

@@ -35,3 +35,7 @@
 ## IMDB iskalnik
 * Avtor: Andraž Naglič
 * Repozitorij: https://bitbucket.org/NaglicA12/opb-projekt
+
+## Uganke
+* Avtor: Luka Lajovic
+* Repozitorij: https://github.com/lukalajovic/uganke
