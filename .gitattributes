@@ -1,1 +1,2 @@
 bottle.py linguist-vendored
+auth.template linguist-language=Python
