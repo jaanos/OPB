@@ -39,3 +39,7 @@
 ## Uganke
 * Avtor: Luka Lajovic
 * Repozitorij: https://github.com/lukalajovic/uganke
+
+## Delnice
+* Avtorja: Miha Rot, Eva Erzin
+* Repozitorij: https://github.com/EvaErzin/Delnice

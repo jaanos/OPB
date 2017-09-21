@@ -49,3 +49,6 @@
 [submodule "oddaje/2017/uganke"]
 	path = oddaje/2017/uganke
 	url = https://github.com/lukalajovic/uganke.git
+[submodule "oddaje/2017/Delnice"]
+	path = oddaje/2017/Delnice
+	url = https://github.com/EvaErzin/Delnice.git
