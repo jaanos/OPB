@@ -43,3 +43,7 @@
 ## Delnice
 * Avtorja: Miha Rot, Eva Erzin
 * Repozitorij: https://github.com/EvaErzin/Delnice
+
+## Taborniška baza
+* Avtorja: Mark Baltič, Julija Tominc
+* Repozitorij: https://github.com/markbaltic/TaborniskaBaza

@@ -52,3 +52,6 @@
 [submodule "oddaje/2017/Delnice"]
 	path = oddaje/2017/Delnice
 	url = https://github.com/EvaErzin/Delnice.git
+[submodule "oddaje/2017/TaborniskaBaza"]
+	path = oddaje/2017/TaborniskaBaza
+	url = https://github.com/markbaltic/TaborniskaBaza.git
