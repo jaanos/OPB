@@ -1,5 +1,5 @@
-# Preimenuj datoteko v auth.py ali auth.R in vnesi podatke za priklop na bazo
-db = 'banka2017_uporabnik'
+# Skopiraj datoteko v auth.py ali auth.R in vnesi podatke za priklop na bazo
+db = 'banka2018_uporabnik'
 host = 'baza.fmf.uni-lj.si'
 user = 'uporabnik'
 password = 'geslo'
