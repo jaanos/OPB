@@ -1,4 +1,4 @@
-db = 'banka2017_janos'
+db = 'banka2018_janos'
 host = 'baza.fmf.uni-lj.si'
 user = 'javnost'
 password = 'javnogeslo'
