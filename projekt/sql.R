@@ -1,11 +1,12 @@
 # Neposredno klicanje SQL ukazov v R
 library(dplyr)
+library(dbplyr)
 library(RPostgreSQL)
 
 source("auth.R")
 
 # Povežemo se z gonilnikom za PostgreSQL
-drv <- dbDriver("PostgreSQL")      
+drv <- dbDriver("PostgreSQL")
 
 # Uporabimo tryCatch,
 # da prisilimo prekinitev povezave v primeru napake

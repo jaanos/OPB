@@ -48,5 +48,12 @@ def uvozi_podatke():
             print("Uvožena občina %s z ID-jem %d" % (r[0], rid))
     conn.commit()
 
+def prebivalci(stevilo):
+    cur.execute("""
+        SELECT * FROM obcina
+        WHERE prebivalstvo >= %s
+    """, [stevilo])
+    return cur.fetchall()
+
 conn = psycopg2.connect(database=auth.db, host=auth.host, user=auth.user, password=auth.password)
 cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor) 
