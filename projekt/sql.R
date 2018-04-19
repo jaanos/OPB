@@ -37,5 +37,7 @@ tryCatch({
     # Na koncu nujno prekinemo povezavo z bazo,
     # saj preveč odprtih povezav ne smemo imeti
     dbDisconnect(conn)
-    # Koda v finally bloku se izvede, preden program konča z napako
+    # Koda v finally bloku se izvede v vsakem primeru
+    # - bodisi ob koncu izvajanja try bloka,
+    # ali pa po tem, ko se ta konča z napako
   })
