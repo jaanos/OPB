@@ -1,0 +1,12 @@
+%rebase('osnova.html', naslov='Dodajanje transkacije')
+
+%if napaka:
+  <p class="opozorilo">{{napaka}}</p>
+%end
+
+  <form action="/dodaj_transakcijo" method="POST">
+    <p>Znesek: <input type="text" name="znesek" value="{{znesek}}"></p>
+    <p>Račun: <input type="text" name="racun" value="{{racun}}"></p>
+    <p>Opis: <input type="text" name="opis" value="{{opis}}"></p>
+    <p><input type="submit" value="Dodaj"></p>
+  </form>
