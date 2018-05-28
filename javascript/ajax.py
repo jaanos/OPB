@@ -15,7 +15,7 @@ def index():
 
 @get('/besedilo')
 def index():
-    return "Besedilo je neki"
+    return "Sporočilo iz strežnika"
 
 ######################################################################
 # Glavni program
