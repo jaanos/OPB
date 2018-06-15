@@ -55,3 +55,6 @@
 [submodule "oddaje/2017/TaborniskaBaza"]
 	path = oddaje/2017/TaborniskaBaza
 	url = https://github.com/markbaltic/TaborniskaBaza.git
+[submodule "oddaje/2018/e-kartoteka"]
+	path = oddaje/2018/e-kartoteka
+	url = https://github.com/LeonHorvat/e-kartoteka
