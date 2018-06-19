@@ -58,3 +58,6 @@
 [submodule "oddaje/2018/e-kartoteka"]
 	path = oddaje/2018/e-kartoteka
 	url = https://github.com/LeonHorvat/e-kartoteka
+[submodule "oddaje/2018/gaming-forum"]
+	path = oddaje/2018/gaming-forum
+	url = https://github.com/vkriznar/gaming-forum.git
