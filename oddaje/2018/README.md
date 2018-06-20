@@ -7,3 +7,7 @@
 ## Igralniški forum
 * Avtorja: Gal Bumbar, Vid Križnar
 * Repozitorij: https://github.com/vkriznar/gaming-forum
+
+## Stran za oboževalce Ponarejevalcev denarja
+* Avtorja: Martin Molan, Nejc Černe
+* Repozitorij: https://github.com/MolanM/Fake_wizard_productions
