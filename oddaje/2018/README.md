@@ -11,3 +11,7 @@
 ## Stran za oboževalce Ponarejevalcev denarja
 * Avtorja: Martin Molan, Nejc Černe
 * Repozitorij: https://github.com/MolanM/Fake_wizard_productions
+
+## Brskalnik po spletnih trgovinah
+* Avtorja: Klemen Hovnik, Manca Strgar
+* Repozitorij: https://github.com/MancaStrgar/Brskalnik-po-spletnih-trgovinah
