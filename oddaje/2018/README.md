@@ -15,3 +15,7 @@
 ## Brskalnik po spletnih trgovinah
 * Avtorja: Klemen Hovnik, Manca Strgar
 * Repozitorij: https://github.com/MancaStrgar/Brskalnik-po-spletnih-trgovinah
+
+## Baza regat
+* Avtorji: Jure Močnik-Berljavac, Zala Žnidaršič, Matjaž Puh
+* Repozitorij: https://github.com/JureMB/BazaRegat

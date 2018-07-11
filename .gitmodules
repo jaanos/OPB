@@ -67,3 +67,6 @@
 [submodule "oddaje/2018/Brskalnik-po-spletnih-trgovinah"]
 	path = oddaje/2018/Brskalnik-po-spletnih-trgovinah
 	url = https://github.com/MancaStrgar/Brskalnik-po-spletnih-trgovinah.git
+[submodule "oddaje/2018/BazaRegat"]
+	path = oddaje/2018/BazaRegat
+	url = https://github.com/JureMB/BazaRegat.git
