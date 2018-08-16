@@ -19,3 +19,7 @@
 ## Baza regat
 * Avtorji: Jure Močnik-Berljavac, Zala Žnidaršič, Matjaž Puh
 * Repozitorij: https://github.com/JureMB/BazaRegat
+
+## Borza
+* Avtorji: Sara Korat, Kaja Vezenšek, Andraž Pirnovar
+* Repozitorij: https://github.com/Charisa/Borza-OPB
