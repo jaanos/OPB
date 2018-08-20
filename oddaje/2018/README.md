@@ -27,3 +27,7 @@
 ## Študentski servis
 * Avtorji: Peter Dolenc, Nataša Taškov, Anja Leskovšek
 * Repozitorij: https://github.com/lencdo/Studentski-servis
+
+## Baza članstva RDR
+* Avtorja: Nika Kastelec, Primož Durcik
+* Repozitorij: https://github.com/pdurcik/Baza-clanstva-RDR
