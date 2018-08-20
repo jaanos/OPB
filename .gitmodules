@@ -73,3 +73,6 @@
 [submodule "oddaje/2018/Borza-OPB"]
 	path = oddaje/2018/Borza-OPB
 	url = https://github.com/Charisa/Borza-OPB.git
+[submodule "oddaje/2018/Studentski-servis"]
+	path = oddaje/2018/Studentski-servis
+	url = https://github.com/lencdo/Studentski-servis.git

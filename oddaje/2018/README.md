@@ -23,3 +23,7 @@
 ## Borza
 * Avtorji: Sara Korat, Kaja Vezenšek, Andraž Pirnovar
 * Repozitorij: https://github.com/Charisa/Borza-OPB
+
+## Študentski servis
+* Avtorji: Peter Dolenc, Nataša Taškov, Anja Leskovšek
+* Repozitorij: https://github.com/lencdo/Studentski-servis
