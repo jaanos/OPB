@@ -79,3 +79,6 @@
 [submodule "oddaje/2018/Baza-clanstva-RDR"]
 	path = oddaje/2018/Baza-clanstva-RDR
 	url = https://github.com/pdurcik/Baza-clanstva-RDR.git
+[submodule "oddaje/2018/Iskalnik-pesmi"]
+	path = oddaje/2018/Iskalnik-pesmi
+	url = https://github.com/marinasirk/Iskalnik-pesmi.git

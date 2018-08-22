@@ -31,3 +31,7 @@
 ## Baza članstva RDR
 * Avtorja: Nika Kastelec, Primož Durcik
 * Repozitorij: https://github.com/pdurcik/Baza-clanstva-RDR
+
+## Iskalnik pesmi
+* Avtorji: Marina Sirk, Taja Debeljak, Veronika Nabergoj
+* Repozitorij: https://github.com/marinasirk/Iskalnik-pesmi
