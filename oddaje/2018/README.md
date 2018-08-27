@@ -35,3 +35,11 @@
 ## Iskalnik pesmi
 * Avtorji: Marina Sirk, Taja Debeljak, Veronika Nabergoj
 * Repozitorij: https://github.com/marinasirk/Iskalnik-pesmi
+
+## Najbolje ocenjene knjige
+* Avtorji: Teja Rupnik, Anamarija Mijatović, Katarina Kromar
+* Repozitorij: https://github.com/aniiiim/Najbolje-ocenjene-knjige
+
+## Pijača in hrana
+* Avtorji: Tine Makovecki, Urša Zrimšek
+* Repozitorij: https://github.com/tinemakovecki/Drinks-and-things

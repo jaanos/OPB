@@ -82,3 +82,9 @@
 [submodule "oddaje/2018/Iskalnik-pesmi"]
 	path = oddaje/2018/Iskalnik-pesmi
 	url = https://github.com/marinasirk/Iskalnik-pesmi.git
+[submodule "oddaje/2018/Najbolje-ocenjene-knjige"]
+	path = oddaje/2018/Najbolje-ocenjene-knjige
+	url = https://github.com/aniiiim/Najbolje-ocenjene-knjige.git
+[submodule "oddaje/2018/Drinks-and-things"]
+	path = oddaje/2018/Drinks-and-things
+	url = https://github.com/tinemakovecki/Drinks-and-things.git
