@@ -43,3 +43,7 @@
 ## Pijača in hrana
 * Avtorji: Tine Makovecki, Urša Zrimšek
 * Repozitorij: https://github.com/tinemakovecki/Drinks-and-things
+
+## Recepti
+* Avtorja: Tjaša Bajc, Peter Jereb
+* Repozitorij: https://github.com/tjasabajc/Recepti

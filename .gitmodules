@@ -88,3 +88,6 @@
 [submodule "oddaje/2018/Drinks-and-things"]
 	path = oddaje/2018/Drinks-and-things
 	url = https://github.com/tinemakovecki/Drinks-and-things.git
+[submodule "oddaje/2018/Recepti"]
+	path = oddaje/2018/Recepti
+	url = https://github.com/tjasabajc/Recepti.git
