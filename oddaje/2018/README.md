@@ -47,3 +47,7 @@
 ## Recepti
 * Avtorja: Tjaša Bajc, Peter Jereb
 * Repozitorij: https://github.com/tjasabajc/Recepti
+
+## Ethnoguessr
+* Avtor: Jan Jezeršek
+* Repozitorij: https://github.com/Ardweaden/Ethnoguessr-V2
