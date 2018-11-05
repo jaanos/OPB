@@ -51,3 +51,7 @@
 ## Ethnoguessr
 * Avtor: Jan Jezeršek
 * Repozitorij: https://github.com/Ardweaden/Ethnoguessr-V2
+
+## Pasja bolha
+* Avtorice: Barbara Robba, Sandra Kerševan, Sara Močnik
+* Repozitorij: https://github.com/SandraKersevan/Pasja-bolha

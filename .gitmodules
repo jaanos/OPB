@@ -94,3 +94,6 @@
 [submodule "oddaje/2018/Ethnoguessr-V2"]
 	path = oddaje/2018/Ethnoguessr-V2
 	url = https://github.com/Ardweaden/Ethnoguessr-V2.git
+[submodule "oddaje/2018/Pasja-bolha"]
+	path = oddaje/2018/Pasja-bolha
+	url = https://github.com/SandraKersevan/Pasja-bolha.git
