@@ -97,3 +97,6 @@
 [submodule "oddaje/2018/Pasja-bolha"]
 	path = oddaje/2018/Pasja-bolha
 	url = https://github.com/SandraKersevan/Pasja-bolha.git
+[submodule "oddaje/2018/HarryPotter"]
+	path = oddaje/2018/HarryPotter
+	url = https://github.com/ursa16180/HarryPotter.git

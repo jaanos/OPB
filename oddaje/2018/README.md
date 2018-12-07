@@ -55,3 +55,7 @@
 ## Pasja bolha
 * Avtorice: Barbara Robba, Sandra Kerševan, Sara Močnik
 * Repozitorij: https://github.com/SandraKersevan/Pasja-bolha
+
+## Poišči pravo magično knjigo zase
+* Avtorici: Urša Pertot, Nina Štempelj
+* Repozitorij: https://github.com/ursa16180/HarryPotter
