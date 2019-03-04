@@ -485,7 +485,9 @@
    GROUP BY continent</pre>
 
 <ul class = 'build'>
-<li>Narobe - WHERE deluje pred združevanjem</li>
+<li>Najprej smo izbrali ustrezne vrstice in jih nato pošteli.</li>
+<li>Kateri kontinenti imajo več kot 500 milijonov prebivalcev?</li>
+<li>Pozor: <code>WHERE</code> nam tu ne more pomagati!</li>
 </ul>
 
 <pre class = 'prettyprint lang-sql'>SELECT continent, SUM(population) 
@@ -573,17 +575,30 @@
   HAVING COUNT(id) &gt;= 10</pre>
 
 <ul class = 'build'>
-<li>Kaj pa, če nas zanima še v koliko filmih so bili glavni igralci?</li>
+<li>Pozor: ali lahko v <code>SELECT</code> izberemo stolpec, ki ne nastopa v <code>GROUP BY</code>?</li>
+<li>Glede ne to da, vemo da se za nek <code>actorid</code> pojavi lahko samo eno ime <code>actor.name</code> lahko naredimo takole:</li>
+</ul>
+
+<pre class = 'prettyprint lang-sql'>SELECT actor.name FROM actor 
+  INNER JOIN casting ON actorid = id
+  WHERE ord = 1
+  GROUP BY actorid, actor.name  
+  HAVING COUNT(id) &gt;= 10</pre>
+
+</article></slide><slide class=""><hgroup><h2>Primer</h2></hgroup><article  id="primer-1">
+
+<ul class = 'build'>
+<li>Zanima nas še v koliko filmih so bili glavni ti igralci glavni igralci?</li>
 </ul>
 
 <pre class = 'prettyprint lang-sql'>SELECT actor.name, count(actor.name) AS &#39;FILMI&#39; FROM actor
   JOIN casting ON actorid = id
   WHERE ord = 1
-  GROUP BY actorid 
+  GROUP BY actorid, actor.name 
   HAVING COUNT(id) &gt;= 10
   ORDER BY FILMI DESC</pre>
 
-</article></slide><slide class=""><hgroup><h2><a href='http://sqlzoo.net/wiki/More_JOIN_operations' title=''>Primer</a></h2></hgroup><article  id="primer-1" class="build">
+</article></slide><slide class=""><hgroup><h2><a href='http://sqlzoo.net/wiki/More_JOIN_operations' title=''>Primer</a></h2></hgroup><article  id="primer-2" class="build">
 
 <ul class = 'build'>
 <li>Kateri igralci so igrali v več kot enem filmu, ki ima v naslovu &#39;love&#39;?</li>
@@ -596,7 +611,7 @@
   GROUP BY name
   HAVING COUNT(*) &gt; 1</pre>
 
-</article></slide><slide class=""><hgroup><h2>Primer</h2></hgroup><article  id="primer-2" class="build">
+</article></slide><slide class=""><hgroup><h2>Primer</h2></hgroup><article  id="primer-3" class="build">
 
 <ul class = 'build'>
 <li>Zanimajo nas naslovi in glavni igralec vseh tistih filmov, kjer je igral Al Pacino in ni bil v glavni vlogi.</li>
@@ -652,7 +667,7 @@
 <pre class = 'prettyprint lang-sql'>UPDATE ime_tabele SET st1 = v1, st2 = v2, ... 
   WHERE pogoj</pre>
 
-</article></slide><slide class=""><hgroup><h2>DELETE {.buld} - brisanje vrstic</h2></hgroup><article  id="delete-.buld---brisanje-vrstic">
+</article></slide><slide class=""><hgroup><h2>DELETE {.build} - brisanje vrstic</h2></hgroup><article  id="delete-.build---brisanje-vrstic">
 
 <ul class = 'build'>
 <li>brisanje vrstic, ki zadoščajo pogoju.</li>

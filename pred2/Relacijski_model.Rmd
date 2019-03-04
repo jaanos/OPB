@@ -331,7 +331,9 @@ SELECT continent, COUNT(*) AS kolikoDrzav
    WHERE population > 200000000 
    GROUP BY continent
 ```
-- Narobe - WHERE deluje pred združevanjem
+- Najprej smo izbrali ustrezne vrstice in jih nato pošteli.
+- Kateri kontinenti imajo več kot 500 milijonov prebivalcev?
+- Pozor: `WHERE` nam tu ne more pomagati!
 ```{sql eval=FALSE}
 SELECT continent, SUM(population) 
     FROM world GROUP BY continent
@@ -407,13 +409,24 @@ SELECT actor.name FROM actor
   GROUP BY actorid  
   HAVING COUNT(id) >= 10
 ```
+- Pozor: ali lahko v `SELECT` izberemo stolpec, ki ne nastopa v `GROUP BY`?
+- Glede ne to da, vemo da se za nek `actorid` pojavi lahko samo eno ime `actor.name` lahko naredimo takole:
+```{sql eval=FALSE}
+SELECT actor.name FROM actor 
+  INNER JOIN casting ON actorid = id
+  WHERE ord = 1
+  GROUP BY actorid, actor.name  
+  HAVING COUNT(id) >= 10
+```
 
-- Kaj pa, če nas zanima še v koliko filmih so bili glavni igralci?
+## Primer
+
+- Zanima nas še v koliko filmih so bili glavni ti igralci glavni igralci?
 ```{sql eval=FALSE}
 SELECT actor.name, count(actor.name) AS 'FILMI' FROM actor
   JOIN casting ON actorid = id
   WHERE ord = 1
-  GROUP BY actorid 
+  GROUP BY actorid, actor.name 
   HAVING COUNT(id) >= 10
   ORDER BY FILMI DESC
 ```
