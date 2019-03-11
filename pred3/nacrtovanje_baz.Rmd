@@ -1,6 +1,9 @@
 ---
 title: "Načrtovanje podatkovnih baz"
 output: 
+  beamer_presentation:
+    keep_tex: no
+    incremental: no    
   ioslides_presentation:
     incremental: yes
 ---
@@ -15,36 +18,39 @@ output:
 
 ## Grafični prikaz modelov
 
-- Podatkovno bazo, tabele in relacije lahko načrtujemo s pomočjo grafično podprtih orodij.
-- Vizualizacija nam omogoča preglednejši pogled na tabele v bazi.
+- Podatkovno bazo, tabele in sklice lahko načrtujemo s pomočjo grafično podprtih orodij.
+- Vizualizacija nam omogoča preglednejši pogled na tabele v podatkovni bazi.
 - Na voljo je več orodij.
-- Uporabljali bomo odprtokodno orodje <a href="http://sourceforge.net/projects/dia-installer/"> Dia </a>
+- Odprtokodno orodje <a href="http://sourceforge.net/projects/dia-installer/"> Dia </a>
+- Googlov <a href="http://draw.io">draw.io</a>
+- OPOZORILO: sklice med tabelami v angleščini imenujemo tudi "relationship". V slovenščino to po tradiciji malce "nerodno" prevedemo v "relacija" (v relacijski algebri pa velja relacija = tabela) 
+- Pazimo na kontekst uporabe pojma "relacija".
 
 ## E-R model
 
-<p align="center">
-<img src="slike/oracle_ER.gif" height="500px">
-</p>
+```{r echo=FALSE, out.width='60%'}
+knitr::include_graphics('./slike/oracle_ER.png')
+```
+
+Vir: Oracle
 
 ## <a href="viri/ER_movies.dia">E-R model in Dia</a>
 
-<p align="center">
-<img src="slike/dia_ER.png" width="800px">
-</p>
+```{r echo=FALSE, out.width='100%'}
+knitr::include_graphics('./slike/dia_ER.png')
+```
 
 ## <a href="viri/ER_movies.dia">UML model in Dia</a>
 
-<p align="center">
-<img src="slike/dia_UML.png" width="800px">
-</p>
-
-
+```{r echo=FALSE, out.width='100%'}
+knitr::include_graphics('./slike/dia_UML.png')
+```
 
 ## Normalizacija
 
-- *Normalizacija* je proces v katerem sistematično pregledamo relacije (tabele) in anomalije. Ko identificiramo anomalijo relacijo razbijemo na dve novi.
+- *Normalizacija* je proces pri katerem sistematično pregledamo relacije (tabele) in anomalije. Ko identificiramo anomalijo, relacijo razbijemo na dve novi.
 - Med procesom normalizacije ponavadi dobimo še globji vpogled, kakšna bo interakcija med podatki v podatkovni bazi.
-- Boljše najti probleme v podatkovni bazi v času načrtovanja kot v času operacij.
+- Bolje najti probleme v podatkovni bazi v času načrtovanja kot v času operacij.
 - Normalizacija nam pomaga odstraniti redundantnost zapisa podatkov.
 - Ampak zato moramo morda delati več `join`-ov.
 - Včasih se zaradi učinkovitosti namerno odločimo, da ne izvedemo nekega koraka normalizacije (npr. v podatkovnih skladiščih).
@@ -53,7 +59,7 @@ output:
 
 - Vsaka vrstica ima za določen stolpec samo eno vrednost.
 - Podatki v stolpcu so istega tipa.
-- Isto ime stolpca se lahko pojavi le enkrat v relaciji.
+- Isto ime stolpca se lahko v relaciji pojavi le enkrat.
 - Vrstni red stolpcev ni važen.
 - Nobeni dve vrstici ne smeta biti enaki.
 - Vrstni red vrstic ni važen.
@@ -61,11 +67,12 @@ output:
 ## Funkcijska odvisnost
 
 - *Funkcijska odvisnost* opisuje odnos med stolpci znotraj iste relacije (tabele).
-- Stolpec je funkcijsko odvisen od drugega, če lahko s pomočjo vrednosti prvega stolpca v neki vrstici impliciramo vrednost drugega stolpca v isti vrstici.
+- Stolpec `A` je funkcijsko odvisen od (enega ali več) stolpcev `A1, ..., An`, če lahko s pomočjo vrednosti teh stolpcev v neki vrstici impliciramo vrednost stolpca `A` v tej vrstici.
 - Primer: Številka študenta implicira študij študenta.
-- Za nakazovanje funkcijske odvisnosti uporabimo simbol `->`
+- Za nakazovanje funkcijske odvisnosti uporabimo simbol `->`.
 - Stolpec je lahko funkcijsko odvisen od kombinacije večih stolpcev.
-- Primer: `Solsko_leto, Predmet -> Predavatelj`
+- Primer: `Solsko_leto, Predmet -> Predavatelj`.
+- Funkcijske odvisnosti so pogojene tako s strukturo tabel kot z naravo podatkov.
 
 ## Ključ
 
@@ -77,58 +84,73 @@ output:
 
 ## Vrste normalizacij
 
-- Vrste:
-    - Prva normalizirana oblika (1NF)
-    - Druga normalizirana oblika (2NF)
-    - Tretja normalizirana oblika (3NF)
-    - Boyce-Codd normalizirana  (BCNF)
-    - Četrta normalizirana oblika (4NF)
-    - Peta normalizirana oblika (5NF)
+- Prva normalizirana oblika (1NF)
+- Druga normalizirana oblika (2NF)
+- Tretja normalizirana oblika (3NF)
+- Boyce-Codd normalizirana  (BCNF)
+- Četrta normalizirana oblika (4NF)
+- Peta normalizirana oblika (5NF)
 - Vsaka naslednja oblika vsebuje prejšnjo.
 
 ## Normalizacija
 
-Normalizacija v ustrezno obliko poteka na naslednji način:
+- Normalizacija v ustrezno obliko poteka na naslednji način:
 
-- Določimo ključe vsake relacije (tabele).
-- Določimo funkcijske odvisnosti.
-- Preverimo ali so kršene zahteve ustrezne definicije.
-- Če pride do kršitve v neki relaciji, potem to relacijo (tabelo) razdelimo na dve relaciji.
-- Ponovno preverimo pogoje za izbrano obliko.
+    - Določimo ključe vsake tabele.
+    - Določimo funkcijske odvisnosti.
+    - Preverimo, ali so kršene zahteve ustrezne definicije.
+    - Če pride do kršitve v neki tabeli, potem to tabelo razdelimo na dve tabeli.
+    - Ponovno preverimo pogoje za izbrano obliko.
+    - Če za nobeno tabelo ni kršena nobena zahteva, zaključimo.
+
 
 ## 1NF = predpostavke za relacijo
 
-- Pogoji:
-    - Vsaka vrstica ima za določen stolpec samo eno vrednost. 
-    - Podatki v stolpcu so istega tipa.
-    - Isto ime stolpca se lahko pojavi le enkrat v relaciji.
-    - Vrstni red stolpcev ni važen.
-    - Nobeni dve vrstici ne smeta biti enaki.
-    - Vrstni red vrstic ni važen.
-- Praktično to pomeni, da imamo za vsako relacijo določen primarni ključ.
+- Vsaka vrstica ima za določen stolpec samo eno vrednost. 
+- Podatki v stolpcu so istega tipa.
+- Isto ime stolpca se lahko pojavi v tabeli le enkrat. 
+- Vrstni red stolpcev ni važen.
+- Nobeni dve vrstici ne smeta biti enaki.
+- Vrstni red vrstic ni važen.
+- Primer: če se identični vrstici ponovita v neki tabeli, potem tabela že ni v 1NF.
 
-## <a href="http://holowczak.com/database-normalization/6/">2NF</a> 
+## <a href="http://holowczak.com/database-normalization/6/">2NF</a> {.build}
 
-- Pogoj: za vsak izbor ključa `A1, ..., An` in vsak odvisni stolpec `B` velja, da `B` ni odvisen od nobenega delnega ključa (npr. da velja `A1 -> B` ali `A2, A3 -> B`.
-- Obstajajo samo funkcionalne odvisnosti od potencialnih ključev.
-- V praksi: če je primarni ključ določen z enim stolpcem, smo v 2NF.
-- Zato včasih dodamo umetne primarne ključe.
+- Ključ (ang. superkey): katera koli skupina stolpcev, za katere ne obstajata dve vrstici z istima vrednostima v teh stolpcih. Vsi drugi stolpci so funkcijsko odvisni od stolpcev, ki določajo ključ. 
+- 1NF - vsi stolpci skupaj določajo nek ključ.
+- Minimalni ključ (ang. candidate key): ključ, za katerega nobena stroga podmnožica ne predstavlja ključa.
+- Primarni ključ: izbrani minimalni ključ.
+- Neključni stolpec: stolpec, ki ni v nobenem minimalnem ključu.
 
-## <a href="http://holowczak.com/database-normalization/7/">3NF </a>
+## 2NF {.build}
+
+- 1NF + nobena stroga podmnožica kakega minimalnega ključa ne funkcijsko določa kak neključni stolpec.
+
+```{r echo=FALSE, out.width='100%'}
+knitr::include_graphics('./slike/2nf.png')
+```
+
+## <a href="http://holowczak.com/database-normalization/7/">3NF </a> {.build}
 
 - Pogoj: relacija je v 2NF in nimamo tranzitivnih funkcionalnih odvisnosti.
 - Tranzitivna funkcionalna odvisnost: 
     - iz `A -> B`, `B -> C` sledi `A -> C`.
-- Če smo v 2NF, se nam tranzitivnost lahko zgodi znotraj ključa oz. znotraj odvisnih stolpcev.
+
+```{r echo=FALSE, out.width='100%'}
+knitr::include_graphics('./slike/3nf.png')
+```
+
 
 ## <a href="http://holowczak.com/database-normalization/8/">BCNF</a>
 
-- Pogoj: relacija je v 3NF in za vsako funkcionalno odvisnost oblike:
-`A1, ..., An -> B` velja, da stolpci `A1, ..., An` predstavljajo ključ.
-- Torej: ne obstajajo nobene druge funkcionalne odvisnosti razen od ključev
+- Boyce-Codd-ova normalizirana oblika.
+- Pogoj: relacija je v 3NF in za vsako funkcionalno odvisnost oblike `A1, ..., An -> B` velja, da stolpci `A1, ..., An` predstavljajo ključ.
+
+- Torej: ne obstajajo nobene druge funkcionalne odvisnosti razen od ključev.
+
 - Ponavadi normaliziramo vsaj do te oblike.
 
-## <a href="http://holowczak.com/database-normalization/8/">4NF</a>
+## <a href="http://holowczak.com/database-normalization/9/">4NF</a>
 
 - Pogoj: relacija je v BNCF in nima *multifunkcijske odvisnosti*.
 - Multifunkcijska odvisnost: tip funkcijske odvisnosti, kjer eden ali nekaj stolpcev določa več vrednosti.

@@ -457,7 +457,7 @@ SELECT movie.title, actor.name FROM movie
       ) AND actor.name <> 'Al Pacino'
 ```
 
-## INSERT {.build} - vstavljanje vrstic
+## INSERT - vstavljanje vrstic {.build}
 
 - `INSERT` - stavek za vstavljanje vrstic.
 ```{sql eval=FALSE}
@@ -481,7 +481,7 @@ INSERT INTO ime_tabele (stolpec_1, stolpec_2, ...,stlpc_n)
 INSERT into ime_tabele 
         SELECT ... 
 ```
-## UPDATE {.build} - popravljanje vrstic
+## UPDATE - popravljanje vrstic {.build}
 
 - popravljanje vrednosti v tabeli v vrsticah, ki zadoščajo pogojem ter stolpcih v teh vrsticah, ki jih želimo spremeniti.
 ```{sql eval=FALSE}
@@ -489,7 +489,7 @@ UPDATE ime_tabele SET st1 = v1, st2 = v2, ...
   WHERE pogoj
 ```
 
-## DELETE {.build} - brisanje vrstic
+## DELETE - brisanje vrstic {.build}
 
 - brisanje vrstic, ki zadoščajo pogoju.
 ```{sql eval=FALSE}
