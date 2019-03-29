@@ -54,4 +54,4 @@ conn.set_isolation_level(psycopg2.extensions.ISOLATION_LEVEL_AUTOCOMMIT) # onemo
 cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor) 
 
 # poženemo strežnik na portu 8080, glej http://localhost:8080/
-run(host='localhost', port=8080, reloader=True)
+run(host='localhost', port=8080)
