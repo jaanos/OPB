@@ -19,7 +19,7 @@ stran = html.fromstring(requests.get(link).content)
 # Preberemo prvo ustrezno tabelo
 tabela = [[text(c).replace('*', '').strip() for c in r.xpath("(th|td)")]
           for r in  stran.xpath("//table[@class='wikitable sortable']")[0]
-                         .xpath("tr")]
+                         .xpath("tbody/tr")]
 
 # Nadomestimo decimalne vejice in ločila tisočic ter pretvorimo v števila
 for r in tabela[1:]:
