@@ -40,6 +40,7 @@ def dodaj_transakcijo_post():
     try:
         cur.execute("INSERT INTO transakcija (znesek, racun, opis) VALUES (%s, %s, %s)",
                     (znesek, racun, opis))
+        conn.commit()
     except Exception as ex:
         return template('dodaj_transakcijo.html', znesek=znesek, racun=racun, opis=opis,
                         napaka = 'Zgodila se je napaka: %s' % ex)
