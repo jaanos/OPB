@@ -20,7 +20,7 @@ tryCatch({
   znesek <- 1000
   t <- dbGetQuery(conn, build_sql("SELECT * FROM transakcija
                                   WHERE znesek >", znesek, "
-                                  ORDER BY znesek, id"))
+                                  ORDER BY znesek, id", con=conn))
   # Rezultat dobimo kot razpredelnico (data frame)
   
   # Vstavimo še eno transakcijo
@@ -33,7 +33,7 @@ tryCatch({
   
   # Pošljemo poizvedbo
   dbSendQuery(conn, build_sql("INSERT INTO transakcija (znesek, racun, opis)
-                               VALUES (", znesek, ", ", racun, ", ", opis, ")"))
+                               VALUES (", znesek, ", ", racun, ", ", opis, ")", con=conn))
   }, finally = {
     # Na koncu nujno prekinemo povezavo z bazo,
     # saj preveč odprtih povezav ne smemo imeti
