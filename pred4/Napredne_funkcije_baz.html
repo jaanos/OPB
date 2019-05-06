@@ -272,6 +272,29 @@ sudo apt-get install postgresql postgresql-contrib</pre>
 
 <pre class = 'prettyprint lang-sql'>ALTER ROLE ime_vloge WITH NOLOGIN;</pre>
 
+</article></slide><slide class=""><hgroup><h2>Ustvarjanje podatkovnih baz</h2></hgroup><article  id="ustvarjanje-podatkovnih-baz" class="build">
+
+<ul class = 'build'>
+<li>Na bazo moramo biti priklopljeni kot uporabnik z dovolj pravicami (npr. administrator <code>postgres</code>)</li>
+</ul>
+
+<pre class = 'prettyprint lang-sql'>CREATE DATABASE ime_baze;</pre>
+
+<ul class = 'build'>
+<li>Ustvarimo novo bazo, se priklopimo nanjo in preverimo priklop.</li>
+</ul>
+
+<pre class = 'prettyprint lang-sql'>CREATE DATABASE nova;
+\c nova
+\conninfo</pre>
+
+<ul class = 'build'>
+<li>Ustvarimo novo tabelo.</li>
+</ul>
+
+<pre class = 'prettyprint lang-sql'>CREATE TABLE oseba (emso TEXT PRIMARY KEY, ime TEXT, priimek TEXT);
+INSERT INTO oseba (emso, ime, priimek) VALUES (&#39;1234&#39;, &#39;Janez&#39;, &#39;Novak&#39;);</pre>
+
 </article></slide><slide class=""><hgroup><h2><a href='https://www.digitalocean.com/community/tutorials/how-to-use-roles-and-manage-grant-permissions-in-postgresql-on-a-vps--2' title=''>Dodelitev pravic na vloge</a></h2></hgroup><article  id="dodelitev-pravic-na-vloge" class="build">
 
 <ul class = 'build'>
@@ -301,10 +324,66 @@ sudo apt-get install postgresql postgresql-contrib</pre>
 <pre class = 'prettyprint lang-sql'>REVOKE tip_pravice ON tabela FROM ime_vloge;</pre>
 
 <ul class = 'build'>
-<li>Primer: onemogočanje vstavljanja.</li>
+<li>Primer: onemogočanje vstavljanja vsem skupinam.</li>
 </ul>
 
 <pre class = 'prettyprint lang-sql'>REVOKE INSERT ON tabela FROM PUBLIC;</pre>
+
+</article></slide><slide class=""><hgroup><h2>Sheme</h2></hgroup><article  id="sheme">
+
+<ul class = 'build'>
+<li>Uporabniki in vloge so vidne preko celotnega Postgres RDBMS.</li>
+<li>S <code>psql</code> ali kakim drugim klientom (npr. pgAdmin 4) se lahko priklopimo na točno določeno bazo.</li>
+<li>Sheme so imenski prostori, v katerih živijo tabele in drugi logični objekti (npr. števci, shranjene funkcije)</li>
+<li>Uporabljamo jih za lažje določanje pravic na tabelah, boljšo logično organizacijo objektov in razreševanje imenskih konfliktov.</li>
+<li>Vedno obstaja na bazi shema <code>public</code>.</li>
+<li>Na tabele se sklicujemo v obliki <code>ime_sheme.ime_tabele</code>.</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Primer</h2></hgroup><article  id="primer" class="build">
+
+<ul class = 'build'>
+<li>Ustvarimo uporabnika <code>janez</code>.</li>
+</ul>
+
+<pre class = 'prettyprint lang-sql'>CREATE USER janez WITH ENCRYPTED PASSWORD &#39;triglav&#39;;</pre>
+
+<ul class = 'build'>
+<li>Poglejmo obstoječe uporabnike.</li>
+</ul>
+
+<pre class = 'prettyprint lang-sql'>\du</pre>
+
+<ul class = 'build'>
+<li>Odjavimo se in poskusimo priklopiti na bazo.</li>
+</ul>
+
+<pre class = 'prettyprint lang-bash'>psql -h localhost -U janez nova</pre>
+
+<ul class = 'build'>
+<li>Poizvedba ni možna:</li>
+</ul>
+
+<pre class = 'prettyprint lang-sql'>select * from oseba;</pre>
+
+</article></slide><slide class=""><hgroup><h2>Primer</h2></hgroup><article  id="primer-1" class="build">
+
+<ul class = 'build'>
+<li>Odjavimo se in prijavimo kot uporabnik <code>postgres</code>.</li>
+</ul>
+
+<pre class = 'prettyprint lang-bash'>psql</pre>
+
+<ul class = 'build'>
+<li>Izvedemo naslednje:</li>
+</ul>
+
+<pre class = 'prettyprint lang-sql'>\c nova
+REVOKE ALL ON DATABASE nova FROM public;
+GRANT CONNECT ON DATABASE nova TO janez;
+GRANT USAGE ON SCHEMA public TO janez;
+GRANT ALL ON ALL TABLES IN SCHEMA public TO janez;
+GRANT ALL ON ALL SEQUENCES IN SCHEMA public TO janez;</pre>
 
 </article></slide><slide class=""><hgroup><h2>Vloge kot skupine</h2></hgroup><article  id="vloge-kot-skupine" class="build">
 
@@ -317,7 +396,7 @@ GRANT skupina TO uporabnik1;
 GRANT skupina TO uporabnik2;</pre>
 
 <ul class = 'build'>
-<li>V resnici dajamo lahko &quot;vloge na vloge&quot; - tako kot bi dajali skupine v skupine, uporabnike pa si predstavljamo kot elementarne skupine.</li>
+<li>V resnici dajamo lahko &quot;vloge na vloge&quot; - tako kot bi dajali skupine v skupine, uporabnike pa si predstavljamo kot elementarne skupine s pravico priklopa.</li>
 <li>Uporabnik v neki skupini se začne obnašati skladno z vlogo, če to vklopimo:</li>
 </ul>
 
@@ -341,16 +420,44 @@ GRANT skupina TO uporabnik2;</pre>
 <li>To pomeni: če uporabniku nastavimo lastnost <code>INHERIT</code>, mu ni treba vsakič &quot;skakati&quot; v vloge s pomočjo <code>SET ROLE</code> ampak se pravice iz vseh vlog, v katerih &quot;je&quot; avtomatično upoštevajo.</li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Sheme</h2></hgroup><article  id="sheme">
+</article></slide><slide class=""><hgroup><h2>Primer - dovoljevanje dostopa preko skupine</h2></hgroup><article  id="primer---dovoljevanje-dostopa-preko-skupine" class="build">
 
 <ul class = 'build'>
-<li>Uporabniki in vloge so vidne preko celotnega Postgres RDBMS.</li>
-<li>S <code>psql</code> ali kakim drugim klientom (npr. pgAdmin 4) se lahko priklopimo na točno določeno bazo.</li>
-<li>Sheme so imenski prostori, v katerih živijo tabele in drugi logični objekti (npr. števci, shranjene funkcije)</li>
-<li>Uporabljamo jih za lažje določanje pravic na tabelah, boljšo logično organizacijo objektov in razreševanje imenskih konfliktov.</li>
-<li>Vedno obstaja shema <code>public</code>.</li>
-<li>Na tabele se sklicujemo v obliki <code>ime_sheme.ime_tabele</code>.</li>
+<li>Odjavimo se in prijavimo kot uporabnik <code>postgres</code>.</li>
 </ul>
+
+<pre class = 'prettyprint lang-bash'>psql</pre>
+
+<ul class = 'build'>
+<li>Izvedemo naslednje:</li>
+</ul>
+
+<pre class = 'prettyprint lang-sql'>\c nova
+CREATE ROLE novaadmini;
+REVOKE ALL ON DATABASE nova FROM public;
+GRANT CONNECT ON DATABASE nova TO noviadmini;
+GRANT USAGE ON SCHEMA public TO noviadmini;
+GRANT ALL ON ALL TABLES IN SCHEMA public TO noviadmini;
+GRANT ALL ON ALL SEQUENCES IN SCHEMA public TO noviadmini;</pre>
+
+</article></slide><slide class=""><hgroup><h2>Primer - dovoljevanje dostopa preko skupine</h2></hgroup><article  id="primer---dovoljevanje-dostopa-preko-skupine-1" class="build">
+
+<ul class = 'build'>
+<li>Uporabniku dodelimo pravico.</li>
+</ul>
+
+<pre class = 'prettyprint lang-sql'>CREATE USER metka WITH ENCRYPTED PASSWORD &#39;triglav&#39;;
+ALTER ROLE metka INHERIT;
+GRANT noviadmini TO metka;</pre>
+
+<ul class = 'build'>
+<li>Če želimo ohranjanje privzetih pravic na novih objektih</li>
+</ul>
+
+<pre class = 'prettyprint lang-sql'>ALTER DEFAULT PRIVILEGES FOR ROLE metka IN SCHEMA public
+GRANT ALL ON TABLES TO noviadmini;
+ALTER DEFAULT PRIVILEGES FOR ROLE metka IN SCHEMA public
+GRANT ALL ON SEQUENCES TO noviadmini;</pre>
 
 </article></slide><slide class=""><hgroup><h2>Indeksi</h2></hgroup><article  id="indeksi" class="build">
 

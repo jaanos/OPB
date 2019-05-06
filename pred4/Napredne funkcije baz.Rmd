@@ -145,6 +145,24 @@ CREATE ROLE demo_role WITH LOGIN;
 ALTER ROLE ime_vloge WITH NOLOGIN;
 ```
 
+## Ustvarjanje podatkovnih baz  {.build}
+
+- Na bazo moramo biti priklopljeni kot uporabnik z dovolj pravicami (npr. administrator `postgres`)
+```{sql  eval=FALSE}
+CREATE DATABASE ime_baze;
+```
+- Ustvarimo novo bazo, se priklopimo nanjo in preverimo priklop.
+```{sql  eval=FALSE}
+CREATE DATABASE nova;
+\c nova
+\conninfo
+```
+- Ustvarimo novo tabelo.
+```{sql  eval=FALSE}
+CREATE TABLE oseba (emso TEXT PRIMARY KEY, ime TEXT, priimek TEXT);
+INSERT INTO oseba (emso, ime, priimek) VALUES ('1234', 'Janez', 'Novak');
+```
+
 ## [Dodelitev pravic na vloge](https://www.digitalocean.com/community/tutorials/how-to-use-roles-and-manage-grant-permissions-in-postgresql-on-a-vps--2) {.build}
 
 - Dodelitev pravice.
@@ -166,10 +184,54 @@ GRANT ALL ON tabela TO uporabnik;
 ```{sql  eval=FALSE}
 REVOKE tip_pravice ON tabela FROM ime_vloge;
 ```
-- Primer: onemogočanje vstavljanja.
+- Primer: onemogočanje vstavljanja vsem skupinam.
 ```{sql  eval=FALSE}
 REVOKE INSERT ON tabela FROM PUBLIC;
 ```
+
+## Sheme
+- Uporabniki in vloge so vidne preko celotnega Postgres RDBMS.
+- S `psql` ali kakim drugim klientom (npr. pgAdmin 4) se lahko priklopimo na točno določeno bazo.
+- Sheme so imenski prostori, v katerih živijo tabele in drugi logični objekti (npr. števci, shranjene funkcije)
+- Uporabljamo jih za lažje določanje pravic na tabelah, boljšo logično organizacijo objektov in razreševanje imenskih konfliktov.
+- Vedno obstaja na bazi shema `public`. 
+- Na tabele se sklicujemo v obliki `ime_sheme.ime_tabele`.
+
+## Primer {.build}
+
+- Ustvarimo uporabnika `janez`.
+```{sql  eval=FALSE}
+CREATE USER janez WITH ENCRYPTED PASSWORD 'triglav';
+```
+- Poglejmo obstoječe uporabnike.
+```{sql  eval=FALSE}
+\du
+```
+- Odjavimo se in poskusimo priklopiti na bazo.
+```{bash  eval=FALSE}
+psql -h localhost -U janez nova
+```
+- Poizvedba ni možna:
+```{sql  eval=FALSE}
+select * from oseba;
+```
+
+## Primer {.build}
+
+- Odjavimo se in prijavimo kot uporabnik `postgres`.
+```{bash  eval=FALSE}
+psql
+```
+- Izvedemo naslednje:
+```{sql  eval=FALSE}
+\c nova
+REVOKE ALL ON DATABASE nova FROM public;
+GRANT CONNECT ON DATABASE nova TO janez;
+GRANT USAGE ON SCHEMA public TO janez;
+GRANT ALL ON ALL TABLES IN SCHEMA public TO janez;
+GRANT ALL ON ALL SEQUENCES IN SCHEMA public TO janez;
+```
+
 
 ## Vloge kot skupine {.build}
 
@@ -179,7 +241,7 @@ CREATE ROLE skupina;
 GRANT skupina TO uporabnik1;
 GRANT skupina TO uporabnik2;
 ```
-- V resnici dajamo lahko "vloge na vloge" - tako kot bi dajali skupine v skupine, uporabnike pa si predstavljamo kot elementarne skupine.
+- V resnici dajamo lahko "vloge na vloge" - tako kot bi dajali skupine v skupine, uporabnike pa si predstavljamo kot elementarne skupine s pravico priklopa.
 - Uporabnik v neki skupini se začne obnašati skladno z vlogo, če to vklopimo:
 ```{sql  eval=FALSE}
 SET ROLE skupina;
@@ -197,13 +259,38 @@ ALTER ROLE uporabnik INHERIT;
 ```
 - To pomeni: če uporabniku nastavimo lastnost `INHERIT`, mu ni treba vsakič "skakati" v vloge s pomočjo `SET ROLE` ampak se pravice iz vseh vlog, v katerih "je" avtomatično upoštevajo.
 
-## Sheme
-- Uporabniki in vloge so vidne preko celotnega Postgres RDBMS.
-- S `psql` ali kakim drugim klientom (npr. pgAdmin 4) se lahko priklopimo na točno določeno bazo.
-- Sheme so imenski prostori, v katerih živijo tabele in drugi logični objekti (npr. števci, shranjene funkcije)
-- Uporabljamo jih za lažje določanje pravic na tabelah, boljšo logično organizacijo objektov in razreševanje imenskih konfliktov.
-- Vedno obstaja shema `public`.
-- Na tabele se sklicujemo v obliki `ime_sheme.ime_tabele`.
+## Primer - dovoljevanje dostopa preko skupine {.build}
+
+- Odjavimo se in prijavimo kot uporabnik `postgres`.
+```{bash  eval=FALSE}
+psql
+```
+- Izvedemo naslednje:
+```{sql  eval=FALSE}
+\c nova
+CREATE ROLE novaadmini;
+REVOKE ALL ON DATABASE nova FROM public;
+GRANT CONNECT ON DATABASE nova TO noviadmini;
+GRANT USAGE ON SCHEMA public TO noviadmini;
+GRANT ALL ON ALL TABLES IN SCHEMA public TO noviadmini;
+GRANT ALL ON ALL SEQUENCES IN SCHEMA public TO noviadmini;
+```
+
+## Primer - dovoljevanje dostopa preko skupine {.build}
+
+- Uporabniku dodelimo pravico.
+```{sql  eval=FALSE}
+CREATE USER metka WITH ENCRYPTED PASSWORD 'triglav';
+ALTER ROLE metka INHERIT;
+GRANT noviadmini TO metka;
+```
+- Če želimo ohranjanje privzetih pravic na novih objektih
+```{sql  eval=FALSE}
+ALTER DEFAULT PRIVILEGES FOR ROLE metka IN SCHEMA public
+GRANT ALL ON TABLES TO noviadmini;
+ALTER DEFAULT PRIVILEGES FOR ROLE metka IN SCHEMA public
+GRANT ALL ON SEQUENCES TO noviadmini;
+```
 
 ## Indeksi {.build}
 
@@ -263,6 +350,18 @@ CREATE INDEX users_lower_email ON users(lower(email));
     - `BEGIN` ali `BEGIN TRANSACTION` - začetek transakcije
     - `COMMIT` ali `END TRANSACTION` - konec transakcije, shrani spremembe
     - `ROLLBACK` - razveljavi spremembe
+
+## Primer
+
+```{sql  eval=FALSE}
+\c nova
+CREATE TABLE blagajna (ime TEXT, znesek NUMERIC(10,2));
+INSERT INTO blagajna (ime, znesek) VALUES ('Janez', 10), ('Metka', 10);
+BEGIN 
+  UPDATE blagajna SET znesek=(SELECT znesek FROM blagajna WHERE ime='Janez') - 5 WHERE ime='Janez';
+  UPDATE blagajna SET znesek=(SELECT znesek FROM blagajna WHERE ime='Metka') + 5 WHERE ime='Metka';
+COMMIT;
+```
 
 ## Nivo izolacije
 
