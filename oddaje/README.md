@@ -4,3 +4,4 @@
 * Projekti iz leta [2016](2016)
 * Projekti iz leta [2017](2017)
 * Projekti iz leta [2018](2018)
+* Projekti iz leta [2019](2019)

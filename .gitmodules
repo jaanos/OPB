@@ -100,3 +100,9 @@
 [submodule "oddaje/2018/HarryPotter"]
 	path = oddaje/2018/HarryPotter
 	url = https://github.com/ursa16180/HarryPotter.git
+[submodule "oddaje/2019/Letalski-prevozniki"]
+	path = oddaje/2019/Letalski-prevozniki
+	url = https://github.com/zigakodric/Letalski-prevozniki.git
+[submodule "oddaje/2019/druzabne_igre"]
+	path = oddaje/2019/druzabne_igre
+	url = https://github.com/julitag/druzabne_igre.git
