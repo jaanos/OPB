@@ -106,3 +106,6 @@
 [submodule "oddaje/2019/druzabne_igre"]
 	path = oddaje/2019/druzabne_igre
 	url = https://github.com/julitag/druzabne_igre.git
+[submodule "oddaje/2019/Skoki"]
+	path = oddaje/2019/Skoki
+	url = https://github.com/Tejchy85/Skoki.git

@@ -7,3 +7,7 @@
 ## Družabne igre
 * Avtorja: Gašper Letnar, Julita Gabrijelčič
 * Repozitorij: https://github.com/julitag/druzabne_igre
+
+## Smučarski skoki
+* Avtorji: Martin Dolenc, Petra Podlogar, Teja Škvarč
+* Repozitorij: https://github.com/Tejchy85/Skoki
