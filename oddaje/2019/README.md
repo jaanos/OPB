@@ -11,3 +11,7 @@
 ## Smučarski skoki
 * Avtorji: Martin Dolenc, Petra Podlogar, Teja Škvarč
 * Repozitorij: https://github.com/Tejchy85/Skoki
+
+## Looking.si
+* Avtorici: Katarina Brilej, Eva Deželak
+* Repozitorij: https://github.com/katarinabrilej/looking.si

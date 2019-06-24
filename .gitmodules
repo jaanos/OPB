@@ -109,3 +109,6 @@
 [submodule "oddaje/2019/Skoki"]
 	path = oddaje/2019/Skoki
 	url = https://github.com/Tejchy85/Skoki.git
+[submodule "oddaje/2019/looking.si"]
+	path = oddaje/2019/looking.si
+	url = https://github.com/katarinabrilej/looking.si.git
