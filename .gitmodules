@@ -112,3 +112,6 @@
 [submodule "oddaje/2019/looking.si"]
 	path = oddaje/2019/looking.si
 	url = https://github.com/katarinabrilej/looking.si.git
+[submodule "oddaje/2019/vojne"]
+	path = oddaje/2019/vojne
+	url = https://github.com/timotejvesel/vojne.git

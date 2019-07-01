@@ -15,3 +15,7 @@
 ## Looking.si
 * Avtorici: Katarina Brilej, Eva Deželak
 * Repozitorij: https://github.com/katarinabrilej/looking.si
+
+## Vojne
+* Avtorja: Timotej Vesel, Martin Praček
+* Repozitorij: https://github.com/timotejvesel/vojne
