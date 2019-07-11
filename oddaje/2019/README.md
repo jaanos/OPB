@@ -19,3 +19,7 @@
 ## Vojne
 * Avtorja: Timotej Vesel, Martin Praček
 * Repozitorij: https://github.com/timotejvesel/vojne
+
+## BusinessNet
+* Avtorici: Anamari Oštarijaš, Tina Ražić
+* Repozitorij: https://github.com/tinarazic/BusinessNet

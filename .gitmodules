@@ -115,3 +115,6 @@
 [submodule "oddaje/2019/vojne"]
 	path = oddaje/2019/vojne
 	url = https://github.com/timotejvesel/vojne.git
+[submodule "oddaje/2019/BusinessNet"]
+	path = oddaje/2019/BusinessNet
+	url = https://github.com/tinarazic/BusinessNet.git
