@@ -23,3 +23,7 @@
 ## BusinessNet
 * Avtorici: Anamari Oštarijaš, Tina Ražić
 * Repozitorij: https://github.com/tinarazic/BusinessNet
+
+## Avtomobilska dražba
+* Avtorji: Jaka Munda, Žiga Trojer, Jan Rudof
+* Repozitorij: https://github.com/jakamun/Avtomobilska-drazba

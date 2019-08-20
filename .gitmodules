@@ -118,3 +118,6 @@
 [submodule "oddaje/2019/BusinessNet"]
 	path = oddaje/2019/BusinessNet
 	url = https://github.com/tinarazic/BusinessNet.git
+[submodule "oddaje/2019/Avtomobilska-drazba"]
+	path = oddaje/2019/Avtomobilska-drazba
+	url = https://github.com/jakamun/Avtomobilska-drazba.git
