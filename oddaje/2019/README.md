@@ -27,3 +27,7 @@
 ## Avtomobilska dražba
 * Avtorji: Jaka Munda, Žiga Trojer, Jan Rudof
 * Repozitorij: https://github.com/jakamun/Avtomobilska-drazba
+
+## Krvna banka
+* Avtorici: Katja Marina, Jona Gričar
+* Repozitorij: https://github.com/jonagricar/Krvna-banka
