@@ -127,3 +127,18 @@
 [submodule "oddaje/2019/Filmi"]
 	path = oddaje/2019/Filmi
 	url = https://github.com/anamkravanja/Filmi.git
+[submodule "oddaje/2019/Nogometni_prestopi"]
+	path = oddaje/2019/Nogometni_prestopi
+	url = https://github.com/MatijaGH/Nogometni_prestopi
+[submodule "oddaje/2019/NBA.stats"]
+	path = oddaje/2019/NBA.stats
+	url = https://github.com/andrazdeluisa/NBA.stats
+[submodule "oddaje/2019/Iskalnik-postnih-posiljk"]
+	path = oddaje/2019/Iskalnik-postnih-posiljk
+	url = https://github.com/ZavbiA/Iskalnik-postnih-posiljk.git
+[submodule "oddaje/2019/najej.se"]
+	path = oddaje/2019/najej.se
+	url = https://github.com/lauraguzeljblatnik/najej.se.git
+[submodule "oddaje/2019/Plezalisca"]
+	path = oddaje/2019/Plezalisca
+	url = https://github.com/sasatrstenjak/Plezalisca.git
