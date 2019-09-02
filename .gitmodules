@@ -124,3 +124,6 @@
 [submodule "oddaje/2019/Krvna-banka"]
 	path = oddaje/2019/Krvna-banka
 	url = https://github.com/jonagricar/Krvna-banka.git
+[submodule "oddaje/2019/Filmi"]
+	path = oddaje/2019/Filmi
+	url = https://github.com/anamkravanja/Filmi.git

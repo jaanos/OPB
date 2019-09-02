@@ -31,3 +31,7 @@
 ## Krvna banka
 * Avtorici: Katja Marina, Jona Gričar
 * Repozitorij: https://github.com/jonagricar/Krvna-banka
+
+## Filmi
+* Avtorji: Neža Habjan, Stefan Đekanović, Ana Marija Kravanja
+* Repozitorij: https://github.com/anamkravanja/Filmi
