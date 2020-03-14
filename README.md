@@ -17,6 +17,6 @@ Repozitorij z gradivi za predmet Osnove podatkovnih baz (izbirni predmet na dodi
 * Projekti iz leta [2018](oddaje/2018)
 * Projekti iz leta [2019](oddaje/2019)
 
-## [Zapiski z vaj](zapiski/)
+## [Zapiski z vaj](docs/)
 
-* Vaje na daljavo iz leta [2020](zapiski/2020)
+* Vaje na daljavo iz leta [2020](docs/2020)
