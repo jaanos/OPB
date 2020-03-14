@@ -10,10 +10,10 @@
 ## Oddani projekti
 
 * Projekti iz leta [2015](https://github.com/alenFMF/OPB14-15/tree/master/oddaje)
-* Projekti iz leta [2016](https://github.com/jaanos/OPB/oddaje/2016)
-* Projekti iz leta [2017](https://github.com/jaanos/OPB/oddaje/2017)
-* Projekti iz leta [2018](https://github.com/jaanos/OPB/oddaje/2018)
-* Projekti iz leta [2019](https://github.com/jaanos/OPB/oddaje/2019)
+* Projekti iz leta [2016](https://github.com/jaanos/OPB/tree/master/oddaje/2016)
+* Projekti iz leta [2017](https://github.com/jaanos/OPB/tree/master/oddaje/2017)
+* Projekti iz leta [2018](https://github.com/jaanos/OPB/tree/master/oddaje/2018)
+* Projekti iz leta [2019](https://github.com/jaanos/OPB/tree/master/oddaje/2019)
 
 ## Zapiski z vaj
 
