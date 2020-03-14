@@ -1,6 +1,6 @@
 # Osnove podatkovnih baz
 
-Repozitorij z gradivi za predmet Osnove podatkovnih baz
+Repozitorij z gradivi za predmet Osnove podatkovnih baz (izbirni predmet na dodiplomskem študiju na FMF)
 
 
 ## Vzorčni projekti
