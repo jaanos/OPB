@@ -28,7 +28,14 @@
 
       {% if site.github.private != true and site.github.license %}
       <div class="footer border-top border-gray-light mt-5 pt-3 text-right text-gray">
-        Ta stran je odprtokodna. {% github_edit_link "Izboljšaj to stran" %}.
+        <div>
+          Ta stran je odprtokodna. {% github_edit_link "Izboljšaj to stran" %}.
+        </div>
+        {% if page.hackmd %}
+        <div>
+          Ta zapisek je dostopen tudi na <a href="{{ page.hackmd }}">HackMD</a>.
+        </div>
+      {% endif %}
       </div>
       {% endif %}
     </div>
