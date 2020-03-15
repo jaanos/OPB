@@ -31,6 +31,11 @@
         Ta stran je odprtokodna. {% github_edit_link "Izboljšaj to stran" %}.
       </div>
       {% endif %}
+      {% if page.hackmd %}
+      <div class="footer border-top border-gray-light mt-5 pt-3 text-right text-gray">
+        Ta zapisek je dostopen tudi na <a href="{{ page.hackmd }}">HackMD</a>.
+      </div>
+      {% endif %}
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
     <script>anchors.add();</script>
