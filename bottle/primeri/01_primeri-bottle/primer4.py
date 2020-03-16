@@ -1,5 +1,6 @@
 from bottle import run, get, post, request # or route
 
+# zahtevek GET s formo
 @get('/prijava') # lahko tudi @route('/prijava')
 def prijavno_okno():
     return """
@@ -25,6 +26,7 @@ body {
 </html>
 """
 
+# zahtevek POST
 @post('/prijava') # or @route('/prijava', method='POST')
 def prijava():
     uime = request.forms.get('uime')
