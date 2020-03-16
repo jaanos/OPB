@@ -14,7 +14,9 @@ tracun <- db %>% tbl("racun")
 ttransakcija <- db %>% tbl("transakcija")
 
 # Izvedba poizvedbe
-db %>% tbl(sql("select posta from kraj")) %>% View
+db %>% tbl(sql("select posta from kraj")) %>% 
+  data.frame %>% 
+  View
 
 # Pomožna funkcija
 stolpci <- function(tab) {tab %>% data.frame %>% names}
@@ -24,11 +26,13 @@ tabele <- list(tposta, toseba, tracun, ttransakcija)
 lapply(tabele, stolpci)
 
 # JOIN narejen preko dplyr, ki se v resnici izvede preko SQL na bazi
-toseba %>% inner_join(tracun, by=c("emso"="lastnik")) %>% select(ime, priimek, stevilka) 
+toseba %>% inner_join(tracun, by=c("emso"="lastnik")) %>% 
+  select(ime, priimek, stevilka) 
 
 # S collect() naredimo dejansko poizvedbo. Rezultat lahko pretvorimo v data.frame
-tab1 %>% collect() %>% data.frame %>% names
+tposta %>% collect() %>% 
+  data.frame %>% names
 
 # Primer "WHERE" s pomočjo funkcije FILTER
-tab1 %>% select(posta) %>% filter(posta > 1000) 
+tposta %>% select(posta) %>% filter(posta > 1000) 
 

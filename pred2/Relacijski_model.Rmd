@@ -36,7 +36,7 @@ output:
 
 ## JOIN 
 
-$R \bowtie S = \pi_{\scriptsize shema(R) \cup shema(S)}( \sigma_{\scriptsize R.a_1 = S.a_1 \land R.a_2 = R.a_2 \land \ldots}(R \times S))$
+$R \bowtie S = \pi_{\scriptsize shema(R) \cup shema(S)}( \sigma_{\scriptsize R.a_1 = S.a_1 \land R.a_2 = S.a_2 \land \ldots}(R \times S))$
 
 ```{r echo=FALSE, out.width='100%'}
 knitr::include_graphics('./slike/join.png')

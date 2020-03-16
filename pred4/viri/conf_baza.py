@@ -1,4 +1,4 @@
 host = "baza.fmf.uni-lj.si"
-dbname = "ime_baze"
-user = "uporabnik"
-password = "*****"
+dbname = "moja_baza"
+user = "moj_uporabnik"
+password = "******"

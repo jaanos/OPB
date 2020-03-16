@@ -132,8 +132,8 @@ knitr::include_graphics('./slike/2nf.png')
 
 ## <a href="http://holowczak.com/database-normalization/7/">3NF </a> {.build}
 
-- Pogoj: relacija je v 2NF in nimamo tranzitivnih funkcionalnih odvisnosti.
-- Tranzitivna funkcionalna odvisnost: 
+- Pogoj: relacija je v 2NF in nimamo tranzitivnih funkcijskih odvisnosti.
+- Tranzitivne funkcijske odvisnosti: 
     - iz `A -> B`, `B -> C` sledi `A -> C`.
 
 ```{r echo=FALSE, out.width='100%'}
@@ -141,19 +141,34 @@ knitr::include_graphics('./slike/3nf.png')
 ```
 
 
-## <a href="http://holowczak.com/database-normalization/8/">BCNF</a>
+## <a href="http://holowczak.com/database-normalization/8/">BCNF</a> {.build}
 
 - Boyce-Codd-ova normalizirana oblika.
-- Pogoj: relacija je v 3NF in za vsako funkcionalno odvisnost oblike `A1, ..., An -> B` velja, da stolpci `A1, ..., An` predstavljajo ključ.
+- Pogoj: relacija je v 3NF in za vsako funkcijsko odvisnost oblike `A1, ..., An -> B` velja, da stolpci `A1, ..., An` predstavljajo ključ.
 
-- Torej: ne obstajajo nobene druge funkcionalne odvisnosti razen od ključev.
+- Torej: ne obstajajo nobene druge funkcijske odvisnosti razen od ključev.
 
 - Ponavadi normaliziramo vsaj do te oblike.
 
+## <a href="http://holowczak.com/database-normalization/9/">Multifunkcijska odvisnost</a> {.build}
+
+- Multifunkcijsko odvisnost zapišemo kot `A ->> B`.
+- Naj `C` predstavlja vse stolpce razen stolpcev določenih v `A` in `B`. Zapis `(x, y, z)` predstavlja "bločno" zapisano vrstico po skupinah stolpcev `A`, `B`, `C`.
+- Če se pojavita vrstici `(a,b,c)` in `(a,d,e)`, potem morata obstajati vrstici `(a,b,e)` in `(a,d,c)`.
+
+
 ## <a href="http://holowczak.com/database-normalization/9/">4NF</a>
 
-- Pogoj: relacija je v BNCF in nima *multifunkcijske odvisnosti*.
-- Multifunkcijska odvisnost: tip funkcijske odvisnosti, kjer eden ali nekaj stolpcev določa več vrednosti.
-- `Student ->> Predmeti`
-- Ostalih višjih normaliziranih oblik si ne bomo ogledali.
+- Pogoj: relacija je v BCNF in nima *multifunkcijske odvisnosti*.
+- Primer: vsak predmet (Course) ima predpisan nabor knjig (Book) in nabor predavateljev (Lecturer)
 
+```{r echo=FALSE, out.width='30%', fig.align="center"}
+knitr::include_graphics('./slike/4nf.png')
+```
+- Izbira knjig za predmet je neodvisna od izbir predavatelja, zato dodajanje knjige (ali predavatelja), zahteva dodajanje ustreznih kombinacij.
+- `Course ->> Book`, `Course ->> Lecturer` 
+
+## Ostale oblike
+
+- Ostalih višjih normaliziranih oblik si ne bomo ogledali.
+- Slike tabel v angleščini so pridobljene iz Wikipedie (CC licenca)
