@@ -1,0 +1,22 @@
+<html>
+<head>
+  <title>Računi</title>
+</head>
+<body>
+  <h2>Seznam bančniih računov</h2>
+
+  <table cellpadding="0" cellspacing="0" border="1">
+  <tr>
+     <th>Komitent</th>
+     <th>Št. računa</th>
+  </tr>
+  %for (ime, priimek, racun) in racuni:
+    <tr>
+       <td>{{ime}} {{priimek}}</td>
+       <td>{{racun}}</td>
+    </tr>
+  %end
+  </table>
+
+</body>
+</html>

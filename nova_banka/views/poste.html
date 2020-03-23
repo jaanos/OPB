@@ -1,0 +1,29 @@
+<html>
+  <head>
+    <title>Pošte</title>
+  </head>
+  <body>
+    <h2>Šifrant pošt</h2>
+
+    <form action="/poste/dodaj" method="post">
+      <span>Poštna številka:</span> <input name="postna_st" type="text" />
+      <span>Kraj:</span> <input name="posta" type="text" />
+      <input value="Dodaj" type="submit" />
+    </form>
+
+
+    <table cellpadding="0" cellspacing="0" border="1">
+      <tr>
+        <th>Poštna številka</th>
+        <th>Kraj</th>
+      </tr>
+      %for (postna_stevilka, kraj) in poste:
+      <tr>
+        <td>{{postna_stevilka}}</td>
+        <td>{{kraj}}</td>
+      </tr>
+      %end
+    </table>
+
+  </body>
+</html>
