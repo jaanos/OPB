@@ -22,6 +22,11 @@
     <div class="container-lg px-3 my-5 markdown-body">
       {% if site.title and site.title != page.title %}
       <h1><a href="{{ "/" | absolute_url }}">{{ site.title }}</a></h1>
+        {% if page.hackmd %}
+        <p align="right">
+          <a href=".">« nazaj</a>
+        </p>
+        {% endif %}
       {% endif %}
 
       {{ content }}
@@ -39,6 +44,19 @@
       </div>
       {% endif %}
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.4.8/mermaid.min.js"></script>
+    <script>
+      var config = {
+        startOnLoad:true,
+        theme: 'default',
+        flowchart:{
+          useMaxWidth:false,
+          htmlLabels:true
+        }
+      };
+      mermaid.initialize(config);
+      window.mermaid.init(undefined, document.querySelectorAll('.language-mermaid'));
+    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
     <script>anchors.add();</script>
     {% if site.google_analytics %}
