@@ -7,6 +7,20 @@ baza_datoteka = 'banka.db'
 # Odkomentiraj, če želiš sporočila o napakah
 debug(True)  # za izpise pri razvoju
 
+napakaSporocilo = None
+
+def nastaviSporocilo(sporocilo = None):
+    global napakaSporocilo
+    staro = napakaSporocilo
+    napakaSporocilo = sporocilo
+    return staro 
+# Mapa za statične vire (slike, css, ...)
+static_dir = "./static"
+
+# streženje statičnih datotek
+@route("/static/<filename:path>")
+def static(filename):
+    return static_file(filename, root=static_dir)
 
 @get('/')
 def index():
@@ -24,11 +38,12 @@ def komitenti():
 
 @get('/poste')
 def poste():
+    napaka = nastaviSporocilo()
     cur = baza.cursor()
     poste = cur.execute("""
         SELECT postna_st, posta FROM posta
     """)
-    return template('poste.html', poste=poste)
+    return template('poste.html', poste=poste, napaka=napaka)
 
 @get('/racuni')
 def racuni():
@@ -40,12 +55,38 @@ def racuni():
     return template('racuni.html', racuni=racuni)
 
 
-@post('/poste/dodaj') # or @route('/prijava', method='POST')
+@get('/poste/dodaj')
+def dodaj_posto_get():
+    return template('posta-edit.html')
+
+@post('/poste/dodaj') 
 def dodaj_posto():
-    postna_st = request.forms.get('postna_st')
-    posta = request.forms.get('posta')
+    postna_st = request.forms.postna_st
+    posta = request.forms.posta
     cur = baza.cursor()
     cur.execute("INSERT INTO posta (postna_st, posta) VALUES (?, ?)", (postna_st, posta))
+    redirect('/poste')
+
+@post('/poste/brisi/<postna_st>') 
+def brisi_posto(postna_st):
+    cur = baza.cursor()
+    try:
+        cur.execute("DELETE FROM posta WHERE postna_st = ?", (postna_st, ))
+    except:
+        nastaviSporocilo('Brisanje pošte {0} ni bilo uspešno.'.format(postna_st)) 
+    redirect('/poste')
+
+@get('/poste/uredi/<postna_st>')
+def uredi_posto_get(postna_st):
+    cur = baza.cursor()
+    posta = cur.execute("SELECT postna_st, posta FROM posta WHERE postna_st = ?", (postna_st,)).fetchone()
+    return template('posta-edit.html', posta=posta)
+
+@post('/poste/uredi/<postna_st>')
+def uredi_posto_post(postna_st):
+    posta = request.forms.posta
+    cur = baza.cursor()
+    cur.execute("UPDATE posta SET posta = ? WHERE postna_st = ?", (posta, postna_st))
     redirect('/poste')
 
 

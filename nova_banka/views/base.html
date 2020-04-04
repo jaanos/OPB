@@ -1,0 +1,17 @@
+<html>
+    <head>
+        <title>{{naslov}}</title>
+        <link rel="stylesheet" type="text/css" href="/static/stili.css" />
+    </head>
+    <body>
+        <h2>{{naslov}}</h2>
+
+        % if napaka:
+        <div class="napaka-box zaokrozeni-vogali">
+            {{napaka}}
+        </div>
+        % end
+
+        {{!base}}
+    </body>
+</html>

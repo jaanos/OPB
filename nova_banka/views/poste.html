@@ -1,29 +1,25 @@
-<html>
-  <head>
-    <title>Pošte</title>
-  </head>
-  <body>
-    <h2>Šifrant pošt</h2>
+% rebase('base.html', napaka=napaka, naslov='Pošte')
 
-    <form action="/poste/dodaj" method="post">
-      <span>Poštna številka:</span> <input name="postna_st" type="text" />
-      <span>Kraj:</span> <input name="posta" type="text" />
-      <input value="Dodaj" type="submit" />
-    </form>
+<a href="/poste/dodaj">Dodaj pošto</a>
 
-
-    <table cellpadding="0" cellspacing="0" border="1">
-      <tr>
-        <th>Poštna številka</th>
-        <th>Kraj</th>
-      </tr>
-      %for (postna_stevilka, kraj) in poste:
-      <tr>
-        <td>{{postna_stevilka}}</td>
-        <td>{{kraj}}</td>
-      </tr>
-      %end
-    </table>
-
-  </body>
-</html>
+<table cellpadding="0" cellspacing="0" border="1">
+  <tr>
+    <th>Poštna številka</th>
+    <th>Kraj</th>
+    <th>Akcije</th>
+  </tr>
+  %for (postna_stevilka, kraj) in poste:
+  <tr>
+    <td>{{postna_stevilka}}</td>
+    <td>{{kraj}}</td>
+    <td>
+      <form action="/poste/brisi/{{postna_stevilka}}" method="post">
+        <input value="Briši" type="submit" />
+      </form>
+      <form action="/poste/uredi/{{postna_stevilka}}" method="get">
+        <input value="Uredi" type="submit" />
+      </form>
+    </td>
+  </tr>
+  %end
+</table>
