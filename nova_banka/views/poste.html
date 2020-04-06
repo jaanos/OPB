@@ -1,25 +1,31 @@
 % rebase('base.html', napaka=napaka, naslov='Pošte')
 
-<a href="/poste/dodaj">Dodaj pošto</a>
+<div style="display: inline-block;">
+  % include('orodna-vrstica.html', povezava='/poste/dodaj', napis="Dodaj pošto")
 
-<table cellpadding="0" cellspacing="0" border="1">
-  <tr>
-    <th>Poštna številka</th>
-    <th>Kraj</th>
-    <th>Akcije</th>
-  </tr>
-  %for (postna_stevilka, kraj) in poste:
-  <tr>
-    <td>{{postna_stevilka}}</td>
-    <td>{{kraj}}</td>
-    <td>
-      <form action="/poste/brisi/{{postna_stevilka}}" method="post">
-        <input value="Briši" type="submit" />
-      </form>
-      <form action="/poste/uredi/{{postna_stevilka}}" method="get">
-        <input value="Uredi" type="submit" />
-      </form>
-    </td>
-  </tr>
-  %end
-</table>
+  <table id="izpis" cellpadding="0" cellspacing="0" border="1">
+    <tr>
+      <th>Poštna številka</th>
+      <th>Kraj</th>
+      <th>Akcije</th>
+    </tr>
+    %for (postna_stevilka, kraj) in poste:
+    <tr>
+      <td>{{postna_stevilka}}</td>
+      <td>{{kraj}}</td>
+      <td>
+        <div class="akcije">
+          <form action="/poste/brisi/{{postna_stevilka}}" method="post" class="akcija">
+            <!-- <input value="Briši" type="submit" /> -->
+            <a href="#" onclick="this.parentElement.submit()">Briši</a>
+          </form>
+          <form action="/poste/uredi/{{postna_stevilka}}" method="get" class="akcija">
+            <!-- <input value="Uredi" type="submit" /> -->
+            <a href="#" onclick="this.parentElement.submit()">Uredi</a>
+          </form>
+        </div>
+      </td>
+    </tr>
+    %end
+  </table>
+</div>

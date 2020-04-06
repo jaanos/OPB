@@ -3,47 +3,54 @@
 
 % if defined('posta'):
 <form action="/poste/uredi/{{posta[0]}}" method="post">
-% else:
-<form action="/poste/dodaj" method="post">
-% end
-    <table cellpadding="0" cellspacing="0" border="0" class="edit-celica">
-        <tr>
-            <td>
-                <span>Poštna številka:</span> 
-            </td>
-            <td>
-                % if defined('posta'):
+    % else:
+    <form action="/poste/dodaj" method="post">
+        % end
+        <table cellpadding="0" cellspacing="0" border="0" class="edit-celica">
+            <tr>
+                <td>
+                    <span>Poštna številka:</span>
+                </td>
+                <td>
+                    % if defined('posta'):
                     {{posta[0]}}
-                % else:
-                <input name="postna_st" type="text" />
-                % end
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <span>Kraj:</span> 
-            </td>
-            <td>
-                % if defined('posta'):
-                <input name="posta" type="text" value="{{posta[1]}}"/>
-                % else:
-                <input name="posta" type="text" />
-                % end
-            </td>
-        </tr>
-        <tr>
-            <td>
+                    % else:
+                    <input name="postna_st" type="number" required
+                        oninput="this.setCustomValidity('')"
+                        oninvalid="this.setCustomValidity('Obvezno polje')"
+                        />
+                    % end
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span>Kraj:</span>
+                </td>
+                <td>
+                    % if defined('posta'):
+                    <input name="posta" type="text" value="{{posta[1]}}" required
+                        oninput="this.setCustomValidity('')"
+                        oninvalid="this.setCustomValidity('Obvezno polje')"
+                        />
+                    % else:
+                    <input name="posta" type="text" required
+                        oninput="this.setCustomValidity('')"
+                        oninvalid="this.setCustomValidity('Obvezno polje')"
+                        />
+                    % end
+                </td>
+            </tr>
+            <tr>
+                <td>
 
-            </td>
-            <td>
-                % if defined('posta'):
-                <input value="Popravi" type="submit" />
-                % else:
-                <input value="Dodaj" type="submit" />
-                % end
-            </td>
-        </tr>
-    </table>
-</form>
-
-
+                </td>
+                <td>
+                    % if defined('posta'):
+                    <input value="Popravi" type="submit" />
+                    % else:
+                    <input value="Dodaj" type="submit" />
+                    % end
+                </td>
+            </tr>
+        </table>
+    </form>

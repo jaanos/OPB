@@ -18,3 +18,38 @@ body {
     padding: 1rem;
 }
 
+.orodna-vrstica {
+    background-color: lightgray;
+    display: flex;  
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+}
+
+#isci {
+    line-height: 1.5rem;
+    margin-left: 0.25rem;
+}
+
+.akcije {
+    display: flex;
+}
+
+.akcija {
+    margin: 0.25rem;
+}
+
+#izpis td {
+    padding: 0.25rem;
+    border: 0;
+}
+
+#izpis th {
+    padding: 0.25rem;
+    border: 0;
+    text-align: left;
+}
+
+#izpis {
+    border: 0;
+}
