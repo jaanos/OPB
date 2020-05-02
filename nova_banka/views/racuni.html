@@ -1,15 +1,30 @@
 % setdefault('napaka', '')
 % rebase('base.html', napaka=napaka, naslov='Računi')
 
-<table cellpadding="0" cellspacing="0" border="1">
+<p>
+  <b>Komitent: </b> {{ime}} {{priimek}}
+</p>
+% include('orodna-vrstica.html', povezava='racuni/dodaj', napis="Dodaj račun", stolpci='[0]')
+
+<table id="izpis" cellpadding="0" cellspacing="0" border="1">
   <tr>
-    <th>Komitent</th>
     <th>Št. računa</th>
+    <th>Akcije</th>
   </tr>
-  %for (ime, priimek, racun) in racuni:
+  %for (_, _, racun) in racuni:
   <tr>
-    <td>{{ime}} {{priimek}}</td>
     <td>{{racun}}</td>
+    <td>
+      <div class="akcije">
+        <form action="/komitenti/{{emso}}/racuni/{{racun}}/brisi" method="post" class="akcija">
+          <a href="#" onclick="this.parentElement.submit()">Briši</a>
+        </form>
+        <form action="/komitenti/{{emso}}/racuni/{{racun}}/transakcije" method="get" class="akcija">
+          <a href="#" onclick="this.parentElement.submit()">Pregled</a>
+        </form>
+      </div>
+    </td>
+
   </tr>
   %end
 </table>
