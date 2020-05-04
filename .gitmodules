@@ -142,3 +142,6 @@
 [submodule "oddaje/2019/Plezalisca"]
 	path = oddaje/2019/Plezalisca
 	url = https://github.com/sasatrstenjak/Plezalisca.git
+[submodule "oddaje/2019/university-database"]
+	path = oddaje/2019/university-database
+	url = git@github.com:tinabertok/university-database.git
