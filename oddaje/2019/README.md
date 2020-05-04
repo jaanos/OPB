@@ -55,3 +55,7 @@
 ## Filmi
 * Avtorji: Neža Habjan, Stefan Đekanović, Ana Marija Kravanja
 * Repozitorij: [https://github.com/anamkravanja/Filmi](https://github.com/anamkravanja/Filmi)
+
+## Univerzitetni sistem
+* Avtorici: Tina Bertok, Eva Ozebek
+* Repozitorij: <https://github.com/tinabertok/university-database> (zasebni repozitorij)
