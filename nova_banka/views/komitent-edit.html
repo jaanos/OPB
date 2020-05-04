@@ -3,86 +3,64 @@
 % rebase('base.html', napaka=napaka, naslov=naslov)
 
 <form action="{{ '/komitenti/uredi/' + komitent[0] if defined('komitent') else '/komitenti/dodaj'}}" method="post">
-    <table cellpadding="0" cellspacing="0" border="0" class="edit-celica">
-        <tr>
-            <td>
-                <span>Emšo:</span>
-            </td>
-            <td>
-                <input name="emso" type="text" value="{{komitent[0] if defined('komitent') else ''}}" required
-                    oninput="this.setCustomValidity('')"
-                    oninvalid="this.setCustomValidity('Obvezno polje')"
-                    />
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <span>Ime:</span>
-            </td>
-            <td>
-                <input name="ime" type="text" value="{{komitent[1] if defined('komitent') else ''}}" required
-                    oninput="this.setCustomValidity('')"
-                    oninvalid="this.setCustomValidity('Obvezno polje')"
-                    />
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <span>Priimek:</span>
-            </td>
-            <td>
-                <input name="priimek" type="text" value="{{komitent[2] if defined('komitent') else ''}}" required
-                    oninput="this.setCustomValidity('')"
-                    oninvalid="this.setCustomValidity('Obvezno polje')"
-                    />
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <span>Ulica:</span>
-            </td>
-            <td>
-                <input name="ulica" type="text" value="{{komitent[3] if defined('komitent') else ''}}" required
-                    oninput="this.setCustomValidity('')"
-                    oninvalid="this.setCustomValidity('Obvezno polje')"
-                    />
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <span>Hišna številka:</span>
-            </td>
-            <td>
-                <input name="hisna_stevilka" type="text" value="{{komitent[4] if defined('komitent') else ''}}" required
-                    oninput="this.setCustomValidity('')"
-                    oninvalid="this.setCustomValidity('Obvezno polje')"
-                    />
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <span>Pošta:</span>
-            </td>
-            <td>
-                <select name="posta_id">
-                    % for (postna_st, posta) in poste:
-                        <option value="{{postna_st}}">{{postna_st}} {{posta}}</option>
-                    % end
-                </select>
-                <!-- <input name="posta_id" type="text" value="{{komitent[5] if defined('komitent') else ''}}" required
-                    oninput="this.setCustomValidity('')"
-                    oninvalid="this.setCustomValidity('Obvezno polje')"
-                    /> -->
-            </td>
-        </tr>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="emso">Emšo</label>
+            <input id="emso" name="emso" type="text" class="form-control" value="{{komitent[0] if defined('komitent') else ''}}" required
+                oninput="this.setCustomValidity('')"
+                oninvalid="this.setCustomValidity('Obvezno polje')"
+                />
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="ime">Ime</label>
+            <input id="ime" name="ime" type="text" class="form-control" value="{{komitent[1] if defined('komitent') else ''}}" required
+                oninput="this.setCustomValidity('')"
+                oninvalid="this.setCustomValidity('Obvezno polje')"
+                />
 
-        <tr>
-            <td>
+        </div>
+        <div class="form-group col-md-6">
+            <label for="priimek">Priimek</label>
+            <input id="priimek" name="priimek" type="text" class="form-control" value="{{komitent[2] if defined('komitent') else ''}}" required
+                oninput="this.setCustomValidity('')"
+                oninvalid="this.setCustomValidity('Obvezno polje')"
+                />
 
-            </td>
-            <td>
-                <input value="{{'Popravi' if defined('komitent') else 'Dodaj'}}" type="submit" />
-            </td>
-        </tr>
-    </table>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="ulica">Ulica</label>
+            <input id="ulica" name="ulica" type="text" class="form-control" value="{{komitent[3] if defined('komitent') else ''}}" required
+                oninput="this.setCustomValidity('')"
+                oninvalid="this.setCustomValidity('Obvezno polje')"
+                />
+
+        </div>
+        <div class="form-group col-md-6">
+            <label for="hisna_stevilka">Hišna številka</label>
+            <input id="hisna_stevilka" name="hisna_stevilka" type="text" class="form-control" value="{{komitent[4] if defined('komitent') else ''}}" required
+                oninput="this.setCustomValidity('')"
+                oninvalid="this.setCustomValidity('Obvezno polje')"
+                />
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="posta_id">Pošta</label>
+            <select id="posta_id" name="posta_id" class="form-control">
+                % for (postna_st, posta) in poste:
+                <option value="{{postna_st}}">{{postna_st}} {{posta}}</option>
+                % end
+            </select>
+
+        </div>
+    </div>
+    <div class="form-row d-flex justify-content-end">
+        <button class="btn btn-primary" type="submit">
+            {{'Popravi' if defined('komitent') else 'Dodaj'}}
+        </button>
+    </div>
 </form>

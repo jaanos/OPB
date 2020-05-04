@@ -1,5 +1,5 @@
 body {
-    font-family: Arial;
+    /* font-family: Arial; */
 }   
 
 .napaka-box {
@@ -39,7 +39,7 @@ body {
     margin: 0.25rem;
 }
 
-#izpis td {
+/* #izpis td {
     padding: 0.25rem;
     border: 0;
 }
@@ -52,4 +52,4 @@ body {
 
 #izpis {
     border: 0;
-}
+} */
