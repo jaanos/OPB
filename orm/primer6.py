@@ -34,7 +34,7 @@ class Zaposleni(Base):
 
  
  
-class DepartmentEmployeeLink(Base):
+class Povezava(Base):
     __tablename__ = 'povezava'
     oddelek_id = Column(Integer, ForeignKey('oddelek.id'), primary_key=True)
     zaposelni_id = Column(Integer, ForeignKey('zaposleni.id'), primary_key=True)
@@ -63,7 +63,6 @@ katka.oddelki.append(finance)
 finance.seznamZaposlenih.append(metka)
 janez.oddelki.append(IT)
 session.add(IT)
-s = session
 session.add(finance)
 session.add(janez)
 session.add(metka)
@@ -77,8 +76,8 @@ input("\nZaposleni na oddelku Finance: {0}".format(
     finance.seznamZaposlenih
 ))
 input("\nZaposleni na oddelku Finance (s poizvedbo): {0}".format(
-    s.query(Oddelek).filter(Oddelek.naziv == 'finance').one().seznamZaposlenih
+    session.query(Oddelek).filter(Oddelek.naziv == 'finance').one().seznamZaposlenih
 ))
 input("\nZaposleni na oddelku Finance (s poizvedbo z druge strani): {0}".format(
-    s.query(Zaposleni).filter(Zaposleni.oddelki.any(Oddelek.naziv == 'finance')).all()
+    session.query(Zaposleni).filter(Zaposleni.oddelki.any(Oddelek.naziv == 'finance')).all()
 ))

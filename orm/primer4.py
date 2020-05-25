@@ -1,5 +1,5 @@
 from primer1 import Oseba, Naslov, Base, engine
-from sqlalchemy import create_engine
+# from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
 DBSessionMaker = sessionmaker(bind=engine)

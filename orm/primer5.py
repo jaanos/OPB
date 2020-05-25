@@ -35,6 +35,7 @@ class Zaposleni(Base):
  
 engine = create_engine('sqlite:///baza2.db', echo=True)
 # Ustvarjanje tabel
+Base.metadata.bind = engine
 Base.metadata.create_all(engine)
  
 DBSessionMaker = sessionmaker(bind=engine)
@@ -65,7 +66,6 @@ input("\nVsebina tabele Oddelek: {0}".format(
 ))
 
 zaposleni2 = Zaposleni(ime="Francka")                                                                                                                  
-zaposleni2.datum_zaposlitve
 session.add(zaposleni2)
 input("\nDatum zaposlitve pred commit: {0}".format(
     zaposleni2.datum_zaposlitve
