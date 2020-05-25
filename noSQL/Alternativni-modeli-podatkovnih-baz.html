@@ -3255,6 +3255,39 @@ if (document.readyState !== "loading" &&
 <li>Če delamo nek (poslovni) sistem in rabimo ACID, je vedno varno vzeti relacijsko podatkovno bazo (Sqlite, PostgreSql, MySql, …)</li>
 <li>NoSQL podatkovno bazo uporabimo le v primeru, če točno vemo, zakaj jo rabimo!</li>
 <li>Delo z velikimi podatkovji zahteva veliko strežnikov in je tipično &ldquo;drag šport&rdquo;.</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Uporabe alternativnih podatkovnih baz</h2></hgroup><article  id="uporabe-alternativnih-podatkovnih-baz">
+
+<ul class = 'build'>
+<li>Socialna omrežja - ogromno sporočil, dokumentov; nujna hitra dosegljivost, replikacija na več strežnikov</li>
+<li>Spletne in mobilne aplikacije z zelo veliko uporabniki ()</li>
+<li>Podatkovna skladišča</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>O podatkovnih skladiščih</h2></hgroup><article  id="o-podatkovnih-skladiscih">
+
+<ul class = 'build'>
+<li>Računanje agregatov (GROUP BY) je časovno preveč zahtevno (O(n)) za izvajanje realno-časnih analiz.</li>
+<li>Analitika in podatkovno-gnana podjetja</li>
+<li>Agregate se tipično preračunava periodično ali pretočno (sproti)</li>
+<li><strong>Periodično</strong>: npr. ponoči, potem so na voljo rezultatske tabele (kar vrne GROUP BY).
+
+<ul class = 'build'>
+<li>Včasih se uporablja t.i. <em>OLAP kocke</em>, ki omogočajo hitro intervalsko filtriranje po agregatih.</li>
+<li>Uporaba metode Map-Reduce</li>
+</ul></li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>O podatkovnih skladiščih</h2></hgroup><article  id="o-podatkovnih-skladiscih-1">
+
+<ul class = 'build'>
+<li><strong>Pretočno</strong>: agregate lahko računamo tudi sproti, če so združevalne funkcije &ldquo;aditivne&rdquo; (t.j. ko pride nov podatek, lahko pravilno popravimo agregat)
+
+<ul class = 'build'>
+<li>Gradimo t.i. materializirane poglede (Materialized View)</li>
+<li>Kafka + KSQL, Pogledi (VIEW) na dokumentnih bazah (CouchDB), …</li>
+</ul></li>
 </ul></article></slide>
 
 

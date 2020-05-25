@@ -131,3 +131,24 @@ output:
 - NoSQL podatkovno bazo uporabimo le v primeru, če točno vemo, zakaj jo rabimo!
 - Delo z velikimi podatkovji zahteva veliko strežnikov in je tipično "drag šport".
 
+## Uporabe alternativnih podatkovnih baz
+
+- Socialna omrežja - ogromno sporočil, dokumentov; nujna hitra dosegljivost, replikacija na več strežnikov
+- Spletne in mobilne aplikacije z zelo veliko uporabniki ()
+- Podatkovna skladišča
+
+## O podatkovnih skladiščih
+
+- Računanje agregatov (GROUP BY) je časovno preveč zahtevno (O(n)) za izvajanje realno-časnih analiz.
+- Analitika in podatkovno-gnana podjetja
+- Agregate se tipično preračunava periodično ali pretočno (sproti)
+- **Periodično**: npr. ponoči, potem so na voljo rezultatske tabele (kar vrne GROUP BY).
+  - Včasih se uporablja t.i. *OLAP kocke*, ki omogočajo hitro intervalsko filtriranje po agregatih.
+  - Uporaba metode Map-Reduce
+  
+## O podatkovnih skladiščih
+
+- **Pretočno**: agregate lahko računamo tudi sproti, če so združevalne funkcije "aditivne" (t.j. ko pride nov podatek, lahko pravilno popravimo agregat)
+  - Gradimo t.i. materializirane poglede (Materialized View)
+  - Kafka + KSQL, Pogledi (VIEW) na dokumentnih bazah (CouchDB), ...
+  
