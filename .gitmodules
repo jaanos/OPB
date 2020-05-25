@@ -145,3 +145,6 @@
 [submodule "oddaje/2019/university-database"]
 	path = oddaje/2019/university-database
 	url = git@github.com:tinabertok/university-database.git
+[submodule "oddaje/2020/COVID-19_BAZA"]
+	path = oddaje/2020/COVID-19_BAZA
+	url = https://github.com/JanKolenc/COVID-19_BAZA.git
