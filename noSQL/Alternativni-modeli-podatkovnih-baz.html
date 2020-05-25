@@ -3104,8 +3104,8 @@ if (document.readyState !== "loading" &&
 <slide class=""><hgroup><h2>Podatkovne baze NoSQL</h2></hgroup><article  id="podatkovne-baze-nosql">
 
 <ul class = 'build'>
-<li>NoSQL - not only SQL (ang)</li>
-<li>Relacijske podatkovne baze temeljijo na tabelah (relacijah)</li>
+<li>NoSQL - not only SQL (ang).</li>
+<li>Relacijske podatkovne baze temeljijo na tabelah (relacijah).</li>
 <li>Lahko pa bi izbrali tudi kak drug podatkovni model npr.:
 
 <ul class = 'build'>
@@ -3114,7 +3114,7 @@ if (document.readyState !== "loading" &&
 <li>vrsta</li>
 <li>…</li>
 </ul></li>
-<li>Alternativni modeli imajo ponavadi drugačne (specifične) jezike za opis podatkovnih modelov in uporavljanje s podatki (ni SQL)</li>
+<li>Alternativni modeli imajo ponavadi drugačne (specifične) jezike za opis podatkovnih modelov in uporavljanje s podatki (ni SQL).</li>
 </ul>
 
 </article></slide><slide class=""><hgroup><h2>Izzivi</h2></hgroup><article  id="izzivi">
@@ -3122,36 +3122,139 @@ if (document.readyState !== "loading" &&
 <ul class = 'build'>
 <li>Pri relacijskih podatkovnih bazah smo navajeni na sočasnostni model ACID.</li>
 <li>Če relaksiramo ta model, lahko, ob sprejetju določenih kompromisov, delovanje baz pohitrimo, poenostavimo, …</li>
-<li>Velike količine podatkov (ang. Big data) zahtevajo shranjevanje na večih strežnikih, pri čemer je polno usklajevanje (npr. zaradi ACID) med njimi lahko nesprejemljivo zahtevno in počasno.</li>
+<li>Velike količine podatkov (ang. Big data) zahtevajo shranjevanje na večih strežnikih.</li>
+<li>Polno usklajevanje (npr. zaradi ACID) med njimi je lahko nesprejemljivo zahtevno in počasno.</li>
 </ul>
 
 </article></slide><slide class=""><hgroup><h2>Porazdeljeni sistemi</h2></hgroup><article  id="porazdeljeni-sistemi">
 
 <ul class = 'build'>
-<li>Tipične operacije, ki jih izvajamo na kakršnih koli podatkovnih bazah so: vstavljanje (INSERT), popravljanje (UPDATE), brisanje (DELETE) in branje oz. poizvedovanje (SELECT)</li>
+<li>Tipične operacije, ki jih izvajamo na kakršnih koli podatkovnih bazah so: vstavljanje (INSERT), popravljanje (UPDATE), brisanje (DELETE) in branje oz. poizvedovanje (SELECT).</li>
 <li>Porazdeljen sistem je sestavljen in vozlišč, ki hranijo podatke.</li>
 <li>Vozlišča imenujemo tudi particije.</li>
 <li>Uporabnik tipično kontaktira neko vozlišče in na njem izvede operacijo.</li>
-<li>Ko izvedemo na vozlišču in če je ta uspešno izvedena, dobimo potrditev.</li>
+<li>Ko operacijo izvedemo na vozlišču in če je ta uspešno izvedena, dobimo potrditev (prejema operacije, transakcije).</li>
 <li>Npr. pri ACID podatkovnih bazah, ko dobimo potrditev (trans)akcije točno vemo, kaj je zadnje stanje baze.</li>
 </ul>
 
 </article></slide><slide class=""><hgroup><h2>Lastnosti porazdeljenih sistemov CAP</h2></hgroup><article  id="lastnosti-porazdeljenih-sistemov-cap">
 
 <ul class = 'build'>
-<li><strong>Consistency</strong> - (konsistenca za branje) vsako branje na nekem vozlišču sistema vrne zadnjo v sistem shranjeno/sprejeto vrednost.</li>
-<li><strong>Availability</strong> - (razpoložljivost) vsako branje podatkov na nekem vozlišču vrne odgovor, a ne nujno čisto zadnje stanje podatkov v sistemu (npr. podatki so zapisani v neko vozlišče, uporabnik je dobil potrditev, a do konkretnega vozlišča še niso prišli)</li>
-<li><strong>Partition tolerance</strong> - (odpornost na odpoved posameznih particij) - sistem lahko še vedno deluje, tudi če v komunikaciji med vozlišči izgubimo poljubno število sporočil za operacije</li>
+<li><strong>Consistency</strong> - (konsistenca za branje) vsako branje na katerem koli vozlišču sistema vrne zadnjo v sistem shranjeno/sprejeto vrednost.</li>
+<li><strong>Availability</strong> - (razpoložljivost) vsako branje podatkov na nekem vozlišču vrne odgovor, a ne nujno čisto zadnje stanje podatkov v sistemu (npr. podatki so zapisani v neko vozlišče, uporabnik je dobil potrditev, a do konkretnega vozlišča še niso prišli).</li>
+<li><strong>Partition tolerance</strong> - (odpornost na odpoved posameznih particij) - sistem lahko še vedno deluje, tudi če v komunikaciji med vozlišči izgubimo poljubno število sporočil za operacije.</li>
 </ul>
 
 </article></slide><slide class=""><hgroup><h2>Izrek CAP</h2></hgroup><article  id="izrek-cap">
 
 <ul class = 'build'>
 <li>Podal ga je Eric Brower v 90-ih letih.</li>
-<li>V osnovi pravi, da za realne podatkovne baze z vsaj dvemi vozlišči ne moremo hkrati doseči vseh treh lastnosti.</li>
-<li>Če želimo C in A, lahko to izvedemo samo, če imamo le eno vozlišče (ni P)</li>
+<li>V osnovi pravi, da za realne podatkovne baze z vsaj dvemi vozlišči ne moremo hkrati doseči vseh treh lastnosti CAP.</li>
+<li>Če želimo C in A, lahko to izvedemo samo, če imamo le eno vozlišče (nimamo P).</li>
 <li>Če želimo C in P in zapišemo nek podatek v nekem vozlišču, morajo biti vsa ostala vozlišča začasno nerazpoložljiva, dokler niso podatki sinhronizirani (izgubimo A)</li>
 <li>Če želimo A in P, potem podatki na vseh vozliščih morda še niso sinhronizirani (izgubimo C)</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Lastnosti BASE</h2></hgroup><article  id="lastnosti-base">
+
+<ul class = 'build'>
+<li>Če opustimo lastnost C (konsistenca), lahko za NoSQL podatkovne baz obravnavamo naslednje lastnoti.</li>
+<li><strong>BA (Basically Available)</strong> - sistem zagotavlja lastnost A.</li>
+<li><strong>S (Soft state)</strong> - podatki v sistemu na nekem vozlišču se lahko spremenijo tudi, če ne vstavljamo v sistem na tem vozlišču (npr. pridejo z zakasnitvijo iz drugih vozlišč).</li>
+<li><strong>E (Eventual consistency)</strong> - če ne vstavljamo podatkov v sistem, se sčasoma vsa vozlišča sinhronizirajo in postane sistem konsistenten.</li>
+<li>Pri NoSQL baza, kjer nimamo ACID tipično stremimo vsaj k BASE.</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Tipi NoSQL podatkovnih baz</h2></hgroup><article  id="tipi-nosql-podatkovnih-baz">
+
+<ul class = 'build'>
+<li>NoSQL podatkovne baze so postale popularne predvsem zaradi velikih podatkovij, ki jih je treba deliti čez več strežnikov.</li>
+<li>Ključ-vrednost baze (slovar)</li>
+<li>Dokumentne baze (JSON, gnezdeni slovari in seznami)</li>
+<li>Tabelarične (slovar)</li>
+<li>Grafovske baze (graf)</li>
+<li>Objektne baze (graf)</li>
+<li>Sporočilne vrste (vrsta)</li>
+<li>Bločne verige (vrsta)</li>
+<li>…</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Ključ-vrednost baze</h2></hgroup><article  id="kljuc-vrednost-baze">
+
+<ul class = 'build'>
+<li>Osnovna struktura je slovar.</li>
+<li>Ključe brez težav delimo na več strežnikov in hitro dostopamo do njih.</li>
+<li>Ključi so lahko iz linearno-urejene množice, kar nam omogoča intervalne poizvedbe.</li>
+<li>Redis, Riak, CouchDB, Couchbase, …</li>
+<li>Lahko so zgolj v spominu ali pa se hranijo na diske.</li>
+<li>Različni modeli glede CAP (AP, CP, CA).</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Dokumentne baze</h2></hgroup><article  id="dokumentne-baze">
+
+<ul class = 'build'>
+<li>Dokumente si lahko predstavljamo kot JSON, XML ali YAML strukture.</li>
+<li>Dokumentne baze hranijo dokumente z različnimi oblikami organizacije nad njimi (zbirke, tagi, mape, …)</li>
+<li>Nekakšne nadgradnje ključ-vrednost baz.</li>
+<li>MongoDB, Elasticsearch, Couchbase, CouchDB, …</li>
+<li>Različni CAP modeli.</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Tabelarične baze</h2></hgroup><article  id="tabelaricne-baze">
+
+<ul class = 'build'>
+<li>Neke vrste ključ-vrednost baze.</li>
+<li>Ključ določata npr. dva niza (vrstica, stolpec) in/ali časovni žig.</li>
+<li>HBase, Google Big Table, Amazon DynamoDB, …</li>
+<li>Različni CAP modeli.</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Grafovske baze</h2></hgroup><article  id="grafovske-baze">
+
+<ul class = 'build'>
+<li>Vozlišča in povezave opremljene s podatki</li>
+<li>Poizvedbe po grafu (iskanje v širino in globino)</li>
+<li>Neo4j, InfiniteGraph, …</li>
+<li>Tipično ne prenašajo dobro delitve na več strežnikov.</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Objektne baze</h2></hgroup><article  id="objektne-baze">
+
+<ul class = 'build'>
+<li>Hranijo grafe objektov, kot so pri objektno orientiranem programiranju grafi objektov v spominu</li>
+<li>ObjectivityDB, ZopeDB, …</li>
+<li>Podobno kot grafovske baze ne prenašajo najbolje delitve na več strežnikov.</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Sporočilne vrste</h2></hgroup><article  id="sporocilne-vrste">
+
+<ul class = 'build'>
+<li>Vrste objektov (sporočil).</li>
+<li>Samo v spominu ali hranjene na disk.</li>
+<li>Replicirane na večih strežnikih.</li>
+<li>Lahko deljene na več vrst na večih strežnikih.</li>
+<li>Kafka, RabbitMQ, …</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Bločne verige</h2></hgroup><article  id="blocne-verige">
+
+<ul class = 'build'>
+<li>Posebne baze za hranjenje zgodovine dejstev.</li>
+<li>Kar se shrani, se ne da več spreminjati.</li>
+<li>Osnovna enota je transakcija, transakcije se pakirajo v bloke, ki so v nespremenljivem zaporedju (zagotovljenem s pomočjo kriptografskih metod).</li>
+<li>Shranjevanje poteka s pomočjo konsenza večih vozlišč.</li>
+<li>Tipično se kopija replicira preko vseh vozlišč, a se kot konsistentno verzijo smatra dovolj staro stanje.</li>
+<li>Javna baza ali privatna (z določitvijo pravic dostopa)</li>
+<li>javne verige: Bitcoin, Ethereum, …,</li>
+<li>privatne verige: Hyperledger Fabric, Quorum, …</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Izbira tipa podatkovne baze</h2></hgroup><article  id="izbira-tipa-podatkovne-baze">
+
+<ul class = 'build'>
+<li>Če delamo nek (poslovni) sistem in rabimo ACID, je vedno varno vzeti relacijsko podatkovno bazo (Sqlite, PostgreSql, MySql, …)</li>
+<li>NoSQL podatkovno bazo uporabimo le v primeru, če točno vemo, zakaj jo rabimo!</li>
+<li>Delo z velikimi podatkovji zahteva veliko strežnikov in je tipično &ldquo;drag šport&rdquo;.</li>
 </ul></article></slide>
 
 
