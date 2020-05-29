@@ -1,11 +1,11 @@
 ---
 title: "Alternativni modeli podatkovnih baz"
 output: 
-  ioslides_presentation:
-    incremental: yes
   beamer_presentation:
     keep_tex: no
     incremental: no 
+  ioslides_presentation:
+    incremental: yes
 ---
 
 ## Podatkovne baze NoSQL 
@@ -151,4 +151,9 @@ output:
 - **Pretočno**: agregate lahko računamo tudi sproti, če so združevalne funkcije "aditivne" (t.j. ko pride nov podatek, lahko pravilno popravimo agregat)
   - Gradimo t.i. materializirane poglede (Materialized View)
   - Kafka + KSQL, Pogledi (VIEW) na dokumentnih bazah (CouchDB), ...
-  
+
+## Učene na NoSQL baza
+
+- Za učne primere si lahko ogledate `NoSQLZoo` https://nosqlzoo.net/
+- Primeri na podatkovnih bazah MongoDB (Javascript) in Neo4j (Cypher)
+https://nosqlzoo.net/
