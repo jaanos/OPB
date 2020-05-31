@@ -148,3 +148,6 @@
 [submodule "oddaje/2020/COVID-19_BAZA"]
 	path = oddaje/2020/COVID-19_BAZA
 	url = https://github.com/JanKolenc/COVID-19_BAZA.git
+[submodule "oddaje/2020/Borza"]
+	path = oddaje/2020/Borza
+	url = https://github.com/jan248/Borza.git
