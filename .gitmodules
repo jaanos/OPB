@@ -151,3 +151,6 @@
 [submodule "oddaje/2020/Borza"]
 	path = oddaje/2020/Borza
 	url = https://github.com/jan248/Borza.git
+[submodule "oddaje/2020/napovediOPB"]
+	path = oddaje/2020/napovediOPB
+	url = https://github.com/aljazostrez/napovediOPB.git
