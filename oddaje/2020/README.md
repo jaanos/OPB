@@ -7,3 +7,7 @@
 ## Borza
 * Avtorji: Jan Škoberne, Žan Kramar, Jani Metež
 * Repozitorij: <https://github.com/jan248/Borza>
+
+## Napovedi
+* Avtor: Aljaž Ostrež
+* Repozitorij: <https://github.com/aljazostrez/napovediOPB>
