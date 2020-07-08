@@ -154,3 +154,9 @@
 [submodule "oddaje/2020/napovediOPB"]
 	path = oddaje/2020/napovediOPB
 	url = https://github.com/aljazostrez/napovediOPB.git
+[submodule "oddaje/2020/Sport"]
+	path = oddaje/2020/Sport
+	url = https://github.com/1marcelspehonja/Sport.git
+[submodule "oddaje/2020/Socialno-omrezje-aktivnosti"]
+	path = oddaje/2020/Socialno-omrezje-aktivnosti
+	url = https://github.com/katjadraksler/Socialno-omrezje-aktivnosti.git
