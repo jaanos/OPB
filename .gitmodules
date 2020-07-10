@@ -160,3 +160,6 @@
 [submodule "oddaje/2020/Socialno-omrezje-aktivnosti"]
 	path = oddaje/2020/Socialno-omrezje-aktivnosti
 	url = https://github.com/katjadraksler/Socialno-omrezje-aktivnosti.git
+[submodule "oddaje/2020/Knjiznica"]
+	path = oddaje/2020/Knjiznica
+	url = https://github.com/melamalej/Knjiznica.git
