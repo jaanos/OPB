@@ -19,3 +19,7 @@
 ## Socialno omrežje - aktivnosti
 * Avtorja: Katja Draksler, Gašper Mrzelj
 * Repozitorij: <https://github.com/katjadraksler/Socialno-omrezje-aktivnosti>
+
+## Informacijski sistem knjižnice
+* Avtorice: Tjaša Mehle, Mela Malej, Lana Zajc
+* Repotitorij: <https://github.com/melamalej/Knjiznica>
