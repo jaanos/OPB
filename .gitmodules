@@ -163,3 +163,6 @@
 [submodule "oddaje/2020/Knjiznica"]
 	path = oddaje/2020/Knjiznica
 	url = https://github.com/melamalej/Knjiznica.git
+[submodule "oddaje/2020/OPB-zavarovalnica"]
+	path = oddaje/2020/OPB-zavarovalnica
+	url = https://github.com/matejske/OPB-zavarovalnica.git
