@@ -22,4 +22,8 @@
 
 ## Informacijski sistem knjižnice
 * Avtorice: Tjaša Mehle, Mela Malej, Lana Zajc
-* Repotitorij: <https://github.com/melamalej/Knjiznica>
+* Repozitorij: <https://github.com/melamalej/Knjiznica>
+
+## Zavarovalnica
+* Avtorji: Enej Kovač, Tomas Rode, Matej Škerlep
+* Repozitorij: <https://github.com/matejske/OPB-zavarovalnica>
