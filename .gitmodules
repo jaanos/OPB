@@ -166,3 +166,6 @@
 [submodule "oddaje/2020/OPB-zavarovalnica"]
 	path = oddaje/2020/OPB-zavarovalnica
 	url = https://github.com/matejske/OPB-zavarovalnica.git
+[submodule "oddaje/2020/Pohodnistvo"]
+	path = oddaje/2020/Pohodnistvo
+	url = https://github.com/Marsovc1/Pohodnistvo.git
