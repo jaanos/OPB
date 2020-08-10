@@ -27,3 +27,7 @@
 ## Zavarovalnica
 * Avtorji: Enej Kovač, Tomas Rode, Matej Škerlep
 * Repozitorij: <https://github.com/matejske/OPB-zavarovalnica>
+
+## Pohodništvo
+* Avtorji: Nikolaj Candellari, Martin Kokošinek, Urban Merhar
+* Repozitorij: <https://github.com/Marsovc1/Pohodnistvo>
