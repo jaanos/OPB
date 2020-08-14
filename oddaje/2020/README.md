@@ -31,3 +31,7 @@
 ## Pohodništvo
 * Avtorji: Nikolaj Candellari, Martin Kokošinek, Urban Merhar
 * Repozitorij: <https://github.com/Marsovc1/Pohodnistvo>
+
+## Cineplexx
+* Avtorici: Karmen Zupančič, Evgenija Burger
+* Repozitorij: <https://github.com/evgenijja/Cineplexx>
