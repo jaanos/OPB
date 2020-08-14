@@ -169,3 +169,6 @@
 [submodule "oddaje/2020/Pohodnistvo"]
 	path = oddaje/2020/Pohodnistvo
 	url = https://github.com/Marsovc1/Pohodnistvo.git
+[submodule "oddaje/2020/Cineplexx"]
+	path = oddaje/2020/Cineplexx
+	url = https://github.com/evgenijja/Cineplexx.git
