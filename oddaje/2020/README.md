@@ -35,3 +35,7 @@
 ## Cineplexx
 * Avtorici: Karmen Zupančič, Evgenija Burger
 * Repozitorij: <https://github.com/evgenijja/Cineplexx>
+
+## Nepremičnine
+* Avtorji: Domen Flakus Bosilj, Sabrina Calcina, Timotej Giacomelli
+* Repozitorij: <https://github.com/sabrinacalcina/Nepremicnine>
