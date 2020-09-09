@@ -39,3 +39,7 @@
 ## Nepremičnine
 * Avtorji: Domen Flakus Bosilj, Sabrina Calcina, Timotej Giacomelli
 * Repozitorij: <https://github.com/sabrinacalcina/Nepremicnine>
+
+## Avtohiša
+* Avtorja: Jan Šifrer, Lara Jagodnik
+* Repozitorij: <https://github.com/larajagodnik/Avtohisa>
