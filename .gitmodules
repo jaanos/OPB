@@ -175,3 +175,6 @@
 [submodule "oddaje/2020/Nepremicnine"]
 	path = oddaje/2020/Nepremicnine
 	url = https://github.com/sabrinacalcina/Nepremicnine.git
+[submodule "oddaje/2020/Avtohisa"]
+	path = oddaje/2020/Avtohisa
+	url = https://github.com/larajagodnik/Avtohisa.git
