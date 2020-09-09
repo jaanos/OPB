@@ -40,6 +40,10 @@
 * Avtorji: Domen Flakus Bosilj, Sabrina Calcina, Timotej Giacomelli
 * Repozitorij: <https://github.com/sabrinacalcina/Nepremicnine>
 
+## Umetnine
+* Avtorja: Barbara Lipnik, Tomaž Derča
+* Repozitorij: <https://github.com/tomazderca/OPB-umetnine>
+
 ## Avtohiša
 * Avtorja: Jan Šifrer, Lara Jagodnik
 * Repozitorij: <https://github.com/larajagodnik/Avtohisa>
