@@ -178,3 +178,6 @@
 [submodule "oddaje/2020/Avtohisa"]
 	path = oddaje/2020/Avtohisa
 	url = https://github.com/larajagodnik/Avtohisa.git
+[submodule "oddaje/2020/OPB-umetnine"]
+	path = oddaje/2020/OPB-umetnine
+	url = https://github.com/tomazderca/OPB-umetnine.git
