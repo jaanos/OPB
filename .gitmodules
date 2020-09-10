@@ -181,3 +181,6 @@
 [submodule "oddaje/2020/OPB-umetnine"]
 	path = oddaje/2020/OPB-umetnine
 	url = https://github.com/tomazderca/OPB-umetnine.git
+[submodule "oddaje/2020/OPB-Spletna-trgovina"]
+	path = oddaje/2020/OPB-Spletna-trgovina
+	url = https://github.com/JernejcicZan/OPB-Spletna-trgovina.git
