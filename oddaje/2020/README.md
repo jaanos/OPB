@@ -47,3 +47,7 @@
 ## Avtohiša
 * Avtorja: Jan Šifrer, Lara Jagodnik
 * Repozitorij: <https://github.com/larajagodnik/Avtohisa>
+
+## Spletna trgovina
+* Avtor: Žan Jernejčič
+* Repozitorij: <https://github.com/JernejcicZan/OPB-Spletna-trgovina>
