@@ -51,3 +51,7 @@
 ## Spletna trgovina
 * Avtor: Žan Jernejčič
 * Repozitorij: <https://github.com/JernejcicZan/OPB-Spletna-trgovina>
+
+## NPC generator za DnD
+* Avtorja: Nik Erzetič, Borut Zupan
+* Repozitorij: <https://github.com/nikerzetic/NPC-generator-za-DnD>
