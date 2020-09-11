@@ -184,3 +184,6 @@
 [submodule "oddaje/2020/OPB-Spletna-trgovina"]
 	path = oddaje/2020/OPB-Spletna-trgovina
 	url = https://github.com/JernejcicZan/OPB-Spletna-trgovina.git
+[submodule "oddaje/2020/NPC-generator-za-DnD"]
+	path = oddaje/2020/NPC-generator-za-DnD
+	url = https://github.com/nikerzetic/NPC-generator-za-DnD.git
