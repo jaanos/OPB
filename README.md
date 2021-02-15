@@ -21,3 +21,4 @@ Repozitorij z gradivi za predmet Osnove podatkovnih baz (izbirni predmet na dodi
 ## [Zapiski z vaj](zapiski/)
 
 * Vaje na daljavo iz leta [2020](zapiski/2020)
+* Vaje na daljavo iz leta [2021](zapiski/2021)
