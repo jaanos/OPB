@@ -6,3 +6,4 @@
 * [`2021-03-11.md`](2021-03-11.md) - pogledi (`VIEW`), gnezdene poizvedbe (sub`SELECT`s), zahtevnejši `SELECT` stavki
 * [`2021-03-18.md`](2021-03-18.md) - ER diagrami
 * [`2021-04-01.md`](2021-04-01.md) - normalizacija
+* [`2021-04-15.md`](2021-04-15.md) - varnost in kontrola dostopa
