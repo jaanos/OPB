@@ -187,3 +187,6 @@
 [submodule "oddaje/2020/NPC-generator-za-DnD"]
 	path = oddaje/2020/NPC-generator-za-DnD
 	url = https://github.com/nikerzetic/NPC-generator-za-DnD.git
+[submodule "oddaje/2021/MovieRecommender"]
+	path = oddaje/2021/MovieRecommender
+	url = https://github.com/jakobzmrzlikar/MovieRecommender.git
