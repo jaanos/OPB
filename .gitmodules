@@ -190,3 +190,6 @@
 [submodule "oddaje/2021/MovieRecommender"]
 	path = oddaje/2021/MovieRecommender
 	url = https://github.com/jakobzmrzlikar/MovieRecommender.git
+[submodule "oddaje/2021/OPB-e-knjiznica"]
+	path = oddaje/2021/OPB-e-knjiznica
+	url = https://github.com/AnjaTrobec/OPB-e-knjiznica.git
