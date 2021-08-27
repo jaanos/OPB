@@ -193,3 +193,6 @@
 [submodule "oddaje/2021/OPB-e-knjiznica"]
 	path = oddaje/2021/OPB-e-knjiznica
 	url = https://github.com/AnjaTrobec/OPB-e-knjiznica.git
+[submodule "oddaje/2021/Restavracija-OPB"]
+	path = oddaje/2021/Restavracija-OPB
+	url = https://github.com/Duzo12/Restavracija-OPB.git
