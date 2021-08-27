@@ -7,3 +7,7 @@
 ## e-Knjižnica
 * Avtorji: Jakob Zarnik, Ana Marija Belingar, Anja Trobec
 * Repozitorij: <https://github.com/AnjaTrobec/OPB-e-knjiznica>
+
+## Restavracija
+* Avtorji: Maks Perbil, Jan Črne, Nejc Duščak
+* Repozitorij: <https://github.com/Duzo12/Restavracija-OPB>
