@@ -196,3 +196,6 @@
 [submodule "oddaje/2021/Restavracija-OPB"]
 	path = oddaje/2021/Restavracija-OPB
 	url = https://github.com/Duzo12/Restavracija-OPB.git
+[submodule "oddaje/2021/Eksoticni_resort_OPB_2021"]
+	path = oddaje/2021/Eksoticni_resort_OPB_2021
+	url = https://github.com/MatevzKopac/Eksoticni_resort_OPB_2021.git
