@@ -11,3 +11,7 @@
 ## Restavracija
 * Avtorji: Maks Perbil, Jan Črne, Nejc Duščak
 * Repozitorij: <https://github.com/Duzo12/Restavracija-OPB>
+
+## Eksotični resort
+* Avtorji: Matevž Kopač, Žan Mikola, Maj Gaberšček
+* Repozitorij: <https://github.com/MatevzKopac/Eksoticni_resort_OPB_2021>
