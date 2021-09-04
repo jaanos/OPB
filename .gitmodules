@@ -199,3 +199,12 @@
 [submodule "oddaje/2021/Eksoticni_resort_OPB_2021"]
 	path = oddaje/2021/Eksoticni_resort_OPB_2021
 	url = https://github.com/MatevzKopac/Eksoticni_resort_OPB_2021.git
+[submodule "oddaje/2021/Zivali-bolha.com"]
+	path = oddaje/2021/Zivali-bolha.com
+	url = https://github.com/mancafifnja/Zivali-bolha.com.git
+[submodule "oddaje/2021/OPB-Turisticna_agencija"]
+	path = oddaje/2021/OPB-Turisticna_agencija
+	url = https://github.com/ZaloznikV/OPB-Turisticna_agencija.git
+[submodule "oddaje/2021/OPB-Ne_se_ena_spletna_trgovina"]
+	path = oddaje/2021/OPB-Ne_se_ena_spletna_trgovina
+	url = https://github.com/MartinDolenc/OPB-Ne_se_ena_spletna_trgovina.git
