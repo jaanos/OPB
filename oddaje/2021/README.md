@@ -15,3 +15,15 @@
 ## Eksotični resort
 * Avtorji: Matevž Kopač, Žan Mikola, Maj Gaberšček
 * Repozitorij: <https://github.com/MatevzKopac/Eksoticni_resort_OPB_2021>
+
+## Živali na bolha.com
+* Avtorja: Manca Fifnja, Jurij Tekavec
+* Repozitorij: <https://github.com/mancafifnja/Zivali-bolha.com>
+
+## Turistična agencija
+* Avtorji: Vito Založnik, Andraž Pustoslemšek, Urban Čretnik
+* Repozitorij: <https://github.com/ZaloznikV/OPB-Turisticna_agencija>
+
+## Spletna trgovina
+* Avtor: Martin Dolenc
+* Repozitorij: <https://github.com/MartinDolenc/OPB-Ne_se_ena_spletna_trgovina>
