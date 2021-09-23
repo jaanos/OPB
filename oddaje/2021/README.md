@@ -27,3 +27,7 @@
 ## Spletna trgovina
 * Avtor: Martin Dolenc
 * Repozitorij: <https://github.com/MartinDolenc/OPB-Ne_se_ena_spletna_trgovina>
+
+## Organizator nakupov
+* Avtorja: Žan Kastelic, Tjaša Renko
+* Repozitorij: <https://github.com/RenkoT97/OrganizatorNakupov>
