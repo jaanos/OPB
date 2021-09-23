@@ -208,3 +208,6 @@
 [submodule "oddaje/2021/OPB-Ne_se_ena_spletna_trgovina"]
 	path = oddaje/2021/OPB-Ne_se_ena_spletna_trgovina
 	url = https://github.com/MartinDolenc/OPB-Ne_se_ena_spletna_trgovina.git
+[submodule "oddaje/2021/OrganizatorNakupov"]
+	path = oddaje/2021/OrganizatorNakupov
+	url = https://github.com/RenkoT97/OrganizatorNakupov.git
