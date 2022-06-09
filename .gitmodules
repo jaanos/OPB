@@ -211,3 +211,6 @@
 [submodule "oddaje/2021/OrganizatorNakupov"]
 	path = oddaje/2021/OrganizatorNakupov
 	url = https://github.com/RenkoT97/OrganizatorNakupov.git
+[submodule "oddaje/2022/projektna-naloga-Covid-19"]
+	path = oddaje/2022/projektna-naloga-Covid-19
+	url = https://github.com/BlackPhoenixSlo/projektna-naloga-Covid-19.git
