@@ -214,3 +214,6 @@
 [submodule "oddaje/2022/projektna-naloga-Covid-19"]
 	path = oddaje/2022/projektna-naloga-Covid-19
 	url = https://github.com/BlackPhoenixSlo/projektna-naloga-Covid-19.git
+[submodule "oddaje/2022/Nepremicninske-agencije"]
+	path = oddaje/2022/Nepremicninske-agencije
+	url = https://github.com/nezakrzan/Nepremicninske-agencije.git
