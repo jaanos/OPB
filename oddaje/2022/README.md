@@ -7,3 +7,7 @@
 ## Nepremičninske agencije
 * Avtorice: Neža Kržan, Ana Marija Okorn, Nina Velkavrh
 * Repozitorij: <https://github.com/nezakrzan/Nepremicninske-agencije>
+
+## Jaz pa pojdem
+* Avtorici: Iza Čebulj, Neža Lesnjak
+* Repozitorij: <https://github.com/CebuljIza/Jaz-pa-pojdem>
