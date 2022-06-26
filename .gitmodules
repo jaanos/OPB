@@ -220,3 +220,6 @@
 [submodule "oddaje/2022/Jaz-pa-pojdem"]
 	path = oddaje/2022/Jaz-pa-pojdem
 	url = https://github.com/CebuljIza/Jaz-pa-pojdem.git
+[submodule "oddaje/2022/JIJ-prodaja-avtov"]
+	path = oddaje/2022/JIJ-prodaja-avtov
+	url = https://github.com/ian-spiller/JIJ-prodaja-avtov.git
