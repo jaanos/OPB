@@ -11,3 +11,7 @@
 ## Jaz pa pojdem
 * Avtorici: Iza Čebulj, Neža Lesnjak
 * Repozitorij: <https://github.com/CebuljIza/Jaz-pa-pojdem>
+
+## JIJ prodaja avtov
+* Avtorji: Jaka Mrak, Ian Spiller, Jaka Svetek
+* Repozitorij: <https://github.com/ian-spiller/JIJ-prodaja-avtov>
