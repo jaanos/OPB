@@ -15,3 +15,7 @@
 ## JIJ prodaja avtov
 * Avtorji: Jaka Mrak, Ian Spiller, Jaka Svetek
 * Repozitorij: <https://github.com/ian-spiller/JIJ-prodaja-avtov>
+
+## Gamma
+* Avtorji: Matej Rojec, Rok Rozman, Vito Rozman
+* Repozitorij: <https://github.com/MatejRojec/Gamma>
