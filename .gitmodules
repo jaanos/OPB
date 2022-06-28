@@ -223,3 +223,6 @@
 [submodule "oddaje/2022/JIJ-prodaja-avtov"]
 	path = oddaje/2022/JIJ-prodaja-avtov
 	url = https://github.com/ian-spiller/JIJ-prodaja-avtov.git
+[submodule "oddaje/2022/Gamma"]
+	path = oddaje/2022/Gamma
+	url = https://github.com/MatejRojec/Gamma.git
