@@ -19,3 +19,7 @@
 ## Gamma
 * Avtorji: Matej Rojec, Rok Rozman, Vito Rozman
 * Repozitorij: <https://github.com/MatejRojec/Gamma>
+
+## NBA
+* Avtorja: Tine Markočič, Gašper Potočnik
+* Repozitorij: <https://github.com/gapo8/NBA>
