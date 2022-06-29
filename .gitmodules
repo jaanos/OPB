@@ -226,3 +226,6 @@
 [submodule "oddaje/2022/Gamma"]
 	path = oddaje/2022/Gamma
 	url = https://github.com/MatejRojec/Gamma.git
+[submodule "oddaje/2022/NBA"]
+	path = oddaje/2022/NBA
+	url = https://github.com/gapo8/NBA.git
