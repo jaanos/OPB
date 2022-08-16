@@ -23,3 +23,15 @@
 ## NBA
 * Avtorja: Tine Markočič, Gašper Potočnik
 * Repozitorij: <https://github.com/gapo8/NBA>
+
+## Letalski promet
+* Avtorja: Gašper Kmetič, Jure Sternad
+* Repozitorij: <https://github.com/juresternad/letalski-promet>
+
+## Inštrukcije
+* Avtorici: Katja Kranjec, Manca Strah
+* Repozitorij: <https://github.com/katjakranjec/instrukcije-opb>
+
+## Lokalna veriga B&B
+* Avtorice: Brina Ribič, Tinkara Čadež, Tia Krofel
+* Repozitorij: <https://github.com/brinaribic/Lokalna-veriga-B-B>
