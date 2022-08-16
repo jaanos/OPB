@@ -229,3 +229,12 @@
 [submodule "oddaje/2022/NBA"]
 	path = oddaje/2022/NBA
 	url = https://github.com/gapo8/NBA.git
+[submodule "oddaje/2022/letalski-promet"]
+	path = oddaje/2022/letalski-promet
+	url = https://github.com/juresternad/letalski-promet.git
+[submodule "oddaje/2022/instrukcije-opb"]
+	path = oddaje/2022/instrukcije-opb
+	url = https://github.com/katjakranjec/instrukcije-opb.git
+[submodule "oddaje/2022/Lokalna-veriga-B-B"]
+	path = oddaje/2022/Lokalna-veriga-B-B
+	url = https://github.com/brinaribic/Lokalna-veriga-B-B.git
