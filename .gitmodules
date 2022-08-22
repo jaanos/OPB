@@ -238,3 +238,6 @@
 [submodule "oddaje/2022/Lokalna-veriga-B-B"]
 	path = oddaje/2022/Lokalna-veriga-B-B
 	url = https://github.com/brinaribic/Lokalna-veriga-B-B.git
+[submodule "oddaje/2022/Potniski-promet"]
+	path = oddaje/2022/Potniski-promet
+	url = https://github.com/Globocnik0/Potniski-promet.git
