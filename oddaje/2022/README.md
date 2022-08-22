@@ -35,3 +35,7 @@
 ## Lokalna veriga B&B
 * Avtorice: Brina Ribič, Tinkara Čadež, Tia Krofel
 * Repozitorij: <https://github.com/brinaribic/Lokalna-veriga-B-B>
+
+## Potniški promet
+* Avtorja: Žiga Černe, Aleš Globočnik
+* Repozitorij: <https://github.com/Globocnik0/Potniski-promet>
