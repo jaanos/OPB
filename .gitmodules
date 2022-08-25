@@ -241,3 +241,6 @@
 [submodule "oddaje/2022/Potniski-promet"]
 	path = oddaje/2022/Potniski-promet
 	url = https://github.com/Globocnik0/Potniski-promet.git
+[submodule "oddaje/2022/Hotel_management-OPB-Projektna-Naloga"]
+	path = oddaje/2022/Hotel_management-OPB-Projektna-Naloga
+	url = https://github.com/UdirL18/Hotel_management-OPB-Projektna-Naloga.git
