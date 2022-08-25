@@ -39,3 +39,7 @@
 ## Potniški promet
 * Avtorja: Žiga Černe, Aleš Globočnik
 * Repozitorij: <https://github.com/Globocnik0/Potniski-promet>
+
+## Hotel management
+* Avtorici: Anja Kokalj, Lucija Udir
+* Repozitorij: <https://github.com/UdirL18/Hotel_management-OPB-Projektna-Naloga>
