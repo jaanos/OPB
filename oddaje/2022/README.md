@@ -43,3 +43,11 @@
 ## Hotel management
 * Avtorici: Anja Kokalj, Lucija Udir
 * Repozitorij: <https://github.com/UdirL18/Hotel_management-OPB-Projektna-Naloga>
+
+## Nogometna liga
+* Avtorji: Žiga Gartner, Jaša Pozne, Mykola Shafranov
+* Repozitorij: <https://github.com/jasapozne/Nogometna_liga>
+
+## Zdravstvo na daljavo
+* Avtorja: Matej Bolta, Luka Simčič
+* Repozitorij: <https://github.com/matejbolta/zdravstvo-na-daljavo>
