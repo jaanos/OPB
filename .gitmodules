@@ -244,3 +244,9 @@
 [submodule "oddaje/2022/Hotel_management-OPB-Projektna-Naloga"]
 	path = oddaje/2022/Hotel_management-OPB-Projektna-Naloga
 	url = https://github.com/UdirL18/Hotel_management-OPB-Projektna-Naloga.git
+[submodule "oddaje/2022/Nogometna_liga"]
+	path = oddaje/2022/Nogometna_liga
+	url = https://github.com/jasapozne/Nogometna_liga.git
+[submodule "oddaje/2022/zdravstvo-na-daljavo"]
+	path = oddaje/2022/zdravstvo-na-daljavo
+	url = https://github.com/matejbolta/zdravstvo-na-daljavo.git
