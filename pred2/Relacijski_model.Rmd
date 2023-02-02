@@ -1,18 +1,18 @@
 ---
 title: "Relacijska algebra in SQL"
 output:
+  ioslides_presentation:
+    incremental: yes
+  slidy_presentation:
+    incremental: yes
   beamer_presentation:
     keep_tex: no
     incremental: no
-  slidy_presentation:
-    incremental: yes
-  ioslides_presentation:
-    incremental: yes
 ---
 
 ## Relacijski model
 
-- star več kot 35 let,
+- star več kot 40 let,
 - uporablja se v večini večjih poslovnih sistemov,
 - enostaven za razumevanje, pregleden,
 - omogoča zmogljive poizvedbe v standardiziranem jeziku SQL,
@@ -52,6 +52,46 @@ knitr::include_graphics('./slike/join.png')
     - http://sqlzoo.net/wiki/SELECT_from_BBC_Tutorial
     - http://sqlzoo.net/wiki/SELECT_from_Nobel_Tutorial
 - Ogledali si bomo stavke `SELECT`, `INSERT`, `UPDATE`, `DELETE`.
+
+## INSERT - vstavljanje vrstic {.build}
+
+- `INSERT` - stavek za vstavljanje vrstic.
+```{sql eval=FALSE}
+INSERT INTO ime_tabele VALUES 
+      (vrednost_prvega_stolpca, ... , vred_zad_st)
+```
+- Naštejemo vse vrednosti za vse stolpce, tudi če so `NULL` ali avtomatično generirani.
+- Poznati moramo vrstni red stolpcev v shemi.
+```{sql eval=FALSE}
+INSERT INTO ime_tabele (stolpec_1, stolpec_2, ...,stlpc_n) 
+      VALUES (vred_stolpca_1, ... , vred_stolpca_n)
+```
+- Naštejemo le vrednosti za izbrane stolpce
+- Ostali se nastavijo na `NULL` ali privzeto vrednost.
+
+## INSERT {.build}
+
+- za `VALUES` lahko naštejemo več vektorjev vrednosti (vrstic) in jih ločimo z vejico.    
+- Vstavljamo lahko tudi rezultat `SELECT` stavka, če se ujema s shemo tabele.
+```{sql eval=FALSE}
+INSERT into ime_tabele 
+        SELECT ... 
+```
+## UPDATE - popravljanje vrstic {.build}
+
+- popravljanje vrednosti v tabeli v vrsticah, ki zadoščajo pogojem ter stolpcih v teh vrsticah, ki jih želimo spremeniti.
+```{sql eval=FALSE}
+UPDATE ime_tabele SET st1 = v1, st2 = v2, ... 
+  WHERE pogoj
+```
+
+## DELETE - brisanje vrstic {.build}
+
+- brisanje vrstic, ki zadoščajo pogoju.
+```{sql eval=FALSE}
+DELETE FROM ime_tabele 
+  WHERE pogoj
+```
 
 ## SELECT {.build}
 
@@ -457,42 +497,3 @@ SELECT movie.title, actor.name FROM movie
       ) AND actor.name <> 'Al Pacino'
 ```
 
-## INSERT - vstavljanje vrstic {.build}
-
-- `INSERT` - stavek za vstavljanje vrstic.
-```{sql eval=FALSE}
-INSERT INTO ime_tabele VALUES 
-      (vrednost_prvega_stolpca, ... , vred_zad_st)
-```
-- Naštejemo vse vrednosti za vse stolpce, tudi če so `NULL` ali avtomatično generirani.
-- Poznati moramo vrstni red stolpcev v shemi.
-```{sql eval=FALSE}
-INSERT INTO ime_tabele (stolpec_1, stolpec_2, ...,stlpc_n) 
-      VALUES (vred_stolpca_1, ... , vred_stolpca_n)
-```
-- Naštejemo le vrednosti za izbrane stolpce
-- Ostali se nastavijo na `NULL` ali privzeto vrednost.
-
-## INSERT {.build}
-
-- za `VALUES` lahko naštejemo več vektorjev vrednosti (vrstic) in jih ločimo z vejico.    
-- Vstavljamo lahko tudi rezultat `SELECT` stavka, če se ujema s shemo tabele.
-```{sql eval=FALSE}
-INSERT into ime_tabele 
-        SELECT ... 
-```
-## UPDATE - popravljanje vrstic {.build}
-
-- popravljanje vrednosti v tabeli v vrsticah, ki zadoščajo pogojem ter stolpcih v teh vrsticah, ki jih želimo spremeniti.
-```{sql eval=FALSE}
-UPDATE ime_tabele SET st1 = v1, st2 = v2, ... 
-  WHERE pogoj
-```
-
-## DELETE - brisanje vrstic {.build}
-
-- brisanje vrstic, ki zadoščajo pogoju.
-```{sql eval=FALSE}
-DELETE FROM ime_tabele 
-  WHERE pogoj
-```
