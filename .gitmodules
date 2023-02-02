@@ -1,25 +1,25 @@
-[submodule "oddaje/ARSO"]
+[submodule "oddaje/2015/ARSO"]
 	path = oddaje/2015/ARSO
 	url = git@bitbucket.org:jureslak/arso-opb.git
-[submodule "oddaje/Optimizacija-donosnosti-portfelja"]
+[submodule "oddaje/2015/Optimizacija-donosnosti-portfelja"]
 	path = oddaje/2015/Optimizacija-donosnosti-portfelja
 	url = git@github.com:zangrjol/Optimizacija-donosnosti-portfelja.git
-[submodule "oddaje/naravne-nesrece"]
+[submodule "oddaje/2015/naravne-nesrece"]
 	path = oddaje/2015/naravne-nesrece
 	url = git@bitbucket.org:jernejzagar/naravne-nesrece.git
-[submodule "oddaje/atlas"]
+[submodule "oddaje/2015/atlas"]
 	path = oddaje/2015/atlas
 	url = git@bitbucket.org:ZigaLuksic/opb-atlas.git
-[submodule "oddaje/hribi"]
+[submodule "oddaje/2015/hribi"]
 	path = oddaje/2015/hribi
 	url = git@bitbucket.org:spelaskvarc/hribi.git
-[submodule "oddaje/breeds-database"]
+[submodule "oddaje/2015/breeds-database"]
 	path = oddaje/2015/breeds-database
 	url = git@bitbucket.org:LenaBencina/breeds-database.git
-[submodule "oddaje/transport"]
+[submodule "oddaje/2015/transport"]
 	path = oddaje/2015/transport
 	url = git@bitbucket.org:anzejcurk/opb-transport.git
-[submodule "oddaje/Ekipa-da-te-skipa"]
+[submodule "oddaje/2015/Ekipa-da-te-skipa"]
 	path = oddaje/2015/Ekipa-da-te-skipa
 	url = https://github.com/MathBB/Ekipa-da-te-skipa.git
 [submodule "oddaje/2016/Profit"]
