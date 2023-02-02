@@ -19,7 +19,7 @@ class Oddelek(Base):
     def __repr__(self):
         return "Oddelek[{0}, {1}]".format(self.id, self.naziv)
 
- 
+     
 class Zaposleni(Base):
     __tablename__ = 'zaposleni'
     id = Column(Integer, primary_key=True)

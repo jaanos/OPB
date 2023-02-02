@@ -45,7 +45,7 @@ with psycopg2.connect(conn_string) as con:
     print(cur.fetchall()) # ko kurzor enkrat vrne podatke se "izčrpa"
 
 # Poizvedba z iteracijo po "odzivniku"
-with sqlite3.connect(baza) as con:
+with psycopg2.connect(baza) as con:
    cur = con.cursor()
    cur.execute("SELECT * from Cars")
    for podatek in cur:

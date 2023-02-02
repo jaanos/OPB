@@ -32,4 +32,4 @@ def hello(a,b):
 
 
 # Če dopišemo reloader=True, se bo sam restartal vsakič, ko spremenimo datoteko
-run(host='localhost', port=8080, reloader=True)
+run(host='localhost', port=8081, reloader=True)
