@@ -1,0 +1,53 @@
+% setdefault('napaka', '')
+% setdefault('naslov', 'Dodaj komitenta')
+% rebase('base.html', napaka=napaka, naslov=naslov)
+
+
+<p>
+    <b>Komitent: </b> {{ime}} {{priimek}}
+</p>
+<p>
+    <b>Račun: </b> {{racun}}
+</p>
+<p>
+    <b>Stanje: </b> {{stanje}}
+</p>
+
+
+<form action="/komitenti/{{emso}}/racuni/{{racun}}/transakcije/dodaj" method="post">
+    <table cellpadding="0" cellspacing="0" border="0" class="edit-celica">
+        <tr>
+            <td>
+                <span>Znesek:</span>
+            </td>
+            <td>
+                <input name="znesek" type="number" step="0.01" required
+                    oninput="preveriPolje(this)"
+                    oninvalid="preveriPolje(this)"
+                    />
+            </td>
+        </tr>
+        <tr>
+            <td>
+
+            </td>
+            <td>
+                <input value="Dodaj" type="submit" />
+            </td>
+        </tr>
+    </table>
+</form>
+
+
+<script>
+    function preveriPolje(polje) {
+        console.log(polje.validity)
+        if(polje.validity.valueMissing) {
+            polje.setCustomValidity('Obvezno polje')
+        } else if(polje.validity.stepMismatch) {
+            polje.setCustomValidity('Vpisati morate vrednost na največ 2 decimalki natančno')
+        } else {
+            polje.setCustomValidity('')
+        }
+    }
+</script>

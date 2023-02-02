@@ -1,0 +1,29 @@
+% rebase('base.html', napaka=napaka, naslov='Pošte')
+
+<div style="display: inline-block;">
+  % include('orodna-vrstica.html', povezava='/poste/dodaj', napis="Dodaj pošto")
+
+  <table id="izpis" cellpadding="0" cellspacing="0" border="1">
+    <tr>
+      <th>Poštna številka</th>
+      <th>Kraj</th>
+      <th>Akcije</th>
+    </tr>
+    %for (postna_stevilka, kraj) in poste:
+    <tr>
+      <td>{{postna_stevilka}}</td>
+      <td>{{kraj}}</td>
+      <td>
+        <div class="akcije">
+          <form action="/poste/brisi/{{postna_stevilka}}" method="post" class="akcija">
+            <a href="#" onclick="this.parentElement.submit()">Briši</a>
+          </form>
+          <form action="/poste/uredi/{{postna_stevilka}}" method="get" class="akcija">
+            <a href="#" onclick="this.parentElement.submit()">Uredi</a>
+          </form>
+        </div>
+      </td>
+    </tr>
+    %end
+  </table>
+</div>

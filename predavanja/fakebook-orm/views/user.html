@@ -1,0 +1,67 @@
+% rebase('base.html', title=uporabnik_ime)
+
+<div class="page-header">
+<h1>{{uporabnik_ime}}</h1>
+</h1>
+</div>
+
+<ul class="list-group">
+<li class="list-group-item">Trači <span class="badge">{{trac_count}}</span></li>
+<li class="list-group-item">Komentarji <span class="badge">{{komentar_count}}</span></li>
+</ul>
+
+%if username == uporabnik:
+   <form class="form-horizontal" method="post" action=".">
+   <fieldset>
+
+   <!-- Form Name -->
+   <legend>Spremenite svoje podatke</legend>
+
+   %for sporocilo in sporocila:
+     <div class="alert {{sporocilo[0]}}">{{sporocilo[1]}}</div>
+   %end
+
+   <!-- Password input-->
+   <div class="control-group">
+     <label class="control-label" for="password1">Staro geslo</label>
+     <div class="controls">
+       <input id="passwordinput" name="password1" type="password" placeholder="" class="input-xlarge" required="">
+     </div>
+   </div>
+
+   <!-- Text input-->
+   <div class="control-group">
+     <label class="control-label" for="textinput">Polno ime</label>
+     <div class="controls">
+       <input id="textinput" name="ime" value="{{ime}}" type="text" placeholder="" class="input-xlarge" required="">
+     </div>
+   </div>
+
+   <!-- Password input-->
+   <div class="control-group">
+     <label class="control-label" for="password2">Novo geslo</label>
+     <div class="controls">
+       <input id="password2" name="password2" type="password" placeholder="" class="input-xlarge">
+
+     </div>
+   </div>
+
+   <!-- Password input-->
+   <div class="control-group">
+     <label class="control-label" for="password3">Potrdite geslo</label>
+     <div class="controls">
+       <input id="password3" name="password3" type="password" placeholder="" class="input-xlarge">
+     </div>
+   </div>
+
+   <!-- Button -->
+   <div class="control-group">
+     <label class="control-label" for="singlebutton"></label>
+     <div class="controls">
+       <button id="singlebutton" name="singlebutton" class="btn btn-primary">Spremeni</button>
+     </div>
+   </div>
+
+   </fieldset>
+   </form>
+%end
