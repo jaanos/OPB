@@ -1,0 +1,37 @@
+
+% setdefault('napaka', '')
+% rebase('base.html', napaka=napaka, naslov='Komitenti')
+
+% include('orodna-vrstica.html', povezava='/komitenti/dodaj', napis="Dodaj komitenta", stolpci='[1,2,3,4]')
+<table id="izpis" class="table table-striped">
+  <tr>
+    <th>Emšo</th>
+    <th>Ime</th>
+    <th>Priimek</th>
+    <th>Naslov</th>
+    <th>Pošta</th>
+    <th>Akcije</th>
+  </tr>
+  %for (ime,priimek,emso, ulica, hisna_stevilka, postna_stevilka, kraj) in komitenti:
+  <tr>
+    <td>{{emso}}</td>
+    <td>{{ime}}</td>
+    <td>{{priimek}}</td>
+    <td>{{ulica}} {{hisna_stevilka}}</td>
+    <td>{{postna_stevilka}} {{kraj}}</td>
+    <td>
+      <div class="akcije">
+        <form action="/komitenti/brisi/{{emso}}" method="post" class="akcija">
+          <a href="#" onclick="this.parentElement.submit()">Briši</a>
+        </form>
+        <form action="/komitenti/uredi/{{emso}}" method="get" class="akcija">
+          <a href="#" onclick="this.parentElement.submit()">Uredi</a>
+        </form>
+        <form action="/komitenti/{{emso}}/racuni" method="get" class="akcija">
+          <a href="#" onclick="this.parentElement.submit()">Računi</a>
+        </form>
+      </div>
+    </td>
+  </tr>
+  %end
+</table>

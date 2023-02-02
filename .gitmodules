@@ -1,0 +1,24 @@
+[submodule "oddaje/ARSO"]
+	path = oddaje/ARSO
+	url = git@bitbucket.org:jureslak/arso-opb.git
+[submodule "oddaje/Optimizacija-donosnosti-portfelja"]
+	path = oddaje/Optimizacija-donosnosti-portfelja
+	url = git@github.com:zangrjol/Optimizacija-donosnosti-portfelja.git
+[submodule "oddaje/naravne-nesrece"]
+	path = oddaje/naravne-nesrece
+	url = git@bitbucket.org:jernejzagar/naravne-nesrece.git
+[submodule "oddaje/atlas"]
+	path = oddaje/atlas
+	url = git@bitbucket.org:ZigaLuksic/opb-atlas.git
+[submodule "oddaje/hribi"]
+	path = oddaje/hribi
+	url = git@bitbucket.org:spelaskvarc/hribi.git
+[submodule "oddaje/breeds-database"]
+	path = oddaje/breeds-database
+	url = git@bitbucket.org:LenaBencina/breeds-database.git
+[submodule "oddaje/transport"]
+	path = oddaje/transport
+	url = git@bitbucket.org:anzejcurk/opb-transport.git
+[submodule "oddaje/Ekipa-da-te-skipa"]
+	path = oddaje/Ekipa-da-te-skipa
+	url = https://github.com/MathBB/Ekipa-da-te-skipa.git

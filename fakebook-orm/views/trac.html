@@ -1,0 +1,30 @@
+<a name="trac-{{tid}}">
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <a class="trac-avtor" href="/user/{{avtor}}/">{{avtor_ime}}</a>
+    <span class="trac-cas">{{cas}}</span>
+  </div>
+  <div class="panel-body">
+    <div class="trac-vsebina">{{vsebina}}</div>
+    <div class="track-kontrole">
+    %if avtor == username:
+    <a href="/trac/{{tid}}/delete/">zbriši</a>
+    %end
+    </div>
+    %for (username, ime, vsebina) in komentarji:
+    <div class="well well-sm">
+      <a href="/user/{{username}}/">{{ime}}</a>:
+      {{vsebina}}
+    </div>
+    %end
+    <div class="panel-footer">
+      <div class="panel-body">
+       <form method="post" action="/komentar/{{tid}}/">
+          <textarea class="komentar" name="komentar"></textarea>
+          <input type="submit" value="Vnesi"/>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+</a>
