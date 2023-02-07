@@ -1,0 +1,225 @@
+---
+title: "Osnove podatkovnih baz"
+output:
+  ioslides_presentation:
+    incremental: yes
+  beamer_presentation:
+    incremental: no
+---
+
+# Sistemi za upravljanje podatkovnih baz
+
+## Motivacija
+
+- Trajno shranjevanje
+- Datoteke?
+    - neučinkovite operacije (iskanje, pisanje, ... )
+    - omejitev velikosti, nedistribuiranost, 
+    - oteženo večuporabniško delo, ... 
+- Podatkovne baze učinkovito naslavljajo vse te probleme ...
+
+## DBMS - Database management systems
+
+Zagotavljajo *trajno* shranjevanje *masovnih* podatkovnih zbirk in pri tem poskrbijo za:
+
+- učinkovitost
+- zanesljivost
+- priročnost
+- *varno več uporabniško* shranjevanje in dostopanje do podatkov
+
+
+## Strukturira podatkovnih baz
+
+- Podatkovni model (tabele, XML, graf)
+- Shema in podatki 
+- Jezik za opis shem
+- Jezik za manipulacijo podatkov
+
+## Uporabniki
+
+- Razvijalec DMBS
+- Načrtovalec podatkovne baze
+- Razvijalec programske opreme
+- Skrbniki podatkovne baze (administrator)
+
+## Sočasen dostop
+
+- Transakcije: zaporedje operacij, ki se izvedejo v celoti in brez vzporednih operacij s strani drugih uporabnikov
+- ACID (Atomicity, Consistency, Isolation, Durability):
+    - Atomarnost: transakcije so atomarne
+    - Konsistentnost: pretvorba konsistentnega stanja v konsistentno
+    - Izoliranost: rezultat transakcije neviden ostalim do zaključka transakcije
+    - Stalnost: rezultati transakcij morajo ostati stalni in preživeti "okvare" baz
+
+## Vrste sistemov za upravljanje podatkovnih baz
+
+- RDBMS
+- Relacijski (MySQL, Postgres, Oracle, Sqlite, DB2, MSSQL, …)
+- NOSQL: grafovski (Neo4j, Titan), dokumentni (MongoDB, Elasticsearch), ključ-vrednost (Dynamo, BigTable), tabelarične (HBase), ... 
+- Pogovorno rečemo sistemu za upravljanje kar "baza"
+
+# Primer - Banka
+## Banka
+- Sestavimo preprosto shemo za banko.
+- Kaj rabimo?
+    - Osebe: ime, priimek, EMŠO, naslov
+    - Račun: številka, lastnik (referenca na osebo)
+    - Transakcija: številka, račun (referenca na račun), znesek, opis, čas
+- Uporabimo SQLite narečje jezika SQL
+
+
+## Tabela *oseba* {.smaller .build}
+
+- *ime*, *priimek*: ločimo ime in priimek - bolj kakovostni podatki
+- *emso*: vsaka vrstica v tabeli rabi identifikator. 
+    - EMŠO je naravni identifikator, zato ga uporabimo.
+    - Če se le da, uporabljamo naravne identifikatorje
+- *naslov*: poln naslov brez pošte
+    - lahko bi ločili ulico, številko (kaj pa poštni predal, čudne številke ...)
+- *posta*: uporabimo šifrant pošt in številk - lahko se skličemo na drugo tabelo (glej tablo *kraj*)
+```{sql eval=FALSE}
+CREATE TABLE oseba (
+  emso  TEXT PRIMARY KEY,
+  ime   TEXT,
+  priimek TEXT,
+  ulica   TEXT,
+  posta   INTEGER,
+  CONSTRAINT oseba_1 FOREIGN KEY (posta) 
+      REFERENCES kraj(posta)
+);
+```
+
+## Tabela *kraj* {.build}
+
+- *posta*: poštna številka; identifikator
+- *kraj*: ime kraja
+```{sql eval=FALSE}
+CREATE TABLE kraj (
+  posta INTEGER PRIMARY KEY,
+  kraj  TEXT
+);
+```
+
+## Tabela *racun* {.build}
+
+- *stevilka*: številka računa; identifikator; želimo, da se avtomatično generira
+- *lastnik*: referenca na lastnika računa (tabela *oseba*, stolpec *emso*)
+```{sql eval=FALSE}
+CREATE TABLE racun (
+  stevilka INTEGER PRIMARY KEY AUTOINCREMENT,
+  lastnik TEXT NOT NULL,
+  CONSTRAINT racun_1 FOREIGN KEY (lastnik) 
+      REFERENCES oseba(emso)
+);
+```
+
+## Tabela *transakcija* {.smaller .build}
+
+- *id*: ni naravnega identifikatorja, številčimo sami
+- *racun*: sklic na tabelo *racun*, stolpec *stevilka*
+- *znesek*: celoštevilski zneske (poenostavitev: "prave" baze bi imele tu računovodski znesek, ki omogoča pravilno zaokroževanje)
+- *cas*: čas transakcije; poskrbimo, da se avtomatično generira ob vpisu
+```{sql eval=FALSE}
+CREATE TABELE transakcija (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  racun INTEGER NOT NULL,
+  znesek INTEGER NOT NULL, 
+  cas TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  opis TEXT,
+  CONSTRAINT transakcija_1 FOREIGN KEY (racun) 
+      REFERENCES racun(stevilka)
+);
+```
+
+## [Banka](01-uvod/banka.sql) - celoten SQL, narečje PSQLite - 1
+
+```{sql eval=FALSE}
+CREATE TABLE kraj (
+  posta INTEGER PRIMARY KEY,
+  kraj  TEXT
+);
+CREATE TABLE oseba (
+  emso  TEXT PRIMARY KEY,
+  ime   TEXT,
+  priimek TEXT,
+  ulica   TEXT,
+  posta   INTEGER,
+  CONSTRAINT oseba_1 FOREIGN KEY (posta) 
+      REFERENCES kraj(posta)
+);
+```
+
+## [Banka](01-uvod/banka.sql) - celoten SQL, narečje PSQLite - 2
+
+```{sql eval=FALSE}
+CREATE TABLE racun (
+  stevilka INTEGER PRIMARY KEY AUTOINCREMENT,
+  lastnik TEXT NOT NULL,
+  CONSTRAINT racun_1 FOREIGN KEY (lastnik) 
+      REFERENCES oseba(emso)
+);
+
+CREATE TABELE transakcija (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  racun INTEGER NOT NULL,
+  znesek INTEGER NOT NULL, 
+  cas TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  opis TEXT,
+  CONSTRAINT transakcija_1 FOREIGN KEY (racun) 
+      REFERENCES racun(stevilka)
+);
+```
+
+## [Banka](01-uvod/banka.postgresql) - narečje Postgres - 1 {.smaller}
+
+```{sql eval=FALSE}
+--- VERZIJA ZA POSTGRESQL ---
+-- tabela krajev s postnimi stevilkami 
+CREATE TABLE kraj (
+  posta  	INTEGER PRIMARY KEY,
+  kraj		TEXT
+);
+-- tabela fizicnih oseb, ki so lastniki racunov
+CREATE TABLE oseba (
+  emso		TEXT PRIMARY KEY,
+  ime		TEXT,
+  priimek	TEXT,
+  rojstvo	DATE,
+  ulica		TEXT,
+  posta		INTEGER,
+  CONSTRAINT oseba_1 FOREIGN KEY (posta) 
+    REFERENCES kraj(posta)
+);
+
+```
+
+## [Banka](01-uvod/banka.postgresql) - narečje Postgres - 2 
+```{sql eval=FALSE}
+-- tabela racunov
+-- stevec racunov, se avtomaticno povecuje sam
+CREATE SEQUENCE "rstevec" START 100000; 
+
+CREATE TABLE racun (
+  stevilka INTEGER DEFAULT NEXTVAL('rstevec') PRIMARY KEY,
+  lastnik TEXT NOT NULL,
+  CONSTRAINT racun_1 FOREIGN KEY (lastnik) 
+    REFERENCES oseba(emso)
+);
+```
+
+## [Banka](01-uvod/banka.postgresql) - narečje Postgres - 3
+```{sql eval=FALSE}
+-- tabela vseh transakcij (pologov in dvigov denarja)
+-- stevec transakcij
+CREATE SEQUENCE "tstevec" START 1;
+
+CREATE TABLE transakcija (
+  id INTEGER DEFAULT NEXTVAL('tstevec') PRIMARY KEY,
+  znesek INTEGER NOT NULL,
+  racun INTEGER NOT NULL,
+  cas TIMESTAMP NOT NULL DEFAULT NOW(),
+  opis TEXT,
+  CONSTRAINT transakcija_1 FOREIGN KEY (racun) 
+      REFERENCES racun(stevilka)
+);
+```
