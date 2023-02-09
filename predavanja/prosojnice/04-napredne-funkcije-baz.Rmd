@@ -23,7 +23,7 @@ output:
 
 ## Sqlite in Postgres preko Pythona in R
 
-- Ogledali si bomo konkretne primere (mapica [`04-napredne-funkcije-baz`](04-napredne-funkcije-baz)).
+- Ogledali si bomo konkretne primere (mapa [`04-napredne-funkcije-baz`](https://github.com/jaanos/OPB/tree/gh-pages/predavanja/prosojnice/04-napredne-funkcije-baz)).
 - Za Postgres potrebujemo bazo, kjer imamo dovolj pravic.
 
 ## Namestitev Linuxa

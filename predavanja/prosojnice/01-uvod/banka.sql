@@ -6,7 +6,7 @@
 ----------------------------------------------------------------------
 
 ----------------------------------------------------------------------
--- tabela krajev s postnimi stevilkami 
+-- tabela krajev s poštnimi številkami 
 ----------------------------------------------------------------------
 CREATE TABLE kraj (
   posta		INTEGER PRIMARY KEY,
@@ -14,28 +14,25 @@ CREATE TABLE kraj (
 );
 
 ----------------------------------------------------------------------
--- tabela fizicnih oseb, ki so lastniki racunov
+-- tabela fizičnih oseb, ki so lastniki računov
 ----------------------------------------------------------------------
 
 CREATE TABLE oseba (
-  emso		TEXT PRIMARY KEY,
-  ime		TEXT,
-  priimek	TEXT,
-  rojstvo	DATE,
-  ulica		TEXT,
-  posta		INTEGER,
-  CONSTRAINT oseba_1 FOREIGN KEY (posta) REFERENCES kraj(posta)
+  emso    TEXT PRIMARY KEY,
+  ime     TEXT,
+  priimek TEXT,
+  ulica   TEXT,
+  posta   INTEGER REFERENCES kraj(posta)
 );
 
 
 ----------------------------------------------------------------------
--- tabela racunov
+-- tabela računov
 ----------------------------------------------------------------------
 
 CREATE TABLE racun (
-  stevilka      INTEGER PRIMARY KEY AUTOINCREMENT,
-  lastnik       TEXT NOT NULL,
-  CONSTRAINT racun_1 FOREIGN KEY (lastnik) REFERENCES oseba(emso)
+  stevilka INTEGER PRIMARY KEY AUTOINCREMENT,
+  lastnik  TEXT NOT NULL REFERENCES oseba(emso)
 );
 
 ----------------------------------------------------------------------
@@ -43,13 +40,9 @@ CREATE TABLE racun (
 ----------------------------------------------------------------------
 
 CREATE TABLE transakcija (
-  id            INTEGER PRIMARY KEY AUTOINCREMENT,
-  znesek        INTEGER NOT NULL,
-  racun         INTEGER NOT NULL,
-  cas           TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  opis          TEXT,
-  CONSTRAINT transakcija_1 FOREIGN KEY (racun) REFERENCES racun(stevilka)
+  id     INTEGER PRIMARY KEY AUTOINCREMENT,
+  racun  INTEGER NOT NULL REFERENCES racun(stevilka),
+  znesek INTEGER NOT NULL, 
+  cas    TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  opis   TEXT
 );
-
-
-
