@@ -3194,7 +3194,7 @@ slide:not(.current) .plotly.html-widget{
 <li>Datoteke?
 
 <ul class = 'build'>
-<li>neučinkovite operacije (iskanje, pisanje, … )</li>
+<li>neučinkovite operacije (iskanje, pisanje, …)</li>
 <li>omejitev velikosti, nedistribuiranost,</li>
 <li>oteženo večuporabniško delo, …</li>
 </ul></li>
@@ -3209,10 +3209,10 @@ slide:not(.current) .plotly.html-widget{
 <li>učinkovitost</li>
 <li>zanesljivost</li>
 <li>priročnost</li>
-<li><em>varno več uporabniško</em> shranjevanje in dostopanje do podatkov</li>
+<li><em>varno večuporabniško</em> shranjevanje in dostopanje do podatkov</li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Strukturira podatkovnih baz</h2></hgroup><article  id="strukturira-podatkovnih-baz">
+</article></slide><slide class=""><hgroup><h2>Struktura podatkovnih baz</h2></hgroup><article  id="struktura-podatkovnih-baz">
 
 <ul class = 'build'>
 <li>Podatkovni model (tabele, XML, graf)</li>
@@ -3224,7 +3224,7 @@ slide:not(.current) .plotly.html-widget{
 </article></slide><slide class=""><hgroup><h2>Uporabniki</h2></hgroup><article  id="uporabniki">
 
 <ul class = 'build'>
-<li>Razvijalec DMBS</li>
+<li>Razvijalec DBMS</li>
 <li>Načrtovalec podatkovne baze</li>
 <li>Razvijalec programske opreme</li>
 <li>Skrbniki podatkovne baze (administrator)</li>
@@ -3273,10 +3273,10 @@ slide:not(.current) .plotly.html-widget{
 
 <ul class = 'build'>
 <li><em>ime</em>, <em>priimek</em>: ločimo ime in priimek - bolj kakovostni podatki</li>
-<li><em>emso</em>: vsaka vrstica v tabeli rabi identifikator.
+<li><em>emso</em>: vsaka vrstica v tabeli rabi identifikator
 
 <ul class = 'build'>
-<li>EMŠO je naravni identifikator, zato ga uporabimo.</li>
+<li>EMŠO je naravni identifikator, zato ga uporabimo</li>
 <li>Če se le da, uporabljamo naravne identifikatorje</li>
 </ul></li>
 <li><em>naslov</em>: poln naslov brez pošte
@@ -3284,17 +3284,15 @@ slide:not(.current) .plotly.html-widget{
 <ul class = 'build'>
 <li>lahko bi ločili ulico, številko (kaj pa poštni predal, čudne številke …)</li>
 </ul></li>
-<li><em>posta</em>: uporabimo šifrant pošt in številk - lahko se skličemo na drugo tabelo (glej tablo <em>kraj</em>)</li>
+<li><em>posta</em>: uporabimo šifrant pošt in številk - lahko se skličemo na drugo tabelo (glej tabelo <em>kraj</em>)</li>
 </ul>
 
 <pre class = 'prettyprint lang-sql'>CREATE TABLE oseba (
-  emso  TEXT PRIMARY KEY,
-  ime   TEXT,
+  emso    TEXT PRIMARY KEY,
+  ime     TEXT,
   priimek TEXT,
   ulica   TEXT,
-  posta   INTEGER,
-  CONSTRAINT oseba_1 FOREIGN KEY (posta) 
-      REFERENCES kraj(posta)
+  posta   INTEGER REFERENCES kraj(posta)
 );</pre>
 
 </article></slide><slide class=""><hgroup><h2>Tabela <em>kraj</em></h2></hgroup><article  class="build" id="tabela-kraj">
@@ -3318,9 +3316,7 @@ slide:not(.current) .plotly.html-widget{
 
 <pre class = 'prettyprint lang-sql'>CREATE TABLE racun (
   stevilka INTEGER PRIMARY KEY AUTOINCREMENT,
-  lastnik TEXT NOT NULL,
-  CONSTRAINT racun_1 FOREIGN KEY (lastnik) 
-      REFERENCES oseba(emso)
+  lastnik  TEXT NOT NULL REFERENCES oseba(emso)
 );</pre>
 
 </article></slide><slide class=""><hgroup><h2>Tabela <em>transakcija</em></h2></hgroup><article  class="smaller build" id="tabela-transakcija">
@@ -3328,103 +3324,90 @@ slide:not(.current) .plotly.html-widget{
 <ul class = 'build'>
 <li><em>id</em>: ni naravnega identifikatorja, številčimo sami</li>
 <li><em>racun</em>: sklic na tabelo <em>racun</em>, stolpec <em>stevilka</em></li>
-<li><em>znesek</em>: celoštevilski zneske (poenostavitev: &ldquo;prave&rdquo; baze bi imele tu računovodski znesek, ki omogoča pravilno zaokroževanje)</li>
+<li><em>znesek</em>: celoštevilski znesek (poenostavitev: &ldquo;prave&rdquo; baze bi imele tu računovodski znesek, ki omogoča pravilno zaokroževanje)</li>
 <li><em>cas</em>: čas transakcije; poskrbimo, da se avtomatično generira ob vpisu</li>
 </ul>
 
-<pre class = 'prettyprint lang-sql'>CREATE TABELE transakcija (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  racun INTEGER NOT NULL,
+<pre class = 'prettyprint lang-sql'>CREATE TABLE transakcija (
+  id     INTEGER PRIMARY KEY AUTOINCREMENT,
+  racun  INTEGER NOT NULL REFERENCES racun(stevilka),
   znesek INTEGER NOT NULL, 
-  cas TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  opis TEXT,
-  CONSTRAINT transakcija_1 FOREIGN KEY (racun) 
-      REFERENCES racun(stevilka)
+  cas    TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  opis   TEXT
 );</pre>
 
-</article></slide><slide class=""><hgroup><h2><a href='01-uvod/banka.sql' title=''>Banka</a> - celoten SQL, narečje PSQLite - 1</h2></hgroup><article  id="banka---celoten-sql-narečje-psqlite---1">
+</article></slide><slide class=""><hgroup><h2><a href='https://github.com/jaanos/OPB/tree/master/predavanja/prosojnice/01-uvod/banka.sql' title=''>Banka</a> - celoten SQL, narečje SQLite - 1</h2></hgroup><article  id="banka---celoten-sql-narečje-sqlite---1">
 
 <pre class = 'prettyprint lang-sql'>CREATE TABLE kraj (
   posta INTEGER PRIMARY KEY,
   kraj  TEXT
 );
+
 CREATE TABLE oseba (
-  emso  TEXT PRIMARY KEY,
-  ime   TEXT,
+  emso    TEXT PRIMARY KEY,
+  ime     TEXT,
   priimek TEXT,
   ulica   TEXT,
-  posta   INTEGER,
-  CONSTRAINT oseba_1 FOREIGN KEY (posta) 
-      REFERENCES kraj(posta)
+  posta   INTEGER REFERENCES kraj(posta)
 );</pre>
 
-</article></slide><slide class=""><hgroup><h2><a href='01-uvod/banka.sql' title=''>Banka</a> - celoten SQL, narečje PSQLite - 2</h2></hgroup><article  id="banka---celoten-sql-narečje-psqlite---2">
+</article></slide><slide class=""><hgroup><h2><a href='https://github.com/jaanos/OPB/tree/master/predavanja/prosojnice/01-uvod/banka.sql' title=''>Banka</a> - celoten SQL, narečje SQLite - 2</h2></hgroup><article  id="banka---celoten-sql-narečje-sqlite---2">
 
 <pre class = 'prettyprint lang-sql'>CREATE TABLE racun (
   stevilka INTEGER PRIMARY KEY AUTOINCREMENT,
-  lastnik TEXT NOT NULL,
-  CONSTRAINT racun_1 FOREIGN KEY (lastnik) 
-      REFERENCES oseba(emso)
+  lastnik  TEXT NOT NULL REFERENCES oseba(emso)
 );
 
-CREATE TABELE transakcija (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  racun INTEGER NOT NULL,
+CREATE TABLE transakcija (
+  id     INTEGER PRIMARY KEY AUTOINCREMENT,
+  racun  INTEGER NOT NULL REFERENCES racun(stevilka),
   znesek INTEGER NOT NULL, 
-  cas TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  opis TEXT,
-  CONSTRAINT transakcija_1 FOREIGN KEY (racun) 
-      REFERENCES racun(stevilka)
+  cas    TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  opis   TEXT
 );</pre>
 
-</article></slide><slide class=""><hgroup><h2><a href='01-uvod/banka.postgresql' title=''>Banka</a> - narečje Postgres - 1</h2></hgroup><article  class="smaller" id="banka---narečje-postgres---1">
+</article></slide><slide class=""><hgroup><h2><a href='https://github.com/jaanos/OPB/tree/master/predavanja/prosojnice/01-uvod/banka.postgresql' title=''>Banka</a> - narečje PostgreSQL - 1</h2></hgroup><article  id="banka---narečje-postgresql---1">
 
 <pre class = 'prettyprint lang-sql'>--- VERZIJA ZA POSTGRESQL ---
--- tabela krajev s postnimi stevilkami 
+
+-- tabela krajev s poštnimi številkami
 CREATE TABLE kraj (
-  posta     INTEGER PRIMARY KEY,
-  kraj      TEXT
+  posta INTEGER PRIMARY KEY,
+  kraj  TEXT
 );
--- tabela fizicnih oseb, ki so lastniki racunov
+
+-- tabela fizičnih oseb, ki so lastniki računov
 CREATE TABLE oseba (
-  emso      TEXT PRIMARY KEY,
-  ime       TEXT,
-  priimek   TEXT,
-  rojstvo   DATE,
-  ulica     TEXT,
-  posta     INTEGER,
-  CONSTRAINT oseba_1 FOREIGN KEY (posta) 
-    REFERENCES kraj(posta)
-);
-</pre>
+  emso    TEXT PRIMARY KEY,
+  ime     TEXT,
+  priimek TEXT,
+  rojstvo DATE,
+  ulica   TEXT,
+  posta   INTEGER REFERENCES kraj(posta)
+);</pre>
 
-</article></slide><slide class=""><hgroup><h2><a href='01-uvod/banka.postgresql' title=''>Banka</a> - narečje Postgres - 2</h2></hgroup><article  id="banka---narečje-postgres---2">
+</article></slide><slide class=""><hgroup><h2><a href='https://github.com/jaanos/OPB/tree/master/predavanja/prosojnice/01-uvod/banka.postgresql' title=''>Banka</a> - narečje PostgreSQL - 2</h2></hgroup><article  id="banka---narečje-postgresql---2">
 
-<pre class = 'prettyprint lang-sql'>-- tabela racunov
--- stevec racunov, se avtomaticno povecuje sam
+<pre class = 'prettyprint lang-sql'>-- tabela računov
+-- števec računov, se avtomatično povečuje sam
 CREATE SEQUENCE &quot;rstevec&quot; START 100000; 
 
 CREATE TABLE racun (
-  stevilka INTEGER DEFAULT NEXTVAL(&#39;rstevec&#39;) PRIMARY KEY,
-  lastnik TEXT NOT NULL,
-  CONSTRAINT racun_1 FOREIGN KEY (lastnik) 
-    REFERENCES oseba(emso)
+  stevilka INTEGER PRIMARY KEY
+           DEFAULT NEXTVAL(&#39;rstevec&#39;),
+  lastnik  TEXT NOT NULL REFERENCES oseba(emso)
 );</pre>
 
-</article></slide><slide class=""><hgroup><h2><a href='01-uvod/banka.postgresql' title=''>Banka</a> - narečje Postgres - 3</h2></hgroup><article  id="banka---narečje-postgres---3">
+</article></slide><slide class=""><hgroup><h2><a href='https://github.com/jaanos/OPB/tree/master/predavanja/prosojnice/01-uvod/banka.postgresql' title=''>Banka</a> - narečje PostgreSQL - 3</h2></hgroup><article  id="banka---narečje-postgresql---3">
 
 <pre class = 'prettyprint lang-sql'>-- tabela vseh transakcij (pologov in dvigov denarja)
--- stevec transakcij
-CREATE SEQUENCE &quot;tstevec&quot; START 1;
-
 CREATE TABLE transakcija (
-  id INTEGER DEFAULT NEXTVAL(&#39;tstevec&#39;) PRIMARY KEY,
+  id     SERIAL PRIMARY KEY,
+         -- tip INTEGER s števcem z začetkom 1
   znesek INTEGER NOT NULL,
-  racun INTEGER NOT NULL,
-  cas TIMESTAMP NOT NULL DEFAULT NOW(),
-  opis TEXT,
-  CONSTRAINT transakcija_1 FOREIGN KEY (racun) 
-      REFERENCES racun(stevilka)
+  racun  INTEGER NOT NULL REFERENCES racun(stevilka),
+  cas    TIMESTAMP NOT NULL DEFAULT NOW(),
+  opis   TEXT
 );</pre></article></slide>
 
 
