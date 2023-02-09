@@ -1,2 +1,3 @@
 bottle.py linguist-vendored
 auth.template linguist-language=Python
+*.postgresql linguist-language=SQL
