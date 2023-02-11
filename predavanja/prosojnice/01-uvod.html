@@ -3077,6 +3077,10 @@ if (document.readyState !== "loading" &&
       display: list-item;
     }
 
+    details > summary > p:only-child {
+      display: inline;
+    }
+
     slides > slide {
       -webkit-transition: all 0.4s ease-in-out;
       -moz-transition: all 0.4s ease-in-out;
@@ -3248,8 +3252,8 @@ slide:not(.current) .plotly.html-widget{
 
 <ul class = 'build'>
 <li>RDBMS</li>
-<li>Relacijski (MySQL, Postgres, Oracle, Sqlite, DB2, MSSQL, …)</li>
-<li>NOSQL: grafovski (Neo4j, Titan), dokumentni (MongoDB, Elasticsearch), ključ-vrednost (Dynamo, BigTable), tabelarične (HBase), …</li>
+<li>Relacijski (MySQL, PostgreSQL, Oracle, SQLite, DB2, MSSQL, …)</li>
+<li>NoSQL: grafovski (Neo4j, Titan), dokumentni (MongoDB, Elasticsearch), ključ-vrednost (Dynamo, Bigtable), tabelarične (HBase), …</li>
 <li>Pogovorno rečemo sistemu za upravljanje kar &ldquo;baza&rdquo;</li>
 </ul>
 
@@ -3289,10 +3293,10 @@ slide:not(.current) .plotly.html-widget{
 
 <pre class = 'prettyprint lang-sql'>CREATE TABLE oseba (
   emso    TEXT PRIMARY KEY,
-  ime     TEXT,
-  priimek TEXT,
-  ulica   TEXT,
-  posta   INTEGER REFERENCES kraj(posta)
+  ime     TEXT NOT NULL,
+  priimek TEXT NOT NULL,
+  ulica   TEXT NOT NULL,
+  posta   INTEGER NOT NULL REFERENCES kraj(posta)
 );</pre>
 
 </article></slide><slide class=""><hgroup><h2>Tabela <em>kraj</em></h2></hgroup><article  class="build" id="tabela-kraj">
@@ -3304,7 +3308,7 @@ slide:not(.current) .plotly.html-widget{
 
 <pre class = 'prettyprint lang-sql'>CREATE TABLE kraj (
   posta INTEGER PRIMARY KEY,
-  kraj  TEXT
+  kraj  TEXT NOT NULL
 );</pre>
 
 </article></slide><slide class=""><hgroup><h2>Tabela <em>racun</em></h2></hgroup><article  class="build" id="tabela-racun">
@@ -3340,15 +3344,15 @@ slide:not(.current) .plotly.html-widget{
 
 <pre class = 'prettyprint lang-sql'>CREATE TABLE kraj (
   posta INTEGER PRIMARY KEY,
-  kraj  TEXT
+  kraj  TEXT NOT NULL
 );
 
 CREATE TABLE oseba (
   emso    TEXT PRIMARY KEY,
-  ime     TEXT,
-  priimek TEXT,
-  ulica   TEXT,
-  posta   INTEGER REFERENCES kraj(posta)
+  ime     TEXT NOT NULL,
+  priimek TEXT NOT NULL,
+  ulica   TEXT NOT NULL,
+  posta   INTEGER NOT NULL REFERENCES kraj(posta)
 );</pre>
 
 </article></slide><slide class=""><hgroup><h2><a href='https://github.com/jaanos/OPB/tree/master/predavanja/prosojnice/01-uvod/banka.sql' title=''>Banka</a> - celoten SQL, narečje SQLite - 2</h2></hgroup><article  id="banka---celoten-sql-narečje-sqlite---2">
