@@ -58,8 +58,8 @@ Zagotavljajo *trajno* shranjevanje *masovnih* podatkovnih zbirk in pri tem poskr
 ## Vrste sistemov za upravljanje podatkovnih baz
 
 - RDBMS
-- Relacijski (MySQL, Postgres, Oracle, Sqlite, DB2, MSSQL, …)
-- NOSQL: grafovski (Neo4j, Titan), dokumentni (MongoDB, Elasticsearch), ključ-vrednost (Dynamo, BigTable), tabelarične (HBase), ... 
+- Relacijski (MySQL, PostgreSQL, Oracle, SQLite, DB2, MSSQL, …)
+- NoSQL: grafovski (Neo4j, Titan), dokumentni (MongoDB, Elasticsearch), ključ-vrednost (Dynamo, Bigtable), tabelarične (HBase), ...
 - Pogovorno rečemo sistemu za upravljanje kar "baza"
 
 
@@ -88,10 +88,10 @@ Zagotavljajo *trajno* shranjevanje *masovnih* podatkovnih zbirk in pri tem poskr
 ```{sql eval=FALSE}
 CREATE TABLE oseba (
   emso    TEXT PRIMARY KEY,
-  ime     TEXT,
-  priimek TEXT,
-  ulica   TEXT,
-  posta   INTEGER REFERENCES kraj(posta)
+  ime     TEXT NOT NULL,
+  priimek TEXT NOT NULL,
+  ulica   TEXT NOT NULL,
+  posta   INTEGER NOT NULL REFERENCES kraj(posta)
 );
 ```
 
@@ -103,7 +103,7 @@ CREATE TABLE oseba (
 ```{sql eval=FALSE}
 CREATE TABLE kraj (
   posta INTEGER PRIMARY KEY,
-  kraj  TEXT
+  kraj  TEXT NOT NULL
 );
 ```
 
@@ -142,15 +142,15 @@ CREATE TABLE transakcija (
 ```{sql eval=FALSE}
 CREATE TABLE kraj (
   posta INTEGER PRIMARY KEY,
-  kraj  TEXT
+  kraj  TEXT NOT NULL
 );
 
 CREATE TABLE oseba (
   emso    TEXT PRIMARY KEY,
-  ime     TEXT,
-  priimek TEXT,
-  ulica   TEXT,
-  posta   INTEGER REFERENCES kraj(posta)
+  ime     TEXT NOT NULL,
+  priimek TEXT NOT NULL,
+  ulica   TEXT NOT NULL,
+  posta   INTEGER NOT NULL REFERENCES kraj(posta)
 );
 ```
 

@@ -10,7 +10,7 @@
 ----------------------------------------------------------------------
 CREATE TABLE kraj (
   posta		INTEGER PRIMARY KEY,
-  kraj		TEXT
+  kraj		TEXT NOT NULL
 );
 
 ----------------------------------------------------------------------
@@ -19,10 +19,10 @@ CREATE TABLE kraj (
 
 CREATE TABLE oseba (
   emso    TEXT PRIMARY KEY,
-  ime     TEXT,
-  priimek TEXT,
-  ulica   TEXT,
-  posta   INTEGER REFERENCES kraj(posta)
+  ime     TEXT NOT NULL,
+  priimek TEXT NOT NULL,
+  ulica   TEXT NOT NULL,
+  posta   INTEGER NOT NULL REFERENCES kraj(posta)
 );
 
 
