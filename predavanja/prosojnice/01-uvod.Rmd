@@ -3,6 +3,7 @@ title: "Osnove podatkovnih baz"
 output:
   ioslides_presentation:
     incremental: yes
+    widescreen: true
   beamer_presentation:
     incremental: no
 ---
