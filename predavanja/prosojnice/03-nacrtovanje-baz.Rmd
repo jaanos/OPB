@@ -96,7 +96,7 @@ knitr::include_graphics('./slike/dia_UML.png')
 - Prva normalna oblika (1NF)
 - Druga normalna oblika (2NF)
 - Tretja normalna oblika (3NF)
-- Boyce-Codd normalna oblika (BCNF)
+- Boyce--Codd-ova normalna oblika (BCNF)
 - Četrta normalna oblika (4NF)
 - Peta normalna oblika (5NF)
 - Vsaka naslednja oblika vsebuje prejšnjo.
@@ -156,7 +156,7 @@ knitr::include_graphics('./slike/3nf.png')
 
 ## [BCNF](http://holowczak.com/database-normalization/8/) {.build}
 
-- Boyce-Codd-ova normalna oblika.
+- Boyce--Codd-ova normalna oblika.
 - Pogoj: relacija je v 3NF in za vsako funkcijsko odvisnost oblike `A1, ..., An -> B` velja, da stolpci `A1, ..., An` predstavljajo ključ.
 - Torej: ne obstajajo nobene druge funkcijske odvisnosti razen od ključev.
 - Običajno normaliziramo vsaj do te oblike.
