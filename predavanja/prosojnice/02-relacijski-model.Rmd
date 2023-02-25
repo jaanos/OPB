@@ -384,33 +384,25 @@ SELECT continent, name, population FROM world t1
 
 ## GROUP BY {.build}
 
-- Maksimalno število prebivalcev države na vsaki celini. Podatki iz tabele [`world`](https://sqlzoo.net/wiki/SELECT_from_WORLD_Tutorial).
-```{sql eval=FALSE}
-SELECT continent, population FROM world x
-  WHERE population >= ALL (
-    SELECT population FROM world y
-      WHERE y.continent = x.continent
-        AND population > 0
-  );
-```
 - `GROUP BY` - razdeli tabelo na skupine, definirane z istimi vrednostmi stolpcev, ki so navedeni za `GROUP BY`.
 - Vsaka skupina vrne kot rezultat eno vrstico. Zato morajo biti morebitni ostali stolpci, navedeni pri `SELECT`, agregirani s kako od združevalnih funkcij.
 ```{sql eval=FALSE}
 SELECT continent, MAX(population) FROM world
   GROUP BY continent;
 ```
+- Če uporabimo združevalne funkcije, smemo pri `SELECT` zunaj njih uporabljati samo stolpce, ki so navedeni pri `GROUP BY`!
 
 
 ## `HAVING` {.build}
 
-- Po posameznih regijah preštej tiste države, kjer je število prebivalcev več kot 200mio. Podatki iz tabele [`world`](https://sqlzoo.net/wiki/SELECT_from_WORLD_Tutorial).
+- Po posameznih regijah preštej tiste države, kjer je število prebivalcev več kot 200 milijonov. Podatki iz tabele [`world`](https://sqlzoo.net/wiki/SELECT_from_WORLD_Tutorial).
 ```{sql eval=FALSE}
 SELECT continent, COUNT(*) AS kolikoDrzav FROM world
   WHERE population > 200000000
   GROUP BY continent;
 ```
 - Najprej smo izbrali ustrezne vrstice in jih nato pošteli.
-- Katere celine imajo več kot 500 milijonov prebivalcev?
+- Katere celine imajo vsaj 500 milijonov prebivalcev?
 - Pozor: `WHERE` nam tu ne more pomagati!
 ```{sql eval=FALSE}
 SELECT continent, SUM(population) FROM world
@@ -421,7 +413,7 @@ SELECT continent, SUM(population) FROM world
 
 ## `HAVING` {.build}
 
-- `HAVING` je dejansko `WHERE` nad vrsticami, ki predstavljajo skupine, dobljene z `GROUP BY`.
+- `HAVING` je dejansko `WHERE` nad vrsticami, ki predstavljajo skupine, dobljene z združevanjem.
 - Akumulirani stolpci, uporabljeni v pogoju, niso nujno v rezultatu.
 ```{sql eval=FALSE}
 SELECT continent FROM world
@@ -501,7 +493,7 @@ SELECT actor.name FROM actor
 ```
 
 
-## Primer
+## Primer {.build}
 
 - Zanima nas še, v koliko filmih so bili ti igralci glavni igralci.
 ```{sql eval=FALSE}
@@ -529,7 +521,7 @@ SELECT name, COUNT(*) FROM movie
 
 ## Primer {.build}
 
-- Zanimajo nas naslovi in glavni igralec vseh tistih filmov, kjer je igral Al Pacino in ni bil v glavni vlogi.
+- Zanimajo nas naslovi in glavni igralci vseh tistih filmov, kjer je igral Al Pacino in ni bil v glavni vlogi.
 ```{sql eval=FALSE}
 SELECT movie.title, actor.name FROM movie
   JOIN casting ON movie.id = movieid
@@ -542,3 +534,19 @@ SELECT movie.title, actor.name FROM movie
   AND actor.name <> 'Al Pacino';
 ```
 
+
+## `LEFT JOIN` {.build}
+
+- Za katere filme nimamo seznama igralcev?
+```{sql eval=FALSE}
+SELECT id, title FROM movie
+  LEFT JOIN casting ON movieid = movie.id
+  WHERE movieid IS NULL;
+```
+- Izpišimo druge igralce v filmih Wallace & Gromit.
+```{sql eval=FALSE}
+SELECT title, name FROM movie
+  LEFT JOIN casting ON movieid = movie.id AND ord = 2
+  LEFT JOIN actor ON actor.id = actorid
+  WHERE title LIKE 'Wallace & Gromit: %';
+```
