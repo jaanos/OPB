@@ -3,6 +3,7 @@ title: "Načrtovanje podatkovnih baz"
 output: 
   ioslides_presentation:
     incremental: yes
+    widescreen: true
   beamer_presentation:
     keep_tex: no
     incremental: no    
