@@ -3377,17 +3377,17 @@ CREATE TABLE transakcija (
 -- tabela krajev s poštnimi številkami
 CREATE TABLE kraj (
   posta INTEGER PRIMARY KEY,
-  kraj  TEXT
+  kraj  TEXT NOT NULL
 );
 
 -- tabela fizičnih oseb, ki so lastniki računov
 CREATE TABLE oseba (
   emso    TEXT PRIMARY KEY,
-  ime     TEXT,
-  priimek TEXT,
-  rojstvo DATE,
-  ulica   TEXT,
-  posta   INTEGER REFERENCES kraj(posta)
+  ime     TEXT NOT NULL,
+  priimek TEXT NOT NULL,
+  rojstvo DATE NOT NULL,
+  ulica   TEXT NOT NULL,
+  posta   INTEGER NOT NULL REFERENCES kraj(posta)
 );</pre>
 
 </article></slide><slide class=""><hgroup><h2><a href='https://github.com/jaanos/OPB/tree/master/predavanja/prosojnice/01-uvod/banka.postgresql' title=''>Banka</a> - narečje PostgreSQL - 2</h2></hgroup><article  id="banka---narečje-postgresql---2">

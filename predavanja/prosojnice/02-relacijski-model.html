@@ -3207,7 +3207,7 @@ slide:not(.current) .plotly.html-widget{
 <li>Operatorji so operacije, ki sprejmejo relacije (tabele) in vrnejo (nove) relacije (tabele).</li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Operatorji relacijske algebre</h2></hgroup><article  class="smaller" id="operatorji-relacijske-algebre">
+</article></slide><slide class=""><hgroup><h2>Operatorji relacijske algebre</h2></hgroup><article  id="operatorji-relacijske-algebre" class="smaller">
 
 <ul class = 'build'>
 <li><em>Shema relacije</em> = definicija relacije/tabele (imena + tipi).
@@ -3246,7 +3246,7 @@ slide:not(.current) .plotly.html-widget{
 <li>Ogledali si bomo stavke <code>INSERT</code>, <code>UPDATE</code>, <code>DELETE</code>, <code>SELECT</code>.</li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2><code>INSERT</code> - vstavljanje vrstic</h2></hgroup><article  class="build" id="insert---vstavljanje-vrstic">
+</article></slide><slide class=""><hgroup><h2><code>INSERT</code> - vstavljanje vrstic</h2></hgroup><article  id="insert---vstavljanje-vrstic" class="build">
 
 <ul class = 'build'>
 <li><code>INSERT</code> - stavek za vstavljanje vrstic.</li>
@@ -3268,7 +3268,7 @@ slide:not(.current) .plotly.html-widget{
 <li>Ostali se nastavijo na privzeto vrednost (ali <code>NULL</code>, če ni določena).</li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2><code>INSERT</code></h2></hgroup><article  class="build" id="insert">
+</article></slide><slide class=""><hgroup><h2><code>INSERT</code></h2></hgroup><article  id="insert" class="build">
 
 <ul class = 'build'>
 <li>Za <code>VALUES</code> lahko naštejemo več vektorjev vrednosti (vrstic) in jih ločimo z vejico.</li>
@@ -3278,7 +3278,7 @@ slide:not(.current) .plotly.html-widget{
 <pre class = 'prettyprint lang-sql'>INSERT INTO ime_tabele
   SELECT ...;</pre>
 
-</article></slide><slide class=""><hgroup><h2><code>UPDATE</code> - popravljanje vrstic</h2></hgroup><article  class="build" id="update---popravljanje-vrstic">
+</article></slide><slide class=""><hgroup><h2><code>UPDATE</code> - popravljanje vrstic</h2></hgroup><article  id="update---popravljanje-vrstic" class="build">
 
 <ul class = 'build'>
 <li>Popravljanje vrednosti v tabeli v vrsticah, ki zadoščajo pogojem ter stolpcih v teh vrsticah, ki jih želimo spremeniti.</li>
@@ -3291,7 +3291,7 @@ slide:not(.current) .plotly.html-widget{
 <li>Če izpustimo <code>WHERE</code>, bomo spreminjali vse vrstice v tabeli!</li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2><code>DELETE</code> - brisanje vrstic</h2></hgroup><article  class="build" id="delete---brisanje-vrstic">
+</article></slide><slide class=""><hgroup><h2><code>DELETE</code> - brisanje vrstic</h2></hgroup><article  id="delete---brisanje-vrstic" class="build">
 
 <ul class = 'build'>
 <li>Brisanje vrstic, ki zadoščajo pogoju.</li>
@@ -3304,7 +3304,7 @@ slide:not(.current) .plotly.html-widget{
 <li>Če izpustimo <code>WHERE</code>, bomo izbrisali vse vrstice v tabeli!</li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2><code>SELECT</code></h2></hgroup><article  class="build" id="select">
+</article></slide><slide class=""><hgroup><h2><code>SELECT</code></h2></hgroup><article  id="select" class="build">
 
 <p>Stavek <code>SELECT</code> kot projekcija.</p>
 
@@ -3331,7 +3331,7 @@ slide:not(.current) .plotly.html-widget{
 <li>To v splošnem ni dobra praksa (šumniki v imenih, zgodovinsko, …)</li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2><code>SELECT</code></h2></hgroup><article  class="build" id="select-1">
+</article></slide><slide class=""><hgroup><h2><code>SELECT</code></h2></hgroup><article  id="select-1" class="build">
 
 <ul class = 'build'>
 <li>Katera različna področja nastopajo v tabeli <a href='https://sqlzoo.net/wiki/SELECT_from_Nobel_Tutorial' title=''><code>nobel</code></a>?</li>
@@ -3345,7 +3345,7 @@ slide:not(.current) .plotly.html-widget{
 
 <pre class = 'prettyprint lang-sql'>SELECT DISTINCT continent FROM world;</pre>
 
-</article></slide><slide class=""><hgroup><h2><code>SELECT ... WHERE</code></h2></hgroup><article  class="smaller build" id="select-...-where">
+</article></slide><slide class=""><hgroup><h2><code>SELECT ... WHERE</code></h2></hgroup><article  id="select-...-where" class="smaller build">
 
 <p>Stavek <code>SELECT ... WHERE</code> kot projekcija z izbiro vrstic v skladu s pogoji.</p>
 
@@ -3369,7 +3369,7 @@ slide:not(.current) .plotly.html-widget{
 <li>Pogoje lahko sestavljamo z logičnimi vezniki : <code>NOT</code>, <code>AND</code>, <code>OR</code>, <code>XOR</code></li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Izrazi v <code>SELECT</code></h2></hgroup><article  class="build" id="izrazi-v-select">
+</article></slide><slide class=""><hgroup><h2>Izrazi v <code>SELECT</code></h2></hgroup><article  id="izrazi-v-select" class="build">
 
 <ul class = 'build'>
 <li>Za vsako državo v tabeli <a href='https://sqlzoo.net/wiki/SELECT_from_WORLD_Tutorial' title=''><code>world</code></a> izračunaj razmerje med prebivalstvom in površino.</li>
@@ -3390,7 +3390,7 @@ slide:not(.current) .plotly.html-widget{
    WHERE continent = &#39;Europe&#39;
      AND area &gt; 0;</pre>
 
-</article></slide><slide class=""><hgroup><h2>Izrazi v <code>SELECT</code></h2></hgroup><article  class="build" id="izrazi-v-select-1">
+</article></slide><slide class=""><hgroup><h2>Izrazi v <code>SELECT</code></h2></hgroup><article  id="izrazi-v-select-1" class="build">
 
 <ul class = 'build'>
 <li>Dodajmo še pogoj, da je število prebivalcev večje od 2 milijonov.</li>
@@ -3411,7 +3411,7 @@ slide:not(.current) .plotly.html-widget{
   WHERE continent IN (&#39;Asia&#39;, &#39;Europe&#39;)
     AND name LIKE &#39;C%&#39;;</pre>
 
-</article></slide><slide class=""><hgroup><h2><code>ORDER BY</code> - urejanje tabel</h2></hgroup><article  class="build" id="order-by---urejanje-tabel">
+</article></slide><slide class=""><hgroup><h2><code>ORDER BY</code> - urejanje tabel</h2></hgroup><article  id="order-by---urejanje-tabel" class="build">
 
 <ul class = 'build'>
 <li>Urejanje po stolpcu <code>population</code> v tabeli <a href='https://sqlzoo.net/wiki/SELECT_from_WORLD_Tutorial' title=''><code>world</code></a></li>
@@ -3437,7 +3437,7 @@ slide:not(.current) .plotly.html-widget{
   FROM world
   ORDER BY population DESC;</pre>
 
-</article></slide><slide class=""><hgroup><h2><code>ORDER BY</code> - urejanje tabel</h2></hgroup><article  class="build" id="order-by---urejanje-tabel-1">
+</article></slide><slide class=""><hgroup><h2><code>ORDER BY</code> - urejanje tabel</h2></hgroup><article  id="order-by---urejanje-tabel-1" class="build">
 
 <ul class = 'build'>
 <li>Urejanje po izračunanem stolpcu.</li>
@@ -3457,7 +3457,7 @@ slide:not(.current) .plotly.html-widget{
   FROM world
   ORDER BY continent, name;</pre>
 
-</article></slide><slide class=""><hgroup><h2>Podpoizvedbe</h2></hgroup><article  class="smaller build" id="podpoizvedbe">
+</article></slide><slide class=""><hgroup><h2>Podpoizvedbe</h2></hgroup><article  id="podpoizvedbe" class="smaller build">
 
 <ul class = 'build'>
 <li>Uporabimo rezultat poizvedbe za izračun pogojev v drugi poizvedbi.</li>
@@ -3480,7 +3480,7 @@ slide:not(.current) .plotly.html-widget{
     SELECT population FROM world
       WHERE name = &#39;Algeria&#39;);</pre>
 
-</article></slide><slide class=""><hgroup><h2>Podpoizvedbe</h2></hgroup><article  class="build" id="podpoizvedbe-1">
+</article></slide><slide class=""><hgroup><h2>Podpoizvedbe</h2></hgroup><article  id="podpoizvedbe-1" class="build">
 
 <ul class = 'build'>
 <li>Podpoizvedbe morajo imeti ustrezno število stolpcev in vrstic glede na uporabljene operatorje.</li>
@@ -3495,7 +3495,7 @@ slide:not(.current) .plotly.html-widget{
         WHERE subject = &#39;chemistry&#39;
     );</pre>
 
-</article></slide><slide class=""><hgroup><h2>Združevalne funkcije</h2></hgroup><article  class="build" id="združevalne-funkcije">
+</article></slide><slide class=""><hgroup><h2>Združevalne funkcije</h2></hgroup><article  id="združevalne-funkcije" class="build">
 
 <ul class = 'build'>
 <li>Povprečno število prebivalcev na državo v Evropi. Podatki iz tabele <a href='https://sqlzoo.net/wiki/SELECT_from_WORLD_Tutorial' title=''><code>world</code></a>.</li>
@@ -3513,7 +3513,7 @@ slide:not(.current) .plotly.html-widget{
   FROM world
   WHERE continent = &#39;Africa&#39;;</pre>
 
-</article></slide><slide class=""><hgroup><h2>Združevalne funkcije</h2></hgroup><article  class="build" id="združevalne-funkcije-1">
+</article></slide><slide class=""><hgroup><h2>Združevalne funkcije</h2></hgroup><article  id="združevalne-funkcije-1" class="build">
 
 <ul class = 'build'>
 <li>Najmanjša površina države na svetu.</li>
@@ -3538,7 +3538,7 @@ slide:not(.current) .plotly.html-widget{
 <li>Nekatere vrstice imajo polje <code>gdp</code> enako <code>NULL</code>. Funkcije za združevanje ignorirajo vrednosti <code>NULL</code>.</li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2><code>COUNT</code></h2></hgroup><article  class="build" id="count">
+</article></slide><slide class=""><hgroup><h2><code>COUNT</code></h2></hgroup><article  id="count" class="build">
 
 <ul class = 'build'>
 <li>Koliko je vrstic v tabeli <a href='https://sqlzoo.net/wiki/SELECT_from_WORLD_Tutorial' title=''><code>world</code></a>?</li>
@@ -3565,7 +3565,7 @@ slide:not(.current) .plotly.html-widget{
 <pre class = 'prettyprint lang-sql'>SELECT COUNT(*) FROM world
   WHERE continent LIKE &#39;%Asia%&#39;;</pre>
 
-</article></slide><slide class=""><hgroup><h2>Primeri</h2></hgroup><article  class="build" id="primeri">
+</article></slide><slide class=""><hgroup><h2>Primeri</h2></hgroup><article  id="primeri" class="build">
 
 <ul class = 'build'>
 <li>Kako pa je z uporabo združevalnih funkcij v pogoju? Podatki iz tabele <a href='https://sqlzoo.net/wiki/SELECT_from_WORLD_Tutorial' title=''><code>world</code></a>.</li>
@@ -3588,7 +3588,7 @@ slide:not(.current) .plotly.html-widget{
         WHERE continent = &#39;Africa&#39;
     );</pre>
 
-</article></slide><slide class=""><hgroup><h2>Primeri</h2></hgroup><article  class="build" id="primeri-1">
+</article></slide><slide class=""><hgroup><h2>Primeri</h2></hgroup><article  id="primeri-1" class="build">
 
 <ul class = 'build'>
 <li>Poišči imena tistih držav, ki imajo bruto družbeni proizvod večji od vseh evropskih držav. Podatki iz tabele <a href='https://sqlzoo.net/wiki/SELECT_from_WORLD_Tutorial' title=''><code>world</code></a>.</li>
@@ -3611,7 +3611,7 @@ slide:not(.current) .plotly.html-widget{
 <li>Za primerjavo z <code>NULL</code> moramo vedno uporabiti <code>IS NULL</code> ali <code>IS NOT NULL</code>, nikoli <code>=</code> ali <code>&lt;&gt;</code>.</li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Primeri</h2></hgroup><article  class="build" id="primeri-2">
+</article></slide><slide class=""><hgroup><h2>Primeri</h2></hgroup><article  id="primeri-2" class="build">
 
 <ul class = 'build'>
 <li>V tabeli <a href='https://sqlzoo.net/wiki/SELECT_from_WORLD_Tutorial' title=''><code>world</code></a> poiščimo države z maksimalnim številom prebivalstva v svoji celini.</li>
@@ -3628,18 +3628,7 @@ slide:not(.current) .plotly.html-widget{
 <li>Podpoizvedbo si predstavljamo, kot da je pri filtriranju posamezne vrstice parametrizirana s <code>t1.continent</code>.</li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>GROUP BY</h2></hgroup><article  class="build" id="group-by">
-
-<ul class = 'build'>
-<li>Maksimalno število prebivalcev države na vsaki celini. Podatki iz tabele <a href='https://sqlzoo.net/wiki/SELECT_from_WORLD_Tutorial' title=''><code>world</code></a>.</li>
-</ul>
-
-<pre class = 'prettyprint lang-sql'>SELECT continent, population FROM world x
-  WHERE population &gt;= ALL (
-    SELECT population FROM world y
-      WHERE y.continent = x.continent
-        AND population &gt; 0
-  );</pre>
+</article></slide><slide class=""><hgroup><h2>GROUP BY</h2></hgroup><article  id="group-by" class="build">
 
 <ul class = 'build'>
 <li><code>GROUP BY</code> - razdeli tabelo na skupine, definirane z istimi vrednostmi stolpcev, ki so navedeni za <code>GROUP BY</code>.</li>
@@ -3649,10 +3638,14 @@ slide:not(.current) .plotly.html-widget{
 <pre class = 'prettyprint lang-sql'>SELECT continent, MAX(population) FROM world
   GROUP BY continent;</pre>
 
-</article></slide><slide class=""><hgroup><h2><code>HAVING</code></h2></hgroup><article  class="build" id="having">
+<ul class = 'build'>
+<li>Če uporabimo združevalne funkcije, smemo pri <code>SELECT</code> zunaj njih uporabljati samo stolpce, ki so navedeni pri <code>GROUP BY</code>!</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2><code>HAVING</code></h2></hgroup><article  id="having" class="build">
 
 <ul class = 'build'>
-<li>Po posameznih regijah preštej tiste države, kjer je število prebivalcev več kot 200mio. Podatki iz tabele <a href='https://sqlzoo.net/wiki/SELECT_from_WORLD_Tutorial' title=''><code>world</code></a>.</li>
+<li>Po posameznih regijah preštej tiste države, kjer je število prebivalcev več kot 200 milijonov. Podatki iz tabele <a href='https://sqlzoo.net/wiki/SELECT_from_WORLD_Tutorial' title=''><code>world</code></a>.</li>
 </ul>
 
 <pre class = 'prettyprint lang-sql'>SELECT continent, COUNT(*) AS kolikoDrzav FROM world
@@ -3661,7 +3654,7 @@ slide:not(.current) .plotly.html-widget{
 
 <ul class = 'build'>
 <li>Najprej smo izbrali ustrezne vrstice in jih nato pošteli.</li>
-<li>Katere celine imajo več kot 500 milijonov prebivalcev?</li>
+<li>Katere celine imajo vsaj 500 milijonov prebivalcev?</li>
 <li>Pozor: <code>WHERE</code> nam tu ne more pomagati!</li>
 </ul>
 
@@ -3669,10 +3662,10 @@ slide:not(.current) .plotly.html-widget{
   GROUP BY continent
   HAVING SUM(population) &gt;= 500000000;</pre>
 
-</article></slide><slide class=""><hgroup><h2><code>HAVING</code></h2></hgroup><article  class="build" id="having-1">
+</article></slide><slide class=""><hgroup><h2><code>HAVING</code></h2></hgroup><article  id="having-1" class="build">
 
 <ul class = 'build'>
-<li><code>HAVING</code> je dejansko <code>WHERE</code> nad vrsticami, ki predstavljajo skupine, dobljene z <code>GROUP BY</code>.</li>
+<li><code>HAVING</code> je dejansko <code>WHERE</code> nad vrsticami, ki predstavljajo skupine, dobljene z združevanjem.</li>
 <li>Akumulirani stolpci, uporabljeni v pogoju, niso nujno v rezultatu.</li>
 </ul>
 
@@ -3680,7 +3673,7 @@ slide:not(.current) .plotly.html-widget{
   GROUP BY continent
   HAVING SUM(population) &gt;= 500000000;</pre>
 
-</article></slide><slide class=""><hgroup><h2>Primeri</h2></hgroup><article  class="build" id="primeri-3">
+</article></slide><slide class=""><hgroup><h2>Primeri</h2></hgroup><article  id="primeri-3" class="build">
 
 <ul class = 'build'>
 <li>Podatki iz tabele <a href='https://sqlzoo.net/wiki/SELECT_from_Nobel_Tutorial' title=''><code>nobel</code></a>.</li>
@@ -3700,7 +3693,7 @@ slide:not(.current) .plotly.html-widget{
   GROUP BY winner
   HAVING COUNT(DISTINCT subject) &gt; 1;</pre>
 
-</article></slide><slide class=""><hgroup><h2>Primeri</h2></hgroup><article  class="build" id="primeri-4">
+</article></slide><slide class=""><hgroup><h2>Primeri</h2></hgroup><article  id="primeri-4" class="build">
 
 <ul class = 'build'>
 <li>Podatki iz tabele <a href='https://sqlzoo.net/wiki/SELECT_from_Nobel_Tutorial' title=''><code>nobel</code></a>.</li>
@@ -3713,7 +3706,7 @@ slide:not(.current) .plotly.html-widget{
   HAVING COUNT(*) &gt;= 3
   ORDER BY yr;</pre>
 
-</article></slide><slide class=""><hgroup><h2><code>JOIN</code></h2></hgroup><article  class="build" id="join-1">
+</article></slide><slide class=""><hgroup><h2><code>JOIN</code></h2></hgroup><article  id="join-1" class="build">
 
 <ul class = 'build'>
 <li>Podatki iz <a href='https://sqlzoo.net/wiki/More_JOIN_operations' title=''>tabel</a> <code>movie</code>, <code>actor</code> in <code>casting</code>.</li>
@@ -3735,7 +3728,7 @@ slide:not(.current) .plotly.html-widget{
   JOIN actor   ON actor.id = actorid
   WHERE title = &#39;Giant&#39; AND name &lt;&gt; &#39;James Dean&#39;;</pre>
 
-</article></slide><slide class=""><hgroup><h2><a href='https://sqlzoo.net/wiki/More_JOIN_operations' title=''>Primer</a></h2></hgroup><article  class="build" id="primer">
+</article></slide><slide class=""><hgroup><h2><a href='https://sqlzoo.net/wiki/More_JOIN_operations' title=''>Primer</a></h2></hgroup><article  id="primer" class="build">
 
 <ul class = 'build'>
 <li>Izpiši tiste igralce, ki so bili glavni igralci (<code>ord = 1</code>) v vsaj 10 filmih.</li>
@@ -3758,7 +3751,7 @@ slide:not(.current) .plotly.html-widget{
   GROUP BY actorid, actor.name
   HAVING COUNT(id) &gt;= 10;</pre>
 
-</article></slide><slide class=""><hgroup><h2>Primer</h2></hgroup><article  id="primer-1">
+</article></slide><slide class=""><hgroup><h2>Primer</h2></hgroup><article  id="primer-1" class="build">
 
 <ul class = 'build'>
 <li>Zanima nas še, v koliko filmih so bili ti igralci glavni igralci.</li>
@@ -3771,7 +3764,7 @@ slide:not(.current) .plotly.html-widget{
   HAVING COUNT(id) &gt;= 10
   ORDER BY filmi DESC;</pre>
 
-</article></slide><slide class=""><hgroup><h2><a href='https://sqlzoo.net/wiki/More_JOIN_operations' title=''>Primer</a></h2></hgroup><article  class="build" id="primer-2">
+</article></slide><slide class=""><hgroup><h2><a href='https://sqlzoo.net/wiki/More_JOIN_operations' title=''>Primer</a></h2></hgroup><article  id="primer-2" class="build">
 
 <ul class = 'build'>
 <li>Kateri igralci so igrali v več kot enem filmu, ki ima v naslovu &lsquo;love&rsquo;?</li>
@@ -3784,10 +3777,10 @@ slide:not(.current) .plotly.html-widget{
   GROUP BY name
   HAVING COUNT(*) &gt; 1;</pre>
 
-</article></slide><slide class=""><hgroup><h2>Primer</h2></hgroup><article  class="build" id="primer-3">
+</article></slide><slide class=""><hgroup><h2>Primer</h2></hgroup><article  id="primer-3" class="build">
 
 <ul class = 'build'>
-<li>Zanimajo nas naslovi in glavni igralec vseh tistih filmov, kjer je igral Al Pacino in ni bil v glavni vlogi.</li>
+<li>Zanimajo nas naslovi in glavni igralci vseh tistih filmov, kjer je igral Al Pacino in ni bil v glavni vlogi.</li>
 </ul>
 
 <pre class = 'prettyprint lang-sql'>SELECT movie.title, actor.name FROM movie
@@ -3798,7 +3791,26 @@ slide:not(.current) .plotly.html-widget{
       JOIN actor ON actor.id = actorid
       WHERE actor.name = &#39;Al Pacino&#39;
   )
-  AND actor.name &lt;&gt; &#39;Al Pacino&#39;;</pre></article></slide>
+  AND actor.name &lt;&gt; &#39;Al Pacino&#39;;</pre>
+
+</article></slide><slide class=""><hgroup><h2><code>LEFT JOIN</code></h2></hgroup><article  id="left-join" class="build">
+
+<ul class = 'build'>
+<li>Za katere filme nimamo seznama igralcev?</li>
+</ul>
+
+<pre class = 'prettyprint lang-sql'>SELECT id, title FROM movie
+  LEFT JOIN casting ON movieid = movie.id
+  WHERE movieid IS NULL;</pre>
+
+<ul class = 'build'>
+<li>Izpišimo druge igralce v filmih Wallace &amp; Gromit.</li>
+</ul>
+
+<pre class = 'prettyprint lang-sql'>SELECT title, name FROM movie
+  LEFT JOIN casting ON movieid = movie.id AND ord = 2
+  LEFT JOIN actor ON actor.id = actorid
+  WHERE title LIKE &#39;Wallace &amp; Gromit: %&#39;;</pre></article></slide>
 
 
   <slide class="backdrop"></slide>
