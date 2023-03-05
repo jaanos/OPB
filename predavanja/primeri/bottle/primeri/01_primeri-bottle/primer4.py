@@ -6,20 +6,11 @@ def prijavno_okno():
     return """
 <html>
 <head>
-<style type="text/css">
-body {
-  font-family: Verdana
-}
-.neki {
-  font-weight: bold;
-  color: red
-}
-</style>
 </head>
 <body>
 <form action="/prijava" method="post">
-    <span class="neki">Uporabniško ime:</span> <input name="uime" type="text" />
-    <span style="font-size:xx-large;text-decoration: underline">Geslo:</span> <input name="geslo" type="password" />
+    <span>Uporabniško ime:</span> <input name="uime" type="text" />
+    <span>Geslo:</span> <input name="geslo" type="password" />
     <input value="Prijava" type="submit" />
 </form>
 </body>
