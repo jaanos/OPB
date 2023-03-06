@@ -170,7 +170,7 @@ knitr::include_graphics('./slike/3nf.png')
 - Če se pojavita vrstici `(a, b, c)` in `(a, d, e)`, potem morata obstajati vrstici `(a, b, e)` in `(a, d, c)`.
 
 
-## [4NF]((http://holowczak.com/database-normalization/9/))
+## [4NF]((http://holowczak.com/database-normalization/9/)) {.smaller}
 
 - Pogoj: relacija je v BCNF in nima *multifunkcijskih odvisnosti*.
 - Primer: vsak predmet (`Course`) ima predpisan nabor knjig (`Book`) in nabor predavateljev (`Lecturer`)
@@ -183,5 +183,5 @@ knitr::include_graphics('./slike/3nf.png')
 
 ## Ostale oblike
 
-- Ostalih višjih normaliziranih oblik si ne bomo ogledali.
+- Ostalih višjih normalnih oblik si ne bomo ogledali.
 - Slike tabel v angleščini so pridobljene iz Wikipedie (licenca Creative Commons).
