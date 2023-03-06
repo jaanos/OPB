@@ -1,3 +1,4 @@
+#!/usr/bin/python
 # -*- encoding: utf-8 -*-
 
 # Osnovni primer uporabe bottle, skopirano s spletnih strani

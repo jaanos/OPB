@@ -3,9 +3,8 @@ require(dplyr)
 # Priklop na bazo. Vnesite ustrezno geslo.
 geslo <- "telebajsek" 
 
-db <- src_postgres(host="baza.fmf.uni-lj.si", 
-                   dbname = "banka", user = "student", 
-                   password = geslo)
+db <- src_postgres(host="baza.fmf.uni-lj.si", dbname="banka",
+                   user="student", password=geslo)
 
 # Priklop na tabele
 tposta <- db %>% tbl("kraj")
@@ -14,12 +13,12 @@ tracun <- db %>% tbl("racun")
 ttransakcija <- db %>% tbl("transakcija")
 
 # Izvedba poizvedbe
-db %>% tbl(sql("select posta from kraj")) %>% 
+db %>% tbl(sql("select * from kraj")) %>% 
   data.frame %>% 
-  View
+  View()
 
 # Pomožna funkcija
-stolpci <- function(tab) {tab %>% data.frame %>% names}
+stolpci <- . %>% data.frame() %>% names()
 
 # Izpis imen stolpcev tabel
 tabele <- list(tposta, toseba, tracun, ttransakcija)
@@ -31,8 +30,8 @@ toseba %>% inner_join(tracun, by=c("emso"="lastnik")) %>%
 
 # S collect() naredimo dejansko poizvedbo. Rezultat lahko pretvorimo v data.frame
 tposta %>% collect() %>% 
-  data.frame %>% names
+  data.frame() %>% names()
 
 # Primer "WHERE" s pomočjo funkcije FILTER
-tposta %>% select(posta) %>% filter(posta > 1000) 
+tposta %>% select(posta) %>% filter(posta > 5000) 
 
