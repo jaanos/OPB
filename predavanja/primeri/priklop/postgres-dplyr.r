@@ -13,7 +13,7 @@ tracun <- db %>% tbl("racun")
 ttransakcija <- db %>% tbl("transakcija")
 
 # Izvedba poizvedbe
-db %>% tbl(sql("select posta from kraj")) %>% 
+db %>% tbl(sql("select * from kraj")) %>% 
   data.frame %>% 
   View()
 
@@ -33,5 +33,5 @@ tposta %>% collect() %>%
   data.frame() %>% names()
 
 # Primer "WHERE" s pomočjo funkcije FILTER
-tposta %>% select(posta) %>% filter(posta > 1000) 
+tposta %>% select(posta) %>% filter(posta > 5000) 
 
