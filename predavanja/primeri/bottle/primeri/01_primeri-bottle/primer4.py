@@ -1,8 +1,13 @@
-from bottle import run, get, post, request # or route
+from bottle import run, get, post, request, response, redirect # or route
+
+skrivnost = 'te skrivnosti ne bo nihče uganil!'
+
 
 # zahtevek GET s formo
 @get('/prijava') # lahko tudi @route('/prijava')
 def prijavno_okno():
+    if request.get_cookie('uime', secret=skrivnost):
+        redirect('/dobrodosel/')
     return """
 <html>
 <head>
@@ -23,13 +28,28 @@ def prijava():
     uime = request.forms.get('uime')
     geslo = request.forms.get('geslo')
     if preveri(uime, geslo):
-        return "<p>Dobrodošel {0}.</p>".format(uime)
+        response.set_cookie('uime', uime, path='/', secret=skrivnost)
+        redirect('/dobrodosel/')
     else:
         return '''<p>Napačni podatki za prijavo.
-Poskusite <a href="/prijava">še enkrat</a></p>'''
+Poskusite <a href="/prijava/">še enkrat</a></p>'''
+
+
+@get('/dobrodosel/')
+def dobrodosel():
+    uime = request.get_cookie('uime', secret=skrivnost)
+    if not uime:
+        redirect('/prijava/')
+    return '<p>Dobrodošel {0}.</p> <a href="/odjava/">Odjava</a>'.format(uime)
+
+
+@get('/odjava/')
+def odjava():
+    response.delete_cookie('uime', path='/')
+    redirect('/prijava/')
 
 
 def preveri(uime, geslo):
     return uime=="janez" and geslo=="kranjski"
 
-run(host='localhost', port=8080, debug=True)
+run(host='localhost', port=8080, debug=True, reloader=True)
