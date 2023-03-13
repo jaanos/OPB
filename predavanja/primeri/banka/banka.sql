@@ -1,31 +1,29 @@
-DROP TABLE IF EXISTS posta;
+DROP TABLE IF EXISTS kraj;
 DROP TABLE IF EXISTS oseba;
 DROP TABLE IF EXISTS racun;
 DROP TABLE IF EXISTS transakcija;
 
-CREATE TABLE posta (
-    postna_st INTEGER PRIMARY KEY,
-    posta     CHAR    NOT NULL
+CREATE TABLE kraj (
+    posta      INTEGER  PRIMARY KEY,
+    kraj       TEXT     NOT NULL
 );
 
 CREATE TABLE oseba (
-    ime            CHAR    NOT NULL,
-    priimek        CHAR    NOT NULL,
-    emso           CHAR    PRIMARY KEY,
-    ulica          CHAR    NOT NULL,
-    hisna_stevilka CHAR    NOT NULL,
-    posta_id       INTEGER REFERENCES posta (postna_st) 
+    ime        TEXT     NOT NULL,
+    priimek    TEXT     NOT NULL,
+    emso       TEXT     PRIMARY KEY,
+    naslov     TEXT     NOT NULL,
+    posta_id   INTEGER  REFERENCES kraj(posta) 
 );
 
 CREATE TABLE racun (
-    lastnik_id  CHAR    REFERENCES oseba (emso),
-    racun INTEGER PRIMARY KEY AUTOINCREMENT
+    racun      INTEGER  PRIMARY KEY AUTOINCREMENT,
+    lastnik_id TEXT     REFERENCES oseba(emso)
 );
 
 CREATE TABLE transakcija (
-    id     INTEGER  PRIMARY KEY AUTOINCREMENT,
-    racun_id  INTEGER  REFERENCES racun(racun),
-    znesek DECIMAL  NOT NULL,
-    datum  DATETIME NOT NULL DEFAULT (datetime('now') ) 
+    id         INTEGER  PRIMARY KEY AUTOINCREMENT,
+    racun_id   INTEGER  REFERENCES racun(racun),
+    znesek     DECIMAL  NOT NULL,
+    datum      DATETIME NOT NULL DEFAULT (datetime('now')) 
 );
-

@@ -20,7 +20,7 @@ def banana():
 def hello(name):
     return "Hello {0}".format(name)
 
-@route('/vsota/<a>/<b>/')
+@route('/vsota/<a>/<b:int>/')
 def hello(a, b):
     # Pozor, a in b sta niza, pretvorimo ju v int
     try:
