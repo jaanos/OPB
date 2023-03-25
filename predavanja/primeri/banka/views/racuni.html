@@ -1,0 +1,22 @@
+<html>
+  <head>
+    <title>Računi</title>
+  </head>
+  <body>
+    <h2>Seznam bančnih računov</h2>
+
+    <table>
+      <tr>
+        <th>Komitent</th>
+        <th>Številka računa</th>
+      </tr>
+      %for ime, priimek, racun in racuni:
+      <tr>
+        <td>{{ime}} {{priimek}}</td>
+        <td>{{racun}}</td>
+      </tr>
+      %end
+    </table>
+
+  </body>
+</html>

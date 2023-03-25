@@ -1,0 +1,28 @@
+<html>
+  <head>
+    <title>Komitenti</title>
+  </head>
+  <body>
+    <h2>Komitenti banke</h2>
+
+    <table>
+      <tr>
+        <th>EMŠO</th>
+        <th>Ime</th>
+        <th>Priimek</th>
+        <th>Naslov</th>
+        <th>Pošta</th>
+      </tr>
+      %for ime, priimek, emso, naslov, posta, kraj in komitenti:
+      <tr>
+        <td>{{emso}}</td>
+        <td>{{ime}}</td>
+        <td>{{priimek}}</td>
+        <td>{{naslov}}</td>
+        <td>{{posta}} {{kraj}}</td>
+      </tr>
+      %end
+    </table>
+
+  </body>
+</html>
