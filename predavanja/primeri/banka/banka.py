@@ -40,8 +40,9 @@ def kraji():
     """)
     return template('kraji.html', poste=cur)
 
+
 @post('/kraji/dodaj')
-def kraji_dodaj():
+def kraji_dodaj_post():
     posta = request.forms.getunicode('posta')
     kraj = request.forms.getunicode('kraj')
     cur = baza.cursor()
@@ -49,6 +50,7 @@ def kraji_dodaj():
         INSERT INTO kraj (posta, kraj) VALUES (?, ?)
     """, (posta, kraj))
     redirect('/kraji')
+
 
 ############################################
 ### Računi
