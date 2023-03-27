@@ -1,0 +1,34 @@
+% setdefault('posta', None)
+% setdefault('kraj', '')
+% rebase('osnova.html', naslov='Dodaj kraj')
+
+  <form action="{{url('kraji_uredi_post', posta=posta) if posta else url('kraji_dodaj_post')}}" method="POST">
+    <table>
+        <tr>
+            <td>
+                <span>Poštna številka:</span>
+            </td>
+            <td>
+                % if posta:
+                    {{posta}}
+                % else:
+                <input name="posta" type="text" />
+                % end
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <span>Kraj:</span>
+            </td>
+            <td>
+                <input name="kraj" type="text" value="{{kraj}}" />
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <input value="{{'Uredi' if posta else 'Dodaj'}}" type="submit" />
+            </td>
+        </tr>
+    </table>
+  </form>
