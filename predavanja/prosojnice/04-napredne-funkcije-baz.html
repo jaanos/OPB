@@ -3420,7 +3420,7 @@ INSERT INTO oseba (emso, ime, priimek)
 <pre class = 'prettyprint lang-sql'>REVOKE tip_pravice ON tabela FROM ime_vloge;</pre>
 
 <ul class = 'build'>
-<li>Primer: onemogočanje vstavljanja vsem skupinam.</li>
+<li>Primer: onemogočanje vstavljanja vsem uporabnikom (ki nimajo ustrezne pravice dodeljene na drug način).</li>
 </ul>
 
 <pre class = 'prettyprint lang-sql'>REVOKE INSERT ON tabela FROM PUBLIC;</pre>
@@ -3468,14 +3468,13 @@ INSERT INTO oseba (emso, ime, priimek)
 <li>Odjavimo se in prijavimo kot uporabnik <code>postgres</code>.</li>
 </ul>
 
-<pre class = 'prettyprint lang-bash'>psql</pre>
+<pre class = 'prettyprint lang-bash'>psql nova</pre>
 
 <ul class = 'build'>
 <li>Izvedemo naslednje:</li>
 </ul>
 
-<pre class = 'prettyprint lang-sql'>\c nova
-REVOKE ALL ON DATABASE nova FROM PUBLIC;
+<pre class = 'prettyprint lang-sql'>REVOKE ALL ON DATABASE nova FROM PUBLIC;
 GRANT CONNECT ON DATABASE nova TO janez;
 GRANT USAGE ON SCHEMA public TO janez;
 GRANT ALL ON ALL TABLES IN SCHEMA public TO janez;
@@ -3530,21 +3529,20 @@ GRANT skupina TO uporabnik2;</pre>
 <li>Odjavimo se in se prijavimo kot uporabnik <code>postgres</code>.</li>
 </ul>
 
-<pre class = 'prettyprint lang-bash'>psql</pre>
+<pre class = 'prettyprint lang-bash'>psql nova</pre>
 
 <ul class = 'build'>
 <li>Izvedemo naslednje:</li>
 </ul>
 
-<pre class = 'prettyprint lang-sql'>\c nova
-CREATE ROLE noviadmini;
+<pre class = 'prettyprint lang-sql'>CREATE ROLE novaadmini;
 REVOKE ALL ON DATABASE nova FROM PUBLIC;
-GRANT CONNECT ON DATABASE nova TO noviadmini;
-GRANT USAGE ON SCHEMA public TO noviadmini;
+GRANT CONNECT ON DATABASE nova TO novaadmini;
+GRANT USAGE ON SCHEMA public TO novaadmini;
 GRANT ALL ON ALL TABLES IN SCHEMA public
-  TO noviadmini;
+  TO novaadmini;
 GRANT ALL ON ALL SEQUENCES IN SCHEMA public
-  TO noviadmini;
+  TO novaadmini;
 \l
 \dn+
 \dp</pre>
@@ -3556,8 +3554,8 @@ GRANT ALL ON ALL SEQUENCES IN SCHEMA public
 </ul>
 
 <pre class = 'prettyprint lang-sql'>CREATE USER metka WITH ENCRYPTED PASSWORD &#39;pomlad&#39;;
-ALTER ROLE metka INHERIT;
-GRANT noviadmini TO metka;
+ALTER ROLE metka NOINHERIT;
+GRANT novaadmini TO metka;
 \du</pre>
 
 <ul class = 'build'>
@@ -3566,10 +3564,10 @@ GRANT noviadmini TO metka;
 
 <pre class = 'prettyprint lang-sql'>ALTER DEFAULT PRIVILEGES
   FOR ROLE metka IN SCHEMA public
-  GRANT ALL ON TABLES TO noviadmini;
+  GRANT ALL ON TABLES TO novaadmini;
 ALTER DEFAULT PRIVILEGES
   FOR ROLE metka IN SCHEMA public
-  GRANT ALL ON SEQUENCES TO noviadmini;</pre>
+  GRANT ALL ON SEQUENCES TO novaadmini;</pre>
 
 </article></slide><slide class=""><hgroup><h2>Lažji oddaljen priklop na bazo</h2></hgroup><article  class="build" id="lažji-oddaljen-priklop-na-bazo">
 
