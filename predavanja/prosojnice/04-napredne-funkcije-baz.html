@@ -3612,11 +3612,11 @@ ALTER DEFAULT PRIVILEGES
 <li>S pomočjo urejevalnika <code>nano</code> popravimo vrstico oblike</li>
 </ul>
 
-<pre class = 'prettyprint lang-bash'>host      all      all      127.0.0.1/32     md5</pre>
+<pre class = 'prettyprint lang-bash'>host    all     all     127.0.0.1/32   scram-sha-256</pre>
 
 <p>v vrstico</p>
 
-<pre class = 'prettyprint lang-bash'>host      all      all      0.0.0.0/0        md5</pre>
+<pre class = 'prettyprint lang-bash'>host    all     all     0.0.0.0/0      scram-sha-256</pre>
 
 <ul class = 'build'>
 <li>Urejevalnik zaženemo npr. kot</li>
@@ -3648,7 +3648,7 @@ ALTER DEFAULT PRIVILEGES
 </article></slide><slide class=""><hgroup><h2>Priklop preko PgAdmin 4</h2></hgroup><article  class="build small" id="priklop-preko-pgadmin-4">
 
 <ul class = 'build'>
-<li>Virtualni strežnik mora imeti mrežni vmesnik nastavljen na <code>Bridged Adapter</code>, t.j., mora biti na isti mreži, kot je naš računalnik.</li>
+<li>Virtualni strežnik mora imeti mrežni vmesnik nastavljen na <code>Bridged Adapter</code>, t.j., na isti mreži, kot je naš računalnik.</li>
 <li>Za priklop rabimo naslov strežnika (<code>host</code>), uporabnika (<code>user</code>), njegovo geslo in ime podatkovne baze, na katero se priklapljamo.</li>
 <li>IP številko virtualnega računalnika dobimo z ukazom v terminalu:</li>
 </ul>
@@ -3656,13 +3656,15 @@ ALTER DEFAULT PRIVILEGES
 <pre class = 'prettyprint lang-bash'>ip address</pre>
 
 <ul class = 'build'>
-<li>Preden omogočimo uporabniku <code>postgres</code> (t.j., administratorju) oddaljen priklop, mu moramo nastaviti geslo</li>
+<li>Preden omogočimo uporabniku <code>postgres</code> (t.j., administratorju) oddaljen priklop, mu moramo nastaviti geslo (dvakrat vnesemo novo geslo):</li>
 </ul>
 
 <pre class = 'prettyprint lang-bash'>psql
 \password</pre>
 
-<p>Dvakrat vnesemo novo geslo. - V nadaljevanju bomo komunicirali s podatkovno bazo preko PgAdmin 4.</p>
+<ul class = 'build'>
+<li>V nadaljevanju bomo komunicirali s podatkovno bazo preko PgAdmin 4.</li>
+</ul>
 
 </article></slide><slide class=""><hgroup><h2>Indeksi</h2></hgroup><article  class="build" id="indeksi">
 

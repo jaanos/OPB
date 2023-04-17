@@ -355,11 +355,11 @@ psql -U postgres -c 'SHOW hba_file'
 ```
 - S pomočjo urejevalnika `nano` popravimo vrstico oblike 
 ```{bash  eval=FALSE}
-host      all      all      127.0.0.1/32     md5
+host    all     all     127.0.0.1/32   scram-sha-256
 ```
 v vrstico 
 ```{bash  eval=FALSE}
-host      all      all      0.0.0.0/0        md5
+host    all     all     0.0.0.0/0      scram-sha-256
 ```
 - Urejevalnik zaženemo npr. kot 
 ```{bash  eval=FALSE}
@@ -386,18 +386,18 @@ service postgresql restart
 
 ## Priklop preko PgAdmin 4 {.build .small}
 
-- Virtualni strežnik mora imeti mrežni vmesnik nastavljen na `Bridged Adapter`, t.j., mora biti na isti mreži, kot je naš računalnik.
+- Virtualni strežnik mora imeti mrežni vmesnik nastavljen na `Bridged Adapter`, t.j., na isti mreži, kot je naš računalnik.
 - Za priklop rabimo naslov strežnika (`host`), uporabnika (`user`), njegovo geslo in ime podatkovne baze, na katero se priklapljamo.
 - IP številko virtualnega računalnika dobimo z ukazom v terminalu:
 ```{bash  eval=FALSE}
 ip address
 ```
-- Preden omogočimo uporabniku `postgres` (t.j., administratorju) oddaljen priklop, mu moramo nastaviti geslo
+- Preden omogočimo uporabniku `postgres` (t.j., administratorju) oddaljen priklop, mu moramo nastaviti geslo (dvakrat vnesemo novo geslo):
 ```{bash  eval=FALSE}
 psql
 \password
 ```
-Dvakrat vnesemo novo geslo.
+
 - V nadaljevanju bomo komunicirali s podatkovno bazo preko PgAdmin 4.
 
 
