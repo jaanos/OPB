@@ -193,7 +193,7 @@ GRANT ALL ON tabela TO uporabnik;
 ```{sql  eval=FALSE}
 REVOKE tip_pravice ON tabela FROM ime_vloge;
 ```
-- Primer: onemogočanje vstavljanja vsem skupinam.
+- Primer: onemogočanje vstavljanja vsem uporabnikom (ki nimajo ustrezne pravice dodeljene na drug način).
 ```{sql  eval=FALSE}
 REVOKE INSERT ON tabela FROM PUBLIC;
 ```
@@ -233,11 +233,10 @@ SELECT * FROM oseba;
 
 - Odjavimo se in prijavimo kot uporabnik `postgres`.
 ```{bash  eval=FALSE}
-psql
+psql nova
 ```
 - Izvedemo naslednje:
 ```{sql  eval=FALSE}
-\c nova
 REVOKE ALL ON DATABASE nova FROM PUBLIC;
 GRANT CONNECT ON DATABASE nova TO janez;
 GRANT USAGE ON SCHEMA public TO janez;
@@ -284,19 +283,18 @@ ALTER ROLE uporabnik INHERIT;
 
 - Odjavimo se in se prijavimo kot uporabnik `postgres`.
 ```{bash  eval=FALSE}
-psql
+psql nova
 ```
 - Izvedemo naslednje:
 ```{sql  eval=FALSE}
-\c nova
-CREATE ROLE noviadmini;
+CREATE ROLE novaadmini;
 REVOKE ALL ON DATABASE nova FROM PUBLIC;
-GRANT CONNECT ON DATABASE nova TO noviadmini;
-GRANT USAGE ON SCHEMA public TO noviadmini;
+GRANT CONNECT ON DATABASE nova TO novaadmini;
+GRANT USAGE ON SCHEMA public TO novaadmini;
 GRANT ALL ON ALL TABLES IN SCHEMA public
-  TO noviadmini;
+  TO novaadmini;
 GRANT ALL ON ALL SEQUENCES IN SCHEMA public
-  TO noviadmini;
+  TO novaadmini;
 \l
 \dn+
 \dp
@@ -308,18 +306,18 @@ GRANT ALL ON ALL SEQUENCES IN SCHEMA public
 - Uporabniku dodelimo pravico.
 ```{sql  eval=FALSE}
 CREATE USER metka WITH ENCRYPTED PASSWORD 'pomlad';
-ALTER ROLE metka INHERIT;
-GRANT noviadmini TO metka;
+ALTER ROLE metka NOINHERIT;
+GRANT novaadmini TO metka;
 \du
 ```
 - Če želimo ohranjanje privzetih pravic na novih objektih:
 ```{sql  eval=FALSE}
 ALTER DEFAULT PRIVILEGES
   FOR ROLE metka IN SCHEMA public
-  GRANT ALL ON TABLES TO noviadmini;
+  GRANT ALL ON TABLES TO novaadmini;
 ALTER DEFAULT PRIVILEGES
   FOR ROLE metka IN SCHEMA public
-  GRANT ALL ON SEQUENCES TO noviadmini;
+  GRANT ALL ON SEQUENCES TO novaadmini;
 ```
 
 
@@ -357,11 +355,11 @@ psql -U postgres -c 'SHOW hba_file'
 ```
 - S pomočjo urejevalnika `nano` popravimo vrstico oblike 
 ```{bash  eval=FALSE}
-host      all      all      127.0.0.1/32     md5
+host    all     all     127.0.0.1/32   scram-sha-256
 ```
 v vrstico 
 ```{bash  eval=FALSE}
-host      all      all      0.0.0.0/0        md5
+host    all     all     0.0.0.0/0      scram-sha-256
 ```
 - Urejevalnik zaženemo npr. kot 
 ```{bash  eval=FALSE}
@@ -388,18 +386,18 @@ service postgresql restart
 
 ## Priklop preko PgAdmin 4 {.build .small}
 
-- Virtualni strežnik mora imeti mrežni vmesnik nastavljen na `Bridged Adapter`, t.j., mora biti na isti mreži, kot je naš računalnik.
+- Virtualni strežnik mora imeti mrežni vmesnik nastavljen na `Bridged Adapter`, t.j., na isti mreži, kot je naš računalnik.
 - Za priklop rabimo naslov strežnika (`host`), uporabnika (`user`), njegovo geslo in ime podatkovne baze, na katero se priklapljamo.
 - IP številko virtualnega računalnika dobimo z ukazom v terminalu:
 ```{bash  eval=FALSE}
 ip address
 ```
-- Preden omogočimo uporabniku `postgres` (t.j., administratorju) oddaljen priklop, mu moramo nastaviti geslo
+- Preden omogočimo uporabniku `postgres` (t.j., administratorju) oddaljen priklop, mu moramo nastaviti geslo (dvakrat vnesemo novo geslo):
 ```{bash  eval=FALSE}
 psql
 \password
 ```
-Dvakrat vnesemo novo geslo.
+
 - V nadaljevanju bomo komunicirali s podatkovno bazo preko PgAdmin 4.
 
 
