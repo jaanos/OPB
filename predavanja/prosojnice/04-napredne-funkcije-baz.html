@@ -3712,7 +3712,7 @@ ALTER DEFAULT PRIVILEGES
 <ul class = 'build'>
 <li>B-tree: linearno urejene množice</li>
 <li>Hash: zgoščena tabela. Možno samo iskanje po enakosti.</li>
-<li>GiST, SPGiST, GIN, …</li>
+<li>GiST, SP-GiST, GIN, …</li>
 </ul></li>
 <li>Primer:</li>
 </ul>
@@ -3747,7 +3747,7 @@ ALTER DEFAULT PRIVILEGES
 <ul class = 'build'>
 <li>Atomarnost: vse operacije v transakciji izvedene ali zavrnjene.</li>
 <li>Konsistentnost: pred in po transakciji je stanje v bazi konsistentno.</li>
-<li>Izolacija: transakcije so izolirane med seboj in medsebojni vpogled je pregleden.</li>
+<li>Izolacija: transakcije so izolirane med seboj in medsebojni vpogled ni mogoč.</li>
 <li>Trajnostnost: rezultat transakcije je trajno shranjen.</li>
 </ul></li>
 <li>Ukazi:
@@ -3796,7 +3796,7 @@ COMMIT;</pre>
 </ul>
 
 <pre class = 'prettyprint lang-sql'>SET TRANSACTION SERIALIZABLE | REPEATABLE READ | 
-        READ COMMITTED | READ UNCOMMITTED</pre>
+        READ COMMITTED | READ UNCOMMITTED;</pre>
 
 </article></slide><slide class=""><hgroup><h2>Shranjene funkcije</h2></hgroup><article  id="shranjene-funkcije">
 
@@ -3843,10 +3843,10 @@ $$
 LANGUAGE plpgsql;</pre>
 
 <ul class = 'build'>
-<li>Uporaba</li>
+<li>Uporaba:</li>
 </ul>
 
-<pre class = 'prettyprint lang-sql'>SELECT povecaj(20)</pre>
+<pre class = 'prettyprint lang-sql'>SELECT povecaj(20);</pre>
 
 </article></slide><slide class=""><hgroup><h2>Prožilci</h2></hgroup><article  id="prožilci">
 
@@ -3869,7 +3869,7 @@ LANGUAGE plpgsql;</pre>
    priimek TEXT NOT NULL
 );</pre>
 
-</article></slide><slide class=""><hgroup><h2><a href='http://www.postgresqltutorial.com/creating-first-trigger-postgresql/' title=''>Prožilci - primer</a></h2></hgroup><article  id="prožilci---primer-1">
+</article></slide><slide class=""><hgroup><h2><a href='http://www.postgresqltutorial.com/creating-first-trigger-postgresql/' title=''>Prožilci - primer</a></h2></hgroup><article  class="build" id="prožilci---primer-1">
 
 <ul class = 'build'>
 <li>Ustvarimo tabelo sprememb:</li>

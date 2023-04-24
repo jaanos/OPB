@@ -437,7 +437,7 @@ DROP INDEX index1;
 - Tipi indeksov:
     - B-tree: linearno urejene množice
     - Hash: zgoščena tabela. Možno samo iskanje po enakosti.
-    - GiST, SPGiST, GIN, ...
+    - GiST, SP-GiST, GIN, ...
 - Primer:
 ```{sql  eval=FALSE}
 CREATE INDEX name ON table USING hash (column);
@@ -464,7 +464,7 @@ CREATE INDEX users_lower_email ON users(lower(email));
 - Lastnosti transakcij - ACID:
     - Atomarnost: vse operacije v transakciji izvedene ali zavrnjene.
     - Konsistentnost: pred in po transakciji je stanje v bazi konsistentno.
-    - Izolacija: transakcije so izolirane med seboj in medsebojni vpogled je pregleden.
+    - Izolacija: transakcije so izolirane med seboj in medsebojni vpogled ni mogoč.
     - Trajnostnost: rezultat transakcije je trajno shranjen.
 - Ukazi:
     - `BEGIN` ali `BEGIN TRANSACTION` - začetek transakcije
@@ -507,7 +507,7 @@ knitr::include_graphics('./slike/nivoji_izolacije.png')
 - Lahko ga nastavimo:
 ```{sql  eval=FALSE}
 SET TRANSACTION SERIALIZABLE | REPEATABLE READ | 
-        READ COMMITTED | READ UNCOMMITTED
+        READ COMMITTED | READ UNCOMMITTED;
 ```
 
 
@@ -549,9 +549,9 @@ END;
 $$
 LANGUAGE plpgsql;
 ```
-- Uporaba
+- Uporaba:
 ```{sql  eval=FALSE}
-SELECT povecaj(20)
+SELECT povecaj(20);
 ```
 
 
@@ -575,7 +575,7 @@ CREATE TABLE zaposleni (
 ```
 
 
-## [Prožilci - primer](http://www.postgresqltutorial.com/creating-first-trigger-postgresql/)
+## [Prožilci - primer](http://www.postgresqltutorial.com/creating-first-trigger-postgresql/) {.build}
 
 - Ustvarimo tabelo sprememb:
 ```{sql  eval=FALSE}
