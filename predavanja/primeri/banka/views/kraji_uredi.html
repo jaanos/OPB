@@ -12,7 +12,9 @@
                 % if posta:
                     {{posta}}
                 % else:
-                <input name="posta" type="number" required />
+                <input name="posta" type="number" required
+                 oninput="this.setCustomValidity('')"
+                 oninvalid="this.setCustomValidity('Obvezen številski podatek')" />
                 % end
             </td>
         </tr>
@@ -21,7 +23,9 @@
                 <span>Kraj:</span>
             </td>
             <td>
-                <input name="kraj" type="text" value="{{kraj}}" required />
+                <input name="kraj" type="text" value="{{kraj}}" required
+                 oninput="this.setCustomValidity('')"
+                 oninvalid="this.setCustomValidity('Obvezen podatek')" />
             </td>
         </tr>
         <tr>

@@ -27,6 +27,21 @@ def komitenti(cur):
     return template('komitenti.html', komitenti=cur)
 
 
+@get("/komitenti/dodaj")
+def komitenti_dodaj(cur):
+    return template("komitenti_uredi.html")
+
+
+@get("/komitenti/uredi/<emso>")
+def komitenti_uredi(cur, emso):
+    raise NotImplementedError
+
+
+@get("/komitenti/brisi/<emso>")
+def komitenti_brisi(cur, emso):
+    raise NotImplementedError
+
+
 ############################################
 ### Kraji
 ############################################
@@ -70,6 +85,7 @@ def kraji_uredi(cur, posta):
     kraj, = res
     return template("kraji_uredi.html", posta=posta, kraj=kraj)
 
+
 @post("/kraji/uredi/<posta:int>")
 def kraji_uredi_post(cur, posta):
     kraj = request.forms.getunicode('kraj')
@@ -83,6 +99,7 @@ def kraji_uredi_post(cur, posta):
         redirect(url('kraji_uredi', posta=posta))
     redirect(url('kraji'))
 
+
 @post("/kraji/brisi/<posta:int>")
 def kraji_brisi(cur, posta):
     try:
@@ -93,6 +110,7 @@ def kraji_brisi(cur, posta):
     except:
         nastavi_sporocilo(f"Brisanje kraja s poštno številko {posta} ni uspelo.")
     redirect(url('kraji'))
+
 
 ############################################
 ### Računi

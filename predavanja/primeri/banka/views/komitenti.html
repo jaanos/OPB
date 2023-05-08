@@ -1,12 +1,14 @@
 % rebase('osnova.html', naslov='Komitenti')
+% include('orodna_vrstica.html', stolpci='[1, 2, 3, 4]', fun_dodaj='komitenti_dodaj', napis='Dodaj komitenta')
 
-    <table class="table table-striped">
+    <table class="table table-striped" id="podatki">
       <tr>
         <th>EMŠO</th>
         <th>Ime</th>
         <th>Priimek</th>
         <th>Naslov</th>
         <th>Pošta</th>
+        <th></th>
       </tr>
       %for ime, priimek, emso, naslov, posta, kraj in komitenti:
       <tr>
@@ -15,6 +17,14 @@
         <td>{{priimek}}</td>
         <td>{{naslov}}</td>
         <td>{{posta}} {{kraj}}</td>
+        <td class="akcije">
+          <form action="{{url('komitenti_uredi', emso=emso)}}" method="GET">
+            <a href="#" onclick="this.parentElement.submit()">Uredi</a>
+          </form>
+          <form action="{{url('komitenti_brisi', emso=emso)}}" method="POST">
+            <a href="#" onclick="this.parentElement.submit()">Izbriši</a>
+          </form>
+        </td>
       </tr>
       %end
     </table>
