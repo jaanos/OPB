@@ -1,6 +1,6 @@
 % setdefault('posta', None)
 % setdefault('kraj', '')
-% rebase('osnova.html', naslov='Dodaj kraj')
+% rebase('osnova.html', naslov=('Uredi kraj' if posta else 'Dodaj kraj'))
 
   <form action="{{url('kraji_uredi_post', posta=posta) if posta else url('kraji_dodaj_post')}}" method="POST">
     <table>
@@ -12,7 +12,7 @@
                 % if posta:
                     {{posta}}
                 % else:
-                <input name="posta" type="text" />
+                <input name="posta" type="number" required />
                 % end
             </td>
         </tr>
@@ -21,7 +21,7 @@
                 <span>Kraj:</span>
             </td>
             <td>
-                <input name="kraj" type="text" value="{{kraj}}" />
+                <input name="kraj" type="text" value="{{kraj}}" required />
             </td>
         </tr>
         <tr>

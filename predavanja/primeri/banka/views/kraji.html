@@ -1,8 +1,13 @@
 % rebase('osnova.html', naslov='Pošte')
 
+  <div>
+    Iskanje: <input type="text" id="iskalnik"
+              oninput="filtriraj(this.value.toLocaleLowerCase())" />
+  </div>
+
   <a href="{{url('kraji_dodaj')}}">Dodaj kraj</a>
 
-    <table class="table table-striped">
+    <table class="table table-striped" id="podatki">
       <tr>
         <th>Poštna številka</th>
         <th>Kraj</th>
@@ -23,3 +28,20 @@
       </tr>
       %end
     </table>
+
+    <script>
+      'use strict'
+      let filtriraj = function(niz) {
+        let podatki = document.getElementById("podatki");
+        [...podatki.rows].forEach(vrstica => {
+          if (vrstica.cells[0].tagName.toLocaleLowerCase() == "th") {
+            return;
+          }
+          if (vrstica.cells[1].innerText.toLocaleLowerCase().indexOf(niz) >= 0) {
+            vrstica.style.display = '';
+          } else {
+            vrstica.style.display = 'none';
+          }
+        })
+      }
+    </script>
