@@ -26,7 +26,7 @@ body {
     padding: 1rem;
 }
 
-#isci {
+#iskalnik {
     line-height: 1.5rem;
     margin-left: 0.25rem;
 }
@@ -35,6 +35,6 @@ body {
     display: flex;
 }
 
-.akcija {
+.akcije form {
     margin: 0.25rem;
 }
