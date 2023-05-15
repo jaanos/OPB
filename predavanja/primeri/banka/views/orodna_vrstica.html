@@ -1,0 +1,13 @@
+  % setdefault('stolpci', '[1]')
+  % setdefault('fun_args', {})
+  % setdefault('metoda', 'GET')
+  
+  <div class="orodna-vrstica">
+    <div>
+      Iskanje: <input type="text" id="iskalnik"
+                oninput="filtriraj(this.value.toLocaleLowerCase(), {{stolpci}})" />
+    </div>
+    <form action="{{url(fun_dodaj, **fun_args)}}" method="{{metoda}}">
+      <a href="#" onclick="this.parentElement.submit()">{{napis}}</a>
+    </form>
+  </div>

@@ -1,0 +1,69 @@
+% setdefault('emso', '')
+% setdefault('ime', '')
+% setdefault('priimek', '')
+% setdefault('naslov', '')
+% setdefault('posta_id', '')
+% rebase('osnova.html', naslov=('Uredi komitenta' if emso else 'Dodaj komitenta'))
+
+  <form action="{{url('komitenti_uredi_post', emso=emso) if emso else url('komitenti_dodaj_post')}}" method="POST">
+    <table>
+        <tr>
+            <td>
+                <span>EMŠO:</span>
+            </td>
+            <td>
+                <input name="emso" value="{{emso}}" required
+                 oninput="this.setCustomValidity('')"
+                 oninvalid="this.setCustomValidity('Obvezen podatek')" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <span>Ime:</span>
+            </td>
+            <td>
+                <input name="ime" type="text" value="{{ime}}" required
+                 oninput="this.setCustomValidity('')"
+                 oninvalid="this.setCustomValidity('Obvezen podatek')" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <span>Priimek:</span>
+            </td>
+            <td>
+                <input name="priimek" type="text" value="{{priimek}}" required
+                 oninput="this.setCustomValidity('')"
+                 oninvalid="this.setCustomValidity('Obvezen podatek')" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <span>Naslov:</span>
+            </td>
+            <td>
+                <input name="naslov" type="text" value="{{naslov}}" required
+                 oninput="this.setCustomValidity('')"
+                 oninvalid="this.setCustomValidity('Obvezen podatek')" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <span>Pošta:</span>
+            </td>
+            <td>
+                <select name="posta_id">
+                    %for posta, kraj in poste:
+                        <option value="{{posta}}" {{'selected' if posta == posta_id else ''}}>{{posta}} {{kraj}}</option>
+                    %end
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <input value="{{'Uredi' if emso else 'Dodaj'}}" type="submit" />
+            </td>
+        </tr>
+    </table>
+  </form>

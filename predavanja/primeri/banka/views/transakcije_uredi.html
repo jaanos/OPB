@@ -1,0 +1,61 @@
+% setdefault('id', None)
+% setdefault('znesek', '')
+% setdefault('datum', '')
+% rebase('osnova.html', naslov=('Uredi transakcijo' if id else 'Dodaj transakcijo'))
+
+  <form action="{{url('transakcije_uredi_post', racun=racun, id=id) if id else url('transakcije_dodaj_post', racun=racun)}}" method="POST">
+    <table>
+        % if id:
+        <tr>
+            <td>
+                <span>ID transakcije:</span>
+            </td>
+            <td>
+                {{id}}
+            </td>
+        </tr>
+        % end
+        <tr>
+            <td>
+                <span>Št. računa:</span>
+            </td>
+            <td>
+                {{racun}}, stanje: {{stanje}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <span>Lastnik:</span>
+            </td>
+            <td>
+                {{ime}} {{priimek}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <span>Znesek:</span>
+            </td>
+            <td>
+                <input name="znesek" type="number" value="{{znesek}}" required
+                 oninput="this.setCustomValidity('')"
+                 oninvalid="this.setCustomValidity('Obvezen številski podatek')" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <span>Datum:</span>
+            </td>
+            <td>
+                <input name="datum" type="date" value="{{datum}}" required
+                 oninput="this.setCustomValidity('')"
+                 oninvalid="this.setCustomValidity('Obvezen podatek')" />
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <input value="{{'Uredi' if id else 'Dodaj'}}" type="submit" />
+            </td>
+        </tr>
+    </table>
+  </form>
