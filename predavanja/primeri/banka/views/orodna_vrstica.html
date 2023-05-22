@@ -2,12 +2,15 @@
   % setdefault('fun_args', {})
   % setdefault('metoda', 'GET')
   
-  <div class="orodna-vrstica">
-    <div>
-      Iskanje: <input type="text" id="iskalnik"
+  <div class="row bg-tertiary my-3 align-items-center">
+    <div class="col-sm-3 d-flex align-items-center">
+      <label for="iskalnik" class="form-label">Iskanje:</label>
+      <input type="text" id="iskalnik" class="form-control"
                 oninput="filtriraj(this.value.toLocaleLowerCase(), {{stolpci}})" />
     </div>
-    <form action="{{url(fun_dodaj, **fun_args)}}" method="{{metoda}}">
-      <a href="#" onclick="this.parentElement.submit()">{{napis}}</a>
-    </form>
+    <div class="col-sm-9 d-flex justify-content-end align-items-center">
+      <form action="{{url(fun_dodaj, **fun_args)}}" method="{{metoda}}">
+        <button type="submit" class="btn btn-primary">{{napis}}</button>
+      </form>
+    </div>
   </div>

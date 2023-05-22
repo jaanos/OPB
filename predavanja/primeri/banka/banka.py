@@ -1,4 +1,5 @@
 from bottleext import *
+from datetime import datetime
 import sqlite3
 
 # KONFIGURACIJA
@@ -10,7 +11,7 @@ debug(True) # za izpise pri razvoju
 
 @get('/')
 def index(cur):
-    return 'Začetna stran'
+    return template('index.html')
 
 
 ############################################
@@ -99,7 +100,6 @@ def komitenti_brisi(cur, emso):
 ### Kraji
 ############################################
 
-
 def seznam_krajev(cur):
     cur.execute("""
         SELECT posta, kraj FROM kraj
@@ -138,7 +138,7 @@ def kraji_uredi(cur, posta):
     """, (posta, ))
     res = cur.fetchone()
     if res is None:
-        nastavi_sporocilo(f"Kraji s poštno številko {posta} ne obstaja!")
+        nastavi_sporocilo(f"Kraj s poštno številko {posta} ne obstaja!")
         redirect(url('kraji'))
     kraj, = res
     return template("kraji_uredi.html", posta=posta, kraj=kraj)
@@ -248,6 +248,7 @@ def transakcije(cur, racun):
     return template('transakcije.html', ime=ime, priimek=priimek, emso=emso,
                     stanje=stanje, racun=racun, transakcije=cur)
 
+
 @get("/transakcije/<racun:int>/dodaj")
 def transakcije_dodaj(cur, racun):
     res = podatki_racuna(cur, racun)
@@ -256,64 +257,69 @@ def transakcije_dodaj(cur, racun):
         redirect(url('komitenti'))
     emso, ime, priimek, stanje = res
     return template("transakcije_uredi.html", racun=racun, stanje=stanje,
-                    ime=ime, priimek=priimek)
+                    ime=ime, priimek=priimek, 
+                    datum=datetime.now().strftime("%Y-%m-%d"))
 
 
 @post('/transakcije/<racun:int>/dodaj')
 def transakcije_dodaj_post(cur, racun):
-    raise NotImplementedError
-    posta = request.forms.getunicode('posta')
-    kraj = request.forms.getunicode('kraj')
+    znesek = request.forms.getunicode('znesek')
+    datum = request.forms.getunicode('datum')
     try:
         with baza:
             cur.execute("""
-                INSERT INTO kraj (posta, kraj) VALUES (?, ?)
-            """, (posta, kraj))
+                INSERT INTO transakcija (racun_id, znesek, datum) VALUES (?, ?, ?)
+            """, (racun, znesek, datum))
     except:
-        nastavi_sporocilo(f"Dodajanje kraja s poštno številko {posta} ni uspelo.")
-    redirect(url('kraji'))
+        nastavi_sporocilo(f"Dodajanje transakcija na računu {racun} ni uspelo.")
+    redirect(url('transakcije', racun=racun))
 
 
 @get("/transakcije/<racun:int>/uredi/<id:int>")
 def transakcije_uredi(cur, racun, id):
-    raise NotImplementedError
+    res = podatki_racuna(cur, racun)
+    if res is None:
+        nastavi_sporocilo(f"Račun s številko {racun} ne obstaja.")
+        redirect(url('komitenti'))
+    emso, ime, priimek, stanje = res
     cur.execute("""
-        SELECT kraj FROM kraj WHERE posta = ?
-    """, (posta, ))
+        SELECT znesek, datum FROM transakcija WHERE id = ? AND racun_id = ?
+    """, (id, racun))
     res = cur.fetchone()
     if res is None:
-        nastavi_sporocilo(f"Kraji s poštno številko {posta} ne obstaja!")
-        redirect(url('kraji'))
-    kraj, = res
-    return template("kraji_uredi.html", posta=posta, kraj=kraj)
+        nastavi_sporocilo(f"Transakcija z ID-jem {id} na računu {racun} ne obstaja!")
+        redirect(url('transakcije', racun=racun))
+    znesek, datum = res
+    return template("transakcije_uredi.html", id=id, racun=racun, stanje=stanje,
+                    ime=ime, priimek=priimek, znesek=znesek, datum=datum)
 
 
 @post("/transakcije/<racun:int>/uredi/<id:int>")
 def transakcije_uredi_post(cur, racun, id):
-    raise NotImplementedError
-    kraj = request.forms.getunicode('kraj')
+    znesek = request.forms.getunicode('znesek')
+    datum = request.forms.getunicode('datum')
     try:
         with baza:
             cur.execute("""
-                UPDATE kraj SET kraj = ? WHERE posta = ?
-            """, (kraj, posta))
+                UPDATE transakcija SET znesek = ?, datum = ?
+                WHERE id = ? AND racun_id = ?
+            """, (znesek, datum, id, racun))
     except:
-        nastavi_sporocilo(f"Urejanje kraja s poštno številko {posta} ni uspelo.")
-        redirect(url('kraji_uredi', posta=posta))
-    redirect(url('kraji'))
+        nastavi_sporocilo(f"Urejanje transakcije z ID-jem {id} na računu {racun} ni uspelo.")
+        redirect(url('transakcije_uredi', racun=racun, id=id))
+    redirect(url('transakcije', racun=racun))
 
 
 @post("/transakcije/<racun:int>/brisi/<id:int>")
 def transakcije_brisi(cur, racun, id):
-    raise NotImplementedError
     try:
         with baza:
             cur.execute("""
-                DELETE FROM kraj WHERE posta = ?
-            """, (posta, ))
+                DELETE FROM transakcija WHERE id = ? AND racun_id = ?
+            """, (id, racun))
     except:
-        nastavi_sporocilo(f"Brisanje kraja s poštno številko {posta} ni uspelo.")
-    redirect(url('kraji'))
+        nastavi_sporocilo(f"Brisanje transakcije z ID-jem {id} na računu {racun} ni uspelo.")
+    redirect(url('transakcije', racun=racun))
 
 
 if __name__ == "__main__":
