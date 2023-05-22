@@ -4,58 +4,43 @@
 % rebase('osnova.html', naslov=('Uredi transakcijo' if id else 'Dodaj transakcijo'))
 
   <form action="{{url('transakcije_uredi_post', racun=racun, id=id) if id else url('transakcije_dodaj_post', racun=racun)}}" method="POST">
-    <table>
-        % if id:
-        <tr>
-            <td>
-                <span>ID transakcije:</span>
-            </td>
-            <td>
-                {{id}}
-            </td>
-        </tr>
-        % end
-        <tr>
-            <td>
-                <span>Št. računa:</span>
-            </td>
-            <td>
-                {{racun}}, stanje: {{stanje}}
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <span>Lastnik:</span>
-            </td>
-            <td>
-                {{ime}} {{priimek}}
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <span>Znesek:</span>
-            </td>
-            <td>
-                <input name="znesek" type="number" value="{{znesek}}" required
-                 oninput="this.setCustomValidity('')"
-                 oninvalid="this.setCustomValidity('Obvezen številski podatek')" />
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <span>Datum:</span>
-            </td>
-            <td>
-                <input name="datum" type="date" value="{{datum}}" required
-                 oninput="this.setCustomValidity('')"
-                 oninvalid="this.setCustomValidity('Obvezen podatek')" />
-            </td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>
-                <input value="{{'Uredi' if id else 'Dodaj'}}" type="submit" />
-            </td>
-        </tr>
-    </table>
+    <div class="row">
+        %if id:
+        <div class="col-sm-3">
+            <label class="form-label">ID transakcije:</label>
+            <label class="form-control">{{id}}</label>
+        </div>
+        %end
+        <div class="col-sm-3">
+            <label class="form-label">Št. računa:</label>
+            <label class="form-control">{{racun}}</label>
+        </div>
+        <div class="col-sm-3">
+            <label class="form-label">Stanje:</label>
+            <label class="form-control">{{stanje}}</label>
+        </div>
+        <div class="col-sm-3">
+            <label class="form-label">Lastnik:</label>
+            <label class="form-control">{{ime}} {{priimek}}</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+          <label class="form-label">Znesek:</label>
+          <input name="znesek" type="number" value="{{znesek}}" required
+               class="form-control" oninput="this.setCustomValidity('')"
+               oninvalid="this.setCustomValidity('Obvezen številski podatek')" />
+        </div>
+        <div class="col-sm-6">
+          <label class="form-label">Datum:</label>
+          <input name="datum" type="date" value="{{datum}}" required
+               class="form-control" oninput="this.setCustomValidity('')"
+               oninvalid="this.setCustomValidity('Obvezen podatek')" />
+        </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12 my-3 d-flex justify-content-end">
+        <button class="btn btn-primary" type="submit">{{'Uredi' if id else 'Dodaj'}}</button>
+      </div>
+    </div>
   </form>
