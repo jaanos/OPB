@@ -1,0 +1,23 @@
+% rebase('osnova.html', naslov='Prijava')
+
+  <form action="{{url('prijava_post')}}" method="POST">
+    <div class="row">
+        <div class="col-sm-6">
+          <label class="form-label">Uporabniško ime:</label>
+          <input name="up_ime" type="text" value="" required
+               class="form-control" oninput="this.setCustomValidity('')"
+               oninvalid="this.setCustomValidity('Obvezen podatek')" />
+        </div>
+        <div class="col-sm-6">
+          <label class="form-label">Geslo:</label>
+          <input name="geslo" type="password" value="" required
+               class="form-control" oninput="this.setCustomValidity('')"
+               oninvalid="this.setCustomValidity('Obvezen podatek')" />
+        </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12 my-3 d-flex justify-content-end">
+        <button class="btn btn-primary" type="submit">Prijava</button>
+      </div>
+    </div>
+  </form>
