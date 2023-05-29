@@ -10,8 +10,8 @@ debug(True) # za izpise pri razvoju
 
 
 @get('/')
-def index(cur):
-    return template('index.html')
+def index(uporabnik, cur):
+    return uporabnik.template('index.html')
 
 
 ############################################
@@ -19,22 +19,25 @@ def index(cur):
 ############################################
 
 @get('/komitenti')
-def komitenti(cur):
+@Uporabnik.admin
+def komitenti(uporabnik, cur):
     cur.execute("""
         SELECT ime, priimek, emso, naslov, kraj.posta, kraj.kraj
         FROM oseba JOIN kraj ON oseba.posta_id = kraj.posta
         ORDER BY oseba.priimek
     """)
-    return template('komitenti.html', komitenti=cur)
+    return uporabnik.template('komitenti.html', komitenti=cur)
 
 
 @get("/komitenti/dodaj")
-def komitenti_dodaj(cur):
-    return template("komitenti_uredi.html", poste=seznam_krajev(cur))
+@Uporabnik.admin
+def komitenti_dodaj(uporabnik, cur):
+    return uporabnik.template("komitenti_uredi.html", poste=seznam_krajev(cur))
 
 
 @post("/komitenti/dodaj")
-def komitenti_dodaj_post(cur):
+@Uporabnik.admin
+def komitenti_dodaj_post(uporabnik, cur):
     emso = request.forms.getunicode('emso')
     ime = request.forms.getunicode('ime')
     priimek = request.forms.getunicode('priimek')
@@ -52,7 +55,8 @@ def komitenti_dodaj_post(cur):
 
 
 @get("/komitenti/uredi/<emso>")
-def komitenti_uredi(cur, emso):
+@Uporabnik.admin
+def komitenti_uredi(uporabnik, cur, emso):
     cur.execute("""
         SELECT ime, priimek, naslov, posta_id FROM oseba WHERE emso = ?
     """, (emso, ))
@@ -61,12 +65,14 @@ def komitenti_uredi(cur, emso):
         nastavi_sporocilo(f"Komitent z EMŠOm {emso} ne obstaja!")
         redirect(url('komitenti'))
     ime, priimek, naslov, posta_id = res
-    return template("komitenti_uredi.html", emso=emso, ime=ime, priimek=priimek,
-                    naslov=naslov, posta_id=posta_id, poste=seznam_krajev(cur))
+    return uporabnik.template("komitenti_uredi.html", emso=emso, ime=ime,
+                              priimek=priimek, naslov=naslov, posta_id=posta_id,
+                              poste=seznam_krajev(cur))
 
 
 @post("/komitenti/uredi/<emso>")
-def komitenti_uredi_post(cur, emso):
+@Uporabnik.admin
+def komitenti_uredi_post(uporabnik, cur, emso):
     novi_emso = request.forms.getunicode('emso')
     ime = request.forms.getunicode('ime')
     priimek = request.forms.getunicode('priimek')
@@ -85,7 +91,8 @@ def komitenti_uredi_post(cur, emso):
 
 
 @post("/komitenti/brisi/<emso>")
-def komitenti_brisi(cur, emso):
+@Uporabnik.admin
+def komitenti_brisi(uporabnik, cur, emso):
     try:
         with baza:
             cur.execute("""
@@ -108,17 +115,20 @@ def seznam_krajev(cur):
 
 
 @get('/kraji')
-def kraji(cur):
-    return template('kraji.html', poste=seznam_krajev(cur))
+@Uporabnik.admin
+def kraji(uporabnik, cur):
+    return uporabnik.template('kraji.html', poste=seznam_krajev(cur))
 
 
 @get("/kraji/dodaj")
-def kraji_dodaj(cur):
-    return template("kraji_uredi.html")
+@Uporabnik.admin
+def kraji_dodaj(uporabnik, cur):
+    return uporabnik.template("kraji_uredi.html")
 
 
 @post('/kraji/dodaj')
-def kraji_dodaj_post(cur):
+@Uporabnik.admin
+def kraji_dodaj_post(uporabnik, cur):
     posta = request.forms.getunicode('posta')
     kraj = request.forms.getunicode('kraj')
     try:
@@ -132,7 +142,8 @@ def kraji_dodaj_post(cur):
 
 
 @get("/kraji/uredi/<posta:int>")
-def kraji_uredi(cur, posta):
+@Uporabnik.admin
+def kraji_uredi(uporabnik, cur, posta):
     cur.execute("""
         SELECT kraj FROM kraj WHERE posta = ?
     """, (posta, ))
@@ -141,11 +152,12 @@ def kraji_uredi(cur, posta):
         nastavi_sporocilo(f"Kraj s poštno številko {posta} ne obstaja!")
         redirect(url('kraji'))
     kraj, = res
-    return template("kraji_uredi.html", posta=posta, kraj=kraj)
+    return uporabnik.template("kraji_uredi.html", posta=posta, kraj=kraj)
 
 
 @post("/kraji/uredi/<posta:int>")
-def kraji_uredi_post(cur, posta):
+@Uporabnik.admin
+def kraji_uredi_post(uporabnik, cur, posta):
     kraj = request.forms.getunicode('kraj')
     try:
         with baza:
@@ -159,7 +171,8 @@ def kraji_uredi_post(cur, posta):
 
 
 @post("/kraji/brisi/<posta:int>")
-def kraji_brisi(cur, posta):
+@Uporabnik.admin
+def kraji_brisi(uporabnik, cur, posta):
     try:
         with baza:
             cur.execute("""
@@ -185,7 +198,9 @@ def podatki_racuna(cur, racun):
 
 
 @get('/racuni/<emso>')
-def racuni(cur, emso):
+@Uporabnik.prijavljen
+def racuni(uporabnik, cur, emso):
+    uporabnik.preveri(emso)
     cur.execute("""
         SELECT ime, priimek FROM oseba
         WHERE emso = ?
@@ -202,11 +217,14 @@ def racuni(cur, emso):
         WHERE lastnik_id = ?
         GROUP BY racun
     """, (emso, ))
-    return template('racuni.html', ime=ime, priimek=priimek, emso=emso, racuni=cur)
+    return uporabnik.template('racuni.html', ime=ime, priimek=priimek,
+                              emso=emso, racuni=cur)
 
 
 @post('/racuni/<emso>/dodaj')
-def racuni_dodaj(cur, emso):
+@Uporabnik.prijavljen
+def racuni_dodaj(uporabnik, cur, emso):
+    uporabnik.preveri(emso)
     try:
         with baza:
             cur.execute("""
@@ -218,7 +236,9 @@ def racuni_dodaj(cur, emso):
 
 
 @post('/racuni/<emso>/brisi/<racun:int>')
-def racuni_brisi(cur, emso, racun):
+@Uporabnik.prijavljen
+def racuni_brisi(uporabnik, cur, emso, racun):
+    uporabnik.preveri(emso)
     try:
         with baza:
             cur.execute("""
@@ -234,7 +254,7 @@ def racuni_brisi(cur, emso, racun):
 ############################################
 
 @get('/transakcije/<racun:int>')
-def transakcije(cur, racun):
+def transakcije(uporabnik, cur, racun):
     res = podatki_racuna(cur, racun)
     if res is None:
         nastavi_sporocilo(f"Račun s številko {racun} ne obstaja.")
@@ -245,24 +265,25 @@ def transakcije(cur, racun):
         WHERE racun_id = ?
         ORDER BY datum
     """, (racun, ))
-    return template('transakcije.html', ime=ime, priimek=priimek, emso=emso,
-                    stanje=stanje, racun=racun, transakcije=cur)
+    return uporabnik.template('transakcije.html', ime=ime, priimek=priimek,
+                              emso=emso, stanje=stanje, racun=racun,
+                              transakcije=cur)
 
 
 @get("/transakcije/<racun:int>/dodaj")
-def transakcije_dodaj(cur, racun):
+def transakcije_dodaj(uporabnik, cur, racun):
     res = podatki_racuna(cur, racun)
     if res is None:
         nastavi_sporocilo(f"Račun s številko {racun} ne obstaja.")
         redirect(url('komitenti'))
     emso, ime, priimek, stanje = res
-    return template("transakcije_uredi.html", racun=racun, stanje=stanje,
-                    ime=ime, priimek=priimek, 
-                    datum=datetime.now().strftime("%Y-%m-%d"))
+    return uporabnik.template("transakcije_uredi.html", racun=racun,
+                              stanje=stanje, ime=ime, priimek=priimek, 
+                              datum=datetime.now().strftime("%Y-%m-%d"))
 
 
 @post('/transakcije/<racun:int>/dodaj')
-def transakcije_dodaj_post(cur, racun):
+def transakcije_dodaj_post(uporabnik, cur, racun):
     znesek = request.forms.getunicode('znesek')
     datum = request.forms.getunicode('datum')
     try:
@@ -276,7 +297,7 @@ def transakcije_dodaj_post(cur, racun):
 
 
 @get("/transakcije/<racun:int>/uredi/<id:int>")
-def transakcije_uredi(cur, racun, id):
+def transakcije_uredi(uporabnik, cur, racun, id):
     res = podatki_racuna(cur, racun)
     if res is None:
         nastavi_sporocilo(f"Račun s številko {racun} ne obstaja.")
@@ -290,12 +311,13 @@ def transakcije_uredi(cur, racun, id):
         nastavi_sporocilo(f"Transakcija z ID-jem {id} na računu {racun} ne obstaja!")
         redirect(url('transakcije', racun=racun))
     znesek, datum = res
-    return template("transakcije_uredi.html", id=id, racun=racun, stanje=stanje,
-                    ime=ime, priimek=priimek, znesek=znesek, datum=datum)
+    return uporabnik.template("transakcije_uredi.html", id=id, racun=racun,
+                              stanje=stanje, ime=ime, priimek=priimek,
+                              znesek=znesek, datum=datum)
 
 
 @post("/transakcije/<racun:int>/uredi/<id:int>")
-def transakcije_uredi_post(cur, racun, id):
+def transakcije_uredi_post(uporabnik, cur, racun, id):
     znesek = request.forms.getunicode('znesek')
     datum = request.forms.getunicode('datum')
     try:
@@ -311,7 +333,7 @@ def transakcije_uredi_post(cur, racun, id):
 
 
 @post("/transakcije/<racun:int>/brisi/<id:int>")
-def transakcije_brisi(cur, racun, id):
+def transakcije_brisi(uporabnik, cur, racun, id):
     try:
         with baza:
             cur.execute("""
@@ -320,6 +342,54 @@ def transakcije_brisi(cur, racun, id):
     except:
         nastavi_sporocilo(f"Brisanje transakcije z ID-jem {id} na računu {racun} ni uspelo.")
     redirect(url('transakcije', racun=racun))
+
+
+############################################
+### Uporabniki
+############################################
+
+@get("/prijava")
+@Uporabnik.odjavljen
+def prijava(uporabnik, cur):
+    return uporabnik.template("prijava.html")
+
+
+@post("/prijava")
+@Uporabnik.odjavljen
+def prijava_post(uporabnik, cur):
+    up_ime = request.forms.getunicode('up_ime')
+    geslo = request.forms.getunicode('geslo')
+    uporabnik = Uporabnik(cur, up_ime=up_ime, geslo=geslo)
+    redirect(url('index'))
+
+
+@get("/registracija")
+@Uporabnik.odjavljen
+def registracija(uporabnik, cur):
+    return uporabnik.template("registracija.html")
+
+
+@post("/registracija")
+@Uporabnik.odjavljen
+def registracija_post(uporabnik, cur):
+    emso = request.forms.getunicode('emso')
+    ime = request.forms.getunicode('ime')
+    priimek = request.forms.getunicode('priimek')
+    up_ime = request.forms.getunicode('up_ime')
+    geslo = request.forms.getunicode('geslo')
+    geslo2 = request.forms.getunicode('geslo2')
+    print(emso, up_ime, geslo, geslo2, ime, priimek)
+    uporabnik = Uporabnik(cur, emso, up_ime, geslo, geslo2, ime, priimek)
+    if uporabnik.emso:
+        redirect(url('index'))
+    else:
+        redirect(url('registracija'))
+
+@post("/odjava")
+@Uporabnik.prijavljen
+def odjava(uporabnik, cur):
+    uporabnik.odjava()
+    redirect(url('index'))
 
 
 if __name__ == "__main__":

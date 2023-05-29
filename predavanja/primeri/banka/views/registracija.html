@@ -1,0 +1,51 @@
+% rebase('osnova.html', naslov='Registracija')
+
+  <form action="{{url('registracija_post')}}" method="POST">
+    <div class="row">
+        <div class="col-sm-6">
+          <label class="form-label">Uporabniško ime:</label>
+          <input name="up_ime" type="text" value="" required
+               class="form-control" oninput="this.setCustomValidity('')"
+               oninvalid="this.setCustomValidity('Obvezen podatek')" />
+        </div>
+        <div class="col-sm-6">
+          <label class="form-label">EMŠO:</label>
+          <input name="emso" type="text" value="" required
+               class="form-control" oninput="this.setCustomValidity('')"
+               oninvalid="this.setCustomValidity('Obvezen podatek')" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+          <label class="form-label">Ime:</label>
+          <input name="ime" type="text" value="" required
+               class="form-control" oninput="this.setCustomValidity('')"
+               oninvalid="this.setCustomValidity('Obvezen podatek')" />
+        </div>
+        <div class="col-sm-6">
+          <label class="form-label">Priimek:</label>
+          <input name="priimek" type="text" value="" required
+               class="form-control" oninput="this.setCustomValidity('')"
+               oninvalid="this.setCustomValidity('Obvezen podatek')" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+          <label class="form-label">Geslo:</label>
+          <input name="geslo" type="password" value="" required
+               class="form-control" oninput="this.setCustomValidity('')"
+               oninvalid="this.setCustomValidity('Obvezen podatek')" />
+        </div>
+        <div class="col-sm-6">
+          <label class="form-label">Ponovi geslo:</label>
+          <input name="geslo2" type="password" value="" required
+               class="form-control" oninput="this.setCustomValidity('')"
+               oninvalid="this.setCustomValidity('Obvezen podatek')" />
+        </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12 my-3 d-flex justify-content-end">
+        <button class="btn btn-primary" type="submit">Registracija</button>
+      </div>
+    </div>
+  </form>
