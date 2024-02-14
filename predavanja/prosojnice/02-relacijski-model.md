@@ -43,7 +43,7 @@ Operatorji so odvisni od shem relacij, nad katerimi jih izvajamo.
 
 # `JOIN`
 
-$R_1 \bowtie R_2 = \pi_{\scriptsize {\operatorname{stolpci}_{R_1}} \cup {\operatorname{stolpci}_{R_2}}}( \sigma_{\scriptsize \forall s \in {\operatorname{stolpci}_{R_1}} \cap {\operatorname{stolpci}_{R_2}}:\ R_1.s \, = \, R_2.s}(R_1 \times R_2))$
+$R_1 \bowtie R_2 = \pi_{\operatorname{stolpci}\!\normalsize_{R_1} \cup\, \operatorname{stolpci}\!\normalsize_{R_2}}(\sigma_{\forall s \in \operatorname{stolpci}\!\normalsize_{R_1} \cap\, \operatorname{stolpci}\!\normalsize_{R_2}:\ R_1.s \, = \, R_2.s}(R_1 \times R_2))$
 
 ![](slike/join.png)
 
