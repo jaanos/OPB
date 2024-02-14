@@ -1,6 +1,7 @@
 ---
 marp: true
-style: "@import url('style.css')" 
+style: "@import url('style.css')"
+plugins: mathjax
 ---
 
 # Napredne funkcionalnosti na bazah
@@ -340,7 +341,7 @@ style: "@import url('style.css')"
 * Lahko se sicer priklopimo nanjo preko programa `psql` (ukazna vrstica).
 * Tipkanje v terminalu `psql` je velikokrat nepriročno.
 * Najbolj priročno je do baze dostopati preko ustreznih aplikacij z grafičnim vmesnikom. 
-* Primer take aplikacije: phpPgAdmin (https://baza.fmf.uni-lj.si), ki se uporablja na vajah.
+* Primer take aplikacije: phpPgAdmin (<https://baza.fmf.uni-lj.si>), ki se uporablja na vajah.
 
 ---
 
@@ -395,7 +396,7 @@ style: "@import url('style.css')"
 
 # PgAdmin 4 
 
-* Namizna alternativa: program *PgAdmin 4* (namestimo iz: https://www.pgadmin.org/download/).
+* Namizna alternativa: program *PgAdmin 4* (namestimo iz: <https://www.pgadmin.org/download/>).
 * V programu konfiguriramo povezavo podobno kot v `psql`.
 * Namesto ukazov v `psql` oblike `\ukaz` imamo grafične preglede in ukaze preko menijev.
 * Poizvedbe izvajamo preko orodja *Query tool*.

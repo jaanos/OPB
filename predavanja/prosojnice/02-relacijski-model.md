@@ -1,6 +1,7 @@
 ---
 marp: true
 style: "@import url('style.css')"
+plugins: mathjax
 ---
 
 # Relacijski model
@@ -31,7 +32,7 @@ Operatorji so odvisni od shem relacij, nad katerimi jih izvajamo.
 <span class="small">
 
 * $\sigma_{\phi}(R) = \{r \in R \mid \phi(r)\}$ - izberi vrstice v relaciji $R$, ki ustrezajo pogoju $\phi$ (*selekcija*). Pogoj je logični izraz v odvisnosti od vrstice $r$. Shema vrnjene relacije je ista.
-* $\pi_{s_1, s_2, \ldots, s_n}(R) = \{r|_{\{s_1, s_2, \ldots, s_n\}} \mid r \in R\}$ - izberi stolpce z imeni $s_1, s_2, \ldots, s_n$ relacije $R$ in vrni novo tabelo s shemo, ki jo določajo definicije teh stolpcev (*projekcija*).
+* $\pi_{s_1, s_2, \ldots, s_n}(R) = \{r \vert_{\{s_1, s_2, \ldots, s_n\}} \mid r \in R\}$ - izberi stolpce z imeni $s_1, s_2, \ldots, s_n$ relacije $R$ in vrni novo tabelo s shemo, ki jo določajo definicije teh stolpcev (*projekcija*).
 * $\rho_{a/b}(R) = \{r': s \in \operatorname{stolpci}_R \oplus \{a, b\} \mapsto r.(s[b \mapsto a]) \mid r \in R\}$ - spremeni ime stolpcu $a$ v $b$ (*preimenovanje*). Vrni enako tabelo (glede vrstic), le z drugo shemo.
 * $R_1 \cup R_2$, $R_1 \cap R_2$, $R_1 \setminus R_2$ - *unija*/*presek*/*razlika* vrstic, če imata relaciji $R_1$ in $R_2$ enaki shemi.
 * $R_1 \times R_2$ - *kartezični produkt* relacij (vsaka vrstica $R_1$ z vsako vrstico $R_2$). Shema rezultata je združitev shem obeh relacij.
@@ -54,9 +55,9 @@ $R_1 \bowtie R_2 = \pi_{\scriptsize \operatorname{stolpci}_{R_1} \cup \operatorn
 
 * Structured Query Language.
 * Primeri iz tabel na SQLZOO:
-  - https://sqlzoo.net/wiki/SELECT_from_WORLD_Tutorial
-  - https://sqlzoo.net/wiki/SELECT_from_Nobel_Tutorial
-  - https://sqlzoo.net/wiki/More_JOIN_operations
+  - <https://sqlzoo.net/wiki/SELECT_from_WORLD_Tutorial>
+  - <https://sqlzoo.net/wiki/SELECT_from_Nobel_Tutorial>
+  - <https://sqlzoo.net/wiki/More_JOIN_operations>
 * Ogledali si bomo stavke `INSERT`, `UPDATE`, `DELETE`, `SELECT`.
 
 ---

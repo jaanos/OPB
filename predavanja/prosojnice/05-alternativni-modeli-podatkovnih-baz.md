@@ -1,6 +1,7 @@
 ---
 marp: true
-style: "@import url('style.css')" 
+style: "@import url('style.css')"
+plugins: mathjax
 ---
 
 # Podatkovne baze NoSQL
