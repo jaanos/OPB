@@ -1,0 +1,9 @@
+.columns {
+    display: grid;
+    grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.small {
+    font-size: x-large;
+}
