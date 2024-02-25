@@ -90,9 +90,9 @@ $R_1 \bowtie R_2 = \pi_{\operatorname{stolpci}\!\normalsize_{R_1} \cup\, \operat
   ```
 ---
 
-# `UPDATE` - popravljanje vrstic
+# `UPDATE` - spreminjanje vrstic
 
-* Popravljanje vrednosti v tabeli v vrsticah, ki zadoščajo pogojem ter stolpcih v teh vrsticah, ki jih želimo spremeniti.
+* Spreminjanje vrednosti v tabeli v vrsticah, ki zadoščajo pogojem ter stolpcih v teh vrsticah, ki jih želimo spremeniti.
   ```sql
   UPDATE ime_tabele SET st1 = v1, st2 = v2, ...
    WHERE pogoj;
@@ -245,6 +245,8 @@ $R_1 \bowtie R_2 = \pi_{\operatorname{stolpci}\!\normalsize_{R_1} \cup\, \operat
 
 # Podpoizvedbe
 
+<span class="small">
+
 * Uporabimo rezultat poizvedbe za izračun pogojev v drugi poizvedbi.
 * Katere države na svetu imajo manj prebivalcev kot Slovenija? Podatki iz tabele [`world`](https://sqlzoo.net/wiki/SELECT_from_WORLD_Tutorial).
   ```sql
@@ -263,6 +265,8 @@ $R_1 \bowtie R_2 = \pi_{\operatorname{stolpci}\!\normalsize_{R_1} \cup\, \operat
            SELECT population FROM world
             WHERE name = 'Algeria');
   ```
+
+</small>
 
 ---
 

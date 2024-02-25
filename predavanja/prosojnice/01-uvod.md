@@ -87,6 +87,8 @@ Zagotavljajo *trajno* shranjevanje *masovnih* podatkovnih zbirk in pri tem poskr
 
 # Tabela `oseba`
 
+<span class="small">
+
 * `ime`, `priimek`: ločimo ime in priimek - bolj kakovostni podatki
 * `emso`: vsaka vrstica v tabeli rabi identifikator
   - EMŠO je naravni identifikator, zato ga uporabimo
@@ -103,6 +105,7 @@ Zagotavljajo *trajno* shranjevanje *masovnih* podatkovnih zbirk in pri tem poskr
     posta   INTEGER NOT NULL REFERENCES kraj(posta)
   );
   ```
+</span>
 
 ---
 
