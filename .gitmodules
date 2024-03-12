@@ -274,3 +274,45 @@
 [submodule "oddaje/2022/zdravstvo-na-daljavo"]
 	path = oddaje/2022/zdravstvo-na-daljavo
 	url = https://github.com/matejbolta/zdravstvo-na-daljavo.git
+[submodule "oddaje/2023/Pomocnik-za-trgovanje"]
+	path = oddaje/2023/Pomocnik-za-trgovanje
+	url = https://github.com/sarazuzek/Pomocnik-za-trgovanje.git
+[submodule "oddaje/2023/opb-recepti"]
+	path = oddaje/2023/opb-recepti
+	url = https://github.com/LaraNahtigal/opb-recepti.git
+[submodule "oddaje/2023/Svecano-prisegam-da-imam-nekaj-za-bregom"]
+	path = oddaje/2023/Svecano-prisegam-da-imam-nekaj-za-bregom
+	url = https://github.com/MasaOrelj/Svecano-prisegam-da-imam-nekaj-za-bregom.git
+[submodule "oddaje/2023/OPB-kozmeticni-salon"]
+	path = oddaje/2023/OPB-kozmeticni-salon
+	url = https://github.com/saraconta/OPB-kozmeticni-salon.git
+[submodule "oddaje/2023/OPB-Nba2023"]
+	path = oddaje/2023/OPB-Nba2023
+	url = https://github.com/FilipBezjak/OPB-Nba2023.git
+[submodule "oddaje/2023/OPB-projekt-UP"]
+	path = oddaje/2023/OPB-projekt-UP
+	url = https://github.com/Petja-Murnik/OPB-projekt-UP.git
+[submodule "oddaje/2023/opb_gasilski_pomocnik"]
+	path = oddaje/2023/opb_gasilski_pomocnik
+	url = https://github.com/klara-stantic/opb_gasilski_pomocnik.git
+[submodule "oddaje/2023/Tekaski-kalkulator"]
+	path = oddaje/2023/Tekaski-kalkulator
+	url = https://github.com/MartinZust123/Tekaski-kalkulator.git
+[submodule "oddaje/2023/OPB-organizacija-garderobe-folklornega-dru-tva"]
+	path = oddaje/2023/OPB-organizacija-garderobe-folklornega-dru-tva
+	url = https://github.com/BarbaraPal/OPB-organizacija-garderobe-folklornega-dru-tva.git
+[submodule "oddaje/2023/Recepcija"]
+	path = oddaje/2023/Recepcija
+	url = https://github.com/nikapavlic/Recepcija.git
+[submodule "oddaje/2023/Svetovna-prvenstva-v-nogometu"]
+	path = oddaje/2023/Svetovna-prvenstva-v-nogometu
+	url = https://github.com/valg01/Svetovna-prvenstva-v-nogometu.git
+[submodule "oddaje/2023/OPB-Knjiznica"]
+	path = oddaje/2023/OPB-Knjiznica
+	url = https://github.com/Klara-U/OPB-Knjiznica.git
+[submodule "oddaje/2023/OPB-Oblacila"]
+	path = oddaje/2023/OPB-Oblacila
+	url = https://github.com/justinraisp/OPB-Oblacila.git
+[submodule "oddaje/2023/OPB-Potniski-promet"]
+	path = oddaje/2023/OPB-Potniski-promet
+	url = https://github.com/mateabt/OPB-Potniski-promet.git
