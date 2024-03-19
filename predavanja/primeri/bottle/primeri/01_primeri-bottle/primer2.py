@@ -12,6 +12,7 @@ debug(True)
 def index():
     return 'To je glavni dokument.'
 
+@route('/banana')
 @route('/banana/')
 def banana():
     return 'Tu serviramo banane.'
@@ -21,7 +22,7 @@ def hello(name):
     return "Hello {0}".format(name)
 
 @route('/vsota/<a>/<b:int>/')
-def hello(a, b):
+def vsota(a, b):
     # Pozor, a in b sta niza, pretvorimo ju v int
     try:
         a = int(a) # Sproži izjemo ValueError, če niz a ne predstavlja celega števila
