@@ -1,0 +1,28 @@
+<html>
+  <head>
+    <title>Komitenti</title>
+  </head>
+  <body>
+    <h2>Komitenti banke</h2>
+
+    <table>
+      <tr>
+        <th>EMŠO</th>
+        <th>Ime</th>
+        <th>Priimek</th>
+        <th>Naslov</th>
+        <th>Kraj</th>
+      </tr>
+      %for oseba in komitenti:
+      <tr>
+        <td>{{oseba.emso}}</td>
+        <td>{{oseba.ime}}</td>
+        <td>{{oseba.priimek}}</td>
+        <td>{{oseba.naslov}}</td>
+        <td>{{oseba['kraj_id']}}</td>
+      </tr>
+      %end
+    </table>
+
+  </body>
+</html>

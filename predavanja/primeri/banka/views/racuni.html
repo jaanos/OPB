@@ -1,0 +1,22 @@
+<html>
+  <head>
+    <title>Računi</title>
+  </head>
+  <body>
+    <h2>Seznam bančnih računov</h2>
+
+    <table>
+      <tr>
+        <th>Komitent</th>
+        <th>Številka računa</th>
+      </tr>
+      %for racun in racuni:
+      <tr>
+        <td>{{racun['oseba_id']}}</td>
+        <td>{{racun.stevilka}}</td>
+      </tr>
+      %end
+    </table>
+
+  </body>
+</html>

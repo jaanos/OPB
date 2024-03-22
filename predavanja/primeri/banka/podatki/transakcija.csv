@@ -1,0 +1,1001 @@
+id,znesek,racun_id,cas,opis
+1,-215,252,2023-08-13 00:34:59,
+2,-229,239,2023-06-23 11:57:19,Spermophilus tridecemlineatus
+3,435,632,2023-07-02 20:21:53,Spheniscus mendiculus
+4,-192,741,2023-03-21 21:38:47,Tachyglossus aculeatus
+5,-13,397,2023-11-09 23:30:04,Ceratotherium simum
+6,-144,173,2023-12-24 19:17:32,Physignathus cocincinus
+7,120,543,2024-01-04 17:03:26,Otaria flavescens
+8,234,128,2024-01-16 16:35:28,Laniaurius atrococcineus
+9,-542,181,2023-04-21 12:30:13,Lutra canadensis
+10,20,693,2023-04-23 08:12:00,Nyctereutes procyonoides
+11,-908,641,2024-01-15 17:29:35,Dendrocygna viduata
+12,-31,583,2023-12-25 02:50:35,Tayassu tajacu
+13,-808,680,2023-08-16 07:23:51,Trichosurus vulpecula
+14,-523,96,2024-01-15 08:21:52,Coluber constrictor foxii
+15,183,842,2023-10-24 04:05:12,Alectura lathami
+16,803,11,2023-12-11 03:44:41,Acinynox jubatus
+17,85,913,2023-11-16 16:31:16,Callorhinus ursinus
+18,806,64,2023-08-02 07:33:36,Spizaetus coronatus
+19,-956,6,2023-09-12 19:02:28,Bubalus arnee
+20,431,295,2023-07-23 05:38:31,Taurotagus oryx
+21,-978,201,2023-11-25 09:27:55,unavailable
+22,-58,140,2023-09-23 22:46:04,Mazama americana
+23,-420,110,2024-01-31 19:17:44,
+24,-873,129,2024-03-09 21:33:22,Zosterops pallidus
+25,52,289,2023-03-26 02:32:39,Terathopius ecaudatus
+26,974,124,2023-12-14 15:41:56,Dasyprocta leporina
+27,575,614,2023-07-04 13:48:06,Varanus sp.
+28,-401,290,2024-03-12 19:41:54,Buteo jamaicensis
+29,5,250,2023-08-12 21:58:50,
+30,-283,935,2023-09-22 15:25:19,Nyctea scandiaca
+31,-744,431,2023-11-17 08:25:03,Hystrix cristata
+32,8,464,2023-07-27 20:14:07,Oreamnos americanus
+33,-835,941,2023-08-21 04:23:44,
+34,671,742,2023-05-12 10:54:20,Tetracerus quadricornis
+35,-992,482,2024-03-11 12:12:04,Bison bison
+36,942,964,2023-07-08 16:48:55,Francolinus coqui
+37,-76,614,2023-09-07 16:23:15,Spermophilus tridecemlineatus
+38,-676,133,2023-11-23 08:55:05,Ictalurus furcatus
+39,-122,604,2023-10-28 21:26:47,Zalophus californicus
+40,-565,262,2023-06-17 08:49:57,Columba palumbus
+41,-265,162,2024-01-21 20:20:01,unavailable
+42,559,544,2023-07-11 14:42:16,Isoodon obesulus
+43,887,924,2023-05-28 00:07:58,Tockus erythrorhyncus
+44,-884,980,2024-02-26 05:52:11,Pseudalopex gymnocercus
+45,-784,266,2023-04-26 16:57:06,
+46,774,910,2023-09-18 18:21:59,
+47,-972,768,2023-09-14 12:33:17,Cyrtodactylus louisiadensis
+48,108,59,2024-02-21 08:26:32,
+49,-809,617,2023-05-25 10:41:27,
+50,-92,469,2023-08-06 11:27:14,Lepus arcticus
+51,-95,132,2023-03-26 15:44:59,Microcebus murinus
+52,-579,312,2023-05-30 19:04:30,Lamprotornis superbus
+53,703,494,2023-10-09 21:13:49,Zenaida asiatica
+54,581,488,2023-04-16 14:41:29,Potamochoerus porcus
+55,2,215,2023-07-20 02:00:36,Vanellus armatus
+56,968,41,2023-06-18 14:48:35,
+57,-560,558,2023-07-10 15:10:02,Buteo jamaicensis
+58,186,286,2024-03-01 20:38:57,Zalophus californicus
+59,-360,223,2024-02-17 02:09:55,
+60,683,987,2023-03-29 22:22:08,Physignathus cocincinus
+61,463,40,2023-03-18 22:23:57,Tenrec ecaudatus
+62,312,870,2023-06-01 08:58:30,Odocoileus hemionus
+63,298,955,2023-08-06 20:06:22,Lama glama
+64,-970,52,2024-02-03 05:11:11,Nasua nasua
+65,768,842,2023-08-31 15:59:39,Merops bullockoides
+66,386,116,2023-09-02 04:56:49,Didelphis virginiana
+67,-45,687,2023-12-06 09:19:42,Eumetopias jubatus
+68,366,870,2023-10-07 07:10:27,Parus atricapillus
+69,-347,489,2023-06-24 05:45:22,Acrantophis madagascariensis
+70,934,326,2024-01-16 00:56:03,Nyctea scandiaca
+71,-131,734,2023-10-07 11:02:21,Alouatta seniculus
+72,682,979,2023-11-04 16:33:24,Carduelis uropygialis
+73,347,495,2023-03-18 05:29:43,Ovis ammon
+74,415,332,2023-07-31 14:12:14,Pycnonotus nigricans
+75,-90,73,2023-10-28 19:08:02,Ovis canadensis
+76,203,88,2023-07-25 01:19:03,Ara chloroptera
+77,579,1,2023-11-08 03:26:04,Gekko gecko
+78,450,183,2023-07-30 09:52:15,Pteronura brasiliensis
+79,393,412,2023-10-28 08:00:09,Tragelaphus angasi
+80,-669,54,2023-06-08 23:44:39,Felis concolor
+81,-932,464,2023-11-12 21:59:23,Pseudalopex gymnocercus
+82,193,720,2023-05-20 17:25:47,Lutra canadensis
+83,508,690,2023-11-27 01:29:59,Otaria flavescens
+84,585,809,2023-04-12 12:27:16,Choloepus hoffmani
+85,-511,564,2023-05-05 13:53:02,Trachyphonus vaillantii
+86,-21,831,2023-07-03 02:18:34,Heloderma horridum
+87,-290,730,2024-02-11 08:31:22,Gekko gecko
+88,638,897,2023-07-07 23:31:56,Struthio camelus
+89,38,200,2024-01-24 20:29:35,Manouria emys
+90,-893,217,2024-01-20 15:55:17,Mazama gouazoubira
+91,-34,628,2023-09-01 23:42:58,Ara ararauna
+92,549,806,2023-09-06 20:03:39,Ursus americanus
+93,819,502,2023-07-26 02:54:29,Felis wiedi or Leopardus weidi
+94,-115,174,2023-08-21 16:09:46,Crotalus adamanteus
+95,329,525,2024-01-12 03:14:22,Arctogalidia trivirgata
+96,-975,944,2024-01-26 15:34:01,Morelia spilotes variegata
+97,-368,863,2023-10-29 17:17:47,Bassariscus astutus
+98,-151,710,2023-11-18 20:33:55,Columba livia
+99,277,860,2024-01-11 12:10:49,Propithecus verreauxi
+100,229,566,2023-12-14 23:35:02,Balearica pavonina
+101,581,387,2023-11-25 14:45:53,
+102,119,143,2024-03-14 05:24:18,Alcelaphus buselaphus caama
+103,399,5,2023-09-06 00:02:17,Neophron percnopterus
+104,-52,110,2023-12-19 16:14:20,Geochelone elegans
+105,899,719,2024-01-24 02:53:27,Psophia viridis
+106,-605,844,2023-11-30 19:10:53,Oxybelis fulgidus
+107,-363,406,2024-01-28 08:23:56,Pteronura brasiliensis
+108,657,243,2023-08-12 20:20:26,Aegypius occipitalis
+109,559,439,2024-01-26 19:29:37,Casmerodius albus
+110,-489,576,2023-12-26 16:36:51,Bison bison
+111,-198,541,2024-01-13 05:58:26,Naja nivea
+112,-827,203,2024-01-08 21:15:12,Cacatua tenuirostris
+113,227,950,2023-08-28 09:34:24,Ovis ammon
+114,436,749,2023-03-31 21:58:54,
+115,-705,444,2023-06-09 11:25:26,Oxybelis fulgidus
+116,524,356,2024-01-16 02:52:43,Chelodina longicollis
+117,839,405,2023-10-18 13:55:53,Pycnonotus nigricans
+118,-620,705,2023-06-14 15:41:22,Dendrocitta vagabunda
+119,347,120,2024-02-03 22:50:07,Dasyurus viverrinus
+120,-797,490,2023-12-04 09:38:34,Odocoileus hemionus
+121,-2,155,2023-12-19 07:37:32,Crocodylus niloticus
+122,-290,233,2023-11-14 10:01:53,Cracticus nigroagularis
+123,-860,809,2023-07-03 14:20:02,Coracias caudata
+124,747,153,2023-09-02 09:08:03,Bettongia penicillata
+125,302,508,2024-02-07 19:42:06,Colaptes campestroides
+126,233,177,2024-03-04 23:21:24,Sus scrofa
+127,-277,502,2023-04-08 17:37:51,Ictonyx striatus
+128,142,443,2023-08-17 03:32:19,Phascogale calura
+129,829,860,2023-08-31 13:58:52,Falco mexicanus
+130,199,979,2023-09-01 22:15:53,Zalophus californicus
+131,62,992,2023-07-14 06:58:52,Tachybaptus ruficollis
+132,-348,79,2023-09-16 11:33:52,Cracticus nigroagularis
+133,660,326,2023-07-27 09:48:16,Lutra canadensis
+134,41,639,2023-10-27 10:13:59,Nasua nasua
+135,-228,222,2024-01-04 14:32:08,Echimys chrysurus
+136,-407,555,2024-02-05 00:27:28,Anthropoides paradisea
+137,63,578,2023-05-20 12:24:33,Panthera pardus
+138,688,253,2024-03-06 23:16:54,Meleagris gallopavo
+139,660,438,2023-08-12 06:23:03,Colobus guerza
+140,842,19,2023-11-10 02:39:29,Corvus brachyrhynchos
+141,737,254,2024-02-13 00:19:07,Tachybaptus ruficollis
+142,-250,779,2024-03-10 22:41:39,Aegypius tracheliotus
+143,-891,848,2023-04-09 17:16:15,Drymarchon corias couperi
+144,-318,367,2024-02-06 12:26:56,Boselaphus tragocamelus
+145,-187,34,2023-11-13 04:36:25,Streptopelia senegalensis
+146,-791,400,2024-02-21 00:10:48,Papio cynocephalus
+147,-270,76,2023-04-09 07:03:42,Pavo cristatus
+148,-836,138,2023-05-15 21:03:11,
+149,513,844,2023-12-14 06:27:57,Panthera pardus
+150,606,188,2023-07-13 21:01:42,Didelphis virginiana
+151,421,777,2023-08-23 04:08:10,Phoenicopterus chilensis
+152,721,286,2023-05-02 09:12:05,Aonyx capensis
+153,480,886,2023-11-26 20:40:53,Lycaon pictus
+154,94,689,2023-07-18 06:13:02,Trachyphonus vaillantii
+155,335,766,2023-05-09 14:25:59,Egretta thula
+156,-947,87,2024-02-07 20:45:56,
+157,-756,849,2024-01-22 20:56:56,Bos frontalis
+158,-793,447,2024-01-17 10:47:54,Phasianus colchicus
+159,704,701,2023-05-31 06:12:12,
+160,-797,851,2023-10-01 02:28:08,
+161,537,963,2023-04-07 11:25:16,Cygnus atratus
+162,-568,618,2023-04-20 11:03:32,Corvus albicollis
+163,863,496,2023-11-26 11:02:56,Lamprotornis nitens
+164,-546,779,2023-06-09 20:17:10,Macaca mulatta
+165,487,885,2023-03-27 12:50:13,Canis dingo
+166,608,134,2023-05-03 21:21:35,Pelecanus occidentalis
+167,123,698,2024-02-05 08:37:50,Meles meles
+168,-93,605,2023-07-27 09:46:43,Felis concolor
+169,-583,680,2023-11-13 02:31:12,Butorides striatus
+170,213,696,2024-01-14 01:33:41,Irania gutteralis
+171,798,144,2023-04-25 03:01:21,Sarkidornis melanotos
+172,-763,921,2023-08-24 17:16:44,Philetairus socius
+173,553,177,2023-07-29 02:49:45,
+174,-191,799,2023-11-07 21:47:12,Tiliqua scincoides
+175,-514,135,2024-02-13 06:54:56,Redunca redunca
+176,-863,105,2023-10-24 07:00:59,
+177,-730,370,2024-02-22 03:59:17,Drymarchon corias couperi
+178,361,837,2023-05-16 08:39:16,
+179,881,200,2023-10-25 14:46:48,Bubalus arnee
+180,-916,469,2024-02-02 22:52:50,Semnopithecus entellus
+181,857,207,2023-07-25 07:44:51,Ardea cinerea
+182,-942,314,2024-02-18 16:38:27,Paroaria gularis
+183,-546,37,2023-07-04 23:38:15,Falco peregrinus
+184,897,45,2024-01-06 16:21:27,Ursus americanus
+185,406,791,2023-08-13 02:14:45,Climacteris melanura
+186,-25,730,2023-11-19 06:30:52,Colobus guerza
+187,399,746,2023-09-24 02:38:37,Leptoptilos crumeniferus
+188,-807,87,2023-12-31 23:54:43,Ammospermophilus nelsoni
+189,788,711,2023-05-12 08:29:18,
+190,-114,196,2023-08-18 08:15:54,Mungos mungo
+191,-716,452,2023-07-24 18:28:26,Grus canadensis
+192,27,799,2023-06-21 04:25:03,Castor canadensis
+193,604,248,2023-04-20 09:29:35,Ploceus rubiginosus
+194,-666,901,2023-06-27 09:14:08,Canis aureus
+195,-574,781,2023-11-25 14:35:16,unavailable
+196,-986,671,2024-02-25 21:39:27,Varanus albigularis
+197,-24,20,2024-02-01 05:36:01,
+198,-965,48,2023-10-20 18:29:01,unavailable
+199,393,759,2023-12-04 01:00:59,Cebus apella
+200,-281,689,2023-12-14 08:57:56,Gymnorhina tibicen
+201,-794,170,2023-07-11 02:36:10,Oryx gazella callotis
+202,692,557,2023-08-29 18:48:10,
+203,-944,980,2023-07-19 13:29:07,
+204,239,736,2024-02-14 17:56:10,Junonia genoveua
+205,395,210,2023-07-14 22:53:32,Bucorvus leadbeateri
+206,-3,507,2023-10-12 06:07:45,Phalaropus fulicarius
+207,729,550,2023-07-01 19:32:46,Pterocles gutturalis
+208,155,502,2023-08-13 21:21:30,Tachyglossus aculeatus
+209,370,112,2023-11-11 05:28:23,Spermophilus richardsonii
+210,865,214,2023-12-07 16:31:57,Ornithorhynchus anatinus
+211,-299,819,2024-02-08 10:10:40,Pelecanus occidentalis
+212,564,942,2023-07-04 15:17:04,Boa caninus
+213,709,828,2023-09-25 16:09:27,unavailable
+214,65,906,2024-01-03 05:27:57,Neotis denhami
+215,-91,128,2023-11-26 21:40:10,Spermophilus richardsonii
+216,-563,181,2024-03-06 14:44:05,Cervus canadensis
+217,999,987,2023-09-18 22:07:25,Martes pennanti
+218,94,961,2023-12-13 12:10:26,Ceryle rudis
+219,-698,354,2023-08-27 03:25:43,Oryx gazella
+220,-668,821,2023-03-25 12:48:38,Nannopterum harrisi
+221,-231,271,2023-06-15 07:40:36,
+222,186,204,2023-05-22 06:54:55,Damaliscus lunatus
+223,-421,119,2023-06-04 16:17:06,Eumetopias jubatus
+224,734,83,2024-03-17 01:44:52,Phascogale calura
+225,886,905,2023-09-10 21:35:38,Aonyx capensis
+226,96,590,2023-08-23 08:22:40,Ovis musimon
+227,789,951,2024-01-22 12:07:48,Myrmecobius fasciatus
+228,-945,102,2023-07-31 17:08:55,Phoca vitulina
+229,91,60,2023-09-23 04:55:57,Toxostoma curvirostre
+230,-660,868,2023-12-29 18:55:40,Rhea americana
+231,686,894,2023-09-25 21:40:59,Cathartes aura
+232,986,926,2023-08-16 10:34:23,Actophilornis africanus
+233,-845,810,2024-01-05 00:02:57,Junonia genoveua
+234,-739,188,2023-08-30 00:13:52,Streptopelia senegalensis
+235,-880,38,2024-02-07 21:02:09,Psittacula krameri
+236,-146,740,2023-04-23 13:41:33,Laniarius ferrugineus
+237,128,611,2023-06-21 14:55:28,Panthera pardus
+238,-601,680,2023-11-07 02:54:12,Cervus canadensis
+239,-349,114,2023-12-20 07:29:42,Nectarinia chalybea
+240,-248,67,2023-07-30 21:26:49,Fulica cristata
+241,-240,519,2023-09-06 09:27:49,Bison bison
+242,-874,638,2024-02-27 18:07:25,Macropus eugenii
+243,-743,9,2023-11-01 06:02:41,Chlamydosaurus kingii
+244,383,587,2023-08-06 10:16:45,Tursiops truncatus
+245,-173,433,2023-04-23 03:03:03,Geococcyx californianus
+246,-770,36,2023-04-27 18:42:26,Snycerus caffer
+247,-911,481,2023-09-30 22:16:07,Calyptorhynchus magnificus
+248,294,240,2023-10-13 01:44:18,Columba livia
+249,641,929,2023-04-28 16:55:23,Tachyglossus aculeatus
+250,654,595,2023-08-18 14:05:30,Phalaropus lobatus
+251,-395,469,2024-01-02 12:40:57,Cygnus buccinator
+252,11,456,2023-12-09 05:25:40,Phoca vitulina
+253,552,278,2023-06-09 05:07:55,Rhea americana
+254,868,379,2024-02-07 18:34:48,Damaliscus dorcas
+255,144,838,2023-10-16 10:23:39,
+256,-436,118,2024-03-14 08:01:41,Anastomus oscitans
+257,386,405,2024-01-18 11:49:24,Papio cynocephalus
+258,123,81,2023-11-23 06:52:17,Felis caracal
+259,-383,222,2023-09-14 14:40:29,Butorides striatus
+260,-990,111,2023-12-26 10:12:22,Trachyphonus vaillantii
+261,484,449,2023-10-23 16:48:05,Lasiorhinus latifrons
+262,-980,593,2023-08-09 10:08:39,Proteles cristatus
+263,-505,955,2023-07-20 16:09:50,Phalacrocorax carbo
+264,444,734,2023-11-11 05:13:49,Gyps bengalensis
+265,531,524,2023-05-06 12:36:46,Butorides striatus
+266,845,351,2023-11-29 04:48:01,Merops nubicus
+267,278,583,2024-01-30 20:01:40,Macropus eugenii
+268,-32,414,2023-11-14 10:11:10,Carduelis pinus
+269,-628,949,2023-09-02 01:36:43,Stercorarius longicausus
+270,578,797,2023-09-26 02:47:23,
+271,-212,305,2023-05-23 14:17:27,Nasua nasua
+272,683,383,2023-11-12 01:33:16,Vombatus ursinus
+273,645,654,2024-02-17 14:45:04,Limnocorax flavirostra
+274,140,576,2023-08-15 07:20:45,Sylvilagus floridanus
+275,-125,751,2023-07-20 08:58:20,Ictalurus furcatus
+276,514,55,2023-10-27 08:32:15,Alligator mississippiensis
+277,567,100,2023-10-27 16:15:34,Butorides striatus
+278,53,468,2023-11-17 12:48:44,
+279,-430,142,2023-06-30 13:57:41,Lorythaixoides concolor
+280,885,357,2023-05-05 14:00:39,
+281,-802,29,2023-12-26 15:27:32,Buteo galapagoensis
+282,-513,225,2023-07-25 11:56:11,Colobus guerza
+283,-118,994,2024-02-08 11:52:11,Prionace glauca
+284,514,447,2024-01-04 08:20:26,Lophoaetus occipitalis
+285,879,680,2023-09-27 10:26:28,Cynictis penicillata
+286,-59,484,2023-03-27 04:04:39,
+287,-449,532,2023-12-11 19:46:55,Trachyphonus vaillantii
+288,-65,835,2023-06-06 22:12:45,unavailable
+289,-678,798,2023-08-23 00:42:48,Philetairus socius
+290,-619,946,2023-07-23 06:35:39,Madoqua kirkii
+291,239,96,2023-09-27 20:57:21,Neophoca cinerea
+292,745,918,2023-05-31 08:53:21,Pelecanus conspicillatus
+293,-956,563,2023-07-15 23:23:20,Ephippiorhynchus mycteria
+294,-312,716,2024-02-21 03:29:53,Ramphastos tucanus
+295,-476,733,2023-08-09 15:08:05,Tiliqua scincoides
+296,-616,251,2023-12-20 14:37:47,Pseudocheirus peregrinus
+297,485,418,2023-05-23 12:38:25,Macropus robustus
+298,281,929,2024-01-01 01:50:57,Lasiorhinus latifrons
+299,837,67,2023-06-12 17:05:14,Suricata suricatta
+300,-437,921,2023-08-25 09:25:28,
+301,-568,154,2023-12-04 22:41:35,Phalaropus fulicarius
+302,173,93,2023-10-22 17:47:57,Cynomys ludovicianus
+303,-38,808,2023-06-09 01:40:30,Pseudocheirus peregrinus
+304,-66,152,2023-11-21 16:00:56,
+305,-879,1,2023-11-13 01:22:39,Dasypus novemcinctus
+306,-856,755,2023-10-13 04:45:28,Varanus sp.
+307,-490,6,2024-01-09 20:53:27,Pseudoleistes virescens
+308,34,257,2023-07-11 18:13:45,Lutra canadensis
+309,701,482,2024-03-08 20:57:06,Tamiasciurus hudsonicus
+310,85,932,2023-06-21 19:44:14,Tayassu tajacu
+311,-362,598,2024-02-25 19:40:12,Panthera pardus
+312,756,535,2023-04-06 12:08:33,Myrmecophaga tridactyla
+313,971,836,2024-02-22 02:26:37,Chelodina longicollis
+314,490,552,2023-11-21 10:10:03,Bassariscus astutus
+315,561,285,2023-08-16 23:59:57,Oryx gazella callotis
+316,369,85,2024-01-14 19:56:37,Cygnus atratus
+317,-413,642,2023-05-12 05:08:58,Lutra canadensis
+318,988,315,2023-10-30 09:07:32,Papio cynocephalus
+319,895,473,2023-10-15 16:16:33,Vanellus sp.
+320,-379,48,2023-06-08 07:09:15,
+321,176,3,2023-11-18 02:28:15,Paraxerus cepapi
+322,89,82,2024-01-15 05:05:16,Castor canadensis
+323,-277,709,2023-07-03 23:19:58,Spermophilus richardsonii
+324,-467,654,2023-08-06 06:25:51,Cracticus nigroagularis
+325,351,282,2023-04-07 05:50:33,Connochaetus taurinus
+326,-766,499,2023-11-25 17:48:31,Bucephala clangula
+327,-889,496,2023-09-21 03:28:43,Dasyurus viverrinus
+328,515,67,2023-09-11 23:17:42,Alouatta seniculus
+329,-468,246,2024-03-16 06:03:31,Alligator mississippiensis
+330,-162,74,2024-01-24 13:28:24,Alopochen aegyptiacus
+331,-989,749,2023-07-18 20:33:25,Semnopithecus entellus
+332,-663,57,2023-08-31 02:16:18,Alligator mississippiensis
+333,33,450,2023-04-21 09:46:13,Ardea cinerea
+334,-207,91,2023-04-13 20:09:35,Axis axis
+335,212,62,2023-09-24 21:15:25,Grus rubicundus
+336,-875,471,2023-05-24 17:03:48,Macaca radiata
+337,616,929,2023-05-12 16:05:42,Cervus elaphus
+338,-70,586,2023-04-18 05:32:11,Thamnolaea cinnmomeiventris
+339,312,479,2023-05-29 23:35:03,Nasua narica
+340,146,240,2023-10-20 14:54:10,Arctogalidia trivirgata
+341,155,364,2023-03-25 21:57:04,Graspus graspus
+342,-85,785,2023-08-11 15:39:28,Pteronura brasiliensis
+343,45,670,2023-09-08 21:20:18,Leptoptilos crumeniferus
+344,-319,297,2023-05-27 04:42:17,Tachyglossus aculeatus
+345,-291,875,2023-10-07 01:34:31,Tragelaphus scriptus
+346,-167,470,2023-12-10 09:12:53,Ratufa indica
+347,445,333,2023-12-25 06:45:46,Ictonyx striatus
+348,99,410,2023-04-27 11:55:15,Dipodomys deserti
+349,-121,769,2024-01-16 17:44:45,Didelphis virginiana
+350,367,217,2023-04-26 12:43:47,Megaderma spasma
+351,291,97,2024-01-02 16:06:08,Theropithecus gelada
+352,-100,719,2023-06-28 15:00:22,Hystrix indica
+353,-103,989,2023-08-19 04:12:31,Meleagris gallopavo
+354,885,530,2023-04-21 10:32:58,Pituophis melanaleucus
+355,-992,381,2023-10-25 15:16:04,
+356,-106,866,2023-11-24 07:17:18,Taurotagus oryx
+357,-257,397,2023-04-10 11:25:05,Vanellus sp.
+358,-471,478,2023-09-01 23:36:10,Proteles cristatus
+359,-247,572,2023-05-19 00:10:12,Grus antigone
+360,-205,728,2023-05-10 08:39:11,Manouria emys
+361,513,836,2024-01-06 01:02:10,Nasua nasua
+362,-572,920,2024-01-09 19:32:52,Canis aureus
+363,731,506,2023-08-29 08:22:33,Rhea americana
+364,466,583,2023-06-02 21:33:59,Ammospermophilus nelsoni
+365,-932,904,2023-08-21 07:36:15,Ursus maritimus
+366,-472,820,2023-04-15 21:06:11,Herpestes javanicus
+367,-683,546,2023-06-25 04:21:19,Vombatus ursinus
+368,-114,173,2023-11-20 16:00:15,Canis latrans
+369,835,57,2023-09-06 22:27:35,unavailable
+370,-393,91,2023-05-23 03:12:39,Panthera leo
+371,-737,667,2023-11-04 20:50:30,Colobus guerza
+372,-591,924,2023-08-13 09:31:13,Passer domesticus
+373,-922,972,2023-11-15 00:15:15,Streptopelia decipiens
+374,-745,599,2023-11-30 14:49:33,Vulpes vulpes
+375,38,141,2023-07-10 05:00:28,Ictalurus furcatus
+376,862,610,2024-02-18 16:20:12,Psophia viridis
+377,381,597,2023-06-29 00:31:52,Aonyx capensis
+378,1000,930,2023-10-08 13:18:17,Tiliqua scincoides
+379,-932,425,2024-01-08 15:30:41,Chloephaga melanoptera
+380,313,139,2023-07-10 11:30:30,Tapirus terrestris
+381,209,409,2023-11-12 23:46:57,unavailable
+382,-1,723,2023-10-16 00:12:31,Echimys chrysurus
+383,416,281,2023-09-04 17:32:17,Pytilia melba
+384,48,828,2024-01-27 14:52:11,Aegypius occipitalis
+385,-92,98,2023-08-30 19:12:18,Butorides striatus
+386,-508,274,2023-08-27 08:30:21,Dasyurus viverrinus
+387,177,982,2023-05-11 22:08:22,Dendrocitta vagabunda
+388,844,266,2023-06-14 07:23:03,Dasyurus maculatus
+389,614,320,2023-09-17 01:06:42,Vulpes chama
+390,-396,366,2023-04-20 21:11:43,Redunca redunca
+391,528,800,2024-02-09 07:59:30,
+392,-398,895,2024-01-10 01:09:02,Odocoileus hemionus
+393,736,169,2023-10-25 05:31:23,Cereopsis novaehollandiae
+394,-714,851,2024-02-18 00:22:28,Equus burchelli
+395,42,155,2023-06-06 19:42:36,Nasua narica
+396,-117,230,2024-02-02 13:16:50,Alopex lagopus
+397,-41,594,2023-06-15 15:37:14,Cercatetus concinnus
+398,-10,616,2023-05-14 09:05:58,Felis caracal
+399,-241,317,2023-04-26 05:04:07,Colaptes campestroides
+400,-848,113,2023-08-22 13:48:07,Varanus sp.
+401,-394,699,2024-03-07 18:23:15,
+402,-684,785,2023-06-13 09:23:09,Dendrohyrax brucel
+403,367,579,2023-09-19 13:00:30,Equus burchelli
+404,-355,675,2023-11-12 22:29:36,Uraeginthus bengalus
+405,-675,76,2023-05-31 06:06:55,Vanellus armatus
+406,-312,716,2024-02-14 00:00:22,Haliaeetus leucocephalus
+407,-867,87,2023-08-15 23:58:45,Spermophilus armatus
+408,56,717,2024-02-23 07:04:09,Gazella thompsonii
+409,-96,112,2024-02-15 11:33:41,Odocoileus hemionus
+410,-438,66,2023-11-21 01:28:44,Graspus graspus
+411,-432,435,2023-12-12 20:35:54,Dolichitus patagonum
+412,58,822,2023-07-23 14:10:28,Coendou prehensilis
+413,362,851,2023-06-17 15:03:42,Bubo virginianus
+414,-871,703,2023-08-04 08:37:24,Suricata suricatta
+415,145,41,2023-06-30 03:49:52,Carphophis sp.
+416,-348,244,2024-01-30 22:57:19,Salvadora hexalepis
+417,-362,339,2023-03-30 08:00:27,Phoenicopterus ruber
+418,977,870,2024-01-19 19:30:46,Semnopithecus entellus
+419,418,68,2023-09-22 14:11:28,Gekko gecko
+420,277,411,2023-07-06 18:10:57,Ctenophorus ornatus
+421,523,469,2023-09-21 07:19:26,Bradypus tridactylus
+422,900,693,2023-11-02 13:24:20,Chlidonias leucopterus
+423,825,21,2023-07-01 07:16:15,Macropus agilis
+424,-61,309,2023-07-18 08:17:18,Dolichitus patagonum
+425,-673,774,2024-03-05 00:03:38,Colobus guerza
+426,816,409,2023-05-05 01:55:36,Eira barbata
+427,-902,489,2023-09-30 05:18:38,unavailable
+428,-117,385,2023-09-27 10:58:33,Phalacrocorax niger
+429,-39,520,2023-07-24 11:06:58,unavailable
+430,806,343,2023-06-06 15:31:34,Uraeginthus granatina
+431,96,896,2023-07-15 18:30:49,Spizaetus coronatus
+432,-763,523,2023-06-18 21:54:53,
+433,-943,250,2023-12-18 17:01:20,Boa caninus
+434,-675,139,2023-09-15 09:57:40,Gazella granti
+435,-699,406,2024-03-15 02:25:08,Choloepus hoffmani
+436,732,669,2023-04-16 00:51:51,Paraxerus cepapi
+437,186,411,2023-12-04 18:38:16,Kobus defassa
+438,-133,625,2024-01-28 05:38:19,Felis yagouaroundi
+439,215,285,2023-10-17 17:14:32,Paraxerus cepapi
+440,882,29,2024-01-13 11:35:30,Choloepus hoffmani
+441,-24,383,2024-02-14 20:06:18,Felis caracal
+442,309,721,2023-12-13 22:27:51,Lepilemur rufescens
+443,-56,590,2024-01-23 03:23:09,Felis libyca
+444,627,40,2023-04-03 10:28:27,Paradoxurus hermaphroditus
+445,457,499,2023-06-03 04:06:45,Vanellus sp.
+446,-845,217,2023-09-05 15:35:33,
+447,-890,832,2023-10-08 19:57:02,Sciurus vulgaris
+448,-887,654,2023-03-26 11:06:47,Psittacula krameri
+449,-796,517,2023-08-10 06:55:54,Phascogale calura
+450,310,70,2024-01-10 04:18:56,Gymnorhina tibicen
+451,-703,232,2024-02-22 13:57:24,Amphibolurus barbatus
+452,853,22,2023-03-22 15:19:03,Odocoilenaus virginianus
+453,458,270,2023-05-19 01:30:15,Mellivora capensis
+454,-19,150,2024-03-02 18:23:57,
+455,603,62,2023-07-31 09:40:01,Uraeginthus angolensis
+456,-728,779,2023-09-21 21:26:45,
+457,-564,10,2023-11-11 03:41:52,Felis wiedi or Leopardus weidi
+458,-807,493,2023-12-06 07:33:39,Tamiasciurus hudsonicus
+459,-444,575,2024-02-12 23:18:32,Aonyx cinerea
+460,658,260,2023-05-24 18:16:51,Chelodina longicollis
+461,-361,333,2023-11-10 18:24:39,Cacatua tenuirostris
+462,-289,756,2023-05-02 19:26:16,Casmerodius albus
+463,-782,385,2024-01-30 02:38:44,Macropus agilis
+464,-417,482,2023-04-14 04:59:04,Connochaetus taurinus
+465,-595,236,2024-02-18 02:11:55,Dicrostonyx groenlandicus
+466,655,795,2023-05-12 09:17:20,Diceros bicornis
+467,608,305,2024-02-18 10:26:53,Hyaena hyaena
+468,-973,946,2023-06-19 18:26:33,
+469,-22,328,2023-10-30 15:06:21,unavailable
+470,-979,506,2024-01-04 20:36:22,Hippopotamus amphibius
+471,-110,24,2023-08-29 16:11:38,Macropus robustus
+472,-998,153,2023-06-22 09:28:27,Salvadora hexalepis
+473,674,771,2023-06-04 14:11:30,Melanerpes erythrocephalus
+474,-382,316,2023-03-25 12:48:48,Pycnonotus nigricans
+475,-81,304,2023-12-02 20:17:21,Larus novaehollandiae
+476,894,323,2023-11-22 21:02:21,Genetta genetta
+477,-958,971,2023-12-19 01:43:54,Phalacrocorax brasilianus
+478,412,477,2023-04-07 03:53:11,Dusicyon thous
+479,891,742,2023-04-25 18:07:43,Eudromia elegans
+480,-600,72,2024-02-11 02:41:31,Pycnonotus barbatus
+481,967,806,2023-05-27 10:58:53,Centrocercus urophasianus
+482,-659,276,2023-04-06 07:17:36,Macaca radiata
+483,-798,818,2023-04-02 17:39:37,Macropus fuliginosus
+484,-283,675,2023-11-26 19:47:18,Laniarius ferrugineus
+485,-902,223,2023-05-22 18:03:20,Laniaurius atrococcineus
+486,-171,372,2023-09-08 09:59:53,Eumetopias jubatus
+487,-871,902,2023-12-08 05:07:11,Leptoptilos crumeniferus
+488,-760,396,2023-05-10 21:11:15,Carphophis sp.
+489,453,20,2023-09-29 15:29:40,Rhea americana
+490,804,952,2023-09-13 09:20:10,Buteo galapagoensis
+491,-182,418,2024-03-17 03:56:01,Lutra canadensis
+492,393,50,2023-12-10 16:00:37,Haematopus ater
+493,-701,654,2023-04-21 00:20:15,Pavo cristatus
+494,-668,754,2023-07-21 20:55:46,Alopex lagopus
+495,260,527,2023-12-30 16:19:22,Lutra canadensis
+496,126,188,2024-02-02 16:00:14,Thalasseus maximus
+497,-860,474,2023-10-21 19:11:32,Crax sp.
+498,365,225,2024-01-26 02:56:21,Oncorhynchus nerka
+499,810,896,2023-05-15 03:42:22,Phalacrocorax niger
+500,-394,111,2024-03-17 16:51:46,Raphicerus campestris
+501,-530,931,2023-06-16 09:41:16,Choloepus hoffmani
+502,340,424,2023-05-04 01:55:10,
+503,-157,531,2023-04-15 03:58:22,Pteronura brasiliensis
+504,-860,209,2023-06-02 12:08:46,Phascogale calura
+505,766,956,2023-08-14 09:12:18,Notechis semmiannulatus
+506,187,10,2023-09-12 02:41:00,
+507,502,352,2024-02-17 17:07:43,Priodontes maximus
+508,-798,702,2023-10-20 03:16:42,Hippotragus equinus
+509,-192,256,2024-01-18 08:20:49,Tamiasciurus hudsonicus
+510,-44,534,2023-06-22 02:35:52,
+511,564,331,2023-09-04 13:09:41,Amphibolurus barbatus
+512,153,757,2023-10-21 05:24:42,Chlamydosaurus kingii
+513,878,555,2023-05-28 17:16:10,Acridotheres tristis
+514,-298,44,2024-02-14 23:48:05,
+515,-317,457,2024-01-06 23:42:40,Ursus americanus
+516,760,883,2023-12-23 09:56:32,Theropithecus gelada
+517,-674,521,2023-10-24 17:07:07,Acrobates pygmaeus
+518,492,750,2024-02-27 10:50:52,Dusicyon thous
+519,-231,308,2023-07-29 09:57:37,Epicrates cenchria maurus
+520,574,964,2023-06-26 20:35:15,Felis yagouaroundi
+521,-752,122,2023-08-18 11:06:00,
+522,-473,271,2024-02-08 11:30:14,
+523,-274,486,2023-09-25 11:05:29,Picoides pubescens
+524,-246,910,2023-09-18 01:04:24,Coendou prehensilis
+525,-269,498,2023-06-04 05:24:28,Libellula quadrimaculata
+526,-529,448,2023-09-27 02:44:17,Ardea golieth
+527,227,854,2023-05-24 23:54:23,Antechinus flavipes
+528,-384,586,2024-03-12 22:47:13,Eolophus roseicapillus
+529,-891,236,2023-08-03 21:17:56,Coluber constrictor
+530,604,484,2023-11-06 02:35:26,
+531,241,998,2024-02-18 02:46:38,Graspus graspus
+532,-878,164,2023-08-28 23:10:50,Leipoa ocellata
+533,544,713,2023-05-30 08:41:59,
+534,794,834,2023-12-02 10:00:12,Chloephaga melanoptera
+535,-641,258,2023-11-19 23:01:08,Zosterops pallidus
+536,580,647,2023-09-30 01:43:30,unavailable
+537,-305,215,2024-01-26 02:59:43,
+538,-388,731,2023-09-19 21:36:28,unavailable
+539,431,919,2023-09-30 17:20:46,Equus hemionus
+540,886,514,2023-11-06 07:39:06,Trachyphonus vaillantii
+541,-949,807,2023-07-22 01:01:08,Sciurus vulgaris
+542,-127,119,2024-01-18 10:49:55,Agkistrodon piscivorus
+543,-378,423,2023-10-07 02:59:10,Vulpes vulpes
+544,-475,489,2023-07-21 10:50:57,Limosa haemastica
+545,258,183,2023-11-25 23:44:49,
+546,-986,166,2023-12-16 06:32:24,Grus canadensis
+547,-120,65,2023-07-16 10:48:29,Cynictis penicillata
+548,18,334,2024-03-09 23:14:59,Tachyglossus aculeatus
+549,597,216,2023-09-22 11:26:01,Seiurus aurocapillus
+550,430,367,2024-01-09 21:30:24,Junonia genoveua
+551,-789,40,2023-06-25 12:15:33,Laniarius ferrugineus
+552,-79,454,2023-06-19 08:55:10,Callipepla gambelii
+553,310,238,2023-12-02 22:01:09,Vanellus chilensis
+554,-567,574,2023-05-02 06:02:15,Spheniscus magellanicus
+555,-15,38,2023-06-14 13:21:41,Conolophus subcristatus
+556,570,410,2023-06-30 12:33:26,Odocoileus hemionus
+557,-332,949,2024-02-02 17:30:38,Nasua narica
+558,825,261,2023-12-24 21:37:00,Butorides striatus
+559,-603,600,2023-10-13 11:33:31,Choriotis kori
+560,696,844,2023-07-31 01:27:28,Cynomys ludovicianus
+561,-484,280,2023-12-17 03:12:22,
+562,634,134,2023-07-16 07:07:49,Centrocercus urophasianus
+563,-483,631,2023-10-02 20:58:29,
+564,78,544,2023-11-09 15:17:16,unavailable
+565,-110,725,2023-07-07 20:43:16,Coluber constrictor
+566,815,741,2024-02-16 12:27:39,Coendou prehensilis
+567,155,872,2023-08-14 11:53:32,Grus rubicundus
+568,998,57,2023-11-29 14:55:10,Nyctereutes procyonoides
+569,-841,724,2023-08-22 11:23:41,Streptopelia senegalensis
+570,249,522,2023-08-06 08:34:12,Macropus eugenii
+571,784,892,2023-12-29 02:59:36,Nucifraga columbiana
+572,365,933,2023-08-08 01:25:33,Chamaelo sp.
+573,-817,839,2023-06-16 03:40:59,Oncorhynchus nerka
+574,-873,32,2023-12-09 01:15:41,
+575,546,408,2024-01-21 02:33:04,Geochelone elephantopus
+576,34,71,2023-06-14 14:19:03,Gazella granti
+577,-819,267,2023-08-19 09:05:46,Himantopus himantopus
+578,-318,835,2023-10-13 13:27:49,
+579,-347,948,2023-07-27 10:46:04,Odocoileus hemionus
+580,-446,584,2023-08-01 00:49:50,Delphinus delphis
+581,240,652,2023-09-03 21:38:17,Lamprotornis nitens
+582,-36,590,2023-06-03 01:53:23,Corvus brachyrhynchos
+583,-131,269,2024-01-01 20:02:08,Spermophilus armatus
+584,-411,298,2023-04-02 03:44:31,Ninox superciliaris
+585,767,437,2023-10-24 21:17:36,Acridotheres tristis
+586,597,514,2023-07-22 13:43:22,
+587,33,372,2023-09-14 15:18:35,Macaca radiata
+588,-992,904,2023-08-05 09:19:26,Phalacrocorax niger
+589,-462,873,2023-07-27 23:49:50,Arctogalidia trivirgata
+590,453,492,2023-07-18 02:36:05,Panthera pardus
+591,-886,88,2023-11-04 05:05:32,Rangifer tarandus
+592,-343,327,2023-07-15 01:07:47,Colaptes campestroides
+593,-878,868,2023-07-27 11:05:48,Platalea leucordia
+594,832,2,2023-10-19 00:54:59,Choloepus hoffmani
+595,132,288,2023-07-09 10:48:03,Bison bison
+596,251,211,2023-09-28 13:34:57,
+597,445,757,2023-05-13 18:21:48,Geococcyx californianus
+598,967,388,2023-11-20 00:21:07,Eubalaena australis
+599,-344,270,2023-05-01 15:11:56,Phalacrocorax niger
+600,-170,290,2023-07-17 00:02:10,
+601,430,342,2023-12-01 06:36:41,Ovis ammon
+602,669,863,2024-01-24 09:51:45,Lepus arcticus
+603,-261,894,2023-06-20 23:49:38,Phalaropus lobatus
+604,618,98,2023-12-31 21:23:20,
+605,386,793,2023-09-06 16:06:00,Anser caerulescens
+606,-913,64,2023-04-09 16:18:44,Acrobates pygmaeus
+607,999,115,2023-10-13 17:28:15,Platalea leucordia
+608,-1,399,2023-07-07 20:47:58,Paraxerus cepapi
+609,934,584,2023-08-06 12:00:38,Ovis orientalis
+610,-612,607,2023-05-23 23:34:06,Cebus apella
+611,-949,266,2023-07-30 23:36:28,Bos frontalis
+612,414,709,2023-11-15 04:16:35,Corythornis cristata
+613,886,338,2023-10-18 08:52:25,
+614,-68,197,2023-04-15 19:19:35,Pycnonotus barbatus
+615,-490,243,2023-07-25 21:43:15,Phasianus colchicus
+616,-366,140,2023-11-30 17:31:46,Anas punctata
+617,-123,449,2023-11-28 21:47:43,Cebus apella
+618,-559,337,2023-10-08 22:30:30,Taxidea taxus
+619,296,572,2023-04-06 17:16:52,Thalasseus maximus
+620,875,168,2023-03-21 20:43:55,Bubalus arnee
+621,-796,946,2023-07-20 02:55:10,Corvus brachyrhynchos
+622,800,169,2023-06-04 13:43:01,Felis concolor
+623,721,718,2023-10-12 18:57:31,
+624,768,385,2023-09-19 18:29:18,Gorilla gorilla
+625,-573,34,2024-01-10 01:38:26,Ara macao
+626,565,408,2024-03-12 07:05:08,Nannopterum harrisi
+627,105,74,2023-04-24 13:34:34,Francolinus leucoscepus
+628,77,979,2023-10-07 10:58:44,Dasyurus viverrinus
+629,-823,552,2024-01-08 15:21:03,Echimys chrysurus
+630,-276,346,2023-12-03 09:14:32,Gorilla gorilla
+631,-133,644,2023-11-25 00:02:32,Ovibos moschatus
+632,-206,678,2023-10-14 17:14:42,Gorilla gorilla
+633,27,433,2023-06-08 18:15:58,Manouria emys
+634,-795,16,2024-02-17 10:03:14,Phasianus colchicus
+635,-600,973,2023-04-10 02:41:24,unavailable
+636,-840,572,2023-07-26 18:10:19,Caiman crocodilus
+637,-388,966,2023-07-11 06:28:50,Nectarinia chalybea
+638,-628,171,2024-01-20 18:10:03,Semnopithecus entellus
+639,287,425,2024-01-16 12:37:12,Vulpes vulpes
+640,475,553,2023-09-09 02:42:12,
+641,-6,303,2023-04-01 14:11:18,Gyps fulvus
+642,61,206,2024-01-05 11:01:09,Theropithecus gelada
+643,327,653,2023-07-19 04:18:05,Dusicyon thous
+644,919,396,2023-10-22 02:14:59,Panthera onca
+645,-351,951,2023-04-19 16:22:52,unavailable
+646,160,93,2023-06-08 01:52:52,Sarkidornis melanotos
+647,-66,22,2023-09-27 18:30:07,Spheniscus mendiculus
+648,-37,248,2024-02-04 16:43:03,
+649,-266,514,2023-04-24 08:29:23,Pycnonotus barbatus
+650,-147,748,2024-02-23 20:37:19,Crotalus cerastes
+651,-696,270,2024-02-04 19:14:55,
+652,603,936,2023-11-01 14:47:24,Pseudalopex gymnocercus
+653,-852,244,2023-05-12 19:55:20,Lepus arcticus
+654,89,587,2023-08-19 19:45:55,Taxidea taxus
+655,677,439,2023-11-10 23:03:12,Gyps bengalensis
+656,171,368,2023-04-21 21:11:10,Alligator mississippiensis
+657,375,334,2023-06-13 10:42:00,Vulpes chama
+658,511,130,2023-08-26 11:56:17,
+659,-164,785,2023-04-23 20:08:22,Phoeniconaias minor
+660,-867,725,2023-05-11 06:28:09,Plegadis ridgwayi
+661,575,192,2023-10-19 18:52:01,Ardea golieth
+662,770,798,2023-06-09 18:18:36,Chamaelo sp.
+663,-520,323,2023-03-28 17:02:28,
+664,383,450,2023-05-20 18:35:18,Cacatua galerita
+665,528,671,2023-09-23 13:46:20,Creagrus furcatus
+666,614,152,2023-11-18 12:33:49,Limnocorax flavirostra
+667,-711,953,2023-06-07 21:09:42,Tetracerus quadricornis
+668,239,826,2023-10-12 05:31:30,Macropus robustus
+669,733,739,2023-03-19 13:55:34,Antidorcas marsupialis
+670,666,193,2023-11-21 18:14:19,Chordeiles minor
+671,-622,558,2023-12-01 15:16:33,Theropithecus gelada
+672,576,20,2023-11-07 22:43:04,Macropus agilis
+673,982,559,2023-12-02 20:16:37,
+674,-198,116,2023-09-13 03:41:53,Myiarchus tuberculifer
+675,867,667,2023-08-04 00:44:01,Zonotrichia capensis
+676,494,909,2024-01-14 01:43:24,Corvus albicollis
+677,-986,378,2024-01-26 02:35:28,Agkistrodon piscivorus
+678,859,247,2023-04-09 19:28:10,Taxidea taxus
+679,182,685,2024-02-06 22:45:56,Salvadora hexalepis
+680,-267,624,2024-01-02 19:44:57,Snycerus caffer
+681,361,869,2023-12-10 14:46:34,Columba livia
+682,-784,986,2023-03-30 22:31:43,Ictonyx striatus
+683,-206,133,2023-07-19 08:34:06,Sagittarius serpentarius
+684,957,441,2023-05-29 13:57:31,Perameles nasuta
+685,828,371,2023-11-22 12:19:35,Sylvicapra grimma
+686,612,12,2023-03-25 22:59:39,
+687,560,359,2023-07-27 05:43:33,Cercopithecus aethiops
+688,239,893,2023-09-19 16:27:21,Varanus sp.
+689,971,88,2024-02-29 12:42:38,Ursus arctos
+690,929,7,2023-05-24 21:57:35,Tauraco porphyrelophus
+691,608,563,2023-09-29 04:40:39,Falco mexicanus
+692,-168,811,2024-01-02 13:27:54,Martes americana
+693,-219,108,2024-01-19 19:01:14,Acrantophis madagascariensis
+694,168,976,2023-08-26 14:24:43,Pseudalopex gymnocercus
+695,-6,467,2023-08-08 14:11:06,Lutra canadensis
+696,664,498,2023-04-14 13:17:28,Acrobates pygmaeus
+697,369,290,2023-12-15 17:33:03,Chlidonias leucopterus
+698,-513,24,2023-12-18 14:14:40,Bugeranus caruncalatus
+699,202,46,2023-09-04 14:04:56,
+700,-694,448,2024-03-03 05:00:34,Theropithecus gelada
+701,-19,786,2023-12-29 19:06:13,Dipodomys deserti
+702,799,555,2024-01-25 02:55:13,Acrantophis madagascariensis
+703,707,89,2023-04-06 12:00:06,Mellivora capensis
+704,451,162,2023-08-10 13:26:01,Cordylus giganteus
+705,-621,771,2023-08-27 18:23:31,Eubalaena australis
+706,674,104,2023-11-27 16:15:23,Macaca radiata
+707,404,511,2023-05-02 09:32:13,Hymenolaimus malacorhynchus
+708,106,638,2023-04-16 20:31:40,
+709,-215,581,2023-12-23 11:34:13,Eira barbata
+710,515,763,2023-07-07 10:19:16,Actophilornis africanus
+711,-929,933,2024-01-01 10:33:38,Neophron percnopterus
+712,526,318,2023-06-19 04:13:53,Speothos vanaticus
+713,-728,199,2023-04-09 12:01:46,Mirounga leonina
+714,-188,652,2023-04-08 08:41:30,unavailable
+715,823,172,2023-06-12 07:02:13,Morelia spilotes variegata
+716,745,751,2023-12-16 09:39:44,Plegadis falcinellus
+717,-32,817,2023-05-18 16:09:44,Dasypus novemcinctus
+718,620,16,2023-09-04 13:04:28,Milvus migrans
+719,605,440,2023-05-10 10:51:43,Taurotagus oryx
+720,-742,967,2024-03-10 03:04:51,Sauromalus obesus
+721,-524,397,2023-10-16 02:35:06,Coendou prehensilis
+722,166,961,2023-10-07 08:00:37,Odocoileus hemionus
+723,-977,142,2024-01-03 15:33:39,Spizaetus coronatus
+724,-848,22,2024-01-19 10:41:08,Streptopelia senegalensis
+725,-347,34,2023-09-02 13:12:30,Tenrec ecaudatus
+726,446,15,2023-08-11 01:03:39,Eudyptula minor
+727,907,902,2023-09-23 06:38:46,Orcinus orca
+728,788,591,2024-01-15 10:26:16,Ninox superciliaris
+729,-940,226,2024-02-09 16:19:31,Melanerpes erythrocephalus
+730,-310,907,2023-10-06 04:00:55,Semnopithecus entellus
+731,-39,851,2023-08-18 15:56:30,Elephas maximus bengalensis
+732,951,73,2023-11-02 06:13:51,Anthropoides paradisea
+733,646,606,2024-01-02 15:32:31,Galictis vittata
+734,677,260,2023-12-05 03:54:31,Psophia viridis
+735,-422,867,2023-10-02 10:07:38,Colaptes campestroides
+736,284,988,2023-11-25 13:44:40,Milvago chimachima
+737,-706,279,2024-03-13 04:37:41,Lama guanicoe
+738,-134,130,2024-01-14 21:31:48,
+739,901,210,2023-10-21 14:50:58,Priodontes maximus
+740,-451,735,2023-10-21 20:54:07,Corvus albus
+741,846,596,2023-04-11 01:59:10,Naja sp.
+742,-237,114,2024-01-12 04:18:27,Elephas maximus bengalensis
+743,57,198,2024-03-13 20:43:47,
+744,797,489,2023-08-11 02:21:32,Larus dominicanus
+745,127,118,2023-08-25 22:36:58,Melophus lathami
+746,539,615,2023-04-10 06:33:19,Anastomus oscitans
+747,-850,223,2023-06-10 10:52:06,Tockus flavirostris
+748,888,678,2023-11-02 00:32:15,Macropus eugenii
+749,549,880,2023-06-30 11:44:06,
+750,-76,625,2023-12-05 12:13:15,Bison bison
+751,-520,245,2023-12-24 02:57:22,Climacteris melanura
+752,848,908,2023-04-25 13:20:15,Irania gutteralis
+753,-198,252,2023-03-27 21:14:46,Suricata suricatta
+754,-65,691,2023-11-06 20:27:50,Macaca mulatta
+755,-436,390,2023-04-28 16:27:50,Lamprotornis nitens
+756,799,562,2024-02-10 23:08:51,Anastomus oscitans
+757,797,808,2023-08-10 23:35:43,Loxodonta africana
+758,682,487,2023-08-04 02:12:54,Macropus fuliginosus
+759,43,393,2024-01-05 17:56:05,Spermophilus parryii
+760,-304,62,2023-11-07 05:40:42,Ciconia ciconia
+761,-185,724,2023-06-22 10:51:03,Diomedea irrorata
+762,-12,96,2023-04-03 01:08:03,Eira barbata
+763,-1,237,2023-08-01 00:15:20,Trichoglossus haematodus moluccanus
+764,-539,718,2023-03-24 15:07:43,
+765,-611,851,2024-03-14 05:36:58,Bettongia penicillata
+766,-234,66,2023-10-18 12:39:18,Pseudocheirus peregrinus
+767,68,101,2024-01-15 20:29:09,unavailable
+768,34,697,2023-04-19 20:29:07,Odocoileus hemionus
+769,-957,982,2024-01-28 10:43:53,Macropus giganteus
+770,-747,81,2023-09-06 20:55:18,Spilogale gracilis
+771,648,985,2023-10-04 12:57:30,Felis caracal
+772,-636,163,2024-01-22 11:01:19,Mazama americana
+773,163,726,2024-02-13 09:54:08,
+774,-900,105,2023-10-07 03:32:35,Agama sp.
+775,848,87,2023-10-22 03:29:57,Tyto novaehollandiae
+776,210,342,2024-02-24 19:10:28,Choriotis kori
+777,308,916,2023-07-19 01:28:52,Madoqua kirkii
+778,-391,327,2024-02-24 08:39:16,Sarcophilus harrisii
+779,-887,942,2023-11-23 03:00:09,Thylogale stigmatica
+780,-110,873,2023-03-20 04:02:28,Acanthaster planci
+781,882,112,2023-10-06 13:33:52,
+782,505,183,2023-09-05 09:44:52,Rangifer tarandus
+783,659,408,2023-12-11 15:27:35,Hymenolaimus malacorhynchus
+784,870,695,2023-12-16 09:00:37,Charadrius tricollaris
+785,-390,260,2023-11-13 14:29:16,Psittacula krameri
+786,742,748,2023-09-19 23:13:12,Macropus rufogriseus
+787,403,303,2023-11-07 06:36:13,Larus sp.
+788,-439,198,2024-02-09 05:32:40,Anser anser
+789,849,219,2023-07-29 16:50:36,Meleagris gallopavo
+790,497,456,2023-09-30 06:07:13,Dendrocitta vagabunda
+791,127,636,2023-05-26 07:57:48,Buteo jamaicensis
+792,330,476,2023-04-01 07:09:13,Gyps bengalensis
+793,-958,375,2023-10-02 12:17:05,Myotis lucifugus
+794,798,938,2024-02-13 00:13:28,Turtur chalcospilos
+795,-450,616,2023-05-21 00:28:36,Seiurus aurocapillus
+796,636,738,2023-04-30 09:53:38,Picoides pubescens
+797,591,288,2023-12-07 08:49:39,Bassariscus astutus
+798,-326,785,2023-06-11 20:45:05,Acrobates pygmaeus
+799,-826,765,2024-02-02 15:04:04,Dasyurus maculatus
+800,-7,856,2023-09-17 05:15:10,Psophia viridis
+801,-868,796,2023-07-11 21:09:08,Ardea cinerea
+802,600,278,2023-04-21 07:05:28,Manouria emys
+803,208,660,2023-12-29 12:46:10,Melursus ursinus
+804,-15,876,2023-12-24 03:47:32,Psophia viridis
+805,-589,341,2024-02-19 17:00:22,Ploceus rubiginosus
+806,518,559,2023-07-13 09:22:58,Bradypus tridactylus
+807,-134,882,2023-10-09 05:56:27,Ictalurus furcatus
+808,591,854,2023-08-28 03:49:01,Anser caerulescens
+809,891,978,2023-12-22 17:04:34,Phalacrocorax varius
+810,367,485,2023-12-05 13:27:56,Actophilornis africanus
+811,-336,794,2023-10-26 08:18:09,Paradoxurus hermaphroditus
+812,396,90,2023-05-16 11:25:34,Haematopus ater
+813,-973,557,2023-11-01 20:31:14,Papio ursinus
+814,520,894,2023-12-08 10:14:43,
+815,913,575,2023-12-17 17:15:15,Bucorvus leadbeateri
+816,-23,376,2024-01-30 06:19:14,Equus hemionus
+817,445,173,2023-06-19 06:03:02,
+818,70,964,2023-07-05 19:25:19,Proteles cristatus
+819,489,283,2023-09-16 23:43:35,Cynictis penicillata
+820,-730,506,2023-10-06 13:47:43,Haliaetus vocifer
+821,-877,48,2023-10-29 11:41:09,Casmerodius albus
+822,-645,139,2023-11-26 10:16:28,Bucephala clangula
+823,-403,626,2023-06-29 10:32:02,Nannopterum harrisi
+824,495,744,2023-11-30 12:17:15,Choloepus hoffmani
+825,-812,511,2024-01-14 06:42:49,Genetta genetta
+826,-5,194,2023-05-07 16:12:47,Corvus albus
+827,390,281,2023-11-21 23:57:48,Canis aureus
+828,-450,414,2023-04-04 02:12:56,Crotaphytus collaris
+829,-740,994,2024-02-26 08:31:14,Meleagris gallopavo
+830,284,840,2023-10-07 04:36:56,Junonia genoveua
+831,509,532,2023-08-13 01:58:34,Oreotragus oreotragus
+832,-138,146,2023-09-06 00:18:01,
+833,-394,568,2024-01-18 18:37:09,Tursiops truncatus
+834,730,952,2023-06-07 22:11:03,
+835,829,12,2023-08-22 13:42:29,Plegadis falcinellus
+836,-561,677,2023-05-19 06:34:03,
+837,427,856,2023-08-24 15:19:07,Vulpes chama
+838,-985,918,2024-03-16 03:22:44,Corvus albus
+839,-750,712,2023-07-01 18:51:43,Varanus komodensis
+840,403,563,2023-05-21 18:01:42,Plocepasser mahali
+841,-730,623,2023-04-06 03:03:04,Pseudocheirus peregrinus
+842,-733,454,2024-01-11 13:49:53,Spheniscus magellanicus
+843,281,75,2024-02-14 16:19:27,Odocoileus hemionus
+844,104,364,2023-07-12 06:47:53,Laniarius ferrugineus
+845,903,847,2023-09-02 05:27:17,Corvus brachyrhynchos
+846,225,91,2023-11-25 02:42:34,Paradoxurus hermaphroditus
+847,572,706,2023-09-03 18:37:34,
+848,779,467,2023-08-13 17:35:56,Pseudocheirus peregrinus
+849,-363,735,2023-08-04 06:44:28,Macropus robustus
+850,-638,474,2023-08-11 15:10:49,Pan troglodytes
+851,-871,168,2023-12-20 14:57:51,Ctenophorus ornatus
+852,361,87,2023-08-29 23:00:04,Ovis ammon
+853,-84,417,2023-11-29 08:34:29,Tayassu pecari
+854,-596,949,2023-03-26 10:24:50,Larus dominicanus
+855,-789,675,2023-09-01 10:53:17,Equus burchelli
+856,73,559,2023-07-17 09:43:38,Felis silvestris lybica
+857,-828,186,2024-03-04 08:13:43,Macropus rufogriseus
+858,420,876,2023-05-03 23:24:22,Ictonyx striatus
+859,-827,370,2024-03-09 07:48:28,
+860,-630,337,2023-04-10 21:32:28,Lepus arcticus
+861,-900,777,2023-05-11 17:39:38,Seiurus aurocapillus
+862,617,933,2023-10-11 09:56:26,Uraeginthus granatina
+863,993,180,2023-12-15 12:15:46,Macropus eugenii
+864,-842,382,2023-06-26 02:10:23,Gyps bengalensis
+865,-411,665,2023-06-10 18:39:02,
+866,776,877,2023-05-09 15:10:02,Ursus maritimus
+867,-967,74,2023-06-06 00:25:37,Acridotheres tristis
+868,-735,956,2023-06-01 03:42:42,Cebus apella
+869,-491,474,2023-11-26 23:14:24,Phalaropus lobatus
+870,590,805,2023-11-06 18:25:57,
+871,-756,392,2023-12-18 05:05:42,Microcebus murinus
+872,641,373,2023-11-25 03:32:22,
+873,-896,991,2023-09-25 21:07:26,
+874,-349,437,2023-12-30 06:33:17,Otocyon megalotis
+875,-334,116,2023-08-21 05:36:51,Threskionis aethiopicus
+876,-168,600,2023-06-19 20:50:07,Ardea golieth
+877,-887,255,2023-09-26 10:20:40,Antilocapra americana
+878,-456,785,2023-07-30 00:05:08,Anastomus oscitans
+879,-358,885,2023-12-20 04:43:24,Philetairus socius
+880,32,215,2023-04-11 16:51:39,Cebus apella
+881,-975,738,2023-11-29 15:10:11,
+882,-225,298,2023-08-27 12:41:42,Paroaria gularis
+883,-244,556,2024-02-22 11:28:18,Mycteria ibis
+884,-370,610,2023-04-29 06:27:21,Stenella coeruleoalba
+885,795,879,2023-07-18 03:11:30,Mustela nigripes
+886,869,897,2023-12-24 08:02:57,Anitibyx armatus
+887,391,763,2023-09-29 07:43:43,Canis lupus lycaon
+888,-284,810,2023-09-04 21:42:42,Xerus sp.
+889,-206,936,2024-02-24 00:20:52,
+890,366,157,2024-03-13 06:55:13,Psophia viridis
+891,-76,264,2023-05-29 03:27:19,Felis rufus
+892,22,855,2023-07-16 21:09:51,Gazella granti
+893,114,303,2023-07-21 15:32:48,Varanus salvator
+894,-945,911,2023-05-05 10:21:44,Bucephala clangula
+895,-874,828,2024-01-24 14:37:31,Paradoxurus hermaphroditus
+896,684,55,2023-04-01 22:06:43,Dasypus septemcincus
+897,-876,445,2023-12-27 14:16:18,
+898,-767,232,2023-11-14 01:56:01,Sarcorhamphus papa
+899,965,170,2023-04-14 10:14:51,Capreolus capreolus
+900,-517,706,2023-12-04 00:40:38,Vanessa indica
+901,-319,660,2023-12-17 22:08:57,Motacilla aguimp
+902,-961,354,2024-02-22 02:26:10,Gekko gecko
+903,911,873,2024-01-18 16:50:03,Nectarinia chalybea
+904,-313,944,2023-07-26 20:13:24,
+905,371,758,2023-11-26 03:15:12,Ammospermophilus nelsoni
+906,-275,722,2023-06-26 18:57:48,Aonyx cinerea
+907,-450,763,2023-06-26 03:28:04,Tamiasciurus hudsonicus
+908,600,410,2024-01-11 23:58:37,
+909,837,541,2024-01-05 11:49:54,Axis axis
+910,390,628,2024-02-08 13:45:57,Tyto novaehollandiae
+911,86,521,2023-11-14 18:46:37,Pycnonotus nigricans
+912,517,365,2023-07-20 18:15:06,Aonyx cinerea
+913,673,485,2023-09-24 12:39:23,Macaca nemestrina
+914,-438,170,2023-11-18 07:25:06,Canis lupus baileyi
+915,-292,126,2023-11-07 12:39:58,Sarcophilus harrisii
+916,-530,815,2023-10-18 15:49:07,Equus hemionus
+917,-877,968,2023-10-27 23:31:35,
+918,856,292,2023-11-28 17:00:47,Trachyphonus vaillantii
+919,822,569,2023-08-20 06:59:13,Bubo sp.
+920,129,618,2023-06-10 10:20:22,Antidorcas marsupialis
+921,175,901,2023-07-18 15:38:30,Ammospermophilus nelsoni
+922,-840,936,2023-07-01 00:59:45,Macropus parryi
+923,179,304,2023-07-24 00:22:36,unavailable
+924,801,507,2023-07-17 13:51:04,Paroaria gularis
+925,968,560,2023-06-05 09:19:01,Streptopelia senegalensis
+926,-8,462,2024-01-29 09:52:54,Oncorhynchus nerka
+927,-882,868,2023-08-13 17:48:01,Canis mesomelas
+928,-290,366,2023-11-02 13:30:46,Dipodomys deserti
+929,-691,253,2023-07-04 16:50:19,Ursus arctos
+930,919,573,2023-09-01 22:02:55,
+931,251,244,2023-05-24 19:37:43,Cygnus atratus
+932,615,82,2023-09-09 18:20:20,Haliaetus leucogaster
+933,-672,912,2023-10-12 12:03:45,Bucephala clangula
+934,67,305,2024-01-06 21:02:26,Cyrtodactylus louisiadensis
+935,-283,449,2023-08-01 00:46:03,Lemur fulvus
+936,374,441,2024-01-05 20:12:56,Tachyglossus aculeatus
+937,325,878,2023-05-04 03:23:36,Cordylus giganteus
+938,180,725,2024-02-13 21:33:00,Corvus brachyrhynchos
+939,-895,155,2023-09-14 16:44:06,Libellula quadrimaculata
+940,-984,94,2023-08-29 23:37:29,Oncorhynchus nerka
+941,-707,727,2024-01-04 00:12:23,
+942,992,393,2023-04-01 10:52:49,Grus antigone
+943,74,970,2024-01-23 23:18:49,Buteo jamaicensis
+944,47,431,2023-09-24 11:24:38,Limosa haemastica
+945,814,792,2024-02-08 14:02:52,Dacelo novaeguineae
+946,-574,796,2023-10-14 10:19:13,
+947,-193,915,2024-03-04 22:43:06,Giraffe camelopardalis
+948,820,947,2023-04-07 05:15:36,Conolophus subcristatus
+949,420,772,2023-04-04 15:53:19,Coluber constrictor foxii
+950,-70,217,2023-05-07 00:52:47,
+951,286,676,2023-04-27 07:22:32,Taxidea taxus
+952,826,392,2024-01-07 14:11:41,Columba livia
+953,-902,439,2023-10-20 01:39:04,Cyrtodactylus louisiadensis
+954,933,569,2023-08-06 14:43:11,Spheniscus magellanicus
+955,-99,248,2024-01-30 09:51:35,Cracticus nigroagularis
+956,-9,645,2023-06-15 14:02:44,Procyon cancrivorus
+957,683,957,2023-06-23 13:05:05,Suricata suricatta
+958,-413,190,2023-05-29 02:16:27,Larus sp.
+959,-709,182,2023-10-31 10:10:27,Pytilia melba
+960,41,938,2023-03-29 01:27:29,Columba livia
+961,-220,809,2024-01-09 02:13:12,
+962,906,424,2024-01-30 22:25:58,Streptopelia decipiens
+963,-796,108,2023-08-21 16:34:28,Ploceus intermedius
+964,654,107,2023-12-01 13:09:40,Lophoaetus occipitalis
+965,-107,416,2023-04-25 01:15:54,unavailable
+966,827,270,2023-07-28 10:10:21,Zonotrichia capensis
+967,623,467,2024-01-11 10:23:35,unavailable
+968,916,56,2023-08-27 06:18:42,Dicrostonyx groenlandicus
+969,881,602,2023-03-24 02:18:48,Coendou prehensilis
+970,-16,549,2024-03-08 00:42:16,Acridotheres tristis
+971,936,408,2023-06-19 06:05:20,Aegypius tracheliotus
+972,827,620,2023-05-06 15:57:12,Dasyurus viverrinus
+973,-991,500,2023-07-26 09:38:53,
+974,-608,404,2023-10-06 04:56:02,Cynictis penicillata
+975,-434,865,2023-05-24 20:09:11,Paraxerus cepapi
+976,574,443,2023-07-19 12:06:56,Corvus albicollis
+977,301,993,2023-09-14 02:08:24,
+978,779,966,2023-09-09 12:46:10,
+979,666,841,2023-12-25 19:41:35,Crotalus triseriatus
+980,663,670,2023-11-27 21:03:36,Loxodonta africana
+981,-531,974,2023-12-28 20:15:10,Columba livia
+982,912,410,2023-04-02 02:10:27,unavailable
+983,-48,531,2023-04-26 18:48:43,Macropus fuliginosus
+984,846,317,2023-12-23 06:40:59,Francolinus leucoscepus
+985,327,306,2023-09-17 12:40:47,Myotis lucifugus
+986,-482,96,2023-11-27 22:07:53,Streptopelia senegalensis
+987,276,378,2024-02-09 06:45:12,Tamiasciurus hudsonicus
+988,-962,844,2023-06-21 12:03:15,Amazona sp.
+989,-292,371,2023-11-12 01:09:13,Dasypus novemcinctus
+990,852,274,2023-09-13 12:53:21,Cracticus nigroagularis
+991,147,667,2023-10-24 03:26:40,Ninox superciliaris
+992,575,482,2023-12-10 11:34:56,Camelus dromedarius
+993,671,106,2023-03-25 14:09:18,Paraxerus cepapi
+994,976,904,2023-08-16 19:29:07,Paraxerus cepapi
+995,-778,374,2024-02-02 08:53:23,Phalacrocorax varius
+996,650,917,2023-07-29 19:50:12,Psittacula krameri
+997,729,428,2023-06-24 06:36:18,Bubalornis niger
+998,772,754,2023-04-07 09:51:02,Acanthaster planci
+999,-569,715,2023-07-18 03:09:50,
+1000,537,698,2023-12-03 00:01:48,Zalophus californicus
