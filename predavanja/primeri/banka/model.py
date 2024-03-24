@@ -124,6 +124,9 @@ def uvozi_podatke():
 
 
 def vzpostavi_povezavo():
+    """
+    Vzpostavi povezavo z bazo in jo inicializiraj.
+    """
     global conn
     conn = povezi(**auth)
     ustvari_bazo()

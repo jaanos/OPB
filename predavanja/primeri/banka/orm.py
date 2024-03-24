@@ -119,6 +119,13 @@ class Entiteta:
             vrednost = getattr(self, stolpec)
         return vrednost
 
+    def __iter__(self):
+        """
+        Iteriraj po vrednostih stolpcev v obliki, kot so zapisane v bazi.
+        """
+        for stolpec in self.STOLPCI:
+            yield self[stolpec]
+
     def __repr__(self):
         """
         Predstavi entiteto v znakovni obliki.
@@ -129,7 +136,7 @@ class Entiteta:
         """
         Predstavi entiteto v obliki za izpis.
         """
-        return str([self[stolpec] for stolpec in self.STOLPCI])
+        return str(list(self))
 
     def __init_subclass__(cls, /, **kwargs):
         """
@@ -176,7 +183,7 @@ class Entiteta:
                 cur.execute(sql.SQL("""
                         CREATE TABLE {ohrani} {tabela} ({stolpci});
                     """).format(ohrani=sql.SQL("IF NOT EXISTS" if ohrani
-                                               else ""),
+                                                else ""),
                                 tabela=sql.Identifier(cls.TABELA),
                                 stolpci=sql.SQL(", ").join(
                                     sql.SQL("{stolpec} {definicija}").format(
@@ -312,11 +319,12 @@ class Entiteta:
                         {**vrednosti, "__dbid": self.__dbid})
                 else:
                     generirani = {ime for ime, stolpec in self.STOLPCI.items()
-                                  if (stolpec.privzeto or
-                                      stolpec.tip == "SERIAL")
-                                  and self[ime] is None}
+                                    if (stolpec.privzeto or
+                                        stolpec.tip == "SERIAL")
+                                    and self[ime] is None}
                     vrednosti = {ime: vrednost for ime, vrednost
-                                 in vrednosti.items() if ime not in generirani}
+                                    in vrednosti.items()
+                                    if ime not in generirani}
                     stolpci = list(vrednosti)
                     generirani = list(generirani)
                     cur.execute(sql.SQL("""
