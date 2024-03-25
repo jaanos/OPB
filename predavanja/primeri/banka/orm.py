@@ -99,7 +99,7 @@ class Entiteta:
         for stolpec in stolpci:
             setattr(self, stolpec, kwargs.pop(stolpec, None))
         assert not kwargs, "Podani so odvečni ali podvojeni argumenti!"
-        self.__dbid = None
+        self.__dbid = self.glavni_kljuc()
 
     def __bool__(self):
         """
@@ -158,6 +158,15 @@ class Entiteta:
         """
         return dict(tabela=sql.Identifier(cls.TABELA),
                     kljuc=sql.Identifier(cls.GLAVNI_KLJUC))
+
+    @classmethod
+    def ustvari(cls, *largs, **kwargs):
+        """
+        Ustvari nov primerek entitete za dodajanje v bazo.
+        """
+        self = cls(*largs, **kwargs)
+        self.__dbid = None
+        return self
 
     @classmethod
     def izbrisi_tabelo(cls, ohrani=True):
@@ -257,7 +266,7 @@ class Entiteta:
             vrstica = cur.fetchone()
             if not vrstica:
                 raise ValueError(f'{cls.__name__} z ID-jem {id} ne obstaja!')
-            return cls(*vrstica).__iz_baze()
+            return cls(*vrstica)
 
     @classmethod
     def seznam(cls):
@@ -273,14 +282,7 @@ class Entiteta:
                             ),
                             **cls.__tabela_kljuc()))
             for vrstica in cur:
-                yield cls(*vrstica).__iz_baze()
-
-    def __iz_baze(self):
-        """
-        Zabeleži glavni ključ kot ključ iz baze.
-        """
-        self.__dbid = self.glavni_kljuc()
-        return self
+                yield cls(*vrstica)
 
     def glavni_kljuc(self):
         """
@@ -351,7 +353,7 @@ class Entiteta:
                     if generirani:
                         for stolpec, vrednost in zip(generirani, cur.fetchone()):
                             setattr(self, stolpec, vrednost)
-                self.__iz_baze()
+                self.__dbid = self.glavni_kljuc()
 
     def izbrisi(self):
         """

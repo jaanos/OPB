@@ -32,7 +32,7 @@ def kraji():
 def kraji_dodaj_post():
     posta = request.forms.getunicode('posta')
     kraj = request.forms.getunicode('kraj')
-    Kraj(posta, kraj).shrani()
+    Kraj.ustvari(posta, kraj).shrani()
     redirect('/kraji/')
 
 
