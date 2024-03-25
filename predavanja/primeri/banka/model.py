@@ -49,6 +49,35 @@ class Oseba(Entiteta):
         """
         return f'{self.ime} {self.priimek} ({self.emso})'
 
+    @classmethod
+    def seznam(cls):
+        """
+        Vračaj osebe iz baze.
+        """
+        with conn.cursor() as cur:
+            cur.execute("""
+                    SELECT ime, priimek, emso, naslov, posta, kraj
+                    FROM oseba JOIN kraj ON kraj_id = posta;
+                """)
+            for ime, priimek, emso, naslov, posta, kraj in cur:
+                yield cls(ime, priimek, emso, naslov, Kraj(posta, kraj))
+
+    def racuni(self):
+        """
+        Vračaj račune osebe.
+        """
+        with conn.cursor() as cur:
+            cur.execute("""
+                    SELECT stevilka, COALESCE(SUM(znesek), 0)
+                    FROM racun
+                    LEFT JOIN transakcija ON stevilka = racun_id
+                    WHERE oseba_id = %s
+                    GROUP BY stevilka
+                    ORDER BY stevilka;
+                """, [self.emso])
+            for stevilka, stanje in cur:
+                yield Racun(stevilka, self, stanje=stanje)
+
 
 class Racun(Entiteta):
     """
@@ -64,11 +93,46 @@ class Racun(Entiteta):
     }
     GLAVNI_KLJUC = "stevilka"
 
+    def __init__(self, *largs, stanje=None, **kwargs):
+        super().__init__(*largs, **kwargs)
+        self.stanje = stanje
+
     def __str__(self):
         """
         Predstavi račun v obliki za izpis.
         """
         return f'Račun {self.stevilka} osebe z EMŠOm {self["oseba_id"]}'
+
+    @classmethod
+    def seznam(cls):
+        """
+        Vračaj račune iz baze.
+        """
+        with conn.cursor() as cur:
+            cur.execute("""
+                    SELECT ime, priimek, emso, stevilka,
+                    COALESCE(SUM(znesek), 0)
+                    FROM oseba JOIN racun ON emso = oseba_id
+                    LEFT JOIN transakcija ON stevilka = racun_id
+                    GROUP BY stevilka, emso
+                    ORDER BY stevilka;
+                """)
+            for ime, priimek, emso, stevilka, stanje in cur:
+                yield cls(stevilka, Oseba(ime, priimek, emso), stanje=stanje)
+
+    def transakcije(self):
+        """
+        Vračaj transakcije na računu.
+        """
+        with conn.cursor() as cur:
+            cur.execute("""
+                    SELECT id, znesek, cas, opis
+                    FROM transakcija
+                    WHERE racun_id = %s
+                    ORDER BY cas;
+                """, [self.stevilka])
+            for id, znesek, cas, opis in cur:
+                yield Transakcija(id, znesek, self, cas, opis)
 
 
 class Transakcija(Entiteta):

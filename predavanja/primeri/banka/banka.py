@@ -45,6 +45,12 @@ def racuni():
     return template('racuni.html', racuni=Racun.seznam())
 
 
+@get('/racuni/<emso>/')
+def racuni_osebe(emso):
+    oseba = Oseba.z_id(emso)
+    return template('racuni_osebe.html', oseba=oseba)
+
+
 ############################################
 ### Transakcije
 ############################################
@@ -52,6 +58,11 @@ def racuni():
 @get('/transakcije/')
 def transakcije():
     return template('transakcije.html', transakcije=Transakcija.seznam())
+
+@get('/transakcije/<stevilka>/')
+def transakcije_na_racunu(stevilka):
+    racun = Racun.z_id(stevilka)
+    return template('transakcije_na_racunu.html', racun=racun)
 
 
 with vzpostavi_povezavo():

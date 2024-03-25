@@ -275,7 +275,8 @@ class Entiteta:
         """
         with conn.cursor() as cur:
             cur.execute(sql.SQL("""
-                    SELECT {stolpci} FROM {tabela};
+                    SELECT {stolpci} FROM {tabela}
+                    ORDER BY {kljuc};
                 """).format(stolpci=sql.SQL(", ").join(
                                 sql.Identifier(stolpec)
                                 for stolpec in cls.STOLPCI

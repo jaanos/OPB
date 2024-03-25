@@ -1,0 +1,22 @@
+%rebase('osnova.html', naslov=f'Računi osebe {oseba}')
+
+<h2>Seznam bančnih računov osebe {{oseba}}</h2>
+
+<table>
+  <tr>
+    <th>Številka računa</th>
+    <th>Stanje na računu</th>
+  </tr>
+  %skupaj = 0
+  %for racun in oseba.racuni():
+  <tr>
+    <td><a href="/transakcije/{{racun.stevilka}}/">{{racun.stevilka}}</a></td>
+    <td>{{racun.stanje}}</td>
+  </tr>
+  %skupaj += racun.stanje
+  %end
+  <tr>
+    <td>Skupaj</td>
+    <td>{{skupaj}}</td>
+  </tr>
+</table>
