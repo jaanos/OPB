@@ -1,19 +1,17 @@
-%rebase('osnova.html', naslov='Transakcije')
+%rebase('osnova.html', naslov=f'Transakcije na računu {racun.stevilka}')
 
-<h2>Seznam transakcij</h2>
+<h2>Seznam transakcij na računu {{racun.stevilka}}</h2>
 
 <table>
   <tr>
     <th>ID</th>
-    <th>Številka računa</th>
     <th>Znesek</th>
     <th>Čas</th>
     <th>Opis</th>
   </tr>
-  %for transakcija in transakcije:
+  %for transakcija in racun.transakcije():
   <tr>
     <td>{{transakcija.id}}</td>
-    <td>{{transakcija['racun_id']}}</td>
     <td>{{transakcija.znesek}}</td>
     <td>{{transakcija.cas}}</td>
     <td>{{transakcija.opis}}</td>

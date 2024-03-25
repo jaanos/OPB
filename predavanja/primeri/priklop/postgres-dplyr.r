@@ -25,8 +25,10 @@ tabele <- list(tposta, toseba, tracun, ttransakcija)
 lapply(tabele, stolpci)
 
 # JOIN narejen preko dplyr, ki se v resnici izvede preko SQL na bazi
-toseba %>% inner_join(tracun, by=c("emso"="lastnik")) %>% 
+racuni <- toseba %>% inner_join(tracun, by=c("emso"="lastnik")) %>% 
   select(ime, priimek, stevilka) 
+
+racuni %>% data.frame() %>% View()
 
 # S collect() naredimo dejansko poizvedbo. Rezultat lahko pretvorimo v data.frame
 tposta %>% collect() %>% 

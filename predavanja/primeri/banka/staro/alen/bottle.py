@@ -13,7 +13,6 @@ Copyright (c) 2009-2018, Marcel Hellkamp.
 License: MIT (see LICENSE for details)
 """
 
-from __future__ import print_function
 import sys
 
 __author__ = 'Marcel Hellkamp'
@@ -69,12 +68,13 @@ if __name__ == '__main__':
 # Imports and Python 2/3 unification ##########################################
 ###############################################################################
 
-import base64, calendar, cgi, email.utils, functools, hmac, itertools,\
+
+import base64, calendar, cgi, email.utils, functools, hmac, imp, itertools,\
        mimetypes, os, re, tempfile, threading, time, warnings, weakref, hashlib
 
 from types import FunctionType
 from datetime import date as datedate, datetime, timedelta
-from tempfile import NamedTemporaryFile
+from tempfile import TemporaryFile
 from traceback import format_exc, print_exc
 from unicodedata import normalize
 
@@ -83,8 +83,45 @@ try:
 except ImportError:
     from json import dumps as json_dumps, loads as json_lds
 
+# inspect.getargspec was removed in Python 3.6, use
+# Signature-based version where we can (Python 3.3+)
+try:
+    from inspect import signature
+    def getargspec(func):
+        params = signature(func).parameters
+        args, varargs, keywords, defaults = [], None, None, []
+        for name, param in params.items():
+            if param.kind == param.VAR_POSITIONAL:
+                varargs = name
+            elif param.kind == param.VAR_KEYWORD:
+                keywords = name
+            else:
+                args.append(name)
+                if param.default is not param.empty:
+                    defaults.append(param.default)
+        return (args, varargs, keywords, tuple(defaults) or None)
+except ImportError:
+    try:
+        from inspect import getfullargspec
+        def getargspec(func):
+            spec = getfullargspec(func)
+            kwargs = makelist(spec[0]) + makelist(spec.kwonlyargs)
+            return kwargs, spec[1], spec[2], spec[3]
+    except ImportError:
+        from inspect import getargspec
+
+
 py = sys.version_info
 py3k = py.major > 2
+
+
+# Workaround for the "print is a keyword/function" Python 2/3 dilemma
+# and a fallback for mod_wsgi (resticts stdout/err attribute access)
+try:
+    _stdout, _stderr = sys.stdout.write, sys.stderr.write
+except IOError:
+    _stdout = lambda x: sys.stdout.write(x)
+    _stderr = lambda x: sys.stderr.write(x)
 
 # Lots of stdlib and builtin differences.
 if py3k:
@@ -95,17 +132,9 @@ if py3k:
     urlunquote = functools.partial(urlunquote, encoding='latin1')
     from http.cookies import SimpleCookie, Morsel, CookieError
     from collections.abc import MutableMapping as DictMixin
-    from types import ModuleType as new_module
     import pickle
     from io import BytesIO
     import configparser
-    # getfullargspec was deprecated in 3.5 and un-deprecated in 3.6
-    # getargspec was deprecated in 3.0 and removed in 3.11
-    from inspect import getfullargspec
-    def getargspec(func):
-        spec = getfullargspec(func)
-        kwargs = makelist(spec[0]) + makelist(spec.kwonlyargs)
-        return kwargs, spec[1], spec[2], spec[3]
 
     basestring = str
     unicode = str
@@ -123,12 +152,9 @@ else:  # 2.x
     from Cookie import SimpleCookie, Morsel, CookieError
     from itertools import imap
     import cPickle as pickle
-    from imp import new_module
     from StringIO import StringIO as BytesIO
     import ConfigParser as configparser
     from collections import MutableMapping as DictMixin
-    from inspect import getargspec
-
     unicode = unicode
     json_loads = json_lds
     exec(compile('def _raise(*a): raise a[0], a[1], a[2]', '<py3fix>', 'exec'))
@@ -148,12 +174,6 @@ def touni(s, enc='utf8', err='strict'):
 
 tonat = touni if py3k else tob
 
-
-def _stderr(*args):
-    try:
-        print(*args, file=sys.stderr)
-    except (IOError, AttributeError):
-        pass # Some environments do not allow printing (mod_wsgi)
 
 
 # A bug in functools causes it to break if the wrapper is an instance method
@@ -238,7 +258,6 @@ class lazy_attribute(object):
         value = self.getter(cls)
         setattr(cls, self.__name__, value)
         return value
-
 
 ###############################################################################
 # Exceptions and Events #######################################################
@@ -455,7 +474,10 @@ class Router(object):
         verb = environ['REQUEST_METHOD'].upper()
         path = environ['PATH_INFO'] or '/'
 
-        methods = ('PROXY', 'HEAD', 'GET', 'ANY') if verb == 'HEAD' else ('PROXY', verb, 'ANY')
+        if verb == 'HEAD':
+            methods = ['PROXY', verb, 'GET', 'ANY']
+        else:
+            methods = ['PROXY', verb, 'ANY']
 
         for method in methods:
             if method in self.static and path in self.static[method]:
@@ -553,7 +575,7 @@ class Route(object):
                     callback = plugin(callback)
             except RouteReset:  # Try again with changed configuration.
                 return self._make_callback()
-            if callback is not self.callback:
+            if not callback is self.callback:
                 update_wrapper(callback, self.callback)
         return callback
 
@@ -584,14 +606,14 @@ class Route(object):
     def get_config(self, key, default=None):
         """ Lookup a config field and return its value, first checking the
             route.config, then route.app.config."""
-        depr(0, 13, "Route.get_config() is deprecated.",
+        depr(0, 13, "Route.get_config() is deprectated.",
                     "The Route.config property already includes values from the"
                     " application config for missing keys. Access it directly.")
         return self.config.get(key, default)
 
     def __repr__(self):
         cb = self.get_undecorated_callback()
-        return '<%s %s -> %s:%s>' % (self.method, self.rule, cb.__module__, cb.__name__)
+        return '<%s %r %r>' % (self.method, self.rule, cb)
 
 ###############################################################################
 # Application Object ###########################################################
@@ -1006,7 +1028,6 @@ class Bottle(object):
             stacktrace = format_exc()
             environ['wsgi.errors'].write(stacktrace)
             environ['wsgi.errors'].flush()
-            environ['bottle.exc_info'] = sys.exc_info()
             out = HTTPError(500, "Internal Server Error", E, stacktrace)
             out.apply(response)
 
@@ -1094,10 +1115,7 @@ class Bottle(object):
             or environ['REQUEST_METHOD'] == 'HEAD':
                 if hasattr(out, 'close'): out.close()
                 out = []
-            exc_info = environ.get('bottle.exc_info')
-            if exc_info is not None:
-                del environ['bottle.exc_info']
-            start_response(response._wsgi_status_line(), response.headerlist, exc_info)
+            start_response(response._wsgi_status_line(), response.headerlist)
             return out
         except (KeyboardInterrupt, SystemExit, MemoryError):
             raise
@@ -1337,7 +1355,7 @@ class BaseRequest(object):
             body.write(part)
             body_size += len(part)
             if not is_temp_file and body_size > self.MEMFILE_MAX:
-                body, tmp = NamedTemporaryFile(mode='w+b'), body
+                body, tmp = TemporaryFile(mode='w+b'), body
                 body.write(tmp.getvalue())
                 del tmp
                 is_temp_file = True
@@ -1347,7 +1365,7 @@ class BaseRequest(object):
 
     def _get_body_string(self, maxread):
         """ Read body into a string. Raise HTTPError(413) on requests that are
-            too large. """
+            to large. """
         if self.content_length > maxread:
             raise HTTPError(413, 'Request entity too large')
         data = self.body.read(maxread + 1)
@@ -1401,11 +1419,11 @@ class BaseRequest(object):
         self['_cgi.FieldStorage'] = data  #http://bugs.python.org/issue18394
         data = data.list or []
         for item in data:
-            if item.filename is None:
-                post[item.name] = item.value
-            else:
+            if item.filename:
                 post[item.name] = FileUpload(item.file, item.name,
                                              item.filename, item.headers)
+            else:
+                post[item.name] = item.value
         return post
 
     @property
@@ -1578,7 +1596,7 @@ class BaseRequest(object):
     def __setattr__(self, name, value):
         if name == 'environ': return object.__setattr__(self, name, value)
         key = 'bottle.request.ext.%s' % name
-        if hasattr(self, name):
+        if key in self.environ:
             raise AttributeError("Attribute already defined: %s" % name)
         self.environ[key] = value
 
@@ -1639,7 +1657,7 @@ class BaseResponse(object):
     default_status = 200
     default_content_type = 'text/html; charset=UTF-8'
 
-    # Header denylist for specific response codes
+    # Header blacklist for specific response codes
     # (rfc2616 section 10.2.3 and 10.3.5)
     bad_headers = {
         204: frozenset(('Content-Type', 'Content-Length')),
@@ -1994,7 +2012,6 @@ class JSONPlugin(object):
         dumps = self.json_dumps
         if not self.json_dumps: return callback
 
-        @functools.wraps(callback)
         def wrapper(*a, **ka):
             try:
                 rv = callback(*a, **ka)
@@ -2042,7 +2059,7 @@ class _ImportRedirect(object):
         """ Create a virtual package that redirects imports (see PEP 302). """
         self.name = name
         self.impmask = impmask
-        self.module = sys.modules.setdefault(name, new_module(name))
+        self.module = sys.modules.setdefault(name, imp.new_module(name))
         self.module.__dict__.update({
             '__file__': __file__,
             '__path__': [],
@@ -2051,15 +2068,10 @@ class _ImportRedirect(object):
         })
         sys.meta_path.append(self)
 
-    def find_spec(self, fullname, path, target=None):
-        if '.' not in fullname: return
-        if fullname.rsplit('.', 1)[0] != self.name: return
-        from importlib.util import spec_from_loader
-        return spec_from_loader(fullname, self)
-
     def find_module(self, fullname, path=None):
         if '.' not in fullname: return
-        if fullname.rsplit('.', 1)[0] != self.name: return
+        packname = fullname.rsplit('.', 1)[0]
+        if packname != self.name: return
         return self
 
     def load_module(self, fullname):
@@ -2413,7 +2425,7 @@ class ConfigDict(dict):
         for section in conf.sections():
             for key in conf.options(section):
                 value = conf.get(section, key)
-                if section not in ('bottle', 'ROOT'):
+                if section not in ['bottle', 'ROOT']:
                     key = section + '.' + key
                 self[key.lower()] = value
         return self
@@ -2614,15 +2626,15 @@ class AppStack(list):
 class WSGIFileWrapper(object):
     def __init__(self, fp, buffer_size=1024 * 64):
         self.fp, self.buffer_size = fp, buffer_size
-        for attr in 'fileno', 'close', 'read', 'readlines', 'tell', 'seek':
+        for attr in ('fileno', 'close', 'read', 'readlines', 'tell', 'seek'):
             if hasattr(fp, attr): setattr(self, attr, getattr(fp, attr))
 
     def __iter__(self):
         buff, read = self.buffer_size, self.read
-        part = read(buff)
-        while part:
-            yield part
+        while True:
             part = read(buff)
+            if not part: return
+            yield part
 
 
 class _closeiter(object):
@@ -2707,7 +2719,7 @@ class ResourceManager(object):
         """ Search for a resource and return an absolute file path, or `None`.
 
             The :attr:`path` list is searched in order. The first match is
-            returned. Symlinks are followed. The result is cached to speed up
+            returend. Symlinks are followed. The result is cached to speed up
             future lookups. """
         if name not in self.cache or DEBUG:
             for path in self.path:
@@ -2743,7 +2755,7 @@ class FileUpload(object):
     content_length = HeaderProperty('Content-Length', reader=int, default=-1)
 
     def get_header(self, name, default=None):
-        """ Return the value of a header within the multipart part. """
+        """ Return the value of a header within the mulripart part. """
         return self.headers.get(name, default)
 
     @cached_property
@@ -2815,15 +2827,18 @@ def redirect(url, code=None):
     raise res
 
 
-def _rangeiter(fp, offset, limit, bufsize=1024 * 1024):
-    """ Yield chunks from a range in a file. """
+def _file_iter_range(fp, offset, bytes, maxread=1024 * 1024, close=False):
+    """ Yield chunks from a range in a file, optionally closing it at the end.
+        No chunk is bigger than maxread. """
     fp.seek(offset)
-    while limit > 0:
-        part = fp.read(min(limit, bufsize))
+    while bytes > 0:
+        part = fp.read(min(bytes, maxread))
         if not part:
             break
-        limit -= len(part)
+        bytes -= len(part)
         yield part
+    if close:
+        fp.close()
 
 
 def static_file(filename, root,
@@ -2866,7 +2881,7 @@ def static_file(filename, root,
 
     root = os.path.join(os.path.abspath(root), '')
     filename = os.path.abspath(os.path.join(root, filename.strip('/\\')))
-    headers = headers.copy() if headers else {}
+    headers = headers or {}
 
     if not filename.startswith(root):
         return HTTPError(403, "Access denied.")
@@ -2915,8 +2930,8 @@ def static_file(filename, root,
     ims = getenv('HTTP_IF_MODIFIED_SINCE')
     if ims:
         ims = parse_date(ims.split(";")[0].strip())
-        if ims is not None and ims >= int(stats.st_mtime):
-            return HTTPResponse(status=304, **headers)
+    if ims is not None and ims >= int(stats.st_mtime):
+        return HTTPResponse(status=304, **headers)
 
     body = '' if request.method == 'HEAD' else open(filename, 'rb')
 
@@ -2927,10 +2942,9 @@ def static_file(filename, root,
         if not ranges:
             return HTTPError(416, "Requested Range Not Satisfiable")
         offset, end = ranges[0]
-        rlen = end - offset
         headers["Content-Range"] = "bytes %d-%d/%d" % (offset, end - 1, clen)
-        headers["Content-Length"] = str(rlen)
-        if body: body = _closeiter(_rangeiter(body, offset, rlen), body.close)
+        headers["Content-Length"] = str(end - offset)
+        if body: body = _file_iter_range(body, offset, end - offset, close=True)
         return HTTPResponse(body, status=206, **headers)
     return HTTPResponse(body, **headers)
 
@@ -3040,7 +3054,7 @@ def _parse_http_header(h):
 
 def _parse_qsl(qs):
     r = []
-    for pair in qs.split('&'):
+    for pair in qs.replace(';', '&').split('&'):
         if not pair: continue
         nv = pair.split('=', 1)
         if len(nv) != 2: nv.append('')
@@ -3217,8 +3231,8 @@ class ServerAdapter(object):
         pass
 
     def __repr__(self):
-        args = ', '.join('%s=%s' % (k, repr(v))
-                          for k, v in self.options.items())
+        args = ', '.join(['%s=%s' % (k, repr(v))
+                          for k, v in self.options.items()])
         return "%s(%s)" % (self.__class__.__name__, args)
 
 
@@ -3347,10 +3361,9 @@ class MeinheldServer(ServerAdapter):
 
 
 class FapwsServer(ServerAdapter):
-    """ Extremely fast webserver using libev. See https://github.com/william-os4y/fapws3 """
+    """ Extremely fast webserver using libev. See http://www.fapws.org/ """
 
     def run(self, handler):  # pragma: no cover
-        depr(0, 13, "fapws3 is not maintained and support will be dropped.")
         import fapws._evwsgi as evwsgi
         from fapws import base, config
         port = self.port
@@ -3360,8 +3373,8 @@ class FapwsServer(ServerAdapter):
         evwsgi.start(self.host, port)
         # fapws3 never releases the GIL. Complain upstream. I tried. No luck.
         if 'BOTTLE_CHILD' in os.environ and not self.quiet:
-            _stderr("WARNING: Auto-reloading does not work with Fapws3.")
-            _stderr("         (Fapws3 breaks python thread support)")
+            _stderr("WARNING: Auto-reloading does not work with Fapws3.\n")
+            _stderr("         (Fapws3 breaks python thread support)\n")
         evwsgi.set_base_module(base)
 
         def app(environ, start_response):
@@ -3419,7 +3432,6 @@ class DieselServer(ServerAdapter):
     """ Untested. """
 
     def run(self, handler):
-        depr(0, 13, "Diesel is not tested or supported and will be removed.")
         from diesel.protocols.wsgi import WSGIApplication
         app = WSGIApplication(handler, port=self.port)
         app.run()
@@ -3505,7 +3517,7 @@ class BjoernServer(ServerAdapter):
 
     def run(self, handler):
         from bjoern import run
-        run(handler, self.host, self.port, reuse_port=True)
+        run(handler, self.host, self.port)
 
 class AsyncioServerAdapter(ServerAdapter):
     """ Extend ServerAdapter for adding custom event loop """
@@ -3651,26 +3663,22 @@ def run(app=None,
     if NORUN: return
     if reloader and not os.environ.get('BOTTLE_CHILD'):
         import subprocess
-        fd, lockfile = tempfile.mkstemp(prefix='bottle.', suffix='.lock')
-        environ = os.environ.copy()
-        environ['BOTTLE_CHILD'] = 'true'
-        environ['BOTTLE_LOCKFILE'] = lockfile
-        args = [sys.executable] + sys.argv
-        # If a package was loaded with `python -m`, then `sys.argv` needs to be
-        # restored to the original value, or imports might break. See #1336
-        if getattr(sys.modules.get('__main__'), '__package__', None):
-            args[1:1] = ["-m", sys.modules['__main__'].__package__]
-
+        lockfile = None
         try:
-            os.close(fd)  # We never write to this file
+            fd, lockfile = tempfile.mkstemp(prefix='bottle.', suffix='.lock')
+            os.close(fd)  # We only need this file to exist. We never write to it
             while os.path.exists(lockfile):
+                args = [sys.executable] + sys.argv
+                environ = os.environ.copy()
+                environ['BOTTLE_CHILD'] = 'true'
+                environ['BOTTLE_LOCKFILE'] = lockfile
                 p = subprocess.Popen(args, env=environ)
-                while p.poll() is None:
-                    os.utime(lockfile, None)  # Tell child we are still alive
+                while p.poll() is None:  # Busy wait...
+                    os.utime(lockfile, None)  # I am alive!
                     time.sleep(interval)
-                if p.returncode == 3:  # Child wants to be restarted
-                    continue
-                sys.exit(p.returncode)
+                if p.poll() != 3:
+                    if os.path.exists(lockfile): os.unlink(lockfile)
+                    sys.exit(p.poll())
         except KeyboardInterrupt:
             pass
         finally:
@@ -3705,14 +3713,14 @@ def run(app=None,
 
         server.quiet = server.quiet or quiet
         if not server.quiet:
-            _stderr("Bottle v%s server starting up (using %s)..." %
+            _stderr("Bottle v%s server starting up (using %s)...\n" %
                     (__version__, repr(server)))
             if server.host.startswith("unix:"):
-                _stderr("Listening on %s" % server.host)
+                _stderr("Listening on %s\n" % server.host)
             else:
-                _stderr("Listening on http://%s:%d/" %
+                _stderr("Listening on http://%s:%d/\n" %
                         (server.host, server.port))
-            _stderr("Hit Ctrl-C to quit.\n")
+            _stderr("Hit Ctrl-C to quit.\n\n")
 
         if reloader:
             lockfile = os.environ.get('BOTTLE_LOCKFILE')
@@ -4026,7 +4034,7 @@ class StplParser(object):
     # This huge pile of voodoo magic splits python code into 8 different tokens.
     # We use the verbose (?x) regex mode to make this more manageable
 
-    _re_tok = r'''(
+    _re_tok = _re_inl = r'''(
         [urbURB]*
         (?:  ''(?!')
             |""(?!")
@@ -4264,7 +4272,7 @@ def view(tpl_name, **defaults):
                 tplvars.update(result)
                 return template(tpl_name, **tplvars)
             elif result is None:
-                return template(tpl_name, **defaults)
+                return template(tpl_name, defaults)
             return result
 
         return wrapper
@@ -4368,7 +4376,7 @@ def _main(argv):  # pragma: no coverage
         sys.exit(1)
 
     if args.version:
-        print('Bottle %s' % __version__)
+        _stdout('Bottle %s\n' % __version__)
         sys.exit(0)
     if not args.app:
         _cli_error("No application entry point specified.")

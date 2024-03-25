@@ -1,24 +1,20 @@
-% rebase('osnova.html', naslov='Pošte')
-% include('orodna_vrstica.html', fun_dodaj='kraji_dodaj', napis='Dodaj kraj')
+%rebase('osnova.html', naslov='Kraji')    <h2>Šifrant pošt</h2>
 
-  <table class="table table-striped" id="podatki">
-      <tr>
-        <th>Poštna številka</th>
-        <th>Kraj</th>
-        <th></th>
-      </tr>
-      %for posta, kraj in poste:
-      <tr>
-        <td>{{posta}}</td>
-        <td>{{kraj}}</td>
-        <td class="akcije">
-          <form action="{{url('kraji_uredi', posta=posta)}}" method="GET">
-            <a href="#" onclick="this.parentElement.submit()">Uredi</a>
-          </form>
-          <form action="{{url('kraji_brisi', posta=posta)}}" method="POST">
-            <a href="#" onclick="this.parentElement.submit()">Izbriši</a>
-          </form>
-        </td>
-      </tr>
-      %end
-    </table>
+<form action="/kraji/dodaj/" method="POST">
+  <span>Poštna številka:</span> <input name="posta" type="text" />
+  <span>Kraj:</span> <input name="kraj" type="text" />
+  <input value="Dodaj" type="submit" />
+</form>
+
+<table>
+  <tr>
+    <th>Poštna številka</th>
+    <th>Kraj</th>
+  </tr>
+  %for kraj in kraji:
+  <tr>
+    <td>{{kraj.posta}}</td>
+    <td>{{kraj.kraj}}</td>
+  </tr>
+  %end
+</table>

@@ -1,0 +1,30 @@
+% rebase('osnova.html', naslov='Transakcije')
+% include('orodna_vrstica.html', stolpci='[1, 2]', fun_dodaj='transakcije_dodaj', fun_args={'racun': racun}, napis='Dodaj transakcijo')
+
+    <p>
+      <h3>Transakcije na računu št. {{racun}} komitenta {{ime}} {{priimek}}</h3>
+    </p>
+
+    <table class="table table-striped" id="podatki">
+      <tr>
+        <th>ID</th>
+        <th>Znesek</th>
+        <th>Datum</th>
+        <th></th>
+      </tr>
+      %for id, znesek, datum in transakcije:
+      <tr>
+        <td>{{id}}</td>
+        <td>{{znesek}}</td>
+        <td>{{datum}}</td>
+        <td class="akcije">
+          <form action="{{url('transakcije_uredi', racun=racun, id=id)}}" method="GET">
+            <a href="#" onclick="this.parentElement.submit()">Uredi</a>
+          </form>
+          <form action="{{url('transakcije_brisi', racun=racun, id=id)}}" method="POST">
+            <a href="#" onclick="this.parentElement.submit()">Izbriši</a>
+          </form>
+        </td>
+      </tr>
+      %end
+    </table>

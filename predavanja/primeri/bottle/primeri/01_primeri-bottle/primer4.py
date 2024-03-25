@@ -32,21 +32,21 @@ def prijava():
         redirect('/dobrodosel/')
     else:
         return '''<p>Napačni podatki za prijavo.
-Poskusite <a href="/prijava/">še enkrat</a></p>'''
+Poskusite <a href="/prijava">še enkrat</a></p>'''
 
 
 @get('/dobrodosel/')
 def dobrodosel():
     uime = request.get_cookie('uime', secret=skrivnost)
     if not uime:
-        redirect('/prijava/')
-    return '<p>Dobrodošel {0}.</p> <a href="/odjava/">Odjava</a>'.format(uime)
+        redirect('/prijava')
+    return '<p>Dobrodošel {0}.</p> <form action="/odjava/" method="post"><input type="submit" value="Odjava" /></form>'.format(uime)
 
 
-@get('/odjava/')
+@post('/odjava/')
 def odjava():
     response.delete_cookie('uime', path='/')
-    redirect('/prijava/')
+    redirect('/prijava')
 
 
 def preveri(uime, geslo):

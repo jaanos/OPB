@@ -1,0 +1,28 @@
+% rebase('osnova.html', naslov='Računi')
+% include('orodna_vrstica.html', stolpci='[0, 1]', fun_dodaj='racuni_dodaj', fun_args={'emso': emso}, napis='Dodaj račun', metoda='POST')
+
+    <p>
+      <h3>Računi komitenta {{ime}} {{priimek}}</h3>
+    </p>
+
+    <table class="table table-striped" id="podatki">
+      <tr>
+        <th>Račun</th>
+        <th>Stanje</th>
+        <th></th>
+      </tr>
+      %for racun, stanje in racuni:
+      <tr>
+        <td>{{racun}}</td>
+        <td>{{stanje}}</td>
+        <td class="akcije">
+          <form action="{{url('racuni_brisi', emso=emso, racun=racun)}}" method="POST">
+            <a href="#" onclick="this.parentElement.submit()">Izbriši</a>
+          </form>
+          <form action="{{url('transakcije', racun=racun)}}" method="GET">
+            <a href="#" onclick="this.parentElement.submit()">Transakcije</a>
+          </form>
+        </td>
+      </tr>
+      %end
+    </table>
