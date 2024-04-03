@@ -1,22 +1,46 @@
 %rebase('osnova.html', naslov='Kraji')
 
-<h2>Šifrant pošt</h2>
+<h1 class="title">Šifrant pošt</h1>
 
 <form action="/kraji/dodaj/" method="POST">
-  <span>Poštna številka:</span> <input name="posta" type="text" />
-  <span>Kraj:</span> <input name="kraj" type="text" />
-  <input value="Dodaj" type="submit" />
+  <div class="field">
+    <label class="label">Poštna številka</label>
+    <div class="control has-icons-left">
+      <input class="input" name="posta" type="text" placeholder="Poštna številka" />
+      <span class="icon is-small is-left">
+        <i class="fas fa-envelope"></i>
+      </span>
+    </div>
+  </div>
+  <div class="field">
+    <label class="label">Kraj</label>
+    <div class="control has-icons-left">
+      <input class="input" name="kraj" type="text" placeholder="Kraj" />
+      <span class="icon is-small is-left">
+        <i class="fas fa-location-dot"></i>
+      </span>
+    </div>
+  </div>
+  <div class="field">
+    <div class="control">
+      <button class="button is-link">Dodaj</button>
+    </div>
+  </div>
 </form>
 
-<table>
-  <tr>
-    <th>Poštna številka</th>
-    <th>Kraj</th>
-  </tr>
-  %for kraj in kraji:
-  <tr>
-    <td>{{kraj.posta}}</td>
-    <td>{{kraj.kraj}}</td>
-  </tr>
-  %end
+<table class="table is-striped">
+  <thead>
+    <tr>
+      <th>Poštna številka</th>
+      <th>Kraj</th>
+    </tr>
+  </thead>
+  <tbody>
+    %for kraj in kraji:
+    <tr>
+      <td>{{kraj.posta}}</td>
+      <td>{{kraj.kraj}}</td>
+    </tr>
+    %end
+  </tbody>
 </table>

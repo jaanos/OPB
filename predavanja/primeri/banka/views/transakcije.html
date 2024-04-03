@@ -1,22 +1,26 @@
 %rebase('osnova.html', naslov='Transakcije')
 
-<h2>Seznam transakcij</h2>
+<h1 class="title">Seznam transakcij</h1>
 
-<table>
-  <tr>
-    <th>ID</th>
-    <th>Številka računa</th>
-    <th>Znesek</th>
-    <th>Čas</th>
-    <th>Opis</th>
-  </tr>
-  %for transakcija in transakcije:
-  <tr>
-    <td>{{transakcija.id}}</td>
-    <td>{{transakcija['racun_id']}}</td>
-    <td>{{transakcija.znesek}}</td>
-    <td>{{transakcija.cas}}</td>
-    <td>{{transakcija.opis}}</td>
-  </tr>
-  %end
+<table class="table is-striped">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Številka računa</th>
+      <th>Znesek</th>
+      <th>Čas</th>
+      <th>Opis</th>
+    </tr>
+  </thead>
+  <tbody>
+    %for transakcija in transakcije:
+    <tr>
+      <td>{{transakcija.id}}</td>
+      <td><a href="{{url('transakcije_na_racunu', stevilka=transakcija['racun_id'])}}">{{transakcija['racun_id']}}</a></td>
+      <td>{{transakcija.znesek}}</td>
+      <td>{{transakcija.cas}}</td>
+      <td>{{transakcija.opis}}</td>
+    </tr>
+    %end
+  </tbody>
 </table>

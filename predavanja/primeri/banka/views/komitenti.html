@@ -1,22 +1,26 @@
 %rebase('osnova.html', naslov='Komitenti')
 
-<h2>Komitenti banke</h2>
+<h1 class="title">Komitenti banke</h1>
 
-<table>
-  <tr>
-    <th>EMŠO</th>
-    <th>Ime</th>
-    <th>Priimek</th>
-    <th>Naslov</th>
-    <th>Kraj</th>
-  </tr>
-  %for oseba in komitenti:
-  <tr>
-    <td>{{oseba.emso}}</td>
-    <td>{{oseba.ime}}</td>
-    <td>{{oseba.priimek}}</td>
-    <td>{{oseba.naslov}}</td>
-    <td>{{oseba.kraj_id}}</td>
-  </tr>
-  %end
+<table class="table is-striped">
+  <thead>
+    <tr>
+      <th>EMŠO</th>
+      <th>Ime</th>
+      <th>Priimek</th>
+      <th>Naslov</th>
+      <th>Kraj</th>
+    </tr>
+  </thead>
+  <tbody>
+    %for oseba in komitenti:
+    <tr>
+      <td><a href="{{url('racuni_osebe', emso=oseba.emso)}}">{{oseba.emso}}</a></td>
+      <td>{{oseba.ime}}</td>
+      <td>{{oseba.priimek}}</td>
+      <td>{{oseba.naslov}}</td>
+      <td>{{oseba.kraj_id}}</td>
+    </tr>
+    %end
+  </tbody>
 </table>
