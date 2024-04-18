@@ -1,0 +1,7 @@
+%rebase('osnova.html', naslov='Kraji - urejanje')
+
+<h1 class="title">Urejanje kraja</h1>
+
+<form action="{{url('kraji_uredi_post', posta=kraj.posta)}}" method="POST">
+%include('kraji_obrazec.html', kraj=kraj)
+</form>

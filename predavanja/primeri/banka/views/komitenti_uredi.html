@@ -1,0 +1,7 @@
+%rebase('osnova.html', naslov='Komitenti - urejanje')
+
+<h1 class="title">Urejanje komitenta</h1>
+
+<form action="{{url('komitenti_uredi_post', emso=oseba.emso)}}" method="POST">
+%include('komitenti_obrazec.html', oseba=oseba)
+</form>

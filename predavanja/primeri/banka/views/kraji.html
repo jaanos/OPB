@@ -2,30 +2,8 @@
 
 <h1 class="title">Šifrant pošt</h1>
 
-<form action="/kraji/dodaj/" method="POST">
-  <div class="field">
-    <label class="label">Poštna številka</label>
-    <div class="control has-icons-left">
-      <input class="input" name="posta" type="text" placeholder="Poštna številka" />
-      <span class="icon is-small is-left">
-        <i class="fas fa-envelope"></i>
-      </span>
-    </div>
-  </div>
-  <div class="field">
-    <label class="label">Kraj</label>
-    <div class="control has-icons-left">
-      <input class="input" name="kraj" type="text" placeholder="Kraj" />
-      <span class="icon is-small is-left">
-        <i class="fas fa-location-dot"></i>
-      </span>
-    </div>
-  </div>
-  <div class="field">
-    <div class="control">
-      <button class="button is-link">Dodaj</button>
-    </div>
-  </div>
+<form action="{{url('kraji_dodaj_post')}}" method="POST">
+%include('kraji_obrazec.html', kraj=Kraj.NULL)
 </form>
 
 <table class="table is-striped">
@@ -33,6 +11,7 @@
     <tr>
       <th>Poštna številka</th>
       <th>Kraj</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -40,6 +19,22 @@
     <tr>
       <td>{{kraj.posta}}</td>
       <td>{{kraj.kraj}}</td>
+      <td>
+        <div class="field is-grouped">
+          <a href="{{url('kraji_uredi', posta=kraj.posta)}}" class="button is-primary is-small">
+            <span class="icon is-small">
+              <i class="fas fa-pen"></i>
+            </span>
+          </a>
+          <form action="{{url('kraji_izbrisi_post', posta=kraj.posta)}}" method="POST">
+            <button class="button is-danger is-small">
+              <span class="icon is-small">
+                <i class="fas fa-trash-can"></i>
+              </span>
+            </button>
+          </form>
+        </div>
+      </td>
     </tr>
     %end
   </tbody>

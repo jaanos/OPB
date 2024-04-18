@@ -10,6 +10,7 @@
       <th>Priimek</th>
       <th>Naslov</th>
       <th>Kraj</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -20,6 +21,22 @@
       <td>{{oseba.priimek}}</td>
       <td>{{oseba.naslov}}</td>
       <td>{{oseba.kraj_id}}</td>
+      <td>
+        <div class="field is-grouped">
+          <a href="{{url('komitenti_uredi', emso=oseba.emso)}}" class="button is-primary is-small">
+            <span class="icon is-small">
+              <i class="fas fa-pen"></i>
+            </span>
+          </a>
+          <form action="{{url('komitenti_izbrisi_post', emso=oseba.emso)}}" method="POST">
+            <button class="button is-danger is-small">
+              <span class="icon is-small">
+                <i class="fas fa-trash-can"></i>
+              </span>
+            </button>
+          </form>
+        </div>
+      </td>
     </tr>
     %end
   </tbody>
