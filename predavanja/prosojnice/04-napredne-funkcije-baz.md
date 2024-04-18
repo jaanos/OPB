@@ -86,7 +86,7 @@ plugins: mathjax
 
 ---
 
-# Program `pqsl`
+# Program `psql`
 
 * Program za priklop na bazo - `psql`. Priklop na bazo kot uporabnik `postgres`.
   ```bash
@@ -341,7 +341,7 @@ plugins: mathjax
 * Lahko se sicer priklopimo nanjo preko programa `psql` (ukazna vrstica).
 * Tipkanje v terminalu `psql` je velikokrat nepriročno.
 * Najbolj priročno je do baze dostopati preko ustreznih aplikacij z grafičnim vmesnikom. 
-* Primer take aplikacije: phpPgAdmin (<https://baza.fmf.uni-lj.si>), ki se uporablja na vajah.
+* Primer take aplikacije: phpPgAdmin (<http://baza.fmf.uni-lj.si>), ki se uporablja na vajah.
 
 ---
 
