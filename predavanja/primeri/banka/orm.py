@@ -1,4 +1,4 @@
-from psycopg import connect, sql
+from psycopg import connect, sql, errors
 import csv
 
 
@@ -250,6 +250,50 @@ class Entiteta:
                                             vrednost=sql.Literal(vrednost + 1)))
 
     @classmethod
+    def _parametri(cls, **kwargs):
+        """
+        Vrni parametre za pridobivanje podatkov iz baze.
+        """
+        parametri = cls.__tabela_kljuc()
+        parametri.update(
+            stolpci=sql.SQL(", ").join(
+                sql.Identifier(stolpec) for stolpec in cls.STOLPCI
+            ),
+            urejanje=parametri['kljuc'],
+            zdruzevanje=None
+        )
+        parametri.update(kwargs)
+        for polje, beseda in (
+                    ('stolpci', ""),
+                    ('urejanje', "ORDER BY"),
+                    ('zdruzevanje', "GROUP BY")
+                ):
+            if parametri[polje] is None:
+                parametri[polje] = sql.SQL("")
+            else:
+                stolpci = parametri[polje]
+                if not isinstance(stolpci, (list, tuple)):
+                    stolpci = [stolpci]
+                parametri[polje] = sql.SQL(
+                    "{beseda} {stolpci}"
+                ).format(
+                    beseda=sql.SQL(beseda),
+                    stolpci=sql.SQL(", ").join(
+                        stolpec if isinstance(stolpec, sql.Composable)
+                        else sql.Identifier(stolpec)
+                        for stolpec in stolpci
+                    )
+                )
+        return parametri
+
+    @classmethod
+    def _iz_baze(cls, *vrstica):
+        """
+        Ustvari entiteto s podatki iz baze.
+        """
+        return cls(*vrstica)
+
+    @classmethod
     def z_id(cls, id):
         """
         Vrni entiteto s podanim ID-jem.
@@ -257,33 +301,46 @@ class Entiteta:
         with conn.cursor() as cur:
             cur.execute(sql.SQL("""
                     SELECT {stolpci} FROM {tabela}
-                    WHERE {kljuc} = %s;
-                """).format(stolpci=sql.SQL(", ").join(
-                                sql.Identifier(stolpec)
-                                for stolpec in cls.STOLPCI
-                            ),
-                            **cls.__tabela_kljuc()), [id])
+                     WHERE {kljuc} = %s
+                    {zdruzevanje};
+                """).format(**cls._parametri()), [id])
             vrstica = cur.fetchone()
             if not vrstica:
                 raise ValueError(f'{cls.__name__} z ID-jem {id} ne obstaja!')
-            return cls(*vrstica)
+            return cls._iz_baze(*vrstica)
 
     @classmethod
-    def seznam(cls):
+    def seznam(cls, urejanje=None, /, **kwargs):
         """
         Vračaj entitete iz baze.
         """
         with conn.cursor() as cur:
             cur.execute(sql.SQL("""
                     SELECT {stolpci} FROM {tabela}
-                    ORDER BY {kljuc};
-                """).format(stolpci=sql.SQL(", ").join(
-                                sql.Identifier(stolpec)
-                                for stolpec in cls.STOLPCI
-                            ),
-                            **cls.__tabela_kljuc()))
+                    {filtriranje}
+                    {zdruzevanje}
+                    {urejanje};
+                """).format(**cls._parametri(urejanje=urejanje),
+                            filtriranje=sql.SQL("WHERE {pogoji}").format(
+                                pogoji=sql.SQL(" AND ").join(
+                                    sql.SQL(
+                                        "{stolpec} = {vrednost}"
+                                    ).format(
+                                        stolpec=sql.Identifier(stolpec),
+                                        vrednost=sql.Placeholder(stolpec)
+                                    )
+                                    for stolpec in kwargs
+                                )
+                            )
+                            if kwargs else sql.SQL("")),
+                            {
+                                stolpec: vrednost.glavni_kljuc()
+                                    if isinstance(vrednost, Entiteta)
+                                    else vrednost
+                                for stolpec, vrednost in kwargs.items()
+                            })
             for vrstica in cur:
-                yield cls(*vrstica)
+                yield cls._iz_baze(*vrstica)
 
     def glavni_kljuc(self):
         """
@@ -295,77 +352,89 @@ class Entiteta:
         """
         Shrani entiteto v bazo.
         """
-        with conn.cursor() as cur:
-            with conn.transaction():
-                for ime, stolpec in self.STOLPCI.items():
-                    if not stolpec.referenca:
-                        continue
-                    vrednost = getattr(self, f'_{ime}')
-                    if isinstance(vrednost, Entiteta):
-                        vrednost.shrani()
-                vrednosti = self.vrednosti()
-                tabela_kljuc = self.__tabela_kljuc()
-                if self.__dbid:
-                    cur.execute(sql.SQL("""
-                            UPDATE {tabela} SET {vrednosti}
-                            WHERE {kljuc} = %(__dbid)s;
-                        """).format(vrednosti=sql.SQL(", ").join(
-                                        sql.SQL(
-                                            "{stolpec} = {vrednost}"
-                                        ).format(
-                                            stolpec=sql.Identifier(stolpec),
-                                            vrednost=sql.Placeholder(stolpec)
-                                        )
-                                        for stolpec in vrednosti
-                                    ),
-                                    **tabela_kljuc),
-                        {**vrednosti, "__dbid": self.__dbid})
-                else:
-                    generirani = {ime for ime, stolpec in self.STOLPCI.items()
-                                    if (stolpec.privzeto or
-                                        stolpec.tip == "SERIAL")
-                                    and self[ime] is None}
-                    vrednosti = {ime: vrednost for ime, vrednost
-                                    in vrednosti.items()
-                                    if ime not in generirani}
-                    stolpci = list(vrednosti)
-                    generirani = list(generirani)
-                    cur.execute(sql.SQL("""
-                            INSERT INTO {tabela} ({stolpci})
-                            VALUES ({vrednosti})
-                            {generirani};
-                        """).format(stolpci=sql.SQL(", ").join(
-                                        sql.Identifier(stolpec)
-                                        for stolpec in stolpci
-                                    ),
-                                    vrednosti=sql.SQL(", ").join(
-                                        sql.Placeholder(stolpec)
-                                        for stolpec in stolpci
-                                    ),
-                                    generirani=sql.SQL(
-                                            "RETURNING {generirani}"
-                                        ).format(generirani=sql.SQL(", ").join(
+        try:
+            with conn.cursor() as cur:
+                with conn.transaction():
+                    for ime, stolpec in self.STOLPCI.items():
+                        if not stolpec.referenca:
+                            continue
+                        vrednost = getattr(self, f'_{ime}')
+                        if isinstance(vrednost, Entiteta):
+                            vrednost.shrani()
+                    vrednosti = self.vrednosti()
+                    tabela_kljuc = self.__tabela_kljuc()
+                    if self.__dbid:
+                        cur.execute(sql.SQL("""
+                                UPDATE {tabela} SET {vrednosti}
+                                WHERE {kljuc} = %(__dbid)s;
+                            """).format(vrednosti=sql.SQL(", ").join(
+                                            sql.SQL(
+                                                "{stolpec} = {vrednost}"
+                                            ).format(
+                                                stolpec=sql.Identifier(stolpec),
+                                                vrednost=sql.Placeholder(stolpec)
+                                            )
+                                            for stolpec in vrednosti
+                                        ),
+                                        **tabela_kljuc),
+                            {**vrednosti, "__dbid": self.__dbid})
+                    else:
+                        generirani = {ime for ime, stolpec in self.STOLPCI.items()
+                                        if (stolpec.privzeto or
+                                            stolpec.tip == "SERIAL")
+                                        and vrednosti[ime] is None}
+                        vrednosti = {ime: vrednost for ime, vrednost
+                                        in vrednosti.items()
+                                        if ime not in generirani}
+                        stolpci = list(vrednosti)
+                        generirani = list(generirani)
+                        cur.execute(sql.SQL("""
+                                INSERT INTO {tabela} ({stolpci})
+                                VALUES ({vrednosti})
+                                {generirani};
+                            """).format(stolpci=sql.SQL(", ").join(
                                             sql.Identifier(stolpec)
-                                            for stolpec in generirani
-                                        ))
-                                        if generirani else sql.SQL(""),
-                                    **tabela_kljuc),
-                        vrednosti)
-                    if generirani:
-                        for stolpec, vrednost in zip(generirani, cur.fetchone()):
-                            setattr(self, stolpec, vrednost)
-                self.__dbid = self.glavni_kljuc()
+                                            for stolpec in stolpci
+                                        ),
+                                        vrednosti=sql.SQL(", ").join(
+                                            sql.Placeholder(stolpec)
+                                            for stolpec in stolpci
+                                        ),
+                                        generirani=sql.SQL(
+                                                "RETURNING {generirani}"
+                                            ).format(generirani=sql.SQL(", ").join(
+                                                sql.Identifier(stolpec)
+                                                for stolpec in generirani
+                                            ))
+                                            if generirani else sql.SQL(""),
+                                        **tabela_kljuc),
+                            vrednosti)
+                        if generirani:
+                            for stolpec, vrednost in zip(generirani, cur.fetchone()):
+                                setattr(self, stolpec, vrednost)
+                    self.__dbid = self.glavni_kljuc()
+        except (errors.ForeignKeyViolation, errors.UniqueViolation):
+            raise ValueError
+
+    @classmethod
+    def izbrisi_id(cls, id):
+        """
+        Izbriši entiteto z danim ID-jem iz baze.
+        """
+        try:
+            with conn.cursor() as cur:
+                cur.execute(sql.SQL("""
+                        DELETE FROM {tabela} WHERE {kljuc} = %s;
+                    """).format(**cls.__tabela_kljuc()), [id])
+        except errors.ForeignKeyViolation:
+            raise ValueError
 
     def izbrisi(self):
         """
         Izbriši entiteto iz baze.
         """
-        with conn.cursor() as cur:
-            cur.execute(sql.SQL("""
-                    DELETE FROM {tabela} WHERE {kljuc} = %s;
-                """).format(**self.__tabela_kljuc()),
-                [self.glavni_kljuc()])
-            self.__dbid = None
+        self.izbrisi_id(self.glavni_kljuc())
+        self.__dbid = None
 
     def vrednosti(self):
         """

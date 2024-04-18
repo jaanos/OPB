@@ -1,0 +1,41 @@
+  <div class="field">
+    <label class="label">EMŠO</label>
+    <div class="control">
+      <input class="input" name="emso" type="text" placeholder="EMŠO" value="{{oseba.emso}}" />
+    </div>
+  </div>
+  <div class="field">
+    <label class="label">Ime</label>
+    <div class="control">
+      <input class="input" name="ime" type="text" placeholder="Ime osebe" value="{{oseba.ime}}" />
+    </div>
+  </div>
+  <div class="field">
+    <label class="label">Priimek</label>
+    <div class="control">
+      <input class="input" name="priimek" type="text" placeholder="Priimek osebe" value="{{oseba.priimek}}" />
+    </div>
+  </div>
+  <div class="field">
+    <label class="label">Naslov</label>
+    <div class="control">
+      <input class="input" name="naslov" type="text" placeholder="Naslov osebe" value="{{oseba.naslov}}" />
+    </div>
+  </div>
+  <div class="field">
+    <label class="label">Kraj</label>
+    <div class="control">
+      <div class="select">
+          <select name="kraj_id">
+          %for kraj in Kraj.seznam():
+            <option value="{{kraj.posta}}" {{'selected' if oseba.kraj_id.posta == kraj.posta else ''}}>{{kraj.posta}} {{kraj.kraj}}</option>
+          %end
+          </select>
+        </div>
+    </div>
+  </div>
+  <div class="field">
+    <div class="control">
+      <button class="button is-link">Uredi</button>
+    </div>
+  </div>

@@ -1,22 +1,28 @@
 %rebase('osnova.html', naslov=f'Računi osebe {oseba}')
 
-<h2>Seznam bančnih računov osebe {{oseba}}</h2>
+<h1 class="title">Seznam bančnih računov osebe {{oseba}}</h1>
 
-<table>
-  <tr>
-    <th>Številka računa</th>
-    <th>Stanje na računu</th>
-  </tr>
-  %skupaj = 0
-  %for racun in oseba.racuni():
-  <tr>
-    <td><a href="/transakcije/{{racun.stevilka}}/">{{racun.stevilka}}</a></td>
-    <td>{{racun.stanje}}</td>
-  </tr>
-  %skupaj += racun.stanje
-  %end
-  <tr>
-    <td>Skupaj</td>
-    <td>{{skupaj}}</td>
-  </tr>
+<table class="table is-striped">
+  <thead>
+    <tr>
+      <th>Številka računa</th>
+      <th>Stanje na računu</th>
+    </tr>
+  </thead>
+  <tbody>
+    %skupaj = 0
+    %for racun in oseba.racuni():
+    <tr>
+      <td><a href="{{url('transakcije_na_racunu', stevilka=racun.stevilka)}}">{{racun.stevilka}}</a></td>
+      <td>{{racun.stanje}}</td>
+    </tr>
+    %skupaj += racun.stanje
+    %end
+  </tbody>
+  <tfoot>
+    <tr>
+      <th>Skupaj</th>
+      <th>{{skupaj}}</th>
+    </tr>  
+  </tfoot>
 </table>
