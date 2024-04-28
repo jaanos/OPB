@@ -531,8 +531,8 @@ COMMIT;
 * Privzeti nivo je `READ COMMITED`.
 * Lahko ga nastavimo:
   ```sql
-  SET TRANSACTION SERIALIZABLE | REPEATABLE READ | 
-                  READ COMMITTED | READ UNCOMMITTED;
+  SET TRANSACTION ISOLATION LEVEL SERIALIZABLE | REPEATABLE READ | 
+                                  READ COMMITTED | READ UNCOMMITTED;
   ```
 
 ---
