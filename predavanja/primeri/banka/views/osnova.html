@@ -1,3 +1,5 @@
+% sporocilo = preberi_sporocilo()
+
 <!doctype html>
 <html lang="sl">
   <head>
@@ -7,8 +9,25 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css" />
     <link rel="stylesheet" href="{{url('static', filename='stili.css')}}">
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+          (document.querySelectorAll('.notification .delete') || []).forEach(($delete) => {
+              const $notification = $delete.parentNode;
+
+              $delete.addEventListener('click', () => {
+                  $notification.parentNode.removeChild($notification);
+              });
+          });
+      });
+    </script>
   </head>
   <body>
+    % if sporocilo:
+    <div class="notification is-danger is-light">
+      <button class="delete"></button>
+      {{sporocilo}}
+    </div>
+    % end
     <section class="section">
       <div class="container">
         {{!base}}

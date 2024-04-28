@@ -314,13 +314,14 @@ class Entiteta:
         """
         Vračaj entitete iz baze.
         """
+        urejanje = {} if urejanje is None else dict(urejanje=urejanje)
         with conn.cursor() as cur:
             cur.execute(sql.SQL("""
                     SELECT {stolpci} FROM {tabela}
                     {filtriranje}
                     {zdruzevanje}
                     {urejanje};
-                """).format(**cls._parametri(urejanje=urejanje),
+                """).format(**cls._parametri(**urejanje),
                             filtriranje=sql.SQL("WHERE {pogoji}").format(
                                 pogoji=sql.SQL(" AND ").join(
                                     sql.SQL(
@@ -331,8 +332,7 @@ class Entiteta:
                                     )
                                     for stolpec in kwargs
                                 )
-                            )
-                            if kwargs else sql.SQL("")),
+                            ) if kwargs else sql.SQL("")),
                             {
                                 stolpec: vrednost.glavni_kljuc()
                                     if isinstance(vrednost, Entiteta)
@@ -413,8 +413,10 @@ class Entiteta:
                             for stolpec, vrednost in zip(generirani, cur.fetchone()):
                                 setattr(self, stolpec, vrednost)
                     self.__dbid = self.glavni_kljuc()
-        except (errors.ForeignKeyViolation, errors.UniqueViolation):
+        except errors.IntegrityError:
             raise ValueError
+        except errors.DataError:
+            raise TypeError
 
     @classmethod
     def izbrisi_id(cls, id):
@@ -426,7 +428,7 @@ class Entiteta:
                 cur.execute(sql.SQL("""
                         DELETE FROM {tabela} WHERE {kljuc} = %s;
                     """).format(**cls.__tabela_kljuc()), [id])
-        except errors.ForeignKeyViolation:
+        except errors.IntegrityError:
             raise ValueError
 
     def izbrisi(self):
@@ -441,3 +443,13 @@ class Entiteta:
         Vrni slovar vrednosti stolpcev v obliki, kot so zapisane v bazi.
         """
         return {ime: self[ime] for ime in self.STOLPCI}
+
+    def posodobi(self, /, **kwargs):
+        """
+        Posodobi vrednosti stolpcev s podanimi vrednostmi.
+        """
+        assert all(polje in self.STOLPCI for polje in kwargs), \
+            "Podani so odvečni argumenti!"
+        for polje, vrednost in kwargs.items():
+            setattr(self, polje, vrednost)
+        return self

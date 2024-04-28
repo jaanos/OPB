@@ -3,5 +3,5 @@
 <h1 class="title">Urejanje kraja</h1>
 
 <form action="{{url('kraji_uredi_post', posta=kraj.posta)}}" method="POST">
-%include('kraji_obrazec.html', kraj=kraj)
+%include('kraji_obrazec.html', kraj=kraj.posodobi(**preberi_obrazec(f'kraji_uredi{kraj.posta}')))
 </form>

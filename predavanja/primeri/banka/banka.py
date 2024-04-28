@@ -1,5 +1,7 @@
-from bottleext import get, post, view, run, request, template, redirect, static_file, url, debug, BaseTemplate
+from bottleext import get, post, view, run, request, response, template, \
+    redirect, static_file, url, debug, BaseTemplate
 from model import Kraj, Oseba, Racun, Transakcija, vzpostavi_povezavo
+import json
 import os
 
 
@@ -7,10 +9,49 @@ import os
 SERVER_PORT = os.environ.get('BOTTLE_PORT', 8080)
 RELOADER = os.environ.get('BOTTLE_RELOADER', True)
 DB_PORT = os.environ.get('POSTGRES_PORT', 5432)
+SKRIVNOST = 'nekaj, kar bo zelo težko uganiti!!!!  fflidnfdsnunsdi'
 
 
 # Odkomentiraj, če želiš sporočila o napakah
 debug(True) # za izpise pri razvoju
+
+
+def izbrisi_piskotek(piskotek):
+    response.delete_cookie(piskotek, path='/')
+
+
+def nastavi_sporocilo(sporocilo, piskotek='sporocilo'):
+    """
+    Nastavi piškotek s sporočilom.
+    """
+    response.set_cookie(piskotek, sporocilo, secret=SKRIVNOST, path='/')
+
+
+def preberi_sporocilo(piskotek='sporocilo', izbrisi=True):
+    """
+    Preberi sporočilo in pobriši pripadajoči piškotek.
+    """
+    sporocilo = request.get_cookie(piskotek, secret=SKRIVNOST)
+    if izbrisi:
+        izbrisi_piskotek(piskotek)
+    return sporocilo
+
+
+def nastavi_obrazec(piskotek, obrazec):
+    """
+    Zapiši vrednosti obrazca v obliki slovarja v piškotek kot niz JSON.
+    """
+    nastavi_sporocilo(json.dumps(obrazec), piskotek)
+
+
+def preberi_obrazec(piskotek, privzeto={}, izbrisi=True):
+    """
+    Preberi vrednosti obrazca in pobriši pripadajoči piškotek.
+    """
+    try:
+        return json.loads(preberi_sporocilo(piskotek, izbrisi))
+    except (TypeError, json.JSONDecodeError):
+        return privzeto
 
 
 @get('/static/<filename:path>')
@@ -50,7 +91,7 @@ def komitenti_uredi_post(emso):
     oseba.emso = nov_emso
     try:
         oseba.shrani()
-    except ValueError:
+    except (TypeError, ValueError):
         # TODO - opozorilo o napaki
         # TODO - zabeleži vsebino obrazca
         redirect(url('komitenti_uredi', emso=emso))
@@ -61,7 +102,7 @@ def komitenti_uredi_post(emso):
 def komitenti_izbrisi_post(emso):
     try:
         Oseba.izbrisi_id(emso)
-    except ValueError:
+    except (TypeError, ValueError):
         pass # TODO - izpiši sporočilo o napaki!
     redirect(url('komitenti'))
 
@@ -79,13 +120,13 @@ def kraji():
 @post('/kraji/dodaj/')
 def kraji_dodaj_post():
     posta = request.forms.getunicode('posta')
-    kraj = request.forms.getunicode('kraj')
+    ime_kraja = request.forms.getunicode('kraj')
+    kraj = Kraj.ustvari(posta, ime_kraja)
     try:
-        Kraj.ustvari(posta, kraj).shrani()
-    except ValueError:
-        # TODO - opozorilo o napaki
-        # TODO - zabeleži vsebino obrazca
-        pass
+        kraj.shrani()
+    except (TypeError, ValueError):
+        nastavi_sporocilo("Dodajanje kraja ni uspelo!")
+        nastavi_obrazec('kraji', kraj.vrednosti())
     redirect(url('kraji'))
 
 
@@ -103,9 +144,9 @@ def kraji_uredi_post(posta):
     kraj.posta = nova_posta
     try:
         kraj.shrani()
-    except ValueError:
-        # TODO - opozorilo o napaki
-        # TODO - zabeleži vsebino obrazca
+    except (TypeError, ValueError):
+        nastavi_sporocilo(f"Urejanje kraja s pošto {posta} ni uspelo!")
+        nastavi_obrazec(f'kraji_uredi{posta}', kraj.vrednosti())
         redirect(url('kraji_uredi', posta=posta))
     redirect(url('kraji'))
 
@@ -114,7 +155,7 @@ def kraji_uredi_post(posta):
 def kraji_izbrisi_post(posta):
     try:
         Kraj.izbrisi_id(posta)
-    except ValueError:
+    except (TypeError, ValueError):
         pass # TODO - izpiši sporočilo o napaki!
     redirect(url('kraji'))
 
@@ -155,7 +196,9 @@ BaseTemplate.defaults.update(
     Kraj=Kraj,
     Oseba=Oseba,
     Racun=Racun,
-    Transakcija=Transakcija
+    Transakcija=Transakcija,
+    preberi_sporocilo=preberi_sporocilo,
+    preberi_obrazec=preberi_obrazec
 )
 
 with vzpostavi_povezavo():
