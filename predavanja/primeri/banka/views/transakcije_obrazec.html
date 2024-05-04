@@ -1,0 +1,33 @@
+<div class="field">
+  <label class="label">Račun</label>
+  <div class="control">{{transakcija['racun_id']}}</div>
+</div>
+<div class="field">
+  <label class="label">Znesek</label>
+  <div class="control has-icons-left">
+    <input class="input" name="znesek" type="number" placeholder="Znesek" value="{{transakcija.znesek}}" required />
+    <span class="icon is-small is-left">
+      <i class="fas fa-coins"></i>
+    </span>
+  </div>
+</div>
+% if transakcija.cas:
+<div class="field">
+  <label class="label">Čas</label>
+  <div class="control has-icons-left">
+    <input class="input" name="cas" type="datetime-local" step="1" placeholder="Čas" value="{{transakcija.cas}}" required />
+    <span class="icon is-small is-left">
+      <i class="fas fa-calendar"></i>
+    </span>
+  </div>
+</div>
+% end
+<div class="field">
+  <label class="label">Opis</label>
+  <div class="control has-icons-left">
+    <input class="input" name="opis" type="text" placeholder="Opis" value="{{transakcija.opis}}" />
+    <span class="icon is-small is-left">
+      <i class="fas fa-message"></i>
+    </span>
+  </div>
+</div>

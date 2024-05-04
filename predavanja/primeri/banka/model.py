@@ -165,7 +165,7 @@ class Transakcija(Entiteta):
         "id": Stolpec("SERIAL"),
         "znesek": Stolpec("INTEGER", "NOT NULL"),
         "racun_id": Stolpec("INTEGER", "NOT NULL", referenca=Racun),
-        "cas": Stolpec("TIMESTAMP", "NOT NULL", privzeto="NOW()"),
+        "cas": Stolpec("TIMESTAMP(0)", "NOT NULL", privzeto="NOW()"),
         "opis": Stolpec("TEXT")
     }
     GLAVNI_KLJUC = "id"

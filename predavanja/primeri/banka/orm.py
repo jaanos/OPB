@@ -68,8 +68,10 @@ def lastnost_reference(polje, entiteta):
         Vrni entiteto, na katero se stolpec sklicuje.
         """
         vrednost = getattr(self, polje)
-        if vrednost is not None and \
-                not isinstance(vrednost, Entiteta):
+        if vrednost is None:
+            vrednost = entiteta.NULL
+            setattr(self, polje, vrednost)
+        elif not isinstance(vrednost, Entiteta):
             vrednost = entiteta.z_id(vrednost)
             setattr(self, polje, vrednost)
         return vrednost

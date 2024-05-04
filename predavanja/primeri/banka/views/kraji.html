@@ -3,7 +3,12 @@
 <h1 class="title">Šifrant pošt</h1>
 
 <form action="{{url('kraji_dodaj_post')}}" method="POST">
-%include('kraji_obrazec.html', kraj=Kraj.ustvari(**preberi_obrazec('kraji')))
+  %include('kraji_obrazec.html', kraj=Kraj.ustvari(**preberi_obrazec('kraji')))
+  <div class="field">
+    <div class="control">
+      <button class="button is-link">Dodaj</button>
+    </div>
+  </div>
 </form>
 
 <table class="table is-striped">

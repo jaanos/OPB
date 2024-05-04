@@ -2,11 +2,18 @@
 
 <h1 class="title">Seznam bančnih računov osebe {{oseba}}</h1>
 
+<div class="buttons">
+  <form action="{{url('racuni_dodaj_post', emso=oseba.emso)}}" method="POST">
+    <button class="button is-link">Dodaj</button>
+  </form>
+</div>
+
 <table class="table is-striped">
   <thead>
     <tr>
       <th>Številka računa</th>
       <th>Stanje na računu</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -15,6 +22,17 @@
     <tr>
       <td><a href="{{url('transakcije_na_racunu', stevilka=racun.stevilka)}}">{{racun.stevilka}}</a></td>
       <td>{{racun.stanje}}</td>
+      <td>
+        <div class="field is-grouped">
+          <form action="{{url('racuni_izbrisi_post', stevilka=racun.stevilka)}}" method="POST">
+            <button class="button is-danger is-small">
+              <span class="icon is-small">
+                <i class="fas fa-trash-can"></i>
+              </span>
+            </button>
+          </form>
+        </div>
+      </td>
     </tr>
     %skupaj += racun.stanje
     %end
@@ -23,6 +41,7 @@
     <tr>
       <th>Skupaj</th>
       <th>{{skupaj}}</th>
+      <th></th>
     </tr>  
   </tfoot>
 </table>
