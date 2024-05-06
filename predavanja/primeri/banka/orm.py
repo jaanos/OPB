@@ -16,14 +16,19 @@ class Stolpec:
     Razred za definicije stolpcev.
     """
 
-    def __init__(self, tip, lastnosti="", privzeto=None, referenca=None):
+    def __init__(self, tip, lastnosti="", privzeto=None, privzeto_uvoz=None,
+                    referenca=None, skrit=None):
         """
         Definiraj stolpec.
         """
+        if skrit is None:
+            skrit = (privzeto_uvoz is not None)
         self.tip = tip
         self.lastnosti = lastnosti
         self.privzeto = privzeto
+        self.privzeto_uvoz = privzeto_uvoz
         self.referenca = referenca
+        self.skrit = skrit
 
     def __repr__(self):
         """
@@ -207,13 +212,36 @@ class Entiteta:
                                 )))
 
     @classmethod
+    def _stolpci_za_uvoz(cls, stolpci):
+        """
+        Pripravi stolpce za uvoz.
+        """
+        stolpci = list(stolpci)
+        for ime, stolpec in cls.STOLPCI.items():
+            if stolpec.privzeto_uvoz and ime not in stolpci:
+                stolpci.append(ime)
+        return stolpci
+
+    @classmethod
+    def _podatki_za_uvoz(cls, stolpci, vrstica):
+        """
+        Pripravi podatke za uvoz.
+        """
+        slovar = {stolpec: vrednost if vrednost else None
+                    for stolpec, vrednost in zip(stolpci, vrstica)}
+        for ime, stolpec in cls.STOLPCI.items():
+            if stolpec.privzeto_uvoz and ime not in slovar:
+                slovar[ime] = stolpec.privzeto_uvoz(cls, slovar)
+        return slovar
+
+    @classmethod
     def uvozi_podatke(cls):
         """
         Uvozi podatke v tabelo.
         """
         with open(f'podatki/{cls.TABELA}.csv', encoding="UTF-8") as f:
             rd = csv.reader(f)
-            stolpci = next(rd)
+            stolpci = cls._stolpci_za_uvoz(next(rd))
             with conn.cursor() as cur:
                 with conn.transaction():
                     cur.executemany(sql.SQL("""
@@ -228,8 +256,7 @@ class Entiteta:
                                         sql.Placeholder(stolpec)
                                         for stolpec in stolpci
                                     )),
-                        ({stolpec: vrednost if vrednost else None
-                                for stolpec, vrednost in zip(stolpci, vrstica)}
+                        (cls._podatki_za_uvoz(stolpci, vrstica)
                             for vrstica in rd))
                     serial = [ime for ime, stolpec in cls.STOLPCI.items()
                                 if stolpec.tip == "SERIAL"]
@@ -300,6 +327,8 @@ class Entiteta:
         """
         Vrni entiteto s podanim ID-jem.
         """
+        if id is None:
+            return cls.NULL
         with conn.cursor() as cur:
             cur.execute(sql.SQL("""
                     SELECT {stolpci} FROM {tabela}
@@ -363,9 +392,9 @@ class Entiteta:
                         vrednost = getattr(self, f'_{ime}')
                         if isinstance(vrednost, Entiteta):
                             vrednost.shrani()
-                    vrednosti = self.vrednosti()
                     tabela_kljuc = self.__tabela_kljuc()
                     if self.__dbid:
+                        vrednosti = self._vrednosti_za_posodobitev()
                         cur.execute(sql.SQL("""
                                 UPDATE {tabela} SET {vrednosti}
                                 WHERE {kljuc} = %(__dbid)s;
@@ -381,6 +410,7 @@ class Entiteta:
                                         **tabela_kljuc),
                             {**vrednosti, "__dbid": self.__dbid})
                     else:
+                        vrednosti = self.vrednosti()
                         generirani = {ime for ime, stolpec in self.STOLPCI.items()
                                         if (stolpec.privzeto or
                                             stolpec.tip == "SERIAL")
@@ -445,6 +475,17 @@ class Entiteta:
         Vrni slovar vrednosti stolpcev v obliki, kot so zapisane v bazi.
         """
         return {ime: self[ime] for ime in self.STOLPCI}
+
+    def _vrednosti_za_posodobitev(self):
+        """
+        Vrni slovar vrednosti stolpcev za posodobitev
+        (brez nenastavljenih skritih stolpcev).
+        """
+        vrednosti = self.vrednosti()
+        for ime, stolpec in self.STOLPCI.items():
+            if stolpec.skrit and vrednosti[ime] is None:
+                del vrednosti[ime]
+        return vrednosti
 
     def posodobi(self, /, **kwargs):
         """

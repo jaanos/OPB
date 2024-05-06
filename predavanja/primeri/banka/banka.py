@@ -1,6 +1,7 @@
 from bottleext import get, post, view, run, request, response, template, \
-    redirect, static_file, url, debug, BaseTemplate
+    redirect, static_file, abort, url, debug, BaseTemplate
 from model import Kraj, Oseba, Racun, Transakcija, vzpostavi_povezavo
+from functools import wraps
 import json
 import os
 
@@ -52,6 +53,91 @@ def preberi_obrazec(piskotek, privzeto={}, izbrisi=True):
         return json.loads(preberi_sporocilo(piskotek, izbrisi))
     except (TypeError, json.JSONDecodeError):
         return privzeto
+
+
+def prijavljeni_uporabnik():
+    """
+    Vrni prijavljenega uporabnika z ID-jem iz piškotka.
+    """
+    emso = request.get_cookie('uporabnik', secret=SKRIVNOST)
+    return Oseba.z_id(emso)
+
+
+def prijavi_uporabnika(uporabnik, piskotek=None):
+    """
+    Nastavi piškotek na podanega uporabnika.
+    """
+    if not uporabnik:
+        nastavi_sporocilo("Prijava ni bila uspešna!")
+        if piskotek:
+            nastavi_obrazec(piskotek, uporabnik.vrednosti())
+        redirect(url('prijava'))
+    response.set_cookie('uporabnik', uporabnik.emso,
+                                secret=SKRIVNOST, path='/')
+    redirect(url('index'))
+
+
+def odjavi_uporabnika():
+    """
+    Pobriši piškotek z ID-jem prijavljenega uporabnika.
+    """
+    izbrisi_piskotek('uporabnik')
+    redirect(url('index'))
+
+
+def status(preveri):
+    """
+    Vrni dekorator, ki preveri prijavljenega uporabnika v skladu s podano
+    funkcijo in elemente vrnjenega zaporedja preda kot začetne argumente
+    dekorirani funkciji.
+    """
+    @wraps(preveri)
+    def decorator(fun):
+        @wraps(fun)
+        def wrapper(*largs, **kwargs):
+            uporabnik = prijavljeni_uporabnik()
+            out = fun(*preveri(uporabnik), *largs, **kwargs)
+            if out is None:
+                out = {}
+            if isinstance(out, dict):
+                out['uporabnik'] = uporabnik
+            return out
+        return wrapper
+    return decorator
+
+
+@status
+def admin(uporabnik):
+    """
+    Preveri, ali ima uporabnik administratorske pravice.
+
+    Dekorirana funkcija kot prvi argument sprejme prijavljenega uporabnika.
+    """
+    if not uporabnik.admin:
+        abort(401, "Dostop prepovedan!")
+    return (uporabnik, )
+
+
+@status
+def prijavljen(uporabnik):
+    """
+    Preveri, ali je uporabnik prijavljen.
+
+    Dekorirana funkcija kot prvi argument sprejme prijavljenega uporabnika.
+    """
+    if not uporabnik:
+        redirect(url('prijava'))
+    return (uporabnik, )
+
+
+@status
+def odjavljen(uporabnik):
+    """
+    Preveri, ali je uporabnik odjavljen.
+    """
+    if uporabnik:
+        redirect(url('index'))
+    return ()
 
 
 @get('/static/<filename:path>')
@@ -296,13 +382,21 @@ def transakcije_izbrisi_post(id):
         redirect(url('transakcije'))
 
 
+@get('/prijava/')
+@view('prijava.html')
+@odjavljen
+def prijava():
+    pass
+
+
 BaseTemplate.defaults.update(
     Kraj=Kraj,
     Oseba=Oseba,
     Racun=Racun,
     Transakcija=Transakcija,
     preberi_sporocilo=preberi_sporocilo,
-    preberi_obrazec=preberi_obrazec
+    preberi_obrazec=preberi_obrazec,
+    prijavljeni_uporabnik=prijavljeni_uporabnik
 )
 
 with vzpostavi_povezavo():
