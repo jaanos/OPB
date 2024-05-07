@@ -2,13 +2,20 @@
 
 <h1 class="title">Seznam bančnih računov osebe {{oseba}}</h1>
 
-<div class="buttons">
-  <form action="{{url('racuni_dodaj_post', emso=oseba.emso)}}" method="POST">
-    <button class="button is-link">Dodaj</button>
-  </form>
+<div class="level">
+  <div class="level-left">
+    %include('iskalnik.html', stolpci=[0, 1])
+  </div>
+  <div class="level-right">
+    <div class="buttons">
+      <form action="{{url('racuni_dodaj_post', emso=oseba.emso)}}" method="POST">
+        <button class="button is-link">Dodaj</button>
+      </form>
+    </div>
+  </div>
 </div>
 
-<table class="table is-striped">
+<table class="table is-striped" id="podatki">
   <thead>
     <tr>
       <th>Številka računa</th>

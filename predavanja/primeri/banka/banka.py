@@ -63,11 +63,11 @@ def prijavljeni_uporabnik():
     return Oseba.z_id(emso)
 
 
-def prijavi_uporabnika(uporabnik, piskotek=None):
+def prijavi_uporabnika(uporabnik, geslo, piskotek=None):
     """
     Nastavi piškotek na podanega uporabnika.
     """
-    if not uporabnik:
+    if not uporabnik or not uporabnik.preveri_geslo(geslo):
         nastavi_sporocilo("Prijava ni bila uspešna!")
         if piskotek:
             nastavi_obrazec(piskotek, uporabnik.vrednosti())
@@ -140,14 +140,23 @@ def odjavljen(uporabnik):
     return ()
 
 
+def preveri_lastnika(uporabnik, emso):
+    """
+    Preveri, ali ima prijavljeni uporabnik dovoljenje dostopa za podani EMŠO.
+    """
+    if uporabnik.emso != emso and not uporabnik.admin:
+        abort(401, "Dostop prepovedan!")
+
+
 @get('/static/<filename:path>')
 def static(filename):
     return static_file(filename, root='static')
 
 
 @get('/')
+@view('index.html')
 def index():
-    return 'Začetna stran'
+    pass
 
 
 ############################################
@@ -156,24 +165,34 @@ def index():
 
 @get('/komitenti/')
 @view('komitenti.html')
-def komitenti():
+@admin
+def komitenti(uporabnik):
     return dict(komitenti=Oseba.seznam())
 
 
 @get('/komitenti/dodaj/')
 @view('komitenti_dodaj.html')
-def komitenti_dodaj():
+@admin
+def komitenti_dodaj(uporabnik):
     pass
 
 
 @post('/komitenti/dodaj/')
-def komitenti_dodaj_post():
+@admin
+def komitenti_dodaj_post(uporabnik):
     emso = request.forms.getunicode('emso')
     ime = request.forms.getunicode('ime')
     priimek = request.forms.getunicode('priimek')
     naslov = request.forms.getunicode('naslov')
     kraj_id = request.forms.getunicode('kraj_id')
-    oseba = Oseba.ustvari(ime, priimek, emso, naslov, kraj_id)
+    up_ime = request.forms.getunicode('up_ime')
+    geslo = request.forms.getunicode('geslo')
+    geslo2 = request.forms.getunicode('geslo2')
+    if geslo != geslo2:
+        nastavi_sporocilo("Gesli se ne ujemata!")
+        redirect(url('komitenti_dodaj'))
+    oseba = Oseba.ustvari(ime, priimek, emso, naslov, kraj_id, up_ime)
+    oseba.nastavi_geslo(geslo)
     try:
         oseba.shrani()
     except (TypeError, ValueError):
@@ -184,30 +203,45 @@ def komitenti_dodaj_post():
 
 @get('/komitenti/uredi/<emso>/')
 @view('komitenti_uredi.html')
-def komitenti_uredi(emso):
+@prijavljen
+def komitenti_uredi(uporabnik, emso):
+    preveri_lastnika(uporabnik, emso)
     return dict(oseba=Oseba.z_id(emso))
 
 
 @post('/komitenti/uredi/<emso>/')
-def komitenti_uredi_post(emso):
+@prijavljen
+def komitenti_uredi_post(uporabnik, emso):
+    preveri_lastnika(uporabnik, emso)
     nov_emso = request.forms.getunicode('emso')
     ime = request.forms.getunicode('ime')
     priimek = request.forms.getunicode('priimek')
     naslov = request.forms.getunicode('naslov')
     kraj_id = request.forms.getunicode('kraj_id')
+    geslo = request.forms.getunicode('geslo')
+    geslo2 = request.forms.getunicode('geslo2')
+    if geslo != geslo2:
+        nastavi_sporocilo("Gesli se ne ujemata!")
+        redirect(url('komitenti_uredi', emso=emso))
     oseba = Oseba(ime, priimek, emso, naslov, kraj_id)
     oseba.emso = nov_emso
+    if geslo:
+        oseba.nastavi_geslo(geslo)
     try:
         oseba.shrani()
     except (TypeError, ValueError):
         nastavi_sporocilo("Urejanje komitenta ni uspelo!")
         nastavi_obrazec(f'komitenti_uredi{emso}', oseba.vrednosti())
         redirect(url('komitenti_uredi', emso=emso))
-    redirect(url('komitenti'))
+    if uporabnik.admin:
+        redirect(url('komitenti'))
+    else:
+        redirect(url('index'))
 
 
 @post('/komitenti/izbrisi/<emso>/')
-def komitenti_izbrisi_post(emso):
+@admin
+def komitenti_izbrisi_post(uporabnik, emso):
     try:
         Oseba.izbrisi_id(emso)
     except ValueError:
@@ -221,12 +255,14 @@ def komitenti_izbrisi_post(emso):
 
 @get('/kraji/')
 @view('kraji.html')
-def kraji():
+@admin
+def kraji(uporabnik):
     return dict(kraji=Kraj.seznam())
 
 
 @post('/kraji/dodaj/')
-def kraji_dodaj_post():
+@admin
+def kraji_dodaj_post(uporabnik):
     posta = request.forms.getunicode('posta')
     ime_kraja = request.forms.getunicode('kraj')
     kraj = Kraj.ustvari(posta, ime_kraja)
@@ -240,12 +276,14 @@ def kraji_dodaj_post():
 
 @get('/kraji/uredi/<posta:int>/')
 @view('kraji_uredi.html')
-def kraji_uredi(posta):
+@admin
+def kraji_uredi(uporabnik, posta):
     return dict(kraj=Kraj.z_id(posta))
 
 
 @post('/kraji/uredi/<posta:int>/')
-def kraji_uredi_post(posta):
+@admin
+def kraji_uredi_post(uporabnik, posta):
     nova_posta = request.forms.getunicode('posta')
     ime = request.forms.getunicode('kraj')
     kraj = Kraj(posta, ime)
@@ -260,7 +298,8 @@ def kraji_uredi_post(posta):
 
 
 @post('/kraji/izbrisi/<posta:int>/')
-def kraji_izbrisi_post(posta):
+@admin
+def kraji_izbrisi_post(uporabnik, posta):
     try:
         Kraj.izbrisi_id(posta)
     except ValueError:
@@ -274,18 +313,23 @@ def kraji_izbrisi_post(posta):
 
 @get('/racuni/')
 @view('racuni.html')
-def racuni():
+@admin
+def racuni(uporabnik):
     return dict(racuni=Racun.seznam())
 
 
 @get('/racuni/<emso>/')
 @view('racuni_osebe.html')
-def racuni_osebe(emso):
+@prijavljen
+def racuni_osebe(uporabnik, emso):
+    preveri_lastnika(uporabnik, emso)
     return dict(oseba=Oseba.z_id(emso))
 
 
 @post('/racuni/<emso>/dodaj/')
-def racuni_dodaj_post(emso):
+@prijavljen
+def racuni_dodaj_post(uporabnik, emso):
+    preveri_lastnika(uporabnik, emso)
     racun = Racun.ustvari(oseba_id=emso)
     try:
         racun.shrani()
@@ -295,17 +339,22 @@ def racuni_dodaj_post(emso):
 
 
 @post('/racuni/izbrisi/<stevilka:int>/')
-def racuni_izbrisi_post(stevilka):
+@prijavljen
+def racuni_izbrisi_post(uporabnik, stevilka):
     racun = Racun.NULL
     try:
         racun = Racun.z_id(stevilka)
+        preveri_lastnika(uporabnik, racun.oseba_id.emso)
         racun.izbrisi()
     except ValueError:
+        preveri_lastnika(uporabnik, racun.oseba_id.emso)
         nastavi_sporocilo("Brisanje računa ni uspelo!")
     if racun:
         redirect(url('racuni_osebe', emso=racun.oseba_id.emso))
-    else:
+    elif uporabnik.admin:
         redirect(url('racuni'))
+    else:
+        redirect(url('index'))
 
 
 ############################################
@@ -314,43 +363,56 @@ def racuni_izbrisi_post(stevilka):
 
 @get('/transakcije/')
 @view('transakcije.html')
-def transakcije():
+@admin
+def transakcije(uporabnik):
     return dict(transakcije=Transakcija.seznam())
 
 
 @get('/transakcije/<stevilka>/')
 @view('transakcije_na_racunu.html')
-def transakcije_na_racunu(stevilka):
-    return dict(racun=Racun.z_id(stevilka))
+@prijavljen
+def transakcije_na_racunu(uporabnik, stevilka):
+    racun = Racun.z_id(stevilka)
+    preveri_lastnika(uporabnik, racun.oseba_id.emso)
+    return dict(racun=racun)
 
 
 @get('/transakcije/<stevilka:int>/dodaj/')
 @view('transakcije_dodaj.html')
-def transakcije_dodaj(stevilka):
-    return dict(racun=Racun.z_id(stevilka))
+@prijavljen
+def transakcije_dodaj(uporabnik, stevilka):
+    racun = Racun.z_id(stevilka)
+    preveri_lastnika(uporabnik, racun.oseba_id.emso)
+    return dict(racun=racun)
 
 
 @post('/transakcije/<stevilka:int>/dodaj/')
-def transakcije_dodaj_post(stevilka):
+@prijavljen
+def transakcije_dodaj_post(uporabnik, stevilka):
+    racun = Racun.z_id(stevilka)
+    preveri_lastnika(uporabnik, racun.oseba_id.emso)
     znesek = request.forms.getunicode('znesek')
     opis = request.forms.getunicode('opis') or None
-    transakcija = Transakcija.ustvari(znesek=znesek, racun_id=stevilka, opis=opis)
+    transakcija = Transakcija.ustvari(znesek=znesek, racun_id=racun, opis=opis)
     try:
         transakcija.shrani()
     except (TypeError, ValueError):
         nastavi_sporocilo("Dodajanje transakcije ni uspelo!")
         nastavi_obrazec(f'transakcije_dodaj{stevilka}', transakcija.vrednosti())
+        redirect(url('transakcije_dodaj', stevilka=stevilka))
     redirect(url('transakcije_na_racunu', stevilka=stevilka))
 
 
 @get('/transakcije/uredi/<id:int>/')
 @view('transakcije_uredi.html')
-def transakcije_uredi(id):
+@admin
+def transakcije_uredi(uporabnik, id):
     return dict(transakcija=Transakcija.z_id(id))
 
 
 @post('/transakcije/uredi/<id:int>/')
-def transakcije_uredi_post(id):
+@admin
+def transakcije_uredi_post(uporabnik, id):
     transakcija = Transakcija.NULL
     znesek = request.forms.getunicode('znesek')
     cas = request.forms.getunicode('cas')
@@ -369,7 +431,8 @@ def transakcije_uredi_post(id):
 
 
 @post('/transakcije/izbrisi/<id:int>/')
-def transakcije_izbrisi_post(id):
+@admin
+def transakcije_izbrisi_post(uporabnik, id):
     transakcija = Transakcija.NULL
     try:
         transakcija = Transakcija.z_id(id)
@@ -387,6 +450,21 @@ def transakcije_izbrisi_post(id):
 @odjavljen
 def prijava():
     pass
+
+
+@post('/prijava/')
+@odjavljen
+def prijava_post():
+    up_ime = request.forms.getunicode('up_ime')
+    geslo = request.forms.getunicode('geslo')
+    uporabnik = Oseba.z_uporabniskim_imenom(up_ime)
+    prijavi_uporabnika(uporabnik, geslo, 'prijava')
+
+
+@post('/odjava/')
+@prijavljen
+def odjava_post(uporabnik):
+    odjavi_uporabnika()
 
 
 BaseTemplate.defaults.update(

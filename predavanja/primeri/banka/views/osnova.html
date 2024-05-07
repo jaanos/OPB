@@ -1,4 +1,8 @@
+% setdefault('naslov', 'Banka')
 % sporocilo = preberi_sporocilo()
+% if not defined('uporabnik'):
+%   uporabnik = prijavljeni_uporabnik()
+% end
 
 <!doctype html>
 <html lang="sl">
@@ -20,8 +24,47 @@
           });
       });
     </script>
+    <script src="{{url('static', filename='banka.js')}}"></script>
   </head>
   <body>
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+      <div class="navbar-menu">
+        <div class="navbar-start">
+          <a class="navbar-item" href="{{url('index')}}">Banka</a>
+          <a class="navbar-item" href="{{url('kraji')}}">Kraji</a>
+          <a class="navbar-item" href="{{url('komitenti')}}">Komitenti</a>
+          <a class="navbar-item" href="{{url('racuni')}}">Računi</a>
+          <a class="navbar-item" href="{{url('transakcije')}}">Transakcije</a>
+        </div>
+      </div>
+      <div class="navbar-end">
+        % if uporabnik:
+        <div class="navbar-item">
+          <div class="buttons">
+            <a class="button is-light">
+              <strong>{{uporabnik.up_ime}}</strong>
+            </a>
+            <form action="{{url('odjava_post')}}" method="POST">
+              <button class="button is-primary">
+                Odjava
+              </button>
+            </form>
+          </div>
+        </div>
+        % else:
+        <div class="navbar-item">
+          <div class="buttons">
+            <a class="button is-primary">
+              <strong>Registracija</strong>
+            </a>
+            <a class="button is-light" href="{{url('prijava')}}">
+              Prijava
+            </a>
+          </div>
+        </div>
+        % end
+      </div>
+    </nav>
     % if sporocilo:
     <div class="notification is-danger is-light">
       <button class="delete"></button>

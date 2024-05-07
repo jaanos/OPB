@@ -3,7 +3,7 @@
 <h1 class="title">Dodajanje transakcije</h1>
 
 <form action="{{url('transakcije_dodaj_post', stevilka=racun.stevilka)}}" method="POST">
-  %include('transakcije_obrazec.html', transakcija=Transakcija.ustvari(racun_id=racun, **preberi_obrazec(f'transakcije_dodaj{racun.stevilka}')))
+  %include('transakcije_obrazec.html', transakcija=Transakcija.ustvari(racun_id=racun).posodobi(**preberi_obrazec(f'transakcije_dodaj{racun.stevilka}')))
   <div class="field">
     <div class="control">
       <button class="button is-link">Dodaj</button>

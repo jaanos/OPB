@@ -2,7 +2,13 @@
 
 <h1 class="title">Seznam bančnih računov</h1>
 
-<table class="table is-striped">
+<div class="level">
+  <div class="level-left">
+    %include('iskalnik.html', stolpci=[0, 1, 2])
+  </div>
+</div>
+
+<table class="table is-striped" id="podatki">
   <thead>
     <tr>
       <th>Komitent</th>

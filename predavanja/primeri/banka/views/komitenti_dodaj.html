@@ -3,7 +3,7 @@
 <h1 class="title">Dodajanje komitenta</h1>
 
 <form action="{{url('komitenti_dodaj_post')}}" method="POST">
-  %include('komitenti_obrazec.html', oseba=Oseba.ustvari(**preberi_obrazec(f'komitenti_dodaj')))
+  %include('komitenti_obrazec.html', oseba=Oseba.ustvari(**preberi_obrazec(f'komitenti_dodaj')), zahtevaj_geslo='required')
   <div class="field">
     <div class="control">
       <button class="button is-link">Dodaj</button>

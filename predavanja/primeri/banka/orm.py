@@ -379,7 +379,7 @@ class Entiteta:
         """
         return self[self.GLAVNI_KLJUC]
 
-    def shrani(self):
+    def shrani(self, posodobi=True):
         """
         Shrani entiteto v bazo.
         """
@@ -391,25 +391,9 @@ class Entiteta:
                             continue
                         vrednost = getattr(self, f'_{ime}')
                         if isinstance(vrednost, Entiteta):
-                            vrednost.shrani()
+                            vrednost.shrani(posodobi=False)
                     tabela_kljuc = self.__tabela_kljuc()
-                    if self.__dbid:
-                        vrednosti = self._vrednosti_za_posodobitev()
-                        cur.execute(sql.SQL("""
-                                UPDATE {tabela} SET {vrednosti}
-                                WHERE {kljuc} = %(__dbid)s;
-                            """).format(vrednosti=sql.SQL(", ").join(
-                                            sql.SQL(
-                                                "{stolpec} = {vrednost}"
-                                            ).format(
-                                                stolpec=sql.Identifier(stolpec),
-                                                vrednost=sql.Placeholder(stolpec)
-                                            )
-                                            for stolpec in vrednosti
-                                        ),
-                                        **tabela_kljuc),
-                            {**vrednosti, "__dbid": self.__dbid})
-                    else:
+                    if not self.__dbid:
                         vrednosti = self.vrednosti()
                         generirani = {ime for ime, stolpec in self.STOLPCI.items()
                                         if (stolpec.privzeto or
@@ -444,6 +428,22 @@ class Entiteta:
                         if generirani:
                             for stolpec, vrednost in zip(generirani, cur.fetchone()):
                                 setattr(self, stolpec, vrednost)
+                    elif posodobi:
+                        vrednosti = self._vrednosti_za_posodobitev()
+                        cur.execute(sql.SQL("""
+                                UPDATE {tabela} SET {vrednosti}
+                                WHERE {kljuc} = %(__dbid)s;
+                            """).format(vrednosti=sql.SQL(", ").join(
+                                            sql.SQL(
+                                                "{stolpec} = {vrednost}"
+                                            ).format(
+                                                stolpec=sql.Identifier(stolpec),
+                                                vrednost=sql.Placeholder(stolpec)
+                                            )
+                                            for stolpec in vrednosti
+                                        ),
+                                        **tabela_kljuc),
+                            {**vrednosti, "__dbid": self.__dbid})
                     self.__dbid = self.glavni_kljuc()
         except errors.IntegrityError:
             raise ValueError
