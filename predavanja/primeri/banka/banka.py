@@ -188,16 +188,18 @@ def komitenti_dodaj_post(uporabnik):
     up_ime = request.forms.getunicode('up_ime')
     geslo = request.forms.getunicode('geslo')
     geslo2 = request.forms.getunicode('geslo2')
+    oseba = Oseba.ustvari(ime, priimek, emso, naslov, kraj_id, up_ime)
     if geslo != geslo2:
         nastavi_sporocilo("Gesli se ne ujemata!")
+        nastavi_obrazec('komitenti_dodaj', oseba.vrednosti())
         redirect(url('komitenti_dodaj'))
-    oseba = Oseba.ustvari(ime, priimek, emso, naslov, kraj_id, up_ime)
     oseba.nastavi_geslo(geslo)
     try:
         oseba.shrani()
     except (TypeError, ValueError):
         nastavi_sporocilo("Dodajanje komitenta ni uspelo!")
         nastavi_obrazec('komitenti_dodaj', oseba.vrednosti())
+        redirect(url('komitenti_dodaj'))
     redirect(url('komitenti'))
 
 
@@ -220,11 +222,12 @@ def komitenti_uredi_post(uporabnik, emso):
     kraj_id = request.forms.getunicode('kraj_id')
     geslo = request.forms.getunicode('geslo')
     geslo2 = request.forms.getunicode('geslo2')
-    if geslo != geslo2:
-        nastavi_sporocilo("Gesli se ne ujemata!")
-        redirect(url('komitenti_uredi', emso=emso))
     oseba = Oseba(ime, priimek, emso, naslov, kraj_id)
     oseba.emso = nov_emso
+    if geslo != geslo2:
+        nastavi_sporocilo("Gesli se ne ujemata!")
+        nastavi_obrazec(f'komitenti_uredi{emso}', oseba.vrednosti())
+        redirect(url('komitenti_uredi', emso=emso))
     if geslo:
         oseba.nastavi_geslo(geslo)
     try:
