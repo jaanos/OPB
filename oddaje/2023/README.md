@@ -55,3 +55,7 @@
 ## Potniški promet
 * Avtorica: Matea Naumovska
 * Repozitorij: <https://github.com/mateabt/OPB-Potniski-promet>
+
+## Openbridge
+* Avtor: Luka Skeledžija
+* Repozitorij: <https://github.com/lukaske/openbridge>
