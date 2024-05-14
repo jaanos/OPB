@@ -30,11 +30,45 @@
     <nav class="navbar" role="navigation" aria-label="main navigation">
       <div class="navbar-menu">
         <div class="navbar-start">
-          <a class="navbar-item" href="{{url('index')}}">Banka</a>
-          <a class="navbar-item" href="{{url('kraji')}}">Kraji</a>
-          <a class="navbar-item" href="{{url('komitenti')}}">Komitenti</a>
-          <a class="navbar-item" href="{{url('racuni')}}">Računi</a>
-          <a class="navbar-item" href="{{url('transakcije')}}">Transakcije</a>
+          <a class="navbar-item {{'is-selected' if stran == 'index' else ''}}" href="{{url('index')}}">Banka</a>
+          %if uporabnik.admin:
+          <a class="navbar-item {{'is-selected' if stran == 'kraji' else ''}}" href="{{url('kraji')}}">Kraji</a>
+          %end
+          %if uporabnik:
+          <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link">Komitenti</a>
+            <div class="navbar-dropdown">
+              <a class="navbar-item {{'is-selected' if stran == 'komitenti_uredi' else ''}}" href="{{url('komitenti_uredi', emso=uporabnik.emso)}}">
+                Moji podatki
+              </a>
+              % if uporabnik.admin:
+              <hr class="navbar-divider">
+              <a class="navbar-item {{'is-selected' if stran == 'komitenti' else ''}}" href="{{url('komitenti')}}">
+                Seznam komitentov
+              </a>
+              %end
+            </div>
+          </div>
+          %end
+          %if uporabnik:
+          <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link">Računi</a>
+            <div class="navbar-dropdown">
+              <a class="navbar-item {{'is-selected' if stran == 'racuni_osebe' else ''}}" href="{{url('racuni_osebe', emso=uporabnik.emso)}}">
+                Moji računi
+              </a>
+              % if uporabnik.admin:
+              <hr class="navbar-divider">
+              <a class="navbar-item {{'is-selected' if stran == 'racuni' else ''}}" href="{{url('racuni')}}">
+                Seznam računov
+              </a>
+              %end
+            </div>
+          </div>
+          %end
+          %if uporabnik.admin:
+          <a class="navbar-item {{'is-selected' if stran == 'transakcije' else ''}}" href="{{url('transakcije')}}">Transakcije</a>
+          %end
         </div>
       </div>
       <div class="navbar-end">
@@ -54,7 +88,7 @@
         % else:
         <div class="navbar-item">
           <div class="buttons">
-            <a class="button is-primary">
+            <a class="button is-primary" href="{{url('registracija')}}">
               <strong>Registracija</strong>
             </a>
             <a class="button is-light" href="{{url('prijava')}}">

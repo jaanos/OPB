@@ -464,6 +464,39 @@ def prijava_post():
     prijavi_uporabnika(uporabnik, geslo, 'prijava')
 
 
+@get('/registracija/')
+@view('registracija.html')
+@odjavljen
+def registracija():
+    pass
+
+
+@post('/registracija/')
+@odjavljen
+def registracija_post():
+    emso = request.forms.getunicode('emso')
+    ime = request.forms.getunicode('ime')
+    priimek = request.forms.getunicode('priimek')
+    naslov = request.forms.getunicode('naslov')
+    kraj_id = request.forms.getunicode('kraj_id')
+    up_ime = request.forms.getunicode('up_ime')
+    geslo = request.forms.getunicode('geslo')
+    geslo2 = request.forms.getunicode('geslo2')
+    uporabnik = Oseba.ustvari(ime, priimek, emso, naslov, kraj_id, up_ime)
+    if geslo != geslo2:
+        nastavi_sporocilo("Gesli se ne ujemata!")
+        nastavi_obrazec('registracija', uporabnik.vrednosti())
+        redirect(url('registracija'))
+    uporabnik.nastavi_geslo(geslo)
+    try:
+        uporabnik.shrani()
+    except (TypeError, ValueError):
+        nastavi_sporocilo("Dodajanje uporabnika ni uspelo!")
+        nastavi_obrazec('registracija', uporabnik.vrednosti())
+        redirect(url('registracija'))
+    prijavi_uporabnika(uporabnik, geslo, 'registracija')
+
+
 @post('/odjava/')
 @prijavljen
 def odjava_post(uporabnik):

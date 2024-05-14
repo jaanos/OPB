@@ -394,7 +394,7 @@ class Entiteta:
                             vrednost.shrani(posodobi=False)
                     tabela_kljuc = self.__tabela_kljuc()
                     if not self.__dbid:
-                        vrednosti = self.vrednosti()
+                        vrednosti = self.vrednosti(vse=True)
                         generirani = {ime for ime, stolpec in self.STOLPCI.items()
                                         if (stolpec.privzeto or
                                             stolpec.tip == "SERIAL")
@@ -470,18 +470,20 @@ class Entiteta:
         self.izbrisi_id(self.glavni_kljuc())
         self.__dbid = None
 
-    def vrednosti(self):
+    def vrednosti(self, vse=False, izpusti=()):
         """
         Vrni slovar vrednosti stolpcev v obliki, kot so zapisane v bazi.
         """
-        return {ime: self[ime] for ime in self.STOLPCI}
+        if vse:
+            izpusti = ()
+        return {ime: self[ime] for ime in self.STOLPCI if ime not in izpusti}
 
     def _vrednosti_za_posodobitev(self):
         """
         Vrni slovar vrednosti stolpcev za posodobitev
         (brez nenastavljenih skritih stolpcev).
         """
-        vrednosti = self.vrednosti()
+        vrednosti = self.vrednosti(vse=True)
         for ime, stolpec in self.STOLPCI.items():
             if stolpec.skrit and vrednosti[ime] is None:
                 del vrednosti[ime]

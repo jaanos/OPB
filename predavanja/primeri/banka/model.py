@@ -88,6 +88,13 @@ class Oseba(Entiteta):
         except StopIteration:
             return cls.ustvari(up_ime=up_ime)
 
+    def vrednosti(self, vse=False):
+        """
+        Vrni slovar vrednosti stolpcev (brez gesla) v obliki,
+        kot so zapisane v bazi.
+        """
+        return super().vrednosti(vse=vse, izpusti=('geslo', ))
+
     @staticmethod
     def _nastavi_geslo(geslo):
         """

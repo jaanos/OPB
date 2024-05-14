@@ -1,4 +1,4 @@
-%rebase('osnova.html', naslov=f'Transakcije na računu {racun.stevilka}')
+%rebase('osnova.html', naslov=f'Transakcije na računu {racun.stevilka}', stran='transakcije_na_racunu')
 
 <h1 class="title">Seznam transakcij na računu {{racun.stevilka}}</h1>
 
@@ -20,7 +20,9 @@
       <th>Znesek</th>
       <th>Čas</th>
       <th>Opis</th>
+      %if uporabnik.admin:
       <th></th>
+      %end
     </tr>
   </thead>
   <tbody>
@@ -30,6 +32,7 @@
       <td>{{transakcija.znesek}}</td>
       <td>{{transakcija.cas}}</td>
       <td>{{transakcija.opis}}</td>
+      %if uporabnik.admin:
       <td>
         <div class="field is-grouped">
           <a href="{{url('transakcije_uredi', id=transakcija.id)}}" class="button is-primary is-small">
@@ -46,6 +49,7 @@
           </form>
         </div>
       </td>
+      %end
     </tr>
     %end
   </tbody>
