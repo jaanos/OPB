@@ -486,8 +486,8 @@ v vrstico<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="lang
 <h1 id="nivo-izolacije-1">Nivo izolacije</h1>
 <ul>
 <li data-marpit-fragment="1">Privzeti nivo je <code>READ COMMITED</code>.</li>
-<li data-marpit-fragment="2">Lahko ga nastavimo:<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-sql"><span class="hljs-keyword">SET</span> TRANSACTION SERIALIZABLE <span class="hljs-operator">|</span> REPEATABLE READ <span class="hljs-operator">|</span> 
-                READ COMMITTED <span class="hljs-operator">|</span> READ UNCOMMITTED;
+<li data-marpit-fragment="2">Lahko ga nastavimo:<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-sql"><span class="hljs-keyword">SET</span> TRANSACTION ISOLATION LEVEL SERIALIZABLE <span class="hljs-operator">|</span> REPEATABLE READ <span class="hljs-operator">|</span> 
+                                READ COMMITTED <span class="hljs-operator">|</span> READ UNCOMMITTED;
 </code></pre>
 </li>
 </ul>

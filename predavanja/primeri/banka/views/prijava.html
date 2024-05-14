@@ -1,0 +1,24 @@
+%rebase('osnova.html', naslov='Prijava', stran='prijava')
+%oseba = Oseba.ustvari(**preberi_obrazec(f'prijava'))
+
+<h1 class="title">Prijava</h1>
+
+<form action="{{url('prijava_post')}}" method="POST">
+  <div class="field">
+    <label class="label">Uporabniško ime</label>
+    <div class="control">
+      <input class="input" name="up_ime" type="text" placeholder="Uporabniško ime" value="{{oseba.up_ime}}" required />
+    </div>
+  </div>
+  <div class="field">
+    <label class="label">Geslo</label>
+    <div class="control">
+      <input class="input" name="geslo" type="password" placeholder="Geslo" required />
+    </div>
+  </div>
+  <div class="field">
+    <div class="control">
+      <button class="button is-link">Prijavi se</button>
+    </div>
+  </div>
+</form>

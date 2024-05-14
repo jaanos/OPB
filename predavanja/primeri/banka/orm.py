@@ -16,14 +16,19 @@ class Stolpec:
     Razred za definicije stolpcev.
     """
 
-    def __init__(self, tip, lastnosti="", privzeto=None, referenca=None):
+    def __init__(self, tip, lastnosti="", privzeto=None, privzeto_uvoz=None,
+                    referenca=None, skrit=None):
         """
         Definiraj stolpec.
         """
+        if skrit is None:
+            skrit = (privzeto_uvoz is not None)
         self.tip = tip
         self.lastnosti = lastnosti
         self.privzeto = privzeto
+        self.privzeto_uvoz = privzeto_uvoz
         self.referenca = referenca
+        self.skrit = skrit
 
     def __repr__(self):
         """
@@ -68,8 +73,10 @@ def lastnost_reference(polje, entiteta):
         Vrni entiteto, na katero se stolpec sklicuje.
         """
         vrednost = getattr(self, polje)
-        if vrednost is not None and \
-                not isinstance(vrednost, Entiteta):
+        if vrednost is None:
+            vrednost = entiteta.NULL
+            setattr(self, polje, vrednost)
+        elif not isinstance(vrednost, Entiteta):
             vrednost = entiteta.z_id(vrednost)
             setattr(self, polje, vrednost)
         return vrednost
@@ -205,13 +212,36 @@ class Entiteta:
                                 )))
 
     @classmethod
+    def _stolpci_za_uvoz(cls, stolpci):
+        """
+        Pripravi stolpce za uvoz.
+        """
+        stolpci = list(stolpci)
+        for ime, stolpec in cls.STOLPCI.items():
+            if stolpec.privzeto_uvoz and ime not in stolpci:
+                stolpci.append(ime)
+        return stolpci
+
+    @classmethod
+    def _podatki_za_uvoz(cls, stolpci, vrstica):
+        """
+        Pripravi podatke za uvoz.
+        """
+        slovar = {stolpec: vrednost if vrednost else None
+                    for stolpec, vrednost in zip(stolpci, vrstica)}
+        for ime, stolpec in cls.STOLPCI.items():
+            if stolpec.privzeto_uvoz and ime not in slovar:
+                slovar[ime] = stolpec.privzeto_uvoz(cls, slovar)
+        return slovar
+
+    @classmethod
     def uvozi_podatke(cls):
         """
         Uvozi podatke v tabelo.
         """
         with open(f'podatki/{cls.TABELA}.csv', encoding="UTF-8") as f:
             rd = csv.reader(f)
-            stolpci = next(rd)
+            stolpci = cls._stolpci_za_uvoz(next(rd))
             with conn.cursor() as cur:
                 with conn.transaction():
                     cur.executemany(sql.SQL("""
@@ -226,8 +256,7 @@ class Entiteta:
                                         sql.Placeholder(stolpec)
                                         for stolpec in stolpci
                                     )),
-                        ({stolpec: vrednost if vrednost else None
-                                for stolpec, vrednost in zip(stolpci, vrstica)}
+                        (cls._podatki_za_uvoz(stolpci, vrstica)
                             for vrstica in rd))
                     serial = [ime for ime, stolpec in cls.STOLPCI.items()
                                 if stolpec.tip == "SERIAL"]
@@ -298,6 +327,8 @@ class Entiteta:
         """
         Vrni entiteto s podanim ID-jem.
         """
+        if id is None:
+            return cls.NULL
         with conn.cursor() as cur:
             cur.execute(sql.SQL("""
                     SELECT {stolpci} FROM {tabela}
@@ -314,13 +345,14 @@ class Entiteta:
         """
         Vračaj entitete iz baze.
         """
+        urejanje = {} if urejanje is None else dict(urejanje=urejanje)
         with conn.cursor() as cur:
             cur.execute(sql.SQL("""
                     SELECT {stolpci} FROM {tabela}
                     {filtriranje}
                     {zdruzevanje}
                     {urejanje};
-                """).format(**cls._parametri(urejanje=urejanje),
+                """).format(**cls._parametri(**urejanje),
                             filtriranje=sql.SQL("WHERE {pogoji}").format(
                                 pogoji=sql.SQL(" AND ").join(
                                     sql.SQL(
@@ -331,8 +363,7 @@ class Entiteta:
                                     )
                                     for stolpec in kwargs
                                 )
-                            )
-                            if kwargs else sql.SQL("")),
+                            ) if kwargs else sql.SQL("")),
                             {
                                 stolpec: vrednost.glavni_kljuc()
                                     if isinstance(vrednost, Entiteta)
@@ -348,7 +379,7 @@ class Entiteta:
         """
         return self[self.GLAVNI_KLJUC]
 
-    def shrani(self):
+    def shrani(self, posodobi=True):
         """
         Shrani entiteto v bazo.
         """
@@ -360,25 +391,10 @@ class Entiteta:
                             continue
                         vrednost = getattr(self, f'_{ime}')
                         if isinstance(vrednost, Entiteta):
-                            vrednost.shrani()
-                    vrednosti = self.vrednosti()
+                            vrednost.shrani(posodobi=False)
                     tabela_kljuc = self.__tabela_kljuc()
-                    if self.__dbid:
-                        cur.execute(sql.SQL("""
-                                UPDATE {tabela} SET {vrednosti}
-                                WHERE {kljuc} = %(__dbid)s;
-                            """).format(vrednosti=sql.SQL(", ").join(
-                                            sql.SQL(
-                                                "{stolpec} = {vrednost}"
-                                            ).format(
-                                                stolpec=sql.Identifier(stolpec),
-                                                vrednost=sql.Placeholder(stolpec)
-                                            )
-                                            for stolpec in vrednosti
-                                        ),
-                                        **tabela_kljuc),
-                            {**vrednosti, "__dbid": self.__dbid})
-                    else:
+                    if not self.__dbid:
+                        vrednosti = self.vrednosti(vse=True)
                         generirani = {ime for ime, stolpec in self.STOLPCI.items()
                                         if (stolpec.privzeto or
                                             stolpec.tip == "SERIAL")
@@ -412,9 +428,27 @@ class Entiteta:
                         if generirani:
                             for stolpec, vrednost in zip(generirani, cur.fetchone()):
                                 setattr(self, stolpec, vrednost)
+                    elif posodobi:
+                        vrednosti = self._vrednosti_za_posodobitev()
+                        cur.execute(sql.SQL("""
+                                UPDATE {tabela} SET {vrednosti}
+                                WHERE {kljuc} = %(__dbid)s;
+                            """).format(vrednosti=sql.SQL(", ").join(
+                                            sql.SQL(
+                                                "{stolpec} = {vrednost}"
+                                            ).format(
+                                                stolpec=sql.Identifier(stolpec),
+                                                vrednost=sql.Placeholder(stolpec)
+                                            )
+                                            for stolpec in vrednosti
+                                        ),
+                                        **tabela_kljuc),
+                            {**vrednosti, "__dbid": self.__dbid})
                     self.__dbid = self.glavni_kljuc()
-        except (errors.ForeignKeyViolation, errors.UniqueViolation):
+        except errors.IntegrityError:
             raise ValueError
+        except errors.DataError:
+            raise TypeError
 
     @classmethod
     def izbrisi_id(cls, id):
@@ -426,7 +460,7 @@ class Entiteta:
                 cur.execute(sql.SQL("""
                         DELETE FROM {tabela} WHERE {kljuc} = %s;
                     """).format(**cls.__tabela_kljuc()), [id])
-        except errors.ForeignKeyViolation:
+        except errors.IntegrityError:
             raise ValueError
 
     def izbrisi(self):
@@ -436,8 +470,31 @@ class Entiteta:
         self.izbrisi_id(self.glavni_kljuc())
         self.__dbid = None
 
-    def vrednosti(self):
+    def vrednosti(self, vse=False, izpusti=()):
         """
         Vrni slovar vrednosti stolpcev v obliki, kot so zapisane v bazi.
         """
-        return {ime: self[ime] for ime in self.STOLPCI}
+        if vse:
+            izpusti = ()
+        return {ime: self[ime] for ime in self.STOLPCI if ime not in izpusti}
+
+    def _vrednosti_za_posodobitev(self):
+        """
+        Vrni slovar vrednosti stolpcev za posodobitev
+        (brez nenastavljenih skritih stolpcev).
+        """
+        vrednosti = self.vrednosti(vse=True)
+        for ime, stolpec in self.STOLPCI.items():
+            if stolpec.skrit and vrednosti[ime] is None:
+                del vrednosti[ime]
+        return vrednosti
+
+    def posodobi(self, /, **kwargs):
+        """
+        Posodobi vrednosti stolpcev s podanimi vrednostmi.
+        """
+        assert all(polje in self.STOLPCI for polje in kwargs), \
+            "Podani so odvečni argumenti!"
+        for polje, vrednost in kwargs.items():
+            setattr(self, polje, vrednost)
+        return self

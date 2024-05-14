@@ -1,7 +1,12 @@
-%rebase('osnova.html', naslov='Kraji - urejanje')
+%rebase('osnova.html', naslov='Kraji - urejanje', stran='kraji_uredi')
 
 <h1 class="title">Urejanje kraja</h1>
 
 <form action="{{url('kraji_uredi_post', posta=kraj.posta)}}" method="POST">
-%include('kraji_obrazec.html', kraj=kraj)
+  %include('kraji_obrazec.html', kraj=kraj.posodobi(**preberi_obrazec(f'kraji_uredi{kraj.posta}')))
+  <div class="field">
+    <div class="control">
+      <button class="button is-link">Uredi</button>
+    </div>
+  </div>
 </form>

@@ -1,3 +1,4 @@
+import bcrypt
 from auth import auth
 from orm import povezi, Entiteta, Stolpec, sql
 
@@ -39,7 +40,13 @@ class Oseba(Entiteta):
         "priimek": Stolpec("TEXT", "NOT NULL"),
         "emso": Stolpec("TEXT"),
         "naslov": Stolpec("TEXT", "NOT NULL"),
-        "kraj_id": Stolpec("INTEGER", "NOT NULL", referenca=Kraj)
+        "kraj_id": Stolpec("INTEGER", "NOT NULL", referenca=Kraj),
+        "up_ime": Stolpec("TEXT", "UNIQUE",
+            privzeto_uvoz=lambda cls, o: (o["ime"][0] + o["priimek"]).lower()),
+        "geslo": Stolpec("BYTEA",
+            privzeto_uvoz=lambda cls, o: cls._nastavi_geslo(o["up_ime"])),
+        "admin": Stolpec("BOOLEAN", "NOT NULL", privzeto="FALSE",
+            privzeto_uvoz=lambda cls, o: (o["emso"] == '1'))
     }
     GLAVNI_KLJUC = "emso"
 
@@ -55,18 +62,67 @@ class Oseba(Entiteta):
         Vrni parametre za pridobivanje podatkov iz baze.
         """
         return super()._parametri(
-            stolpci=["ime", "priimek", "emso", "naslov", "posta", "kraj"],
+            stolpci=["ime", "priimek", "emso", "naslov", "posta", "kraj",
+                        "up_ime", "geslo", "admin"],
             tabela=sql.SQL("oseba JOIN kraj ON kraj_id = posta"),
             urejanje=["priimek", "ime", "emso"]
                 if urejanje is None else urejanje
         )
 
     @classmethod
-    def _iz_baze(cls, ime, priimek, emso, naslov, posta, kraj):
+    def _iz_baze(cls, ime, priimek, emso, naslov, posta, kraj, up_ime, geslo,
+                    admin):
         """
         Ustvari osebo s podatki iz baze.
         """
-        return cls(ime, priimek, emso, naslov, Kraj(posta, kraj))
+        return cls(ime, priimek, emso, naslov, Kraj(posta, kraj), up_ime,
+                    geslo, admin)
+
+    @classmethod
+    def z_uporabniskim_imenom(cls, up_ime):
+        """
+        Vrni uporabnika z navedenim uporabniškim imenom.
+        """
+        try:
+            return next(cls.seznam(up_ime=up_ime))
+        except StopIteration:
+            return cls.ustvari(up_ime=up_ime)
+
+    def vrednosti(self, vse=False):
+        """
+        Vrni slovar vrednosti stolpcev (brez gesla) v obliki,
+        kot so zapisane v bazi.
+        """
+        return super().vrednosti(vse=vse, izpusti=('geslo', ))
+
+    @staticmethod
+    def _nastavi_geslo(geslo):
+        """
+        Vrni zgostitev podanega gesla.
+        """
+        geslo = geslo.encode("utf-8")
+        sol = bcrypt.gensalt()
+        return bcrypt.hashpw(geslo, sol)
+
+    def nastavi_geslo(self, geslo):
+        """
+        Nastavi podano geslo.
+        """
+        self.geslo = self._nastavi_geslo(geslo)
+
+    @staticmethod
+    def _preveri_geslo(geslo, zgostitev):
+        """
+        Preveri podano geslo glede na podano zgostitev.
+        """
+        geslo = geslo.encode("utf-8")
+        return bcrypt.checkpw(geslo, zgostitev)
+
+    def preveri_geslo(self, geslo):
+        """
+        Preveri podano geslo.
+        """
+        return self._preveri_geslo(geslo, self.geslo)
 
     def racuni(self):
         """
@@ -165,7 +221,7 @@ class Transakcija(Entiteta):
         "id": Stolpec("SERIAL"),
         "znesek": Stolpec("INTEGER", "NOT NULL"),
         "racun_id": Stolpec("INTEGER", "NOT NULL", referenca=Racun),
-        "cas": Stolpec("TIMESTAMP", "NOT NULL", privzeto="NOW()"),
+        "cas": Stolpec("TIMESTAMP(0)", "NOT NULL", privzeto="NOW()"),
         "opis": Stolpec("TEXT")
     }
     GLAVNI_KLJUC = "id"

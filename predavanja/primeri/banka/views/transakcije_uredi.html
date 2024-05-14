@@ -1,0 +1,12 @@
+%rebase('osnova.html', naslov='Transakcije - urejanje', stran='transakcije_uredi')
+
+<h1 class="title">Urejanje transakcije z ID {{transakcija.id}}</h1>
+
+<form action="{{url('transakcije_uredi_post', id=transakcija.id)}}" method="POST">
+  %include('transakcije_obrazec.html', transakcija=transakcija.posodobi(**preberi_obrazec(f'transakcije_uredi{transakcija.id}')))
+  <div class="field">
+    <div class="control">
+      <button class="button is-link">Uredi</button>
+    </div>
+  </div>
+</form>

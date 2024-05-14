@@ -1,8 +1,14 @@
-%rebase('osnova.html', naslov='Transakcije')
+%rebase('osnova.html', naslov='Transakcije', stran='transakcije')
 
 <h1 class="title">Seznam transakcij</h1>
 
-<table class="table is-striped">
+<div class="level">
+  <div class="level-left">
+    %include('iskalnik.html', stolpci=[0, 1, 2, 3, 4])
+  </div>
+</div>
+
+<table class="table is-striped" id="podatki">
   <thead>
     <tr>
       <th>ID</th>
@@ -10,6 +16,7 @@
       <th>Znesek</th>
       <th>Čas</th>
       <th>Opis</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -20,6 +27,22 @@
       <td>{{transakcija.znesek}}</td>
       <td>{{transakcija.cas}}</td>
       <td>{{transakcija.opis}}</td>
+      <td>
+        <div class="field is-grouped">
+          <a href="{{url('transakcije_uredi', id=transakcija.id)}}" class="button is-primary is-small">
+            <span class="icon is-small">
+              <i class="fas fa-pen"></i>
+            </span>
+          </a>
+          <form action="{{url('transakcije_izbrisi_post', id=transakcija.id)}}" method="POST">
+            <button class="button is-danger is-small">
+              <span class="icon is-small">
+                <i class="fas fa-trash-can"></i>
+              </span>
+            </button>
+          </form>
+        </div>
+      </td>
     </tr>
     %end
   </tbody>

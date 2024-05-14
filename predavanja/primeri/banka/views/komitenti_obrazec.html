@@ -1,41 +1,55 @@
-  <div class="field">
-    <label class="label">EMŠO</label>
-    <div class="control">
-      <input class="input" name="emso" type="text" placeholder="EMŠO" value="{{oseba.emso}}" />
-    </div>
+%setdefault('zahtevaj_geslo', '')
+<div class="field">
+  <label class="label">EMŠO</label>
+  <div class="control">
+    <input class="input" name="emso" type="text" placeholder="EMŠO" value="{{oseba.emso}}" required />
   </div>
-  <div class="field">
-    <label class="label">Ime</label>
-    <div class="control">
-      <input class="input" name="ime" type="text" placeholder="Ime osebe" value="{{oseba.ime}}" />
-    </div>
+</div>
+<div class="field">
+  <label class="label">Ime</label>
+  <div class="control">
+    <input class="input" name="ime" type="text" placeholder="Ime osebe" value="{{oseba.ime}}" required />
   </div>
-  <div class="field">
-    <label class="label">Priimek</label>
-    <div class="control">
-      <input class="input" name="priimek" type="text" placeholder="Priimek osebe" value="{{oseba.priimek}}" />
-    </div>
+</div>
+<div class="field">
+  <label class="label">Priimek</label>
+  <div class="control">
+    <input class="input" name="priimek" type="text" placeholder="Priimek osebe" value="{{oseba.priimek}}" required />
   </div>
-  <div class="field">
-    <label class="label">Naslov</label>
-    <div class="control">
-      <input class="input" name="naslov" type="text" placeholder="Naslov osebe" value="{{oseba.naslov}}" />
-    </div>
+</div>
+<div class="field">
+  <label class="label">Naslov</label>
+  <div class="control">
+    <input class="input" name="naslov" type="text" placeholder="Naslov osebe" value="{{oseba.naslov}}" required />
   </div>
-  <div class="field">
-    <label class="label">Kraj</label>
-    <div class="control">
-      <div class="select">
-          <select name="kraj_id">
-          %for kraj in Kraj.seznam():
-            <option value="{{kraj.posta}}" {{'selected' if oseba.kraj_id.posta == kraj.posta else ''}}>{{kraj.posta}} {{kraj.kraj}}</option>
-          %end
-          </select>
-        </div>
-    </div>
+</div>
+<div class="field">
+  <label class="label">Kraj</label>
+  <div class="control">
+    <div class="select">
+        <select name="kraj_id">
+        %for kraj in Kraj.seznam():
+          <option value="{{kraj.posta}}" {{'selected' if oseba.kraj_id.posta == kraj.posta else ''}}>{{kraj.posta}} {{kraj.kraj}}</option>
+        %end
+        </select>
+      </div>
   </div>
-  <div class="field">
-    <div class="control">
-      <button class="button is-link">Uredi</button>
-    </div>
+</div>
+<div class="field">
+  <label class="label">Uporabniško ime</label>
+  <div class="control">
+    <input class="input" name="up_ime" type="text" placeholder="Uporabniško ime" value="{{oseba.up_ime}}" required />
   </div>
+</div>
+<div class="field">
+  <label class="label">Geslo</label>
+  <div class="control">
+    <input class="input" id="geslo" name="geslo" type="password" placeholder="Geslo" {{zahtevaj_geslo}} />
+  </div>
+</div>
+<div class="field">
+  <label class="label">Ponovi geslo</label>
+  <div class="control">
+    <input class="input" id="geslo2" name="geslo2" type="password" placeholder="Ponovi geslo" {{zahtevaj_geslo}} />
+  </div>
+</div>

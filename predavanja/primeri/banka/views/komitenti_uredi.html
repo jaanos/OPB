@@ -1,7 +1,12 @@
-%rebase('osnova.html', naslov='Komitenti - urejanje')
+%rebase('osnova.html', naslov='Komitenti - urejanje', stran='komitenti_uredi')
 
 <h1 class="title">Urejanje komitenta</h1>
 
-<form action="{{url('komitenti_uredi_post', emso=oseba.emso)}}" method="POST">
-%include('komitenti_obrazec.html', oseba=oseba)
+<form action="{{url('komitenti_uredi_post', emso=oseba.emso)}}" method="POST" onsubmit="return preveri_geslo()">
+  %include('komitenti_obrazec.html', oseba=oseba.posodobi(**preberi_obrazec(f'komitenti_uredi{oseba.emso}')))
+  <div class="field">
+    <div class="control">
+      <button class="button is-link">Uredi</button>
+    </div>
+  </div>
 </form>

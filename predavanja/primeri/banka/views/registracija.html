@@ -1,0 +1,12 @@
+%rebase('osnova.html', naslov='Registracija', stran='registracija')
+
+<h1 class="title">Registracija</h1>
+
+<form action="{{url('registracija_post')}}" method="POST" onsubmit="return preveri_geslo()">
+  %include('komitenti_obrazec.html', oseba=Oseba.ustvari(**preberi_obrazec(f'registracija')), zahtevaj_geslo='required')
+  <div class="field">
+    <div class="control">
+      <button class="button is-link">Registriraj se</button>
+    </div>
+  </div>
+</form>

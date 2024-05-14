@@ -211,7 +211,7 @@ plugins: mathjax
 * S `psql` ali kakim drugim klientom (npr. pgAdmin 4) se lahko priklopimo na točno določeno bazo.
 * Sheme so imenski prostori znotraj ene podatkovne baze, v katerih živijo tabele in drugi logični objekti (npr. števci, shranjene funkcije).
 * Uporabljamo jih za lažje določanje pravic na tabelah, boljšo logično organizacijo objektov in razreševanje imenskih konfliktov.
-* Ko ustvarimo neko podatkovno bazo, se ustvari tudi shema `public`, v kateri so nove tabele. 
+* Ko ustvarimo neko podatkovno bazo, se ustvari tudi shema `public`, v kateri so nove tabele.
 * Na tabele na podatkovni bazi se sklicujemo v obliki `ime_sheme.ime_tabele`.
 
 ---
@@ -340,7 +340,7 @@ plugins: mathjax
 * Tipično imamo podatkovno bazo na nekem strežniku.
 * Lahko se sicer priklopimo nanjo preko programa `psql` (ukazna vrstica).
 * Tipkanje v terminalu `psql` je velikokrat nepriročno.
-* Najbolj priročno je do baze dostopati preko ustreznih aplikacij z grafičnim vmesnikom. 
+* Najbolj priročno je do baze dostopati preko ustreznih aplikacij z grafičnim vmesnikom.
 * Primer take aplikacije: phpPgAdmin (<http://baza.fmf.uni-lj.si>), ki se uporablja na vajah.
 
 ---
@@ -365,7 +365,7 @@ plugins: mathjax
 
 # Oddaljen dostop - konfiguracija
 
-* Lokacijo konfiguracijske datoteke `pg_hba.conf` najdemo z ukazom 
+* Lokacijo konfiguracijske datoteke `pg_hba.conf` najdemo z ukazom
   ```bash
   psql -U postgres -c 'SHOW hba_file'
   ```
@@ -377,7 +377,7 @@ plugins: mathjax
   ```bash
   host    all     all     0.0.0.0/0      scram-sha-256
   ```
-  - Urejevalnik zaženemo npr. kot 
+  - Urejevalnik zaženemo npr. kot
     ```bash
     nano /etc/postgresql/14/main/pg_hba.conf
     ```
@@ -531,8 +531,8 @@ COMMIT;
 * Privzeti nivo je `READ COMMITED`.
 * Lahko ga nastavimo:
   ```sql
-  SET TRANSACTION SERIALIZABLE | REPEATABLE READ | 
-                  READ COMMITTED | READ UNCOMMITTED;
+  SET TRANSACTION ISOLATION LEVEL SERIALIZABLE | REPEATABLE READ | 
+                                  READ COMMITTED | READ UNCOMMITTED;
   ```
 
 ---
