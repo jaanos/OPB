@@ -316,3 +316,6 @@
 [submodule "oddaje/2023/OPB-Potniski-promet"]
 	path = oddaje/2023/OPB-Potniski-promet
 	url = https://github.com/mateabt/OPB-Potniski-promet.git
+[submodule "oddaje/2023/openbridge"]
+	path = oddaje/2023/openbridge
+	url = https://github.com/lukaske/openbridge.git
