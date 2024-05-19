@@ -57,7 +57,7 @@ plugins: mathjax
 
 # Lastnosti BASE
 
-Če opustimo lastnost C (konsistenca), lahko za NoSQL podatkovne baz obravnavamo naslednje lastnoti.
+Če opustimo lastnost C (konsistenca), lahko za NoSQL podatkovne baz obravnavamo naslednje lastnosti.
 
 * **BA (Basically Available)** - sistem zagotavlja lastnost A.
 * **S (Soft state)** - podatki v sistemu na nekem vozlišču se lahko spremenijo tudi, če ne vstavljamo v sistem na tem vozlišču (npr. pridejo z zakasnitvijo iz drugih vozlišč).
@@ -180,11 +180,11 @@ plugins: mathjax
 
 * **Pretočno**: agregate lahko računamo tudi sproti, če so združevalne funkcije "aditivne" (t.j., ko pride nov podatek, lahko pravilno popravimo agregat)
   - Gradimo t.i. materializirane poglede (Materialized View)
-  - Kafka + KSQL, Pogledi (VIEW) na dokumentnih bazah (CouchDB), ...
+  - Kafka + KSQL, pogledi (`VIEW`) na dokumentnih bazah (CouchDB), ...
 
 ---
 
 # Učenje na NoSQL bazah
 
-* Za učne primere si lahko ogledate [`NoSQLZoo`](https://nosqlzoo.net/).
-* Primeri na podatkovnih bazah MongoDB (Javascript) in Neo4j (Cypher)
+* Za učne primere si lahko ogledate [`NoSQLZoo`](https://no.sqlzoo.net/wiki/Main_Page).
+* Primeri na podatkovnih bazah MongoDB in Neo4j
