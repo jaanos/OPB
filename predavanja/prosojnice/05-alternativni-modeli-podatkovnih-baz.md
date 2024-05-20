@@ -13,7 +13,7 @@ plugins: mathjax
   - graf
   - vrsta
   - ...
-* Alternativni modeli imajo ponavadi drugačne (specifične) jezike za opis podatkovnih modelov in uporavljanje s podatki (različen od SQL).
+* Alternativni modeli imajo ponavadi drugačne (specifične) jezike za opis podatkovnih modelov in upravljanje s podatki (različen od SQL).
 
 ---
 
@@ -57,18 +57,18 @@ plugins: mathjax
 
 # Lastnosti BASE
 
-Če opustimo lastnost C (konsistenca), lahko za NoSQL podatkovne baz obravnavamo naslednje lastnoti.
+Če opustimo lastnost C (konsistentnost), lahko za podatkovne baze NoSQL obravnavamo naslednje lastnosti.
 
 * **BA (Basically Available)** - sistem zagotavlja lastnost A.
 * **S (Soft state)** - podatki v sistemu na nekem vozlišču se lahko spremenijo tudi, če ne vstavljamo v sistem na tem vozlišču (npr. pridejo z zakasnitvijo iz drugih vozlišč).
 * **E (Eventual consistency)** - če ne vstavljamo podatkov v sistem, se sčasoma vsa vozlišča sinhronizirajo in postane sistem konsistenten.
-* Pri NoSQL bazah, kjer nimamo ACID, tipično stremimo vsaj k BASE.
+* Pri bazah NoSQL, kjer nimamo ACID, tipično stremimo vsaj k BASE.
 
 ---
 
-# Tipi NoSQL podatkovnih baz
+# Tipi podatkovnih baz NoSQL
 
-* NoSQL podatkovne baze so postale popularne predvsem zaradi velikih podatkovij, ki jih je treba deliti čez več strežnikov.
+* Podatkovne baze NoSQL so postale popularne predvsem zaradi velikih podatkovij, ki jih je treba deliti čez več strežnikov.
 * Baze ključ-vrednost (slovar)
 * Dokumentne baze (JSON, gnezdeni slovarji in seznami)
 * Tabelarične (slovar)
@@ -152,7 +152,7 @@ plugins: mathjax
 # Izbira tipa podatkovne baze
 
 * Če delamo nek (poslovni) sistem in rabimo ACID, je vedno varno vzeti relacijsko podatkovno bazo (SQLite, PostgreSQL, MySQL, ...)
-* NoSQL podatkovno bazo uporabimo le v primeru, če točno vemo, zakaj jo rabimo!
+* Podatkovno bazo NoSQL uporabimo le v primeru, če točno vemo, zakaj jo rabimo!
 * Delo z velikimi podatkovji zahteva veliko strežnikov in je tipično "drag šport".
 
 ---
@@ -180,11 +180,11 @@ plugins: mathjax
 
 * **Pretočno**: agregate lahko računamo tudi sproti, če so združevalne funkcije "aditivne" (t.j., ko pride nov podatek, lahko pravilno popravimo agregat)
   - Gradimo t.i. materializirane poglede (Materialized View)
-  - Kafka + KSQL, Pogledi (VIEW) na dokumentnih bazah (CouchDB), ...
+  - Kafka + KSQL, pogledi (`VIEW`) na dokumentnih bazah (CouchDB), ...
 
 ---
 
 # Učenje na NoSQL bazah
 
-* Za učne primere si lahko ogledate [`NoSQLZoo`](https://nosqlzoo.net/).
-* Primeri na podatkovnih bazah MongoDB (Javascript) in Neo4j (Cypher)
+* Za učne primere si lahko ogledate [`NoSQLZoo`](https://no.sqlzoo.net/wiki/Main_Page).
+* Primeri na podatkovnih bazah MongoDB in Neo4j
