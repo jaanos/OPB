@@ -1,10 +1,12 @@
 require(dplyr)
+require(DBI)
+require(RPostgreSQL)
 
 # Priklop na bazo. Vnesite ustrezno geslo.
 geslo <- "telebajsek" 
 
-db <- src_postgres(host="baza.fmf.uni-lj.si", dbname="banka",
-                   user="student", password=geslo)
+db <- dbConnect(PostgreSQL(), host="baza.fmf.uni-lj.si", dbname="banka",
+                user="student", password=geslo)
 
 # Priklop na tabele
 tposta <- db %>% tbl("kraj")
@@ -30,7 +32,8 @@ racuni <- toseba %>% inner_join(tracun, by=c("emso"="lastnik")) %>%
 
 racuni %>% data.frame() %>% View()
 
-# S collect() naredimo dejansko poizvedbo. Rezultat lahko pretvorimo v data.frame
+# S collect() naredimo dejansko poizvedbo.
+# Rezultat lahko pretvorimo v data.frame
 tposta %>% collect() %>% 
   data.frame() %>% names()
 
