@@ -39,11 +39,12 @@ def ucitelji_slabi():
 
 
 @get('/ucitelji/')
+@view('ucitelji.html')
 def ucitelji():
     c = baza.cursor()
     c.execute("SELECT id,ime,povezava FROM ucitelj ORDER BY ime")
     # TAKO SE DELA!
-    return template('ucitelji.html', ucitelji=c)
+    return dict(ucitelji=c)
 
 
 
@@ -54,4 +55,4 @@ def ucitelji():
 baza = sqlite3.connect(baza_datoteka, isolation_level=None)
 
 # poženemo strežnik na portu 8080, glej http://localhost:8080/
-run(host='localhost', port=8080)
+run(host='localhost', port=8080, reloader=True)

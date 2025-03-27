@@ -49,6 +49,20 @@ def odjava():
     redirect('/prijava')
 
 
+@get("/google")
+def google():
+    q = request.query.q
+    return f"""
+    <html>
+        <form action="/google" method="GET">
+            <input name="q" type="text" />
+            <input type="submit" value="Išči" />
+        </form>
+
+        <a href="https://www.google.com/search?q={q}">Poguglaj {q}!</iframe>
+    </html>
+    """
+
 def preveri(uime, geslo):
     return uime=="janez" and geslo=="kranjski"
 
