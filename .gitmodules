@@ -319,3 +319,39 @@
 [submodule "oddaje/2023/openbridge"]
 	path = oddaje/2023/openbridge
 	url = https://github.com/lukaske/openbridge.git
+[submodule "oddaje/2024/Zarbanija"]
+	path = oddaje/2024/Zarbanija
+	url = https://github.com/jostgojkovic/Zarbanija
+[submodule "oddaje/2024/Studentski-dating-app"]
+	path = oddaje/2024/Studentski-dating-app
+	url = https://github.com/mihajan/Studentski-dating-app
+[submodule "oddaje/2024/Marina-Management"]
+	path = oddaje/2024/Marina-Management
+	url = https://github.com/majcufer/Marina-Management
+[submodule "oddaje/2024/OPB-pregledovalec-portfeljev"]
+	path = oddaje/2024/OPB-pregledovalec-portfeljev
+	url = https://github.com/Jaka1504/OPB-pregledovalec-portfeljev
+[submodule "oddaje/2024/OPB_hospital"]
+	path = oddaje/2024/OPB_hospital
+	url = https://github.com/matevzkusterle/OPB_hospital
+[submodule "oddaje/2024/Kalceto"]
+	path = oddaje/2024/Kalceto
+	url = https://github.com/KocijanZ21/Kalceto
+[submodule "oddaje/2024/skeniraj-in-naroci"]
+	path = oddaje/2024/skeniraj-in-naroci
+	url = https://github.com/gzmazek/skeniraj-in-naroci
+[submodule "oddaje/2024/OPB-borza"]
+	path = oddaje/2024/OPB-borza
+	url = https://github.com/rok-lindic/OPB-borza
+[submodule "oddaje/2024/NBA-fantasy-app"]
+	path = oddaje/2024/NBA-fantasy-app
+	url = https://github.com/marci314/NBA-fantasy-app
+[submodule "oddaje/2024/Gibanje_cen"]
+	path = oddaje/2024/Gibanje_cen
+	url = https://github.com/valentinamacek/Gibanje_cen
+[submodule "oddaje/2024/Knjizni-crvicek"]
+	path = oddaje/2024/Knjizni-crvicek
+	url = https://github.com/dominikhrovat14/OPB-Projekt
+[submodule "oddaje/2024/Spletna-prodajalna-Us"]
+	path = oddaje/2024/Spletna-prodajalna-Us
+	url = https://github.com/jostv99/projektna-naloga-OPB
