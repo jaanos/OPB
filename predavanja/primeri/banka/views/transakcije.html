@@ -1,49 +1,25 @@
-%rebase('osnova.html', naslov='Transakcije', stran='transakcije')
+% rebase('osnova.html', stran='transakcije', naslov='Transakcije')
+<div class="container">
+    <h1 class="title">
+        Transakcije
+    </h1>
 
-<h1 class="title">Seznam transakcij</h1>
-
-<div class="level">
-  <div class="level-left">
-    %include('iskalnik.html', stolpci=[0, 1, 2, 3, 4])
-  </div>
+    <table class="table">
+        <tr>
+            <th>ID</th>
+            <th>Račun</th>
+            <th>Znesek</th>
+            <th>Čas</th>
+            <th>Opis</th>
+        </tr>
+        % for transakcija in Transakcija.seznam():
+        <tr>
+            <td>{{transakcija.id}}</td>
+            <td>{{transakcija.racun}}</td>
+            <td>{{transakcija.znesek}}</td>
+            <td>{{transakcija.cas}}</td>
+            <td>{{transakcija.opis}}</td>
+        </tr>
+        % end
+    </table>
 </div>
-
-<table class="table is-striped" id="podatki">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Številka računa</th>
-      <th>Znesek</th>
-      <th>Čas</th>
-      <th>Opis</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    %for transakcija in transakcije:
-    <tr>
-      <td>{{transakcija.id}}</td>
-      <td><a href="{{url('transakcije_na_racunu', stevilka=transakcija['racun_id'])}}">{{transakcija['racun_id']}}</a></td>
-      <td>{{transakcija.znesek}}</td>
-      <td>{{transakcija.cas}}</td>
-      <td>{{transakcija.opis}}</td>
-      <td>
-        <div class="field is-grouped">
-          <a href="{{url('transakcije_uredi', id=transakcija.id)}}" class="button is-primary is-small">
-            <span class="icon is-small">
-              <i class="fas fa-pen"></i>
-            </span>
-          </a>
-          <form action="{{url('transakcije_izbrisi_post', id=transakcija.id)}}" method="POST">
-            <button class="button is-danger is-small">
-              <span class="icon is-small">
-                <i class="fas fa-trash-can"></i>
-              </span>
-            </button>
-          </form>
-        </div>
-      </td>
-    </tr>
-    %end
-  </tbody>
-</table>

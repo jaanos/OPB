@@ -1,12 +1,13 @@
 ---
 marp: true
+style: "@import url('style.css')"
 ---
 
 # Osnove podatkovnih baz
 
 * Predavanja:
   - Janoš Vidali ([janos.vidali@fmf.uni-lj.si](mailto:janos.vidali@fmf.uni-lj.si)), kabinet 1.14
-  - ponedeljek 16-18 v predavalnici 2.02
+  - četrtek 10-12 v predavalnici 3.11
 * Vaje:
   - Gašper Domen Romih ([gasperdomen.romih@fmf.uni-lj.si](mailto:ajda.lampe@fmf.uni-lj.si)), kabinet 4.09
   - četrtek 12-14 v predavalnici 3.11
@@ -68,7 +69,7 @@ Zagotavljajo *trajno* shranjevanje *masovnih* podatkovnih zbirk in pri tem poskr
 # Vrste sistemov za upravljanje podatkovnih baz
 
 * RDBMS
-* Relacijski (MySQL, PostgreSQL, Oracle, SQLite, DB2, MSSQL, ...)
+* Relacijski (MySQL, PostgreSQL, SQLite, Oracle, DB2, MSSQL, ...)
 * NoSQL: grafovski (Neo4j, Titan), dokumentni (MongoDB, Elasticsearch), ključ-vrednost (Dynamo, Bigtable), tabelarične (HBase), ...
 * Pogovorno rečemo sistemu za upravljanje kar "baza"
 
@@ -101,10 +102,11 @@ Zagotavljajo *trajno* shranjevanje *masovnih* podatkovnih zbirk in pri tem poskr
     emso    TEXT PRIMARY KEY,
     ime     TEXT NOT NULL,
     priimek TEXT NOT NULL,
-    ulica   TEXT NOT NULL,
+    naslov  TEXT NOT NULL,
     posta   INTEGER NOT NULL REFERENCES kraj(posta)
   );
   ```
+
 </span>
 
 ---
@@ -141,6 +143,7 @@ Zagotavljajo *trajno* shranjevanje *masovnih* podatkovnih zbirk in pri tem poskr
 * `racun`: sklic na tabelo `racun`, stolpec `stevilka`
 * `znesek`: celoštevilski znesek (poenostavitev: "prave" baze bi imele tu računovodski znesek, ki omogoča pravilno zaokroževanje)
 * `cas`: čas transakcije; poskrbimo, da se avtomatično generira ob vpisu
+* `opis`: neobvezen opis transakcije
   ```sql
   CREATE TABLE transakcija (
     id     INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -165,7 +168,7 @@ CREATE TABLE oseba (
   emso    TEXT PRIMARY KEY,
   ime     TEXT NOT NULL,
   priimek TEXT NOT NULL,
-  ulica   TEXT NOT NULL,
+  naslov  TEXT NOT NULL,
   posta   INTEGER NOT NULL REFERENCES kraj(posta)
 );
 ```
@@ -208,7 +211,7 @@ CREATE TABLE oseba (
   ime     TEXT NOT NULL,
   priimek TEXT NOT NULL,
   rojstvo DATE NOT NULL,
-  ulica   TEXT NOT NULL,
+  naslov  TEXT NOT NULL,
   posta   INTEGER NOT NULL REFERENCES kraj(posta)
 );
 ```

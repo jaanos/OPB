@@ -21,7 +21,7 @@ CREATE TABLE oseba (
   emso    TEXT PRIMARY KEY,
   ime     TEXT NOT NULL,
   priimek TEXT NOT NULL,
-  ulica   TEXT NOT NULL,
+  naslov  TEXT NOT NULL,
   posta   INTEGER NOT NULL REFERENCES kraj(posta)
 );
 

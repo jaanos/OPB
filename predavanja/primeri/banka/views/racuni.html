@@ -1,40 +1,19 @@
-%rebase('osnova.html', naslov='Računi', stran='racuni')
+% rebase('osnova.html', stran='racuni', naslov='Računi')
+<div class="container">
+    <h1 class="title">
+        Računi
+    </h1>
 
-<h1 class="title">Seznam bančnih računov</h1>
-
-<div class="level">
-  <div class="level-left">
-    %include('iskalnik.html', stolpci=[0, 1, 2])
-  </div>
+    <table class="table">
+        <tr>
+            <th>Številka</th>
+            <th>Lastnik</th>
+        </tr>
+        % for racun in Racun.seznam():
+        <tr>
+            <td>{{racun.stevilka}}</td>
+            <td>{{racun.lastnik.ime}} {{racun.lastnik.priimek}} ({{racun.lastnik.emso}})</td>
+        </tr>
+        % end
+    </table>
 </div>
-
-<table class="table is-striped" id="podatki">
-  <thead>
-    <tr>
-      <th>Komitent</th>
-      <th>Številka računa</th>
-      <th>Stanje na računu</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    %for racun in racuni:
-    <tr>
-      <td><a href="{{url('racuni_osebe', emso=racun.oseba_id.emso)}}">{{racun.oseba_id}}</a></td>
-      <td><a href="{{url('transakcije_na_racunu', stevilka=racun.stevilka)}}">{{racun.stevilka}}</a></td>
-      <td>{{racun.stanje}}</td>
-      <td>
-        <div class="field is-grouped">
-          <form action="{{url('racuni_izbrisi_post', stevilka=racun.stevilka)}}" method="POST">
-            <button class="button is-danger is-small">
-              <span class="icon is-small">
-                <i class="fas fa-trash-can"></i>
-              </span>
-            </button>
-          </form>
-        </div>
-      </td>
-    </tr>
-    %end
-  </tbody>
-</table>

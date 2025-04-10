@@ -1,0 +1,57 @@
+%rebase('osnova.html', naslov='Kraji', stran='kraji')
+
+<h1 class="title">Šifrant pošt</h1>
+
+<div class="grid">
+  <div class="cell is-col-span-2">
+    <div class="level">
+      <div class="level-left">
+        %include('iskalnik.html', stolpci=[0, 1])
+      </div>
+    </div>
+    
+    <table class="table is-striped" id="podatki">
+      <thead>
+        <tr>
+          <th>Poštna številka</th>
+          <th>Kraj</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        %for kraj in kraji:
+        <tr>
+          <td>{{kraj.posta}}</td>
+          <td>{{kraj.kraj}}</td>
+          <td>
+            <div class="field is-grouped">
+              <a href="{{url('kraji_uredi', posta=kraj.posta)}}" class="button is-primary is-small">
+                <span class="icon is-small">
+                  <i class="fas fa-pen"></i>
+                </span>
+              </a>
+              <form action="{{url('kraji_izbrisi_post', posta=kraj.posta)}}" method="POST">
+                <button class="button is-danger is-small">
+                  <span class="icon is-small">
+                    <i class="fas fa-trash-can"></i>
+                  </span>
+                </button>
+              </form>
+            </div>
+          </td>
+        </tr>
+        %end
+      </tbody>
+    </table>    
+  </div>
+  <div class="cell">
+    <form action="{{url('kraji_dodaj_post')}}" method="POST">
+      %include('kraji_obrazec.html', kraj=Kraj.ustvari(**preberi_obrazec('kraji')))
+      <div class="field">
+        <div class="control">
+          <button class="button is-link">Dodaj</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

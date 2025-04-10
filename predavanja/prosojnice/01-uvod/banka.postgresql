@@ -22,7 +22,7 @@ CREATE TABLE oseba (
   ime     TEXT NOT NULL,
   priimek TEXT NOT NULL,
   rojstvo DATE NOT NULL,
-  ulica   TEXT NOT NULL,
+  naslov  TEXT NOT NULL,
   posta   INTEGER NOT NULL REFERENCES kraj(posta)
 );
 

@@ -1,114 +1,81 @@
 % setdefault('naslov', 'Banka')
-% sporocilo = preberi_sporocilo()
-% if not defined('uporabnik'):
-%   uporabnik = prijavljeni_uporabnik()
-% end
 
-<!doctype html>
-<html lang="sl">
-  <head>
+<!DOCTYPE html>
+<html>
+
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{naslov}}</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css" />
-    <link rel="stylesheet" href="{{url('static', filename='stili.css')}}">
-    <script>
-      document.addEventListener('DOMContentLoaded', () => {
-          (document.querySelectorAll('.notification .delete') || []).forEach(($delete) => {
-              const $notification = $delete.parentNode;
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+</head>
 
-              $delete.addEventListener('click', () => {
-                  $notification.parentNode.removeChild($notification);
-              });
-          });
-      });
-    </script>
-    <script src="{{url('static', filename='banka.js')}}"></script>
-  </head>
-  <body>
+<body>
     <nav class="navbar" role="navigation" aria-label="main navigation">
-      <div class="navbar-menu">
-        <div class="navbar-start">
-          <a class="navbar-item {{'is-selected' if stran == 'index' else ''}}" href="{{url('index')}}">Banka</a>
-          %if uporabnik.admin:
-          <a class="navbar-item {{'is-selected' if stran == 'kraji' else ''}}" href="{{url('kraji')}}">Kraji</a>
-          %end
-          %if uporabnik:
-          <div class="navbar-item has-dropdown is-hoverable">
-            <a class="navbar-link">Komitenti</a>
-            <div class="navbar-dropdown">
-              <a class="navbar-item {{'is-selected' if stran == 'komitenti_uredi' else ''}}" href="{{url('komitenti_uredi', emso=uporabnik.emso)}}">
-                Moji podatki
-              </a>
-              % if uporabnik.admin:
-              <hr class="navbar-divider">
-              <a class="navbar-item {{'is-selected' if stran == 'komitenti' else ''}}" href="{{url('komitenti')}}">
-                Seznam komitentov
-              </a>
-              %end
+        <div class="navbar-brand">
+            <a class="navbar-item {{'is-selected' if stran == 'index' else ''}}" href="{{url('index')}}">
+                Banka
+            </a>
+        </div>
+
+        <div id="navbarBasicExample" class="navbar-menu">
+            <div class="navbar-start">
+                <a class="navbar-item {{'is-selected' if stran == 'kraji' else ''}}" href="{{url('kraji')}}">
+                    Kraji
+                </a>
+
+                <a class="navbar-item {{'is-selected' if stran == 'komitenti' else ''}}" href="{{url('komitenti')}}">
+                    Komitenti
+                </a>
+
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <a class="navbar-link">
+                        Računi
+                    </a>
+
+                    <div class="navbar-dropdown">
+                        <a class="navbar-item">
+                            Moji računi
+                        </a>
+                        <a class="navbar-item {{'is-selected' if stran == 'racuni' else ''}}" href="{{url('racuni')}}">
+                            Seznam računov
+                        </a>
+                    </div>
+                </div>
+
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <a class="navbar-link">
+                        Transakcije
+                    </a>
+
+                    <div class="navbar-dropdown">
+                        <a class="navbar-item">
+                            Moje transakcije
+                        </a>
+                        <a class="navbar-item {{'is-selected' if stran == 'transakcije' else ''}}" href="{{url('transakcije')}}">
+                            Seznam transakcij
+                        </a>
+                    </div>
+                </div>
             </div>
-          </div>
-          %end
-          %if uporabnik:
-          <div class="navbar-item has-dropdown is-hoverable">
-            <a class="navbar-link">Računi</a>
-            <div class="navbar-dropdown">
-              <a class="navbar-item {{'is-selected' if stran == 'racuni_osebe' else ''}}" href="{{url('racuni_osebe', emso=uporabnik.emso)}}">
-                Moji računi
-              </a>
-              % if uporabnik.admin:
-              <hr class="navbar-divider">
-              <a class="navbar-item {{'is-selected' if stran == 'racuni' else ''}}" href="{{url('racuni')}}">
-                Seznam računov
-              </a>
-              %end
+
+            <div class="navbar-end">
+                <div class="navbar-item">
+                    <div class="buttons">
+                        <a class="button is-primary">
+                            <strong>Registracija</strong>
+                        </a>
+                        <a class="button is-light">
+                            Prijava
+                        </a>
+                    </div>
+                </div>
             </div>
-          </div>
-          %end
-          %if uporabnik.admin:
-          <a class="navbar-item {{'is-selected' if stran == 'transakcije' else ''}}" href="{{url('transakcije')}}">Transakcije</a>
-          %end
         </div>
-      </div>
-      <div class="navbar-end">
-        % if uporabnik:
-        <div class="navbar-item">
-          <div class="buttons">
-            <a class="button is-light">
-              <strong>{{uporabnik.up_ime}}</strong>
-            </a>
-            <form action="{{url('odjava_post')}}" method="POST">
-              <button class="button is-primary">
-                Odjava
-              </button>
-            </form>
-          </div>
-        </div>
-        % else:
-        <div class="navbar-item">
-          <div class="buttons">
-            <a class="button is-primary" href="{{url('registracija')}}">
-              <strong>Registracija</strong>
-            </a>
-            <a class="button is-light" href="{{url('prijava')}}">
-              Prijava
-            </a>
-          </div>
-        </div>
-        % end
-      </div>
     </nav>
-    % if sporocilo:
-    <div class="notification is-danger is-light">
-      <button class="delete"></button>
-      {{sporocilo}}
-    </div>
-    % end
     <section class="section">
-      <div class="container">
         {{!base}}
-      </div>
     </section>
-  </body>
+</body>
+
 </html>

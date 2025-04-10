@@ -1,0 +1,54 @@
+%rebase('osnova.html', naslov='Komitenti', stran='komitenti')
+
+<h1 class="title">Komitenti banke</h1>
+
+<div class="level">
+  <div class="level-left">
+    %include('iskalnik.html', stolpci=[0, 1, 2, 3, 4])
+  </div>
+  <div class="level-right">
+    <div class="buttons">
+      <a class="button is-link" href="{{url('komitenti_dodaj')}}">Dodaj</a>
+    </div>
+  </div>
+</div>
+
+<table class="table is-striped" id="podatki">
+  <thead>
+    <tr>
+      <th>EMŠO</th>
+      <th>Ime</th>
+      <th>Priimek</th>
+      <th>Naslov</th>
+      <th>Kraj</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    %for oseba in komitenti:
+    <tr>
+      <td><a href="{{url('racuni_osebe', emso=oseba.emso)}}">{{oseba.emso}}</a></td>
+      <td>{{oseba.ime}}</td>
+      <td>{{oseba.priimek}}</td>
+      <td>{{oseba.naslov}}</td>
+      <td>{{oseba.kraj_id}}</td>
+      <td>
+        <div class="field is-grouped">
+          <a href="{{url('komitenti_uredi', emso=oseba.emso)}}" class="button is-primary is-small">
+            <span class="icon is-small">
+              <i class="fas fa-pen"></i>
+            </span>
+          </a>
+          <form action="{{url('komitenti_izbrisi_post', emso=oseba.emso)}}" method="POST">
+            <button class="button is-danger is-small">
+              <span class="icon is-small">
+                <i class="fas fa-trash-can"></i>
+              </span>
+            </button>
+          </form>
+        </div>
+      </td>
+    </tr>
+    %end
+  </tbody>
+</table>

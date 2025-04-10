@@ -36,3 +36,4 @@ Repozitorij z gradivi za predmet Osnove podatkovnih baz (izbirni predmet na dodi
 * Projekti iz leta [2021](oddaje/2021)
 * Projekti iz leta [2022](oddaje/2022)
 * Projekti iz leta [2023](oddaje/2023)
+* Projekti iz leta [2024](oddaje/2024)
