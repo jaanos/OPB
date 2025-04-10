@@ -87,6 +87,15 @@ class Entiteta:
         self.__dbid = self[self.glavni_kljuc().name]
 
     @classmethod
+    def iz_baze(cls, *largs, **kwargs):
+        """
+        Ustvari entiteto s podatki iz baze.
+        """
+        self = cls(*largs, **kwargs)
+        self.__nastavi_id()
+        return self
+
+    @classmethod
     def ustvari_tabelo(cls, pobrisi=False, ce_ne_obstaja=False):
         """
         Ustvari tabelo v bazi.
@@ -183,6 +192,26 @@ class Entiteta:
                     ), ({stolpec: (podatek if podatek else None)
                          for stolpec, podatek in zip(stolpci, vrstica)}
                         for vrstica in rd))
+                    stevci = [stolpec.name for stolpec in fields(cls)
+                              if stolpec.metadata["stevec"]
+                              and stolpec.name in stolpci]
+                    if stevci:
+                        cur.execute(sql.SQL("""
+                                SELECT {stolpci} FROM {tabela};
+                            """).format(stolpci=sql.SQL(", ").join(
+                                            sql.SQL("MAX({stolpec})").format(
+                                                stolpec=sql.Identifier(stolpec)
+                                            )
+                                            for stolpec in stevci
+                                        ),
+                                        tabela=sql.Identifier(cls.tabela())))
+                        for stolpec, vrednost in zip(stevci, cur.fetchone()):
+                            cur.execute(sql.SQL("""
+                                    ALTER SEQUENCE {stevec} RESTART WITH {vrednost};
+                                """).format(stevec=sql.Identifier(
+                                                f"{cls.tabela()}_{stolpec}_seq"
+                                            ),
+                                            vrednost=sql.Literal(vrednost + 1)))
 
     @classmethod
     def z_id(cls, id):
@@ -194,18 +223,15 @@ class Entiteta:
                 SELECT {stolpci} FROM {tabela}
                 WHERE {glavni_kljuc} = {id};
             """).format(
-                stolpci=VEJICA.join(sql.Identifier(stolpec.name)
-                                    for stolpec in fields(cls)),
-                tabela=sql.Identifier(cls.tabela()),
+                stolpci=VEJICA.join(cls._stolpci()),
+                tabela=cls._tabela(),
                 glavni_kljuc=sql.Identifier(cls.glavni_kljuc().name),
                 id=sql.Literal(id)
             ))
             vrstica = cur.fetchone()
             if not vrstica:
                 raise ValueError(f'{cls.__name__} z ID-jem {id} ne obstaja!')
-            self = cls(*vrstica)
-            self.__nastavi_id()
-            return self
+            return cls._objekt(vrstica)
 
     def vstavi(self):
         """
@@ -290,3 +316,38 @@ class Entiteta:
                     id=sql.Literal(self.__dbid)
                 ))
                 self.__dbid = None
+
+    @classmethod
+    def seznam(cls):
+        """
+        Vrni seznam entitet iz baze.
+        """
+        with conn.cursor() as cur:
+            cur.execute(sql.SQL("""
+                SELECT {stolpci} FROM {tabela};
+            """).format(
+                stolpci=VEJICA.join(cls._stolpci()),
+                tabela=cls._tabela()
+            ))
+            yield from (cls._objekt(vrstica) for vrstica in cur)
+
+    @classmethod
+    def _stolpci(cls):
+        """
+        Vrni zaporedje stolpcev za branje iz baze.
+        """
+        yield from (sql.Identifier(stolpec.name) for stolpec in fields(cls))
+
+    @classmethod
+    def _tabela(cls):
+        """
+        Vrni izraz za tabelo za branje iz baze.
+        """
+        return sql.Identifier(cls.tabela())
+
+    @classmethod
+    def _objekt(cls, vrstica):
+        """
+        Vrni objekt po branju iz baze.
+        """
+        return cls.iz_baze(*vrstica)

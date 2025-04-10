@@ -1,0 +1,21 @@
+% rebase('osnova.html', stran='komitenti', naslov='Komitenti')
+<div class="container">
+    <h1 class="title">
+        Komitenti
+    </h1>
+
+    <table class="table">
+        <tr>
+            <th>EMŠO</th>
+            <th>Ime in priimek</th>
+            <th>Naslov</th>
+        </tr>
+        % for oseba in Oseba.seznam():
+        <tr>
+            <td>{{oseba.emso}}</td>
+            <td>{{oseba.ime}} {{oseba.priimek}}</td>
+            <td>{{oseba.naslov}}, {{oseba.kraj.posta}} {{oseba.kraj.kraj}}</td>
+        </tr>
+        % end
+    </table>
+</div>

@@ -1,0 +1,19 @@
+% rebase('osnova.html', stran='kraji', naslov='Kraji')
+<div class="container">
+    <h1 class="title">
+        Kraji
+    </h1>
+
+    <table class="table">
+        <tr>
+            <th>Poštna številka</th>
+            <th>Kraj</th>
+        </tr>
+        % for kraj in Kraj.seznam():
+        <tr>
+            <td>{{kraj.posta}}</td>
+            <td>{{kraj.kraj}}</td>
+        </tr>
+        % end
+    </table>
+</div>

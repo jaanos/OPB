@@ -1,0 +1,19 @@
+% rebase('osnova.html', stran='racuni', naslov='Računi')
+<div class="container">
+    <h1 class="title">
+        Računi
+    </h1>
+
+    <table class="table">
+        <tr>
+            <th>Številka</th>
+            <th>Lastnik</th>
+        </tr>
+        % for racun in Racun.seznam():
+        <tr>
+            <td>{{racun.stevilka}}</td>
+            <td>{{racun.lastnik.ime}} {{racun.lastnik.priimek}} ({{racun.lastnik.emso}})</td>
+        </tr>
+        % end
+    </table>
+</div>

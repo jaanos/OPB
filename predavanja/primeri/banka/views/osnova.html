@@ -1,0 +1,81 @@
+% setdefault('naslov', 'Banka')
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{naslov}}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+</head>
+
+<body>
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item {{'is-selected' if stran == 'index' else ''}}" href="{{url('index')}}">
+                Banka
+            </a>
+        </div>
+
+        <div id="navbarBasicExample" class="navbar-menu">
+            <div class="navbar-start">
+                <a class="navbar-item {{'is-selected' if stran == 'kraji' else ''}}" href="{{url('kraji')}}">
+                    Kraji
+                </a>
+
+                <a class="navbar-item {{'is-selected' if stran == 'komitenti' else ''}}" href="{{url('komitenti')}}">
+                    Komitenti
+                </a>
+
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <a class="navbar-link">
+                        Računi
+                    </a>
+
+                    <div class="navbar-dropdown">
+                        <a class="navbar-item">
+                            Moji računi
+                        </a>
+                        <a class="navbar-item {{'is-selected' if stran == 'racuni' else ''}}" href="{{url('racuni')}}">
+                            Seznam računov
+                        </a>
+                    </div>
+                </div>
+
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <a class="navbar-link">
+                        Transakcije
+                    </a>
+
+                    <div class="navbar-dropdown">
+                        <a class="navbar-item">
+                            Moje transakcije
+                        </a>
+                        <a class="navbar-item {{'is-selected' if stran == 'transakcije' else ''}}" href="{{url('transakcije')}}">
+                            Seznam transakcij
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="navbar-end">
+                <div class="navbar-item">
+                    <div class="buttons">
+                        <a class="button is-primary">
+                            <strong>Registracija</strong>
+                        </a>
+                        <a class="button is-light">
+                            Prijava
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <section class="section">
+        {{!base}}
+    </section>
+</body>
+
+</html>
