@@ -24,7 +24,7 @@ plugins: mathjax
 * VirtualBox - program za virtualizacijo (Oracle).
 * Iz spleta naložimo program [VirtualBox](https://www.virtualbox.org/).
 * Iz spleta naložimo sliko `.iso` za namestitev operacijskega sistema [Linux Ubuntu Server](https://www.ubuntu.com/download/server).
-* Po [navodilih](https://linuxhint.com/install-ubuntu22-04-virtual-box/) nastavimo virtualni računalnik in namestimo Linux.
+* Po [navodilih](https://itslinuxguide.com/install-ubuntu-virtualbox/) nastavimo virtualni računalnik in namestimo Linux.
 * POZOR: za uporabnika nastavimo uporabniško ime `ubuntu` in dogovorjeno geslo.
 
 ---
@@ -52,7 +52,7 @@ plugins: mathjax
 
 ---
 
-# [Namestitev PostgreSQL](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-22-04)
+# [Namestitev PostgreSQL](https://www.commandprompt.com/education/how-to-install-postgresql-on-ubuntu-2404/)
 
 * Nameščanje na Ubuntu izvajamo preko paketnega sistema in ukaza `apt`.
   ```bash
@@ -88,6 +88,8 @@ plugins: mathjax
 
 # Program `psql`
 
+<span class="small">
+
 * Program za priklop na bazo - `psql`. Priklop na bazo kot uporabnik `postgres`.
   ```bash
   psql
@@ -101,11 +103,15 @@ plugins: mathjax
 * `\conninfo` - parametri priklopa na bazo
 * `\du` - pregled vlog na bazi
 * `\d` - pregled tabel
-* `\?` - pomoč z izpisom vsah ukazov v `psql`
+* `\?` - pomoč z izpisom vseh ukazov v `psql`
+
+</span>
 
 ---
 
 # Uporabniki na bazi
+
+<span class="small">
 
 * Na bazo se priklopimo z zadostnimi pravicami.
 * Npr. na Linuxu pod uporabniškim imenom `postgres` zaženemo klienta `psql`.
@@ -120,6 +126,8 @@ plugins: mathjax
   CREATE ROLE ime_vloge WITH LOGIN;
   ```
 * Vlogam dodeljujemo pravice, vlogo lahko obravnavamo kot uporabnika (če ima pravico `WITH LOGIN`) ali kot skupino.
+
+</small>
 
 ---
 
@@ -358,7 +366,7 @@ plugins: mathjax
   ```
   - Urejevalnik zaženemo npr. kot
     ```bash
-    nano /etc/postgresql/14/main/postgresql.conf
+    nano /etc/postgresql/16/main/postgresql.conf
     ```
 
 ---
@@ -379,7 +387,7 @@ plugins: mathjax
   ```
   - Urejevalnik zaženemo npr. kot
     ```bash
-    nano /etc/postgresql/14/main/pg_hba.conf
+    nano /etc/postgresql/16/main/pg_hba.conf
     ```
 
 ---
@@ -405,6 +413,8 @@ plugins: mathjax
 
 # Priklop preko PgAdmin 4
 
+<span class="small">
+
 * Virtualni strežnik mora imeti mrežni vmesnik nastavljen na `Bridged Adapter`, t.j., na isti mreži, kot je naš računalnik.
 * Za priklop rabimo naslov strežnika (`host`), uporabnika (`user`), njegovo geslo in ime podatkovne baze, na katero se priklapljamo.
 * IP številko virtualnega računalnika dobimo z ukazom v terminalu:
@@ -418,6 +428,8 @@ plugins: mathjax
   ```
 
 * V nadaljevanju bomo komunicirali s podatkovno bazo preko PgAdmin 4.
+
+</small>
 
 ---
 
@@ -517,12 +529,16 @@ COMMIT;
 
 # Nivo izolacije
 
+<span class="small">
+
 * Problemi:
   - *umazano branje* - preberemo nepotrjene podatke.
   - *neponovljivo branje* - v transakciji večkrat beremo iste podatke, a se je nek podatek vmes spremenil.
   - *fantomsko branje* - v transakciji večkrat naredimo isto poizvedbo in zaradi spremembe podatkov dobimo več ali manj vrstic.
 * Nivoji izolacije:
   ![height:250px](slike/nivoji_izolacije.png)
+
+</small>
 
 ---
 
