@@ -251,71 +251,91 @@ class Entiteta:
                     podatki.append(sql.Literal(vrednost))
             elif stolpec.metadata["stevec"]:
                 generirani.append(stolpec.name)
-        with conn.transaction():
-            with conn.cursor() as cur:
-                cur.execute(sql.SQL("""
-                    INSERT INTO {tabela} ({stolpci}) VALUES ({podatki})
-                    {generirano};
-                """).format(
-                    tabela=sql.Identifier(self.tabela()),
-                    stolpci=VEJICA.join(sql.Identifier(stolpec)
-                                        for stolpec in stolpci),
-                    podatki=VEJICA.join(podatki),
-                    generirano=sql.SQL("RETURNING {generirani}").format(
-                        generirani=VEJICA.join(sql.Identifier(stolpec)
-                                               for stolpec in generirani)
-                    ) if generirani else PRAZNO
-                ))
-                if generirani:
-                    for kljuc, vrednost in zip(generirani, cur.fetchone()):
-                        setattr(self, kljuc, vrednost)
-                self.__nastavi_id()
+        try:
+            with conn.transaction():
+                with conn.cursor() as cur:
+                    cur.execute(sql.SQL("""
+                        INSERT INTO {tabela} ({stolpci}) VALUES ({podatki})
+                        {generirano};
+                    """).format(
+                        tabela=sql.Identifier(self.tabela()),
+                        stolpci=VEJICA.join(sql.Identifier(stolpec)
+                                            for stolpec in stolpci),
+                        podatki=VEJICA.join(podatki),
+                        generirano=sql.SQL("RETURNING {generirani}").format(
+                            generirani=VEJICA.join(sql.Identifier(stolpec)
+                                                   for stolpec in generirani)
+                        ) if generirani else PRAZNO
+                    ))
+                    if generirani:
+                        for kljuc, vrednost in zip(generirani, cur.fetchone()):
+                            setattr(self, kljuc, vrednost)
+                    self.__nastavi_id()
+        except errors.IntegrityError:
+            raise ValueError(f'Napaka pri vstavljanju {self.__class__.__name__} z ID-jem {id}!')
+        except errors.DataError:
+            raise TypeError(f'Napaka pri vstavljanju {self.__class__.__name__} z ID-jem {id}!')
 
     def posodobi(self):
         """
         Posodobi entiteto v bazi.
         """
         assert self.__dbid is not None, "Entiteta še ni v bazi!"
-        with conn.transaction():
-            with conn.cursor() as cur:
-                cur.execute(sql.SQL("""
-                    UPDATE {tabela} SET {vrednosti}
-                    WHERE {glavni_kljuc} = {id};
-                """).format(
-                    tabela=sql.Identifier(self.tabela()),
-                    vrednosti=VEJICA.join(
-                        sql.SQL("""
-                            {stolpec} = {vrednost}
-                        """).format(
-                            stolpec=sql.Identifier(stolpec.name),
-                            vrednost=vrednost.niz
-                                if isinstance(vrednost, Funkcija)
-                                else sql.Literal(vrednost)
-                        )
-                        for stolpec in fields(self)
-                        for vrednost in [self[stolpec.name]]
-                    ),
-                    glavni_kljuc=sql.Identifier(self.glavni_kljuc().name),
-                    id=sql.Literal(self.__dbid)
-                ))
-                self.__nastavi_id()
+        try:
+            with conn.transaction():
+                with conn.cursor() as cur:
+                    cur.execute(sql.SQL("""
+                        UPDATE {tabela} SET {vrednosti}
+                        WHERE {glavni_kljuc} = {id};
+                    """).format(
+                        tabela=sql.Identifier(self.tabela()),
+                        vrednosti=VEJICA.join(
+                            sql.SQL("""
+                                {stolpec} = {vrednost}
+                            """).format(
+                                stolpec=sql.Identifier(stolpec.name),
+                                vrednost=vrednost.niz
+                                    if isinstance(vrednost, Funkcija)
+                                    else sql.Literal(vrednost)
+                            )
+                            for stolpec in fields(self)
+                            for vrednost in [self[stolpec.name]]
+                        ),
+                        glavni_kljuc=sql.Identifier(self.glavni_kljuc().name),
+                        id=sql.Literal(self.__dbid)
+                    ))
+                    self.__nastavi_id()
+        except errors.IntegrityError:
+            raise ValueError(f'Napaka pri posodabljanju {self.__class__.__name__} z ID-jem {id}!')
+        except errors.DataError:
+            raise TypeError(f'Napaka pri posodabljanju {self.__class__.__name__} z ID-jem {id}!')
 
     def izbrisi(self):
         """
         Izbriši entiteto iz baze.
         """
         assert self.__dbid is not None, "Entiteta še ni v bazi!"
-        with conn.transaction():
-            with conn.cursor() as cur:
-                cur.execute(sql.SQL("""
-                    DELETE FROM {tabela}
-                    WHERE {glavni_kljuc} = {id};
-                """).format(
-                    tabela=sql.Identifier(self.tabela()),
-                    glavni_kljuc=sql.Identifier(self.glavni_kljuc().name),
-                    id=sql.Literal(self.__dbid)
-                ))
-                self.__dbid = None
+        try:
+            with conn.transaction():
+                with conn.cursor() as cur:
+                    cur.execute(sql.SQL("""
+                        DELETE FROM {tabela}
+                        WHERE {glavni_kljuc} = {id};
+                    """).format(
+                        tabela=sql.Identifier(self.tabela()),
+                        glavni_kljuc=sql.Identifier(self.glavni_kljuc().name),
+                        id=sql.Literal(self.__dbid)
+                    ))
+                    self.__dbid = None
+        except errors.IntegrityError:
+            raise ValueError(f'Napaka pri brisanju {self.__class__.__name__} z ID-jem {id}!')
+
+    @classmethod
+    def izbrisi_id(cls, id):
+        """
+        Izbriši entiteto s podanim ID-jem iz baze.
+        """
+        cls.iz_baze(**{cls.glavni_kljuc().name: id}).izbrisi()
 
     @classmethod
     def seznam(cls):
