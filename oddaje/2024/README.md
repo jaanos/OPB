@@ -47,3 +47,7 @@
 ## Gibanje cen
 * Avtorica: Valentina Maček
 * Repozitorij: <https://github.com/valentinamacek/Gibanje_cen>
+
+## Bolder Radar
+* Avtorica: Živa Morana Kocijan
+* Repozitorij: <https://github.com/KocijanZ21/BolderRadar.git>
