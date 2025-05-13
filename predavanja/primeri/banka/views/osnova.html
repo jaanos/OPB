@@ -1,4 +1,5 @@
 % setdefault('naslov', 'Banka')
+% sporocilo = preberi_sporocilo()
 
 <!DOCTYPE html>
 <html>
@@ -8,10 +9,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{naslov}}</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+    <link rel="stylesheet" href="https://bulma.io/vendor/fontawesome-free-6.5.2-web/css/all.min.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            (document.querySelectorAll('.notification .delete') || []).forEach(($delete) => {
+                    const $notification = $delete.parentNode;
+
+                    $delete.addEventListener('click', () => {
+                    $notification.parentNode.removeChild($notification);
+                });
+            });
+        });
+    </script>
 </head>
 
 <body>
-    <nav class="navbar" role="navigation" aria-label="main navigation">
+    <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
             <a class="navbar-item {{'is-selected' if stran == 'index' else ''}}" href="{{url('index')}}">
                 Banka
@@ -73,6 +86,12 @@
             </div>
         </div>
     </nav>
+    % if sporocilo:
+    <div class="notification is-warning">
+        <button class="delete"></button>
+        {{sporocilo}}
+    </div>
+    % end
     <section class="section">
         {{!base}}
     </section>

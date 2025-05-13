@@ -11,6 +11,7 @@
             <th>Znesek</th>
             <th>Čas</th>
             <th>Opis</th>
+            <th></th>
         </tr>
         % for transakcija in Transakcija.seznam():
         <tr>
@@ -19,6 +20,16 @@
             <td>{{transakcija.znesek}}</td>
             <td>{{transakcija.cas}}</td>
             <td>{{transakcija.opis}}</td>
+            <td>
+                <form action="{{url('izbrisi_transakcijo', id=transakcija.id)}}" method="POST"
+                  onsubmit="return confirm('Ali res želi izbrisati transakcijo z ID-jem {{transakcija.id}}?')">
+                    <button class="button is-danger">
+                        <span class="icon is-small">
+                            <i class="fas fa-trash"></i>
+                        </span>
+                    </button>
+                </form>
+            </td>
         </tr>
         % end
     </table>

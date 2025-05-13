@@ -8,11 +8,22 @@
         <tr>
             <th>Številka</th>
             <th>Lastnik</th>
+            <th></th>
         </tr>
         % for racun in Racun.seznam():
         <tr>
             <td>{{racun.stevilka}}</td>
             <td>{{racun.lastnik.ime}} {{racun.lastnik.priimek}} ({{racun.lastnik.emso}})</td>
+            <td>
+                <form action="{{url('izbrisi_racun', stevilka=racun.stevilka)}}" method="POST"
+                  onsubmit="return confirm('Ali res želi izbrisati račun s številko {{racun.stevilka}}?')">
+                    <button class="button is-danger">
+                        <span class="icon is-small">
+                            <i class="fas fa-trash"></i>
+                        </span>
+                    </button>
+                </form>
+            </td>
         </tr>
         % end
     </table>

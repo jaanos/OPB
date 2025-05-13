@@ -9,12 +9,23 @@
             <th>EMŠO</th>
             <th>Ime in priimek</th>
             <th>Naslov</th>
+            <th></th>
         </tr>
         % for oseba in Oseba.seznam():
         <tr>
             <td>{{oseba.emso}}</td>
             <td>{{oseba.ime}} {{oseba.priimek}}</td>
             <td>{{oseba.naslov}}, {{oseba.kraj.posta}} {{oseba.kraj.kraj}}</td>
+            <td>
+                <form action="{{url('izbrisi_komitenta', emso=oseba.emso)}}" method="POST"
+                  onsubmit="return confirm('Ali res želi izbrisati komitenta z EMŠOm {{oseba.emso}}?')">
+                    <button class="button is-danger">
+                        <span class="icon is-small">
+                            <i class="fas fa-trash"></i>
+                        </span>
+                    </button>
+                </form>
+            </td>
         </tr>
         % end
     </table>
