@@ -1,0 +1,19 @@
+% rebase('osnova.html', stran='kraji_uredi', naslov='Uredi kraj')
+% posta = kraj.posta
+% kraj = preberi_obrazec(f'kraji_uredi_{kraj.posta}', kraj)
+
+<h1 class="title">
+    Uredi kraj
+</h1>
+
+<form action="{{url('kraji_uredi_post', posta=posta)}}" method="POST">
+    % include('kraji.obrazec.html')
+    <div class="field is-grouped">
+        <div class="control">
+            <button class="button is-link">Uredi</button>
+        </div>
+        <div class="control">
+            <a class="button is-link is-light" href="{{url('kraji')}}">Prekliči</a>
+        </div>
+    </div>
+</form>

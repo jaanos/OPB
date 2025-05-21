@@ -1,6 +1,8 @@
-from model import Kraj, Oseba, Racun, Transakcija, vzpostavi_povezavo
+from functools import wraps
+from model import Entiteta, Kraj, Oseba, Racun, Transakcija, vzpostavi_povezavo
 import bottle
 import bottleext
+import json
 import os
 
 
@@ -52,13 +54,131 @@ def preberi_sporocilo():
     return preberi_piskotek('sporocilo', izbrisi=True)
 
 
+def nastavi_obrazec(piskotek, objekt):
+    """
+    Nastavi piškotek s polji objekta.
+    """
+    nastavi_piskotek(piskotek, json.dumps(objekt.slovar()))
+
+
+def preberi_obrazec(piskotek, obj):
+    """
+    Vrni objekt iz piškotka in ga pobriši.
+    """
+    try:
+        slovar = json.loads(preberi_piskotek(piskotek, izbrisi=True))
+        if isinstance(obj, Entiteta):
+            obj.posodobi_polja(**slovar)
+            return obj
+        else:
+            return obj(**slovar)
+    except (TypeError, json.JSONDecodeError):
+        return obj if isinstance(obj, Entiteta) else obj.NULL
+
+
+def prijavljeni_uporabnik():
+    """
+    Vrni prijavljenega uporabnika z ID-jem iz piškotka.
+    """
+    try:
+        return Oseba.z_id(preberi_piskotek('uporabnik'))
+    except ValueError:
+        return Oseba.NULL
+
+
+def prijavi_uporabnika(uporabnik, geslo, piskotek=None):
+    """
+    Nastavi piškotek na podanega uporabnika.
+    """
+    if not uporabnik or not uporabnik.preveri_geslo(geslo):
+        nastavi_sporocilo("Prijava ni bila uspešna!")
+        if piskotek:
+            nastavi_obrazec(piskotek, uporabnik)
+        bottle.redirect(bottle.url('prijava'))
+    nastavi_piskotek('uporabnik', uporabnik.emso)
+    bottle.redirect(bottle.url('index'))
+
+
+def odjavi_uporabnika():
+    """
+    Pobriši piškotek z ID-jem prijavljenega uporabnika.
+    """
+    pobrisi_piskotek('uporabnik')
+    bottle.redirect(bottle.url('index'))
+
+
+def status(preveri):
+    """
+    Vrni dekorator, ki preveri prijavljenega uporabnika v skladu s podano
+    funkcijo in elemente vrnjenega zaporedja preda kot začetne argumente
+    dekorirani funkciji.
+    """
+    @wraps(preveri)
+    def decorator(fun):
+        @wraps(fun)
+        def wrapper(*largs, **kwargs):
+            uporabnik = prijavljeni_uporabnik()
+            out = fun(*preveri(uporabnik), *largs, **kwargs)
+            if out is None:
+                out = {}
+            if isinstance(out, dict):
+                out['uporabnik'] = uporabnik
+            return out
+        return wrapper
+    return decorator
+
+
+@status
+def admin(uporabnik):
+    """
+    Preveri, ali ima uporabnik administratorske pravice.
+
+    Dekorirana funkcija kot prvi argument sprejme prijavljenega uporabnika.
+    """
+    if not uporabnik.admin:
+        bottle.abort(401, "Dostop prepovedan!")
+    return (uporabnik, )
+
+
+@status
+def prijavljen(uporabnik):
+    """
+    Preveri, ali je uporabnik prijavljen.
+
+    Dekorirana funkcija kot prvi argument sprejme prijavljenega uporabnika.
+    """
+    if not uporabnik:
+        bottle.redirect(bottle.url('prijava'))
+    return (uporabnik, )
+
+
+@status
+def odjavljen(uporabnik):
+    """
+    Preveri, ali je uporabnik odjavljen.
+    """
+    if uporabnik:
+        bottle.redirect(bottle.url('index'))
+    return ()
+
+
+def preveri_lastnika(uporabnik, emso):
+    """
+    Preveri, ali ima prijavljeni uporabnik dovoljenje dostopa za podani EMŠO.
+    """
+    if uporabnik.emso != emso and not uporabnik.admin:
+        bottle.abort(401, "Dostop prepovedan!")
+
+
 bottle.BaseTemplate.defaults.update(
     Kraj=Kraj,
     Oseba=Oseba,
     Racun=Racun,
     Transakcija=Transakcija,
     url=bottle.url,
-    preberi_sporocilo=preberi_sporocilo
+    preberi_sporocilo=preberi_sporocilo,
+    preberi_obrazec=preberi_obrazec,
+    prijavljeni_uporabnik=prijavljeni_uporabnik
 )
 
 
@@ -75,12 +195,14 @@ def index():
 
 @bottle.get('/kraji/')
 @bottle.view('kraji.html')
-def kraji():
+@admin
+def kraji(uporabnik):
     pass
 
 
 @bottle.post('/kraji/izbrisi/<posta:int>/')
-def izbrisi_kraj(posta):
+@admin
+def izbrisi_kraj(uporabnik, posta):
     try:
         Kraj.izbrisi_id(posta)
         nastavi_sporocilo(f'Kraj s poštno številko {posta} uspešno pobrisan.')
@@ -89,14 +211,63 @@ def izbrisi_kraj(posta):
     bottle.redirect(bottle.url('kraji'))
 
 
+@bottle.get('/kraji/dodaj/')
+@bottle.view('kraji.dodaj.html')
+@admin
+def kraji_dodaj(uporabnik):
+    pass
+
+
+@bottle.post('/kraji/dodaj/')
+@admin
+def kraji_dodaj_post(uporabnik):
+    posta = bottle.request.forms.getunicode('posta')
+    ime = bottle.request.forms.getunicode('kraj')
+    kraj = Kraj(posta, ime)
+    try:
+        kraj.vstavi()
+        nastavi_sporocilo(f'Uspešno dodan kraj s poštno številko {posta}.')
+        bottle.redirect(bottle.url('kraji'))
+    except (ValueError, TypeError):
+        nastavi_sporocilo(f'Dodajanje kraja s poštno številko {posta} ni uspelo!')
+        nastavi_obrazec('kraji_dodaj', kraj)
+        bottle.redirect(bottle.url('kraji_dodaj'))
+
+
+@bottle.get('/kraji/uredi/<posta:int>/')
+@bottle.view('kraji.uredi.html')
+@admin
+def kraji_uredi(uporabnik, posta):
+    return dict(kraj=Kraj.z_id(posta))
+
+
+@bottle.post('/kraji/uredi/<posta:int>/')
+@admin
+def kraji_uredi_post(uporabnik, posta):
+    stara_posta = posta
+    ime = bottle.request.forms.getunicode('kraj')
+    kraj = Kraj.iz_baze(posta, ime)
+    kraj.posta = bottle.request.forms.getunicode('posta')
+    try:
+        kraj.posodobi()
+        nastavi_sporocilo(f'Uspešno posodobljen kraj s poštno številko {posta}.')
+        bottle.redirect(bottle.url('kraji'))
+    except (ValueError, TypeError):
+        nastavi_sporocilo(f'Urejanje kraja s poštno številko {stara_posta} ni uspelo!')
+        nastavi_obrazec(f'kraji_uredi_{stara_posta}', kraj)
+        bottle.redirect(bottle.url('kraji_uredi', posta=stara_posta))
+
+
 @bottle.get('/komitenti/')
 @bottle.view('komitenti.html')
-def komitenti():
+@admin
+def komitenti(uporabnik):
     pass
 
 
 @bottle.post('/komitenti/izbrisi/<emso>/')
-def izbrisi_komitenta(emso):
+@admin
+def izbrisi_komitenta(uporabnik, emso):
     try:
         Oseba.izbrisi_id(emso)
         nastavi_sporocilo(f'Komitent z EMŠOm {emso} uspešno pobrisan.')
@@ -105,14 +276,103 @@ def izbrisi_komitenta(emso):
     bottle.redirect(bottle.url('komitenti'))
 
 
+@bottle.get('/komitenti/dodaj/')
+@bottle.view('komitenti.dodaj.html')
+@admin
+def komitenti_dodaj(uporabnik):
+    pass
+
+
+@bottle.post('/komitenti/dodaj/')
+@admin
+def komitenti_dodaj_post(uporabnik):
+    emso = bottle.request.forms.getunicode('emso')
+    ime = bottle.request.forms.getunicode('ime')
+    priimek = bottle.request.forms.getunicode('priimek')
+    naslov = bottle.request.forms.getunicode('naslov')
+    kraj = bottle.request.forms.getunicode('kraj')
+    up_ime = bottle.request.forms.getunicode('up_ime')
+    geslo = bottle.request.forms.getunicode('geslo')
+    geslo2 = bottle.request.forms.getunicode('geslo2')
+    admin = bottle.request.forms.getunicode('admin')
+    try:
+        kraj = int(kraj)
+    except ValueError:
+        pass
+    oseba = Oseba(emso, ime, priimek, naslov, kraj, up_ime, admin=admin)
+    if geslo or geslo2:
+        if geslo != geslo2:
+            nastavi_sporocilo("Gesli se ne ujemata!")
+            nastavi_obrazec('komitenti_dodaj', oseba)
+            bottle.redirect(bottle.url('komitenti_dodaj'))
+        oseba.nastavi_geslo(geslo)
+    try:
+        oseba.vstavi()
+        nastavi_sporocilo(f'Uspešno dodan komitent z EMŠOm {emso}.')
+        bottle.redirect(bottle.url('komitenti'))
+    except (ValueError, TypeError):
+        nastavi_sporocilo(f'Dodajanje komitenta z EMŠOm {emso} ni uspelo!')
+        nastavi_obrazec('komitenti_dodaj', oseba)
+        bottle.redirect(bottle.url('komitenti_dodaj'))
+
+
+@bottle.get('/komitenti/uredi/<emso>/')
+@bottle.view('komitenti.uredi.html')
+@prijavljen
+def komitenti_uredi(uporabnik, emso):
+    preveri_lastnika(uporabnik, emso)
+    return dict(oseba=Oseba.z_id(emso))
+
+
+@bottle.post('/komitenti/uredi/<emso>/')
+@prijavljen
+def komitenti_uredi_post(uporabnik, emso):
+    preveri_lastnika(uporabnik, emso)
+    ime = bottle.request.forms.getunicode('ime')
+    priimek = bottle.request.forms.getunicode('priimek')
+    naslov = bottle.request.forms.getunicode('naslov')
+    kraj = bottle.request.forms.getunicode('kraj')
+    up_ime = bottle.request.forms.getunicode('up_ime')
+    geslo = bottle.request.forms.getunicode('geslo')
+    geslo2 = bottle.request.forms.getunicode('geslo2')
+    try:
+        kraj = int(kraj)
+    except ValueError:
+        pass
+    oseba = Oseba.z_id(emso)
+    oseba.posodobi_polja(ime=ime, priimek=priimek, naslov=naslov, kraj=kraj,
+                         up_ime=up_ime)
+    if uporabnik.admin:
+        oseba.admin = bool(bottle.request.forms.getunicode('admin'))
+    if geslo or geslo2:
+        if geslo != geslo2:
+            nastavi_sporocilo("Gesli se ne ujemata!")
+            nastavi_obrazec('komitenti_dodaj', oseba)
+            bottle.redirect(bottle.url('komitenti_uredi', emso=emso))
+        oseba.nastavi_geslo(geslo)
+    try:
+        oseba.posodobi()
+        nastavi_sporocilo(f'Uspešno posodobljen komitent z EMŠOm {emso}.')
+        if uporabnik.admin:
+            bottle.redirect(bottle.url('komitenti'))
+        else:
+            bottle.redirect(bottle.url('index'))
+    except (ValueError, TypeError):
+        nastavi_sporocilo(f'Urejanje komitenta z EMŠOm {emso} ni uspelo!')
+        nastavi_obrazec(f'komitenti_uredi_{emso}', oseba)
+        bottle.redirect(bottle.url('komitenti_uredi', emso=emso))
+
+
 @bottle.get('/racuni/')
 @bottle.view('racuni.html')
-def racuni():
+@admin
+def racuni(uporabnik):
     pass
 
 
 @bottle.post('/racuni/izbrisi/<stevilka:int>/')
-def izbrisi_racun(stevilka):
+@admin
+def izbrisi_racun(uporabnik, stevilka):
     try:
         Racun.izbrisi_id(stevilka)
         nastavi_sporocilo(f'Račun s številko {stevilka} uspešno pobrisan.')
@@ -123,18 +383,75 @@ def izbrisi_racun(stevilka):
 
 @bottle.get('/transakcije/')
 @bottle.view('transakcije.html')
-def transakcije():
+@admin
+def transakcije(uporabnik):
     pass
 
 
 @bottle.post('/transakcije/izbrisi/<id:int>/')
-def izbrisi_transakcijo(id):
+@admin
+def izbrisi_transakcijo(uporabnik, id):
     try:
         Transakcija.izbrisi_id(id)
         nastavi_sporocilo(f'Transakcija z ID-jem {id} uspešno pobrisana.')
     except:
         nastavi_sporocilo(f'Brisanje transakcije z ID-jem {id} neuspešno!')
     bottle.redirect(bottle.url('transakcije'))
+
+
+@bottle.get('/prijava/')
+@bottle.view('prijava.html')
+@odjavljen
+def prijava():
+    pass
+
+
+@bottle.post('/prijava/')
+@odjavljen
+def prijava_post():
+    up_ime = bottle.request.forms.getunicode('up_ime')
+    geslo = bottle.request.forms.getunicode('geslo')
+    uporabnik = Oseba.z_uporabniskim_imenom(up_ime)
+    prijavi_uporabnika(uporabnik, geslo, 'prijava')
+
+
+@bottle.get('/registracija/')
+@bottle.view('registracija.html')
+@odjavljen
+def registracija():
+    pass
+
+
+@bottle.post('/registracija/')
+@odjavljen
+def registracija_post():
+    emso = bottle.request.forms.getunicode('emso')
+    ime = bottle.request.forms.getunicode('ime')
+    priimek = bottle.request.forms.getunicode('priimek')
+    naslov = bottle.request.forms.getunicode('naslov')
+    kraj = bottle.request.forms.getunicode('kraj')
+    up_ime = bottle.request.forms.getunicode('up_ime')
+    geslo = bottle.request.forms.getunicode('geslo')
+    geslo2 = bottle.request.forms.getunicode('geslo2')
+    uporabnik = Oseba(emso, ime, priimek, naslov, kraj, up_ime)
+    if geslo != geslo2:
+        nastavi_sporocilo("Gesli se ne ujemata!")
+        nastavi_obrazec('registracija', uporabnik)
+        bottle.redirect(bottle.url('registracija'))
+    uporabnik.nastavi_geslo(geslo)
+    try:
+        uporabnik.vstavi()
+    except (TypeError, ValueError):
+        nastavi_sporocilo("Dodajanje uporabnika ni uspelo!")
+        nastavi_obrazec('registracija', uporabnik)
+        bottle.redirect(bottle.url('registracija'))
+    prijavi_uporabnika(uporabnik, geslo, 'registracija')
+
+
+@bottle.post('/odjava/')
+@prijavljen
+def odjava_post(uporabnik):
+    odjavi_uporabnika()
 
 
 with vzpostavi_povezavo(port=DB_PORT):

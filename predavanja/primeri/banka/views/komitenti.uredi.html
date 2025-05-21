@@ -1,0 +1,18 @@
+% rebase('osnova.html', stran='komitenti_uredi', naslov='Uredi komitenta')
+% oseba = preberi_obrazec(f'komitenti_uredi_{oseba.emso}', oseba)
+
+<h1 class="title">
+    Uredi komitenta
+</h1>
+
+<form action="{{url('komitenti_uredi_post', emso=oseba.emso)}}" method="POST">
+    % include('komitenti.obrazec.html', onemogoci_emso=True, admin=uporabnik.admin)
+    <div class="field is-grouped">
+        <div class="control">
+            <button class="button is-link">Uredi</button>
+        </div>
+        <div class="control">
+            <a class="button is-link is-light" href="{{url('komitenti')}}">Prekliči</a>
+        </div>
+    </div>
+</form>

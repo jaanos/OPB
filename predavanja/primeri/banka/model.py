@@ -1,3 +1,4 @@
+import bcrypt
 from auth import auth
 from dataclasses import dataclass
 from datetime import datetime
@@ -31,6 +32,16 @@ class Oseba(Entiteta):
     priimek: str = stolpec(obvezen=True)
     naslov: str = stolpec(obvezen=True)
     kraj: Kraj = stolpec(obvezen=True)
+    up_ime: str = stolpec(enolicen=True)
+    geslo: bytes = stolpec(skrit=True)
+    admin: bool = stolpec(privzeto=False, obvezen=True)
+
+    @classmethod
+    def z_uporabniskim_imenom(cls, up_ime):
+        """
+        Vrni uporabnika z navedenim uporabniškim imenom.
+        """
+        return cls._s_kljucem('up_ime', up_ime)
 
     @classmethod
     def _stolpci(cls):
@@ -64,7 +75,56 @@ class Oseba(Entiteta):
         Vrni objekt po branju iz baze.
         """
         *vrstica, posta, kraj = vrstica
-        return cls.iz_baze(*vrstica, Kraj.iz_baze(posta, kraj))
+        return cls.iz_baze(**dict(zip((stolpec.name for stolpec in fields(cls)
+                                       if stolpec.name != 'kraj'), vrstica)),
+                           kraj=Kraj.iz_baze(posta, kraj))
+
+    @classmethod
+    def _stolpci_uvoz(cls, stolpci):
+        """
+        Določi stolpce za vstavljanje pri uvozu.
+        """
+        return (*stolpci, 'up_ime', 'geslo', 'admin')
+
+    @classmethod
+    def _vrstica_uvoz(cls, stolpci, vrstica):
+        """
+        Določi podatke za vstavljanje pri uvozu.
+        """
+        v = dict(super()._vrstica_uvoz(stolpci, vrstica))
+        up_ime = f"{v['ime'][0]}{v['priimek']}".lower()
+        geslo = cls._nastavi_geslo(up_ime)
+        admin = (v['emso'] == '1')
+        return zip(stolpci, (*vrstica, up_ime, geslo, admin))
+
+    @staticmethod
+    def _nastavi_geslo(geslo):
+        """
+        Vrni zgostitev podanega gesla.
+        """
+        geslo = geslo.encode("utf-8")
+        sol = bcrypt.gensalt()
+        return bcrypt.hashpw(geslo, sol)
+
+    def nastavi_geslo(self, geslo):
+        """
+        Nastavi podano geslo.
+        """
+        self.geslo = self._nastavi_geslo(geslo)
+
+    @staticmethod
+    def _preveri_geslo(geslo, zgostitev):
+        """
+        Preveri podano geslo glede na podano zgostitev.
+        """
+        geslo = geslo.encode("utf-8")
+        return bcrypt.checkpw(geslo, zgostitev)
+
+    def preveri_geslo(self, geslo):
+        """
+        Preveri podano geslo.
+        """
+        return self._preveri_geslo(geslo, self.geslo)
 
 
 @dataclass
@@ -105,6 +165,7 @@ class Racun(Entiteta):
         """
         racun, lastnik, ime, priimek = vrstica
         return cls.iz_baze(racun, Oseba.iz_baze(lastnik, ime, priimek))
+
 
 @dataclass
 class Transakcija(Entiteta):

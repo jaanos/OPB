@@ -1,0 +1,18 @@
+% rebase('osnova.html', stran='kraji_dodaj', naslov='Dodaj kraj')
+% kraj = preberi_obrazec('kraji_dodaj', Kraj)
+
+<h1 class="title">
+    Dodaj kraj
+</h1>
+
+<form action="{{url('kraji_dodaj_post')}}" method="POST">
+    % include('kraji.obrazec.html')
+    <div class="field is-grouped">
+        <div class="control">
+            <button class="button is-link">Dodaj</button>
+        </div>
+        <div class="control">
+            <a class="button is-link is-light" href="{{url('kraji')}}">Prekliči</a>
+        </div>
+    </div>
+</form>
