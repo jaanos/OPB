@@ -355,3 +355,6 @@
 [submodule "oddaje/2024/Spletna-prodajalna-Us"]
 	path = oddaje/2024/Spletna-prodajalna-Us
 	url = https://github.com/jostv99/projektna-naloga-OPB
+[submodule "oddaje/2024/BolderRadar"]
+	path = oddaje/2024/BolderRadar
+	url = https://github.com/KocijanZ21/BolderRadar.git
