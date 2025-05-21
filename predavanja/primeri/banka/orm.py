@@ -11,6 +11,8 @@ VEJICA = sql.SQL(", ")
 TIPI = {
     int: "INTEGER",
     str: "TEXT",
+    bytes: "BYTEA",
+    bool: "BOOLEAN",
     datetime: "TIMESTAMP(0)"
 }
 
@@ -32,13 +34,14 @@ def povezi(*largs, **kwargs):
 
 
 def stolpec(privzeto=None, glavni_kljuc=False, stevec=False, obvezen=False,
-            enolicen=False):
+            enolicen=False, skrit=False):
     """
     Vrni polje, ki opisuje stolpec v tabeli.
     """
     return field(default=privzeto,
                  metadata=dict(glavni_kljuc=glavni_kljuc, stevec=stevec,
-                               obvezen=obvezen, enolicen=enolicen))
+                               obvezen=obvezen, enolicen=enolicen,
+                               skrit=skrit))
 
 
 def tip(stolpec):
@@ -64,11 +67,24 @@ class Entiteta:
     Nadrazred za posamezne entitetne tipe.
     """
 
+    def __init_subclass__(cls):
+        """
+        Inicializiraj prazen objekt.
+        """
+        cls.NULL = cls()
+        cls.NULL.__post_init__()
+
     def __post_init__(self):
         """
         Inicializiraj polje z ID-jem iz baze.
         """
         self.__dbid = None
+
+    def __bool__(self):
+        """
+        Vrni resničnostno vrednost za entiteto.
+        """
+        return self.__dbid is not None
 
     def __getitem__(self, kljuc):
         """
@@ -170,13 +186,28 @@ class Entiteta:
         return cls.GLAVNI_KLJUC
 
     @classmethod
+    def _stolpci_uvoz(cls, stolpci):
+        """
+        Določi stolpce za vstavljanje pri uvozu.
+        """
+        return stolpci
+
+    @classmethod
+    def _vrstica_uvoz(cls, stolpci, vrstica):
+        """
+        Določi podatke za vstavljanje pri uvozu.
+        """
+        return zip(stolpci,
+                   ((podatek if podatek else None) for podatek in vrstica))
+
+    @classmethod
     def uvozi_podatke(cls):
         """
         Uvozi podatke v tabelo.
         """
         with open(f"podatki/{cls.tabela()}.csv") as f:
             rd = csv.reader(f)
-            stolpci = next(rd)
+            stolpci = cls._stolpci_uvoz(next(rd))
             with conn.transaction():
                 with conn.cursor() as cur:
                     cur.executemany(sql.SQL("""
@@ -189,8 +220,8 @@ class Entiteta:
                         podatki=VEJICA.join(
                             sql.Placeholder(stolpec) for stolpec in stolpci
                         )
-                    ), ({stolpec: (podatek if podatek else None)
-                         for stolpec, podatek in zip(stolpci, vrstica)}
+                    ), ({stolpec: podatek for stolpec, podatek
+                         in cls._vrstica_uvoz(stolpci, vrstica)}
                         for vrstica in rd))
                     stevci = [stolpec.name for stolpec in fields(cls)
                               if stolpec.metadata["stevec"]
@@ -214,24 +245,31 @@ class Entiteta:
                                             vrednost=sql.Literal(vrednost + 1)))
 
     @classmethod
-    def z_id(cls, id):
+    def _s_kljucem(cls, kljuc, id):
         """
-        Vrni entiteto s podanim ID-jem.
+        Vrni entiteto s podanim ključem.
         """
         with conn.cursor() as cur:
             cur.execute(sql.SQL("""
                 SELECT {stolpci} FROM {tabela}
-                WHERE {glavni_kljuc} = {id};
+                WHERE {kljuc} = {id};
             """).format(
                 stolpci=VEJICA.join(cls._stolpci()),
                 tabela=cls._tabela(),
-                glavni_kljuc=sql.Identifier(cls.glavni_kljuc().name),
+                kljuc=sql.Identifier(kljuc),
                 id=sql.Literal(id)
             ))
             vrstica = cur.fetchone()
             if not vrstica:
-                raise ValueError(f'{cls.__name__} z ID-jem {id} ne obstaja!')
+                raise ValueError(f'{cls.__name__} s ključem {id} ne obstaja!')
             return cls._objekt(vrstica)
+
+    @classmethod
+    def z_id(cls, id):
+        """
+        Vrni entiteto s podanim ID-jem.
+        """
+        return cls._s_kljucem(cls.glavni_kljuc().name, id)
 
     def vstavi(self):
         """
@@ -371,3 +409,17 @@ class Entiteta:
         Vrni objekt po branju iz baze.
         """
         return cls.iz_baze(*vrstica)
+
+    def slovar(self):
+        """
+        Vrni slovar s polji entitete.
+        """
+        return {stolpec.name: self[stolpec.name] for stolpec in fields(self)
+                if not stolpec.metadata["skrit"]}
+
+    def posodobi_polja(self, **polja):
+        """
+        Posodobi podana polja.
+        """
+        for polje, vrednost in polja.items():
+            setattr(self, polje, vrednost)

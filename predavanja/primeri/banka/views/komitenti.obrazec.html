@@ -1,0 +1,72 @@
+% setdefault('onemogoci_emso', False)
+% setdefault('zahtevaj_geslo', '')
+% setdefault('admin', False)
+
+<div class="field">
+    <label class="label">EMŠO</label>
+    <div class="control">
+        % if onemogoci_emso:
+        {{oseba.emso}}
+        % else:
+        <input class="input" type="text" name="emso" value="{{oseba.emso}}" placeholder="EMŠO komitenta" required>
+        % end
+    </div>
+</div>
+<div class="field">
+    <label class="label">Ime</label>
+    <div class="control">
+        <input class="input" type="text" name="ime" value="{{oseba.ime}}" placeholder="Ime komitenta" required>
+    </div>
+</div>
+<div class="field">
+    <label class="label">Priimek</label>
+    <div class="control">
+        <input class="input" type="text" name="priimek" value="{{oseba.priimek}}" placeholder="Priimek komitenta" required>
+    </div>
+</div>
+<div class="field">
+    <label class="label">Naslov</label>
+    <div class="control">
+        <input class="input" type="text" name="naslov" value="{{oseba.naslov}}" placeholder="Naslov komitenta" required>
+    </div>
+</div>
+<div class="field">
+    <label class="label">Kraj</label>
+    <div class="control">
+        <div class="select">
+            <select name="kraj" required>
+                % for kraj in Kraj.seznam():
+                <option value="{{kraj.posta}}" {{'selected' if oseba['kraj'] == kraj.posta else ''}}>{{kraj.posta}} {{kraj.kraj}}</option>
+                % end
+            </select>
+        </div>
+    </div>
+</div>
+<div class="field">
+    <label class="label">Uporabniško ime</label>
+    <div class="control">
+        <input class="input" type="text" name="up_ime" value="{{oseba.up_ime}}" placeholder="Uporabniško ime komitenta" required>
+    </div>
+</div>
+<div class="field">
+    <label class="label">Geslo</label>
+    <div class="control">
+        <input class="input" type="password" name="geslo" placeholder="Geslo" {{zahtevaj_geslo}}>
+    </div>
+</div>
+<div class="field">
+    <label class="label">Ponovi geslo</label>
+    <div class="control">
+        <input class="input" type="password" name="geslo2" placeholder="Ponovi geslo" {{zahtevaj_geslo}}>
+    </div>
+</div>
+% if admin:
+<div class="field">
+    <div class="control">
+        <label class="checkbox label">
+            <input type="checkbox" name="admin" {{'checked' if oseba.admin else ''}}>
+            Administrator
+        </label>
+    </div>
+</div>
+% end

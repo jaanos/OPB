@@ -1,15 +1,18 @@
 % setdefault('naslov', 'Banka')
 % sporocilo = preberi_sporocilo()
+% if not defined('uporabnik'):
+%   uporabnik = prijavljeni_uporabnik()
+% end
 
 <!DOCTYPE html>
-<html>
+<html class="has-navbar-fixed-top">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{naslov}}</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
-    <link rel="stylesheet" href="https://bulma.io/vendor/fontawesome-free-6.5.2-web/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.2/css/all.min.css">
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             (document.querySelectorAll('.notification .delete') || []).forEach(($delete) => {
@@ -24,7 +27,7 @@
 </head>
 
 <body>
-    <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
+    <nav class="navbar is-dark is-fixed-top" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
             <a class="navbar-item {{'is-selected' if stran == 'index' else ''}}" href="{{url('index')}}">
                 Banka
@@ -73,16 +76,31 @@
             </div>
 
             <div class="navbar-end">
+                % if uporabnik:
                 <div class="navbar-item">
                     <div class="buttons">
-                        <a class="button is-primary">
+                        <a class="button is-light" href="{{url('komitenti_uredi', emso=uporabnik.emso)}}">
+                            <strong>{{uporabnik.up_ime}}</strong>
+                        </a>
+                        <form action="{{url('odjava_post')}}" method="POST">
+                            <button class="button is-primary">
+                                Odjava
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                % else:
+                <div class="navbar-item">
+                    <div class="buttons">
+                        <a class="button is-primary" href="{{url('registracija')}}">
                             <strong>Registracija</strong>
                         </a>
-                        <a class="button is-light">
+                        <a class="button is-light" href="{{url('prijava')}}">
                             Prijava
                         </a>
                     </div>
                 </div>
+                % end
             </div>
         </div>
     </nav>

@@ -1,8 +1,21 @@
 % rebase('osnova.html', stran='kraji', naslov='Kraji')
 <div class="container">
-    <h1 class="title">
-        Kraji
-    </h1>
+    <div class="level">
+        <div class="level-left">
+            <div class="level-item">
+                <h1 class="title">
+                    Kraji
+                </h1>
+            </div>
+        </div>
+        <div class="level-right">
+            <div class="level-item">
+                <a class="button is-primary" href="{{url('kraji_dodaj')}}">
+                    Dodaj kraj
+                </a>
+            </div>
+        </div>
+    </div>
 
     <table class="table">
         <tr>
@@ -15,14 +28,21 @@
             <td>{{kraj.posta}}</td>
             <td>{{kraj.kraj}}</td>
             <td>
-                <form action="{{url('izbrisi_kraj', posta=kraj.posta)}}" method="POST"
-                  onsubmit="return confirm('Ali res želi izbrisati kraj s poštno številko {{kraj.posta}}?')">
-                    <button class="button is-danger">
+                <div class="buttons">
+                    <a class="button is-primary" href="{{url('kraji_uredi', posta=kraj.posta)}}">
                         <span class="icon is-small">
-                            <i class="fas fa-trash"></i>
+                            <i class="fas fa-pen"></i>
                         </span>
-                    </button>
-                </form>
+                    </a>
+                    <form action="{{url('izbrisi_kraj', posta=kraj.posta)}}" method="POST"
+                  onsubmit="return confirm('Ali res želi izbrisati kraj s poštno številko {{kraj.posta}}?')">
+                        <button class="button is-danger">
+                            <span class="icon is-small">
+                                <i class="fas fa-trash"></i>
+                            </span>
+                        </button>
+                    </form>
+                </div>
             </td>
         </tr>
         % end
