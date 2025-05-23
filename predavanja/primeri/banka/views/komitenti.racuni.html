@@ -1,26 +1,35 @@
-% rebase('osnova.html', stran='racuni', naslov='Računi')
+% rebase('osnova.html', stran=f'komitenti_racuni-{oseba.emso}', naslov='Računi komitenta')
 % skupaj = 0
 <div class="container">
-    <h1 class="title">
-        Računi
-    </h1>
+    <div class="level">
+        <div class="level-left">
+            <div class="level-item">
+                <h1 class="title">
+                    Računi komitenta {{oseba.ime}} {{oseba.priimek}} ({{oseba.emso}})
+                </h1>
+            </div>
+        </div>
+        <div class="level-right">
+            <div class="level-item">
+                <form action="{{url('racuni_dodaj_post', emso=oseba.emso)}}" method="POST">
+                    <button class="button is-primary">
+                        Dodaj račun
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
 
     <table class="table">
         <tr>
             <th>Številka</th>
-            <th>Lastnik</th>
             <th>Stanje</th>
             <th></th>
         </tr>
-        % for racun in Racun.seznam():
+        % for racun in racuni:
         <tr>
             % skupaj += racun.stanje
             <td>{{racun.stevilka}}</td>
-            <td>
-                <a href="{{url('komitenti_racuni', emso=racun.lastnik.emso)}}">
-                    {{racun.lastnik.ime}} {{racun.lastnik.priimek}} ({{racun.lastnik.emso}})
-                </a>
-            </td>
             <td>{{racun.stanje}}</td>
             <td>
                 <form action="{{url('racuni_izbrisi_post', stevilka=racun.stevilka)}}" method="POST"
@@ -35,8 +44,7 @@
         </tr>
         % end
         <tr>
-            <th></th>
-            <th>Skupno stanje</th>
+            <th>Skupaj</th>
             <th>{{skupaj}}</th>
             <th></th>
         </tr>

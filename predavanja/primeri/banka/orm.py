@@ -149,7 +149,7 @@ class Entiteta:
                             ) if issubclass(stolpec.type, Entiteta)
                             else PRAZNO
                         )
-                        for stolpec in fields(cls)
+                        for stolpec in fields(cls) if stolpec.metadata
                     )))
 
     @classmethod
@@ -182,7 +182,7 @@ class Entiteta:
         """
         if not hasattr(cls, "GLAVNI_KLJUC"):
             cls.GLAVNI_KLJUC = next(stolpec for stolpec in fields(cls)
-                                    if stolpec.metadata["glavni_kljuc"])
+                                    if stolpec.metadata.get("glavni_kljuc"))
         return cls.GLAVNI_KLJUC
 
     @classmethod
@@ -224,7 +224,7 @@ class Entiteta:
                          in cls._vrstica_uvoz(stolpci, vrstica)}
                         for vrstica in rd))
                     stevci = [stolpec.name for stolpec in fields(cls)
-                              if stolpec.metadata["stevec"]
+                              if stolpec.metadata.get("stevec")
                               and stolpec.name in stolpci]
                     if stevci:
                         cur.execute(sql.SQL("""
@@ -279,6 +279,8 @@ class Entiteta:
         podatki = []
         generirani = []
         for stolpec in fields(self):
+            if not stolpec.metadata:
+                continue
             vrednost = self[stolpec.name]
             if vrednost is not None:
                 stolpci.append(stolpec.name)
@@ -336,7 +338,7 @@ class Entiteta:
                                     if isinstance(vrednost, Funkcija)
                                     else sql.Literal(vrednost)
                             )
-                            for stolpec in fields(self)
+                            for stolpec in fields(self) if stolpec.metadata
                             for vrednost in [self[stolpec.name]]
                         ),
                         glavni_kljuc=sql.Identifier(self.glavni_kljuc().name),
@@ -382,10 +384,11 @@ class Entiteta:
         """
         with conn.cursor() as cur:
             cur.execute(sql.SQL("""
-                SELECT {stolpci} FROM {tabela};
+                SELECT {stolpci} FROM {tabela} {zdruzevanje};
             """).format(
                 stolpci=VEJICA.join(cls._stolpci()),
-                tabela=cls._tabela()
+                tabela=cls._tabela(),
+                zdruzevanje=cls._zdruzevanje()
             ))
             yield from (cls._objekt(vrstica) for vrstica in cur)
 
@@ -394,7 +397,8 @@ class Entiteta:
         """
         Vrni zaporedje stolpcev za branje iz baze.
         """
-        yield from (sql.Identifier(stolpec.name) for stolpec in fields(cls))
+        yield from (sql.Identifier(stolpec.name) for stolpec in fields(cls)
+                    if stolpec.metadata)
 
     @classmethod
     def _tabela(cls):
@@ -402,6 +406,13 @@ class Entiteta:
         Vrni izraz za tabelo za branje iz baze.
         """
         return sql.Identifier(cls.tabela())
+
+    @classmethod
+    def _zdruzevanje(cls):
+        """
+        Vrni izraz za združevanje za branje iz baze.
+        """
+        return PRAZNO
 
     @classmethod
     def _objekt(cls, vrstica):
@@ -415,7 +426,7 @@ class Entiteta:
         Vrni slovar s polji entitete.
         """
         return {stolpec.name: self[stolpec.name] for stolpec in fields(self)
-                if not stolpec.metadata["skrit"]}
+                if stolpec.metadata and not stolpec.metadata["skrit"]}
 
     def posodobi_polja(self, **polja):
         """

@@ -27,7 +27,11 @@
         % for oseba in Oseba.seznam():
         <tr>
             <td>{{oseba.emso}}</td>
-            <td>{{oseba.ime}} {{oseba.priimek}}</td>
+            <td>
+                <a href="{{url('komitenti_racuni', emso=oseba.emso)}}">
+                    {{oseba.ime}} {{oseba.priimek}}
+                </a>
+            </td>
             <td>{{oseba.naslov}}, {{oseba.kraj.posta}} {{oseba.kraj.kraj}}</td>
             <td>
                 <div class="buttons">
@@ -36,8 +40,8 @@
                             <i class="fas fa-pen"></i>
                         </span>
                     </a>
-                    <form action="{{url('izbrisi_komitenta', emso=oseba.emso)}}" method="POST"
-                     onsubmit="return confirm('Ali res želi izbrisati komitenta z EMŠOm {{oseba.emso}}?')">
+                    <form action="{{url('komitenti_izbrisi_post', emso=oseba.emso)}}" method="POST"
+                     onsubmit="return confirm('Ali res želiš izbrisati komitenta z EMŠOm {{oseba.emso}}?')">
                         <button class="button is-danger">
                             <span class="icon is-small">
                                 <i class="fas fa-trash"></i>

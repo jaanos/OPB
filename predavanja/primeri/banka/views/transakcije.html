@@ -21,8 +21,8 @@
             <td>{{transakcija.cas}}</td>
             <td>{{transakcija.opis}}</td>
             <td>
-                <form action="{{url('izbrisi_transakcijo', id=transakcija.id)}}" method="POST"
-                  onsubmit="return confirm('Ali res želi izbrisati transakcijo z ID-jem {{transakcija.id}}?')">
+                <form action="{{url('transakcije_izbrisi_post', id=transakcija.id)}}" method="POST"
+                  onsubmit="return confirm('Ali res želiš izbrisati transakcijo z ID-jem {{transakcija.id}}?')">
                     <button class="button is-danger">
                         <span class="icon is-small">
                             <i class="fas fa-trash"></i>

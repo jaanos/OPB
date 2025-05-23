@@ -202,7 +202,7 @@ def kraji(uporabnik):
 
 @bottle.post('/kraji/izbrisi/<posta:int>/')
 @admin
-def izbrisi_kraj(uporabnik, posta):
+def kraji_izbrisi_post(uporabnik, posta):
     try:
         Kraj.izbrisi_id(posta)
         nastavi_sporocilo(f'Kraj s poštno številko {posta} uspešno pobrisan.')
@@ -267,7 +267,7 @@ def komitenti(uporabnik):
 
 @bottle.post('/komitenti/izbrisi/<emso>/')
 @admin
-def izbrisi_komitenta(uporabnik, emso):
+def komitenti_izbrisi_post(uporabnik, emso):
     try:
         Oseba.izbrisi_id(emso)
         nastavi_sporocilo(f'Komitent z EMŠOm {emso} uspešno pobrisan.')
@@ -363,6 +363,15 @@ def komitenti_uredi_post(uporabnik, emso):
         bottle.redirect(bottle.url('komitenti_uredi', emso=emso))
 
 
+@bottle.get('/komitenti/racuni/<emso>/')
+@bottle.view('komitenti.racuni.html')
+@prijavljen
+def komitenti_racuni(uporabnik, emso):
+    preveri_lastnika(uporabnik, emso)
+    oseba = Oseba.z_id(emso)
+    return dict(oseba=oseba, racuni=oseba.racuni())
+
+
 @bottle.get('/racuni/')
 @bottle.view('racuni.html')
 @admin
@@ -371,14 +380,30 @@ def racuni(uporabnik):
 
 
 @bottle.post('/racuni/izbrisi/<stevilka:int>/')
-@admin
-def izbrisi_racun(uporabnik, stevilka):
+@prijavljen
+def racuni_izbrisi_post(uporabnik, stevilka):
     try:
-        Racun.izbrisi_id(stevilka)
+        if uporabnik.admin:
+            Racun.izbrisi_id(stevilka)
+        else:
+            racun = Racun.z_id(stevilka)
+            preveri_lastnika(uporabnik, racun['lastnik'])
+            racun.izbrisi()
         nastavi_sporocilo(f'Račun s številko {stevilka} uspešno pobrisan.')
-    except:
+    except ValueError:
         nastavi_sporocilo(f'Brisanje računa s številko {stevilka} neuspešno!')
-    bottle.redirect(bottle.url('racuni'))
+    if uporabnik.admin:
+        bottle.redirect(bottle.url('racuni'))
+    else:
+        bottle.redirect(bottle.url('komitenti_racuni', emso=uporabnik.emso))
+
+
+@bottle.post('/racuni/dodaj/<emso>/')
+@prijavljen
+def racuni_dodaj_post(uporabnik, emso):
+    preveri_lastnika(uporabnik, emso)
+    # TODO
+    bottle.redirect(bottle.url('komitenti_racuni', emso=emso))
 
 
 @bottle.get('/transakcije/')
@@ -390,7 +415,7 @@ def transakcije(uporabnik):
 
 @bottle.post('/transakcije/izbrisi/<id:int>/')
 @admin
-def izbrisi_transakcijo(uporabnik, id):
+def transakcije_izbrisi_post(uporabnik, id):
     try:
         Transakcija.izbrisi_id(id)
         nastavi_sporocilo(f'Transakcija z ID-jem {id} uspešno pobrisana.')
