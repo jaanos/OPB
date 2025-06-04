@@ -252,12 +252,14 @@ class Entiteta:
         with conn.cursor() as cur:
             cur.execute(sql.SQL("""
                 SELECT {stolpci} FROM {tabela}
-                WHERE {kljuc} = {id};
+                WHERE {kljuc} = {id}
+                {zdruzevanje};
             """).format(
                 stolpci=VEJICA.join(cls._stolpci()),
                 tabela=cls._tabela(),
                 kljuc=sql.Identifier(kljuc),
-                id=sql.Literal(id)
+                id=sql.Literal(id),
+                zdruzevanje=cls._zdruzevanje()
             ))
             vrstica = cur.fetchone()
             if not vrstica:

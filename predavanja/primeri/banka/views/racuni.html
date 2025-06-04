@@ -15,7 +15,11 @@
         % for racun in Racun.seznam():
         <tr>
             % skupaj += racun.stanje
-            <td>{{racun.stevilka}}</td>
+            <td>
+                <a href="{{url('racuni_transakcije', stevilka=racun.stevilka)}}">
+                    {{racun.stevilka}}
+                </a>
+            </td>
             <td>
                 <a href="{{url('komitenti_racuni', emso=racun.lastnik.emso)}}">
                     {{racun.lastnik.ime}} {{racun.lastnik.priimek}} ({{racun.lastnik.emso}})

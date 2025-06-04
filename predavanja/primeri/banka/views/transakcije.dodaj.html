@@ -1,0 +1,19 @@
+% rebase('osnova.html', stran='transakcije_dodaj', naslov='Dodaj transakcijo')
+% transakcija = preberi_obrazec('transakcije_dodaj', Transakcija)
+% transakcija.racun = racun
+
+<h1 class="title">
+    Dodaj transakcijo
+</h1>
+
+<form action="{{url('transakcije_dodaj_post', stevilka=racun.stevilka)}}" method="POST">
+    % include('transakcije.obrazec.html')
+    <div class="field is-grouped">
+        <div class="control">
+            <button class="button is-link">Dodaj</button>
+        </div>
+        <div class="control">
+            <a class="button is-link is-light" href="{{url('racuni_transakcije', stevilka=racun.stevilka)}}">Prekliči</a>
+        </div>
+    </div>
+</form>

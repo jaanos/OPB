@@ -372,6 +372,15 @@ def komitenti_racuni(uporabnik, emso):
     return dict(oseba=oseba, racuni=oseba.racuni())
 
 
+@bottle.get('/komitenti/transakcije/<emso>/')
+@bottle.view('komitenti.transakcije.html')
+@prijavljen
+def komitenti_transakcije(uporabnik, emso):
+    preveri_lastnika(uporabnik, emso)
+    oseba = Oseba.z_id(emso)
+    return dict(oseba=oseba)
+
+
 @bottle.get('/racuni/')
 @bottle.view('racuni.html')
 @admin
@@ -402,8 +411,22 @@ def racuni_izbrisi_post(uporabnik, stevilka):
 @prijavljen
 def racuni_dodaj_post(uporabnik, emso):
     preveri_lastnika(uporabnik, emso)
-    # TODO
+    try:
+        racun = Racun(lastnik=emso)
+        racun.vstavi()
+        nastavi_sporocilo(f'Uspešno dodan račun s številko {racun.stevilka}.')
+    except (ValueError, TypeError):
+        nastavi_sporocilo(f'Dodajanje računa za uporabnika z EMŠOm {emso} ni uspelo!')
     bottle.redirect(bottle.url('komitenti_racuni', emso=emso))
+
+
+@bottle.get('/racuni/transakcije/<stevilka:int>/')
+@bottle.view('racuni.transakcije.html')
+@prijavljen
+def racuni_transakcije(uporabnik, stevilka):
+    racun = Racun.z_id(stevilka)
+    preveri_lastnika(uporabnik, racun['lastnik'])
+    return dict(racun=racun)
 
 
 @bottle.get('/transakcije/')
@@ -422,6 +445,60 @@ def transakcije_izbrisi_post(uporabnik, id):
     except:
         nastavi_sporocilo(f'Brisanje transakcije z ID-jem {id} neuspešno!')
     bottle.redirect(bottle.url('transakcije'))
+
+
+@bottle.get('/transakcije/dodaj/<stevilka:int>/')
+@bottle.view('transakcije.dodaj.html')
+@prijavljen
+def transakcije_dodaj(uporabnik, stevilka):
+    racun = Racun.z_id(stevilka)
+    preveri_lastnika(uporabnik, racun['lastnik'])
+    return dict(racun=racun)
+
+
+@bottle.post('/transakcije/dodaj/<stevilka:int>/')
+@prijavljen
+def transakcije_dodaj_post(uporabnik, stevilka):
+    racun = Racun.z_id(stevilka)
+    preveri_lastnika(uporabnik, racun['lastnik'])
+    znesek = bottle.request.forms.getunicode('znesek')
+    cas = bottle.request.forms.getunicode('cas')
+    opis = bottle.request.forms.getunicode('opis')
+    transakcija = Transakcija(racun=racun, znesek=znesek, cas=cas, opis=opis)
+    try:
+        transakcija.vstavi()
+        nastavi_sporocilo(f'Uspešno dodana transakcija z ID-jem {transakcija.id}.')
+        bottle.redirect(bottle.url('racuni_transakcije', stevilka=stevilka))
+    except (ValueError, TypeError):
+        nastavi_sporocilo(f'Dodajanje transakcije na računu s številko {stevilka} ni uspelo!')
+        nastavi_obrazec(f'racuni_dodaj_{stevilka}', transakcija)
+        bottle.redirect(bottle.url('racuni_transakcije', stevilka=stevilka))
+
+
+@bottle.get('/transakcije/uredi/<id:int>/')
+@bottle.view('transakcije.uredi.html')
+@admin
+def transakcije_uredi(uporabnik, id):
+    transakcija = Transakcija.z_id(id)
+    transakcija.racun = Racun.z_id(transakcija['racun'])
+    return dict(transakcija=transakcija)
+
+
+@bottle.post('/transakcije/uredi/<id:int>/')
+@admin
+def transakcije_uredi_post(uporabnik, id):
+    transakcija = Transakcija.z_id(id)
+    transakcija.znesek = bottle.request.forms.getunicode('znesek')
+    transakcija.cas = bottle.request.forms.getunicode('cas')
+    transakcija.opis = bottle.request.forms.getunicode('opis')
+    try:
+        transakcija.posodobi()
+        nastavi_sporocilo(f'Uspešno posodobljena transakcija z ID-jem {id}.')
+        bottle.redirect(bottle.url('transakcije'))
+    except (ValueError, TypeError):
+        nastavi_sporocilo(f'Urejanje transakcije z ID-jem {id} ni uspelo!')
+        nastavi_obrazec(f'transakcije_uredi_{id}', transakcija)
+        bottle.redirect(bottle.url('transakcije_uredi', id=id))
 
 
 @bottle.get('/prijava/')

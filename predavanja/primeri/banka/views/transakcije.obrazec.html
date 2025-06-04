@@ -1,0 +1,26 @@
+<div class="field">
+    <label class="label">Račun</label>
+    <div class="control">
+        {{transakcija.racun.stevilka}}
+        ({{transakcija.racun.lastnik.ime}} {{transakcija.racun.lastnik.priimek}}, {{transakcija.racun.lastnik.emso}})
+    </div>
+</div>
+<div class="field">
+    <label class="label">Znesek</label>
+    <div class="control">
+        <input class="input" type="number" name="znesek" value="{{transakcija.znesek}}" placeholder="Znesek transakcije" required>
+    </div>
+</div>
+<div class="field">
+    <label class="label">Čas</label>
+    <div class="control">
+        <input class="input" type="datetime-local" name="cas" value="{{transakcija.cas}}" placeholder="Čas transakcije" required>
+    </div>
+</div>
+<div class="field">
+    <label class="label">Opis</label>
+    <div class="control">
+        <input class="input" type="text" name="opis" value="{{transakcija.opis}}" placeholder="Opis transakcije">
+    </div>
+</div>
+

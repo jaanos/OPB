@@ -57,6 +57,18 @@ class Oseba(Entiteta):
             yield from (Racun(stevilka, self, stanje)
                         for stevilka, stanje in cur)
 
+    def transakcije(self):
+        """
+        Vrni transakcije osebe.
+        """
+        with conn.cursor() as cur:
+            cur.execute("""
+                SELECT id, racun, znesek, cas, opis
+                FROM racun JOIN transakcija ON stevilka = racun
+                WHERE lastnik = %s
+            """, [self.emso])
+            yield from (Transakcija(*vrstica) for vrstica in cur)
+
     @classmethod
     def _stolpci(cls):
         """
@@ -154,6 +166,19 @@ class Racun(Entiteta):
     stevilka: int = stolpec(glavni_kljuc=True, stevec=True)
     lastnik: Oseba = stolpec(obvezen=True)
     stanje: int = field(default=0)
+
+    def transakcije(self):
+        """
+        Vrni transakcije osebe.
+        """
+        with conn.cursor() as cur:
+            cur.execute("""
+                SELECT id, znesek, cas, opis
+                FROM transakcija
+                WHERE racun = %s
+            """, [self.stevilka])
+            yield from (Transakcija(id, self, znesek, cas, opis)
+                        for id, znesek, cas, opis in cur)
 
     @classmethod
     def _stolpci(cls):

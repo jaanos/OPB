@@ -29,7 +29,11 @@
         % for racun in racuni:
         <tr>
             % skupaj += racun.stanje
-            <td>{{racun.stevilka}}</td>
+            <td>
+                <a href="{{url('racuni_transakcije', stevilka=racun.stevilka)}}">
+                    {{racun.stevilka}}
+                </a>
+            </td>
             <td>{{racun.stanje}}</td>
             <td>
                 <form action="{{url('racuni_izbrisi_post', stevilka=racun.stevilka)}}" method="POST"
