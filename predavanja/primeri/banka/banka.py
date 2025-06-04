@@ -170,15 +170,30 @@ def preveri_lastnika(uporabnik, emso):
         bottle.abort(401, "Dostop prepovedan!")
 
 
+def vrni_stran():
+    """
+    Vrni številko strani za prikaz.
+    """
+    try:
+        stran = int(bottle.request.query.stran)
+        if stran < 0:
+            stran = 0
+    except ValueError:
+        stran = 0
+    return stran
+
+
 bottle.BaseTemplate.defaults.update(
     Kraj=Kraj,
     Oseba=Oseba,
     Racun=Racun,
     Transakcija=Transakcija,
     url=bottle.url,
+    urlencode=bottle.urlencode,
     preberi_sporocilo=preberi_sporocilo,
     preberi_obrazec=preberi_obrazec,
-    prijavljeni_uporabnik=prijavljeni_uporabnik
+    prijavljeni_uporabnik=prijavljeni_uporabnik,
+    vrni_stran=vrni_stran
 )
 
 

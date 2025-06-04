@@ -4,6 +4,10 @@
         Transakcije
     </h1>
 
+    % stran = vrni_stran()
+    % seznam = Transakcija.seznam(stran=stran)
+    % include('strani.html', url=url('transakcije'))
+
     <table class="table">
         <tr>
             <th>ID</th>
@@ -13,7 +17,7 @@
             <th>Opis</th>
             <th></th>
         </tr>
-        % for transakcija in Transakcija.seznam():
+        % for transakcija in seznam:
         <tr>
             <td>{{transakcija.id}}</td>
             <td>{{transakcija.racun}}</td>
@@ -40,4 +44,6 @@
         </tr>
         % end
     </table>
+
+    % include('strani.html', url=url('transakcije'))
 </div>

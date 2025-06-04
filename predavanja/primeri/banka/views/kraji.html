@@ -17,13 +17,17 @@
         </div>
     </div>
 
+    % stran = vrni_stran()
+    % seznam = Kraj.seznam(stran=stran)
+    % include('strani.html', url=url('kraji'))
+
     <table class="table">
         <tr>
             <th>Poštna številka</th>
             <th>Kraj</th>
             <th></th>
         </tr>
-        % for kraj in Kraj.seznam():
+        % for kraj in seznam:
         <tr>
             <td>{{kraj.posta}}</td>
             <td>{{kraj.kraj}}</td>
@@ -47,4 +51,6 @@
         </tr>
         % end
     </table>
+
+    % include('strani.html', url=url('kraji'))
 </div>

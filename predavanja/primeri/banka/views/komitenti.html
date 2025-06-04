@@ -17,6 +17,10 @@
         </div>
     </div>
 
+    % stran = vrni_stran()
+    % seznam = Oseba.seznam(stran=stran)
+    % include('strani.html', url=url('komitenti'))
+
     <table class="table">
         <tr>
             <th>EMŠO</th>
@@ -24,7 +28,7 @@
             <th>Naslov</th>
             <th></th>
         </tr>
-        % for oseba in Oseba.seznam():
+        % for oseba in seznam:
         <tr>
             <td>{{oseba.emso}}</td>
             <td>
@@ -53,4 +57,6 @@
         </tr>
         % end
     </table>
+
+    % include('strani.html', url=url('komitenti'))
 </div>

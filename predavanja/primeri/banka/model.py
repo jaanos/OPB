@@ -96,6 +96,15 @@ class Oseba(Entiteta):
         )
 
     @classmethod
+    def _urejanje(cls):
+        """
+        Vrni izraz za urejanje pri branju iz baze.
+        """
+        return sql.SQL("""
+            ORDER BY priimek, ime, emso
+        """)
+
+    @classmethod
     def _objekt(cls, vrstica):
         """
         Vrni objekt po branju iz baze.
@@ -196,10 +205,20 @@ class Racun(Entiteta):
         """
         return sql.SQL("""
             {tabela} JOIN {oseba} ON {tabela}.lastnik = {oseba}.emso
+        """).format(
+            tabela=sql.Identifier(cls.tabela()),
+            oseba=sql.Identifier(Oseba.tabela())
+        )
+
+    @classmethod
+    def _join(cls):
+        """
+        Vrni izraz za pridruževanje podatkov za združevanje.
+        """
+        return sql.SQL("""
             LEFT JOIN {transakcija} ON {tabela}.stevilka = {transakcija}.racun
         """).format(
             tabela=sql.Identifier(cls.tabela()),
-            oseba=sql.Identifier(Oseba.tabela()),
             transakcija=sql.Identifier(Transakcija.tabela())
         )
 
@@ -239,6 +258,14 @@ class Transakcija(Entiteta):
     cas: datetime = stolpec(privzeto=Funkcija("NOW()"), obvezen=True)
     opis: str = stolpec()
 
+    @classmethod
+    def _urejanje(cls):
+        """
+        Vrni izraz za urejanje pri branju iz baze.
+        """
+        return sql.SQL("""
+            ORDER BY cas DESC
+        """)
 
 ENTITETE = (Kraj, Oseba, Racun, Transakcija)
 

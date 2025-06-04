@@ -1,0 +1,40 @@
+% setdefault('parametri', {})
+% setdefault('okoli', 2)
+% stran = lambda s: f'{url}?{urlencode(dict(**parametri, stran=s))}'
+% zadnja = (seznam.skupaj-1) // seznam.stevilo
+% prva_st = max(0, min(seznam.stran - okoli, zadnja - 2*okoli))
+% zadnja_st = min(zadnja, max(seznam.stran + okoli, 2*okoli))
+
+% if zadnja:
+<p class="block">
+    % if seznam.stran > 0:
+    <a class="button is-primary is-small" href="{{stran(0)}}">
+        <span class="icon is-small">
+            <i class="fas fa-angles-left"></i>
+        </span>
+    </a>
+    <a class="button is-primary is-small" href="{{stran(seznam.stran-1)}}">
+        <span class="icon is-small">
+            <i class="fas fa-angle-left"></i>
+        </span>
+    </a>
+    % end
+    % for i in range(prva_st, zadnja_st+1):
+    <a class="button is-primary is-small {{'is-light' if seznam.stran == i else ''}}" href="{{stran(i)}}">
+        {{i+1}}
+    </a>
+    % end
+    % if seznam.stran < zadnja:
+    <a class="button is-primary is-small" href="{{stran(seznam.stran+1)}}">
+        <span class="icon is-small">
+            <i class="fas fa-angle-right"></i>
+        </span>
+    </a>
+    <a class="button is-primary is-small" href="{{stran(zadnja)}}">
+        <span class="icon is-small">
+            <i class="fas fa-angles-right"></i>
+        </span>
+    </a>
+    % end
+</p>
+% end

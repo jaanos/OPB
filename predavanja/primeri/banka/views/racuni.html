@@ -5,6 +5,10 @@
         Računi
     </h1>
 
+    % stran = vrni_stran()
+    % seznam = Racun.seznam(stran=stran)
+    % include('strani.html', url=url('racuni'))
+
     <table class="table">
         <tr>
             <th>Številka</th>
@@ -12,7 +16,7 @@
             <th>Stanje</th>
             <th></th>
         </tr>
-        % for racun in Racun.seznam():
+        % for racun in seznam:
         <tr>
             % skupaj += racun.stanje
             <td>
@@ -45,4 +49,6 @@
             <th></th>
         </tr>
     </table>
+
+    % include('strani.html', url=url('racuni'))
 </div>
