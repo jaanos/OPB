@@ -2,7 +2,7 @@ import bcrypt
 from auth import auth
 from dataclasses import dataclass
 from datetime import datetime
-from orm import povezi, stolpec, Entiteta, Funkcija, sql, field, fields
+from orm import povezi, stolpec, Seznam, Entiteta, Funkcija, sql, field, fields
 
 @dataclass
 class Kraj(Entiteta):
@@ -43,31 +43,44 @@ class Oseba(Entiteta):
         """
         return cls._s_kljucem('up_ime', up_ime)
 
-    def racuni(self):
+    @Seznam
+    def racuni(self, cur):
         """
         Vrni račune osebe.
         """
-        with conn.cursor() as cur:
-            cur.execute("""
-                SELECT stevilka, COALESCE(SUM(znesek), 0) AS stanje
-                FROM racun LEFT JOIN transakcija ON stevilka = racun
-                WHERE lastnik = %s
-                GROUP BY stevilka
-            """, [self.emso])
-            yield from (Racun(stevilka, self, stanje)
-                        for stevilka, stanje in cur)
+        yield from (Racun(stevilka, self, stanje) for stevilka, stanje in cur)
 
-    def transakcije(self):
+    @racuni.poizvedba
+    def racuni(self):
+        return dict(stolpci=sql.SQL("stevilka, COALESCE(SUM(znesek), 0) AS stanje"),
+                    tabela=Racun._tabela(),
+                    join=sql.SQL("LEFT JOIN transakcija ON stevilka = racun"),
+                    pogoji=sql.SQL("WHERE lastnik = {lastnik}").format(
+                        lastnik=sql.Placeholder()
+                    ),
+                    zdruzevanje=sql.SQL("GROUP BY stevilka"),
+                    podatki=[self.emso],
+                    objekt=Racun)
+
+
+    @Seznam
+    def transakcije(self, cur):
         """
         Vrni transakcije osebe.
         """
-        with conn.cursor() as cur:
-            cur.execute("""
-                SELECT id, racun, znesek, cas, opis
-                FROM racun JOIN transakcija ON stevilka = racun
-                WHERE lastnik = %s
-            """, [self.emso])
-            yield from (Transakcija(*vrstica) for vrstica in cur)
+        yield from (Transakcija(*vrstica) for vrstica in cur)
+
+    @transakcije.poizvedba
+    def transakcije(self):
+        return dict(stolpci=sql.SQL("id, racun, znesek, cas, opis"),
+                    tabela=sql.SQL("""
+                        racun JOIN transakcija ON stevilka = racun
+                    """),
+                    pogoji=sql.SQL("WHERE lastnik = {lastnik}").format(
+                        lastnik=sql.Placeholder()
+                    ),
+                    podatki=[self.emso],
+                    objekt=Transakcija)
 
     @classmethod
     def _stolpci(cls):
@@ -176,18 +189,23 @@ class Racun(Entiteta):
     lastnik: Oseba = stolpec(obvezen=True)
     stanje: int = field(default=0)
 
-    def transakcije(self):
+    @Seznam
+    def transakcije(self, cur):
         """
         Vrni transakcije osebe.
         """
-        with conn.cursor() as cur:
-            cur.execute("""
-                SELECT id, znesek, cas, opis
-                FROM transakcija
-                WHERE racun = %s
-            """, [self.stevilka])
-            yield from (Transakcija(id, self, znesek, cas, opis)
-                        for id, znesek, cas, opis in cur)
+        yield from (Transakcija(id, self, znesek, cas, opis)
+                    for id, znesek, cas, opis in cur)
+
+    @transakcije.poizvedba
+    def transakcije(self):
+        return dict(stolpci=sql.SQL("id, znesek, cas, opis"),
+                    tabela=Transakcija._tabela(),
+                    pogoji=sql.SQL("WHERE racun = {racun}").format(
+                        racun=sql.Placeholder()
+                    ),
+                    podatki=[self.stevilka],
+                    objekt=Transakcija)
 
     @classmethod
     def _stolpci(cls):

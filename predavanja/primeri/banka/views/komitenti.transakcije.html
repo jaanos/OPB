@@ -4,18 +4,22 @@
         Transakcije komitenta {{oseba.ime}} {{oseba.priimek}} ({{oseba.emso}})
     </h1>
 
+    % stran, uredi = vrni_stran()
+    % seznam = oseba.transakcije(stran=stran, uredi=uredi)
+    % include('strani.html', url=url('komitenti_transakcije', emso=oseba.emso))
+
     <table class="table">
         <tr>
-            <th>ID</th>
-            <th>Račun</th>
-            <th>Znesek</th>
-            <th>Čas</th>
-            <th>Opis</th>
+            <th><a href="{{url('komitenti_transakcije', emso=oseba.emso)}}?uredi=id">ID</a></th>
+            <th><a href="{{url('komitenti_transakcije', emso=oseba.emso)}}?uredi=racun">Račun</a></th>
+            <th><a href="{{url('komitenti_transakcije', emso=oseba.emso)}}?uredi=znesek">Znesek</a></th>
+            <th><a href="{{url('komitenti_transakcije', emso=oseba.emso)}}?uredi=cas">Čas</a></th>
+            <th><a href="{{url('komitenti_transakcije', emso=oseba.emso)}}?uredi=opis">Opis</a></th>
             % if uporabnik.admin:
             <th></th>
             %end
         </tr>
-        % for transakcija in oseba.transakcije():
+        % for transakcija in seznam:
         <tr>
             <td>{{transakcija.id}}</td>
             <td>
@@ -48,4 +52,6 @@
         </tr>
         % end
     </table>
+
+    % include('strani.html', url=url('komitenti_transakcije', emso=oseba.emso))
 </div>

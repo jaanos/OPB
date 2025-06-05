@@ -18,17 +18,21 @@
         </div>
     </div>
 
+    % stran, uredi = vrni_stran()
+    % seznam = racun.transakcije(stran=stran, uredi=uredi)
+    % include('strani.html', url=url('racuni_transakcije', stevilka=racun.stevilka))
+
     <table class="table">
         <tr>
-            <th>ID</th>
-            <th>Znesek</th>
-            <th>Čas</th>
-            <th>Opis</th>
+            <th><a href="{{url('racuni_transakcije', stevilka=racun.stevilka)}}?uredi=id">ID</a></th>
+            <th><a href="{{url('racuni_transakcije', stevilka=racun.stevilka)}}?uredi=znesek">Znesek</a></th>
+            <th><a href="{{url('racuni_transakcije', stevilka=racun.stevilka)}}?uredi=cas">Čas</a></th>
+            <th><a href="{{url('racuni_transakcije', stevilka=racun.stevilka)}}?uredi=opis">Opis</a></th>
             % if uporabnik.admin:
             <th></th>
             %end
         </tr>
-        % for transakcija in racun.transakcije():
+        % for transakcija in seznam:
         <tr>
             <td>{{transakcija.id}}</td>
             <td>{{transakcija.znesek}}</td>
@@ -56,4 +60,6 @@
         </tr>
         % end
     </table>
+
+    % include('strani.html', url=url('racuni_transakcije', stevilka=racun.stevilka))
 </div>

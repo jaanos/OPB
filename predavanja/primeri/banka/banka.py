@@ -180,7 +180,7 @@ def vrni_stran():
             stran = 0
     except ValueError:
         stran = 0
-    return stran
+    return (stran, bottle.request.query.uredi)
 
 
 bottle.BaseTemplate.defaults.update(
@@ -384,7 +384,7 @@ def komitenti_uredi_post(uporabnik, emso):
 def komitenti_racuni(uporabnik, emso):
     preveri_lastnika(uporabnik, emso)
     oseba = Oseba.z_id(emso)
-    return dict(oseba=oseba, racuni=oseba.racuni())
+    return dict(oseba=oseba)
 
 
 @bottle.get('/komitenti/transakcije/<emso>/')

@@ -111,6 +111,7 @@ class Seznam:
         self.zdruzevanje = zdruzevanje
         self.urejanje = urejanje
         self.podatki = podatki
+        self.objekt = None
         if fun:
             self(fun)
 
@@ -127,10 +128,10 @@ class Seznam:
         if isinstance(fun, (classmethod, staticmethod)):
             fun = fun.__func__
         @wraps(fun)
-        def wrapper(*largs, stevilo=self.stevilo, stran=0, **kwargs):
+        def wrapper(*largs, stevilo=self.stevilo, stran=0, uredi=None, **kwargs):
             largs, kwargs = self.obdelaj_argumente(largs, kwargs)
             stolpci, tabela, join, pogoji, zdruzevanje, urejanje, podatki = \
-                self.vrni_poizvedbo(*largs, **kwargs)
+                self.vrni_poizvedbo(*largs, uredi=uredi, **kwargs)
             def generator(podatki=podatki):
                 with conn.transaction():
                     with conn.cursor() as cur:
@@ -180,6 +181,8 @@ class Seznam:
         """
         Vrni ustrezno metodo glede na način klicanja.
         """
+        if self.objekt is None:
+            self.objekt = owner
         if issubclass(self.tip, classmethod):
             return MethodType(self.fun, owner)
         elif issubclass(self.tip, staticmethod) or instance is None:
@@ -204,7 +207,7 @@ class Seznam:
         """
         return {}
 
-    def vrni_poizvedbo(self, *largs, **kwargs):
+    def vrni_poizvedbo(self, *largs, uredi=None, **kwargs):
         """
         Vrni trojico s specifikacijo stolpcev, glavnega dela stavka SQL in
         podatkov.
@@ -212,11 +215,16 @@ class Seznam:
         poizvedba = dict(stolpci=self.stolpci, tabela=self.tabela,
                          join=self.join, pogoji=self.pogoji,
                          zdruzevanje=self.zdruzevanje, urejanje=self.urejanje,
-                         podatki=self.podatki)
+                         podatki=self.podatki, objekt=self.objekt)
         polja = tuple(poizvedba.keys())
         poizvedba.update(self.sestavi_poizvedbo(*largs, **kwargs))
+        if uredi and any(stolpec.name == uredi
+                         for stolpec in fields(poizvedba['objekt'])):
+            poizvedba['urejanje'] = sql.SQL("""
+                ORDER BY {uredi}
+            """).format(uredi=sql.Identifier(uredi))
         return tuple(PRAZNO if poizvedba[k] is None else poizvedba[k]
-                     for k in polja)
+                     for k in polja if k != 'objekt')
 
     def argumenti(self, fun):
         """

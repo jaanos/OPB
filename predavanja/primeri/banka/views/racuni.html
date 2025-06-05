@@ -5,15 +5,15 @@
         Računi
     </h1>
 
-    % stran = vrni_stran()
-    % seznam = Racun.seznam(stran=stran)
+    % stran, uredi = vrni_stran()
+    % seznam = Racun.seznam(stran=stran, uredi=uredi)
     % include('strani.html', url=url('racuni'))
 
     <table class="table">
         <tr>
-            <th>Številka</th>
-            <th>Lastnik</th>
-            <th>Stanje</th>
+            <th><a href="{{url('racuni')}}?uredi=stevilka">Številka</a></th>
+            <th><a href="{{url('racuni')}}?uredi=lastnik">Lastnik</a></th>
+            <th><a href="{{url('racuni')}}?uredi=stanje">Stanje</a></th>
             <th></th>
         </tr>
         % for racun in seznam:

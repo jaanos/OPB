@@ -20,13 +20,17 @@
         </div>
     </div>
 
+    % stran, uredi = vrni_stran()
+    % seznam = oseba.racuni(stran=stran, uredi=uredi)
+    % include('strani.html', url=url('komitenti_racuni', emso=oseba.emso))
+
     <table class="table">
         <tr>
-            <th>Številka</th>
-            <th>Stanje</th>
+            <th><a href="{{url('komitenti_racuni', emso=oseba.emso)}}?uredi=stevilka">Številka</a></th>
+            <th><a href="{{url('komitenti_racuni', emso=oseba.emso)}}?uredi=stanje">Stanje</a></th>
             <th></th>
         </tr>
-        % for racun in racuni:
+        % for racun in seznam:
         <tr>
             % skupaj += racun.stanje
             <td>
@@ -53,4 +57,6 @@
             <th></th>
         </tr>
     </table>
+
+    % include('strani.html', url=url('komitenti_racuni', emso=oseba.emso))
 </div>
