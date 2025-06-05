@@ -1,0 +1,24 @@
+% rebase('osnova.html', stran='transakcije_uredi', naslov='Uredi transakcijo')
+% transakcija = preberi_obrazec(f'transakcije_uredi_{transakcija.id}', transakcija)
+
+<h1 class="title">
+    Uredi transakcijo
+</h1>
+
+<form action="{{url('transakcije_uredi_post', id=transakcija.id)}}" method="POST">
+    <div class="field">
+        <label class="label">ID</label>
+        <div class="control">
+            {{transakcija.id}}
+        </div>
+    </div>
+    % include('transakcije.obrazec.html')
+    <div class="field is-grouped">
+        <div class="control">
+            <button class="button is-link">Uredi</button>
+        </div>
+        <div class="control">
+            <a class="button is-link is-light" href="{{url('transakcije')}}">Prekliči</a>
+        </div>
+    </div>
+</form>

@@ -2,7 +2,7 @@ import bcrypt
 from auth import auth
 from dataclasses import dataclass
 from datetime import datetime
-from orm import povezi, stolpec, Entiteta, Funkcija, sql, fields
+from orm import povezi, stolpec, Seznam, Entiteta, Funkcija, sql, field, fields
 
 @dataclass
 class Kraj(Entiteta):
@@ -43,19 +43,58 @@ class Oseba(Entiteta):
         """
         return cls._s_kljucem('up_ime', up_ime)
 
+    @Seznam
+    def racuni(self, cur):
+        """
+        Vrni račune osebe.
+        """
+        yield from (Racun(stevilka, self, stanje) for stevilka, stanje in cur)
+
+    @racuni.poizvedba
+    def racuni(self):
+        return dict(stolpci=sql.SQL("stevilka, COALESCE(SUM(znesek), 0) AS stanje"),
+                    tabela=Racun._tabela(),
+                    join=sql.SQL("LEFT JOIN transakcija ON stevilka = racun"),
+                    pogoji=sql.SQL("WHERE lastnik = {lastnik}").format(
+                        lastnik=sql.Placeholder()
+                    ),
+                    zdruzevanje=sql.SQL("GROUP BY stevilka"),
+                    podatki=[self.emso],
+                    objekt=Racun)
+
+
+    @Seznam
+    def transakcije(self, cur):
+        """
+        Vrni transakcije osebe.
+        """
+        yield from (Transakcija(*vrstica) for vrstica in cur)
+
+    @transakcije.poizvedba
+    def transakcije(self):
+        return dict(stolpci=sql.SQL("id, racun, znesek, cas, opis"),
+                    tabela=sql.SQL("""
+                        racun JOIN transakcija ON stevilka = racun
+                    """),
+                    pogoji=sql.SQL("WHERE lastnik = {lastnik}").format(
+                        lastnik=sql.Placeholder()
+                    ),
+                    podatki=[self.emso],
+                    objekt=Transakcija)
+
     @classmethod
     def _stolpci(cls):
         """
         Vrni zaporedje stolpcev za branje iz baze.
         """
         yield from (sql.Identifier(stolpec.name) for stolpec in fields(cls)
-                    if stolpec.name != 'kraj')
+                    if stolpec.metadata and stolpec.name != 'kraj')
         kraj = sql.Identifier(Kraj.tabela())
         yield from (sql.SQL("{kraj}.{stolpec}").format(
                         kraj=kraj,
                         stolpec=sql.Identifier(stolpec.name)
                     )
-                    for stolpec in fields(Kraj))
+                    for stolpec in fields(Kraj) if stolpec.metadata)
 
     @classmethod
     def _tabela(cls):
@@ -70,13 +109,23 @@ class Oseba(Entiteta):
         )
 
     @classmethod
+    def _urejanje(cls):
+        """
+        Vrni izraz za urejanje pri branju iz baze.
+        """
+        return sql.SQL("""
+            ORDER BY priimek, ime, emso
+        """)
+
+    @classmethod
     def _objekt(cls, vrstica):
         """
         Vrni objekt po branju iz baze.
         """
         *vrstica, posta, kraj = vrstica
         return cls.iz_baze(**dict(zip((stolpec.name for stolpec in fields(cls)
-                                       if stolpec.name != 'kraj'), vrstica)),
+                                       if stolpec.metadata
+                                       and stolpec.name != 'kraj'), vrstica)),
                            kraj=Kraj.iz_baze(posta, kraj))
 
     @classmethod
@@ -133,10 +182,30 @@ class Racun(Entiteta):
     Račun z lastnostmi:
     - stevilka: številka računa (glavni ključ)
     - lastnik: lastnik računa
+    - stanje: izračunano stanje na računu
     """
 
     stevilka: int = stolpec(glavni_kljuc=True, stevec=True)
     lastnik: Oseba = stolpec(obvezen=True)
+    stanje: int = field(default=0)
+
+    @Seznam
+    def transakcije(self, cur):
+        """
+        Vrni transakcije osebe.
+        """
+        yield from (Transakcija(id, self, znesek, cas, opis)
+                    for id, znesek, cas, opis in cur)
+
+    @transakcije.poizvedba
+    def transakcije(self):
+        return dict(stolpci=sql.SQL("id, znesek, cas, opis"),
+                    tabela=Transakcija._tabela(),
+                    pogoji=sql.SQL("WHERE racun = {racun}").format(
+                        racun=sql.Placeholder()
+                    ),
+                    podatki=[self.stevilka],
+                    objekt=Transakcija)
 
     @classmethod
     def _stolpci(cls):
@@ -145,6 +214,7 @@ class Racun(Entiteta):
         """
         yield from super()._stolpci()
         yield from (sql.Identifier(stolpec) for stolpec in ('ime', 'priimek'))
+        yield sql.SQL("COALESCE(SUM(znesek), 0) AS stanje")
 
     @classmethod
     def _tabela(cls):
@@ -159,12 +229,34 @@ class Racun(Entiteta):
         )
 
     @classmethod
+    def _join(cls):
+        """
+        Vrni izraz za pridruževanje podatkov za združevanje.
+        """
+        return sql.SQL("""
+            LEFT JOIN {transakcija} ON {tabela}.stevilka = {transakcija}.racun
+        """).format(
+            tabela=sql.Identifier(cls.tabela()),
+            transakcija=sql.Identifier(Transakcija.tabela())
+        )
+
+    @classmethod
+    def _zdruzevanje(cls):
+        """
+        Vrni izraz za združevanje za branje iz baze.
+        """
+        return sql.SQL("GROUP BY stevilka, {oseba}.emso").format(
+            oseba=sql.Identifier(Oseba.tabela())
+        )
+
+    @classmethod
     def _objekt(cls, vrstica):
         """
         Vrni objekt po branju iz baze.
         """
-        racun, lastnik, ime, priimek = vrstica
-        return cls.iz_baze(racun, Oseba.iz_baze(lastnik, ime, priimek))
+        racun, lastnik, ime, priimek, stanje = vrstica
+        return cls.iz_baze(racun, Oseba.iz_baze(lastnik, ime, priimek),
+                           stanje)
 
 
 @dataclass
@@ -184,6 +276,14 @@ class Transakcija(Entiteta):
     cas: datetime = stolpec(privzeto=Funkcija("NOW()"), obvezen=True)
     opis: str = stolpec()
 
+    @classmethod
+    def _urejanje(cls):
+        """
+        Vrni izraz za urejanje pri branju iz baze.
+        """
+        return sql.SQL("""
+            ORDER BY cas DESC
+        """)
 
 ENTITETE = (Kraj, Oseba, Racun, Transakcija)
 

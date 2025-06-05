@@ -1,0 +1,62 @@
+% rebase('osnova.html', stran=f'komitenti_racuni-{oseba.emso}', naslov='Računi komitenta')
+% skupaj = 0
+<div class="container">
+    <div class="level">
+        <div class="level-left">
+            <div class="level-item">
+                <h1 class="title">
+                    Računi komitenta {{oseba.ime}} {{oseba.priimek}} ({{oseba.emso}})
+                </h1>
+            </div>
+        </div>
+        <div class="level-right">
+            <div class="level-item">
+                <form action="{{url('racuni_dodaj_post', emso=oseba.emso)}}" method="POST">
+                    <button class="button is-primary">
+                        Dodaj račun
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    % stran, uredi = vrni_stran()
+    % seznam = oseba.racuni(stran=stran, uredi=uredi)
+    % include('strani.html', url=url('komitenti_racuni', emso=oseba.emso))
+
+    <table class="table">
+        <tr>
+            <th><a href="{{url('komitenti_racuni', emso=oseba.emso)}}?uredi=stevilka">Številka</a></th>
+            <th><a href="{{url('komitenti_racuni', emso=oseba.emso)}}?uredi=stanje">Stanje</a></th>
+            <th></th>
+        </tr>
+        % for racun in seznam:
+        <tr>
+            % skupaj += racun.stanje
+            <td>
+                <a href="{{url('racuni_transakcije', stevilka=racun.stevilka)}}">
+                    {{racun.stevilka}}
+                </a>
+            </td>
+            <td>{{racun.stanje}}</td>
+            <td>
+                <form action="{{url('racuni_izbrisi_post', stevilka=racun.stevilka)}}" method="POST"
+                  onsubmit="return confirm('Ali res želiš izbrisati račun s številko {{racun.stevilka}}?')">
+                    <button class="button is-danger">
+                        <span class="icon is-small">
+                            <i class="fas fa-trash"></i>
+                        </span>
+                    </button>
+                </form>
+            </td>
+        </tr>
+        % end
+        <tr>
+            <th>Skupaj</th>
+            <th>{{skupaj}}</th>
+            <th></th>
+        </tr>
+    </table>
+
+    % include('strani.html', url=url('komitenti_racuni', emso=oseba.emso))
+</div>

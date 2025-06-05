@@ -35,7 +35,9 @@
         </div>
 
         <div id="navbarBasicExample" class="navbar-menu">
+            % if uporabnik:
             <div class="navbar-start">
+                % if uporabnik.admin:
                 <a class="navbar-item {{'is-selected' if stran == 'kraji' else ''}}" href="{{url('kraji')}}">
                     Kraji
                 </a>
@@ -43,6 +45,7 @@
                 <a class="navbar-item {{'is-selected' if stran == 'komitenti' else ''}}" href="{{url('komitenti')}}">
                     Komitenti
                 </a>
+                % end
 
                 <div class="navbar-item has-dropdown is-hoverable">
                     <a class="navbar-link">
@@ -50,12 +53,14 @@
                     </a>
 
                     <div class="navbar-dropdown">
-                        <a class="navbar-item">
+                        <a class="navbar-item {{'is-selected' if stran == f'komitenti_racuni-{uporabnik.emso}' else ''}}" href="{{url('komitenti_racuni', emso=uporabnik.emso)}}">
                             Moji računi
                         </a>
+                        % if uporabnik.admin:
                         <a class="navbar-item {{'is-selected' if stran == 'racuni' else ''}}" href="{{url('racuni')}}">
                             Seznam računov
                         </a>
+                        % end
                     </div>
                 </div>
 
@@ -65,21 +70,24 @@
                     </a>
 
                     <div class="navbar-dropdown">
-                        <a class="navbar-item">
+                        <a class="navbar-item {{'is-selected' if stran == f'komitenti_transakcije-{uporabnik.emso}' else ''}}"  href="{{url('komitenti_transakcije', emso=uporabnik.emso)}}">
                             Moje transakcije
                         </a>
+                        % if uporabnik.admin:
                         <a class="navbar-item {{'is-selected' if stran == 'transakcije' else ''}}" href="{{url('transakcije')}}">
                             Seznam transakcij
                         </a>
+                        % end
                     </div>
                 </div>
             </div>
+            % end
 
             <div class="navbar-end">
                 % if uporabnik:
                 <div class="navbar-item">
                     <div class="buttons">
-                        <a class="button is-light" href="{{url('komitenti_uredi', emso=uporabnik.emso)}}">
+                        <a class="button {{'is-warning' if uporabnik.admin else 'is-light'}}" href="{{url('komitenti_uredi', emso=uporabnik.emso)}}">
                             <strong>{{uporabnik.up_ime}}</strong>
                         </a>
                         <form action="{{url('odjava_post')}}" method="POST">

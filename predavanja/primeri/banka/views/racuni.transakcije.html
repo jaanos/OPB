@@ -1,0 +1,65 @@
+% rebase('osnova.html', stran=f'racuni_transakcije-{racun.stevilka}', naslov='Transakcije na računu')
+<div class="container">
+    <div class="level">
+        <div class="level-left">
+            <div class="level-item">
+                <h1 class="title">
+                    Transakcije na računu {{racun.stevilka}}<br />
+                    komitenta {{racun.lastnik.ime}} {{racun.lastnik.priimek}} ({{racun.lastnik.emso}})
+                </h1>
+            </div>
+        </div>
+        <div class="level-right">
+            <div class="level-item">
+                <a class="button is-primary" href="{{url('transakcije_dodaj', stevilka=racun.stevilka)}}"">
+                    Dodaj transakcijo
+                </a>
+            </div>
+        </div>
+    </div>
+
+    % stran, uredi = vrni_stran()
+    % seznam = racun.transakcije(stran=stran, uredi=uredi)
+    % include('strani.html', url=url('racuni_transakcije', stevilka=racun.stevilka))
+
+    <table class="table">
+        <tr>
+            <th><a href="{{url('racuni_transakcije', stevilka=racun.stevilka)}}?uredi=id">ID</a></th>
+            <th><a href="{{url('racuni_transakcije', stevilka=racun.stevilka)}}?uredi=znesek">Znesek</a></th>
+            <th><a href="{{url('racuni_transakcije', stevilka=racun.stevilka)}}?uredi=cas">Čas</a></th>
+            <th><a href="{{url('racuni_transakcije', stevilka=racun.stevilka)}}?uredi=opis">Opis</a></th>
+            % if uporabnik.admin:
+            <th></th>
+            %end
+        </tr>
+        % for transakcija in seznam:
+        <tr>
+            <td>{{transakcija.id}}</td>
+            <td>{{transakcija.znesek}}</td>
+            <td>{{transakcija.cas}}</td>
+            <td>{{transakcija.opis}}</td>
+            % if uporabnik.admin:
+            <td>
+                <div class="buttons">
+                    <a class="button is-primary" href="{{url('transakcije_uredi', id=transakcija.id)}}">
+                        <span class="icon is-small">
+                            <i class="fas fa-pen"></i>
+                        </span>
+                    </a>
+                    <form action="{{url('transakcije_izbrisi_post', id=transakcija.id)}}" method="POST"
+                     onsubmit="return confirm('Ali res želiš izbrisati transakcijo z ID-jem {{transakcija.id}}?')">
+                        <button class="button is-danger">
+                            <span class="icon is-small">
+                                <i class="fas fa-trash"></i>
+                            </span>
+                        </button>
+                    </form>
+                </div>
+            </td>
+            % end
+        </tr>
+        % end
+    </table>
+
+    % include('strani.html', url=url('racuni_transakcije', stevilka=racun.stevilka))
+</div>

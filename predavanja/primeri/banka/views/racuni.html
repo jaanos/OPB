@@ -1,22 +1,38 @@
 % rebase('osnova.html', stran='racuni', naslov='Računi')
+% skupaj = 0
 <div class="container">
     <h1 class="title">
         Računi
     </h1>
 
+    % stran, uredi = vrni_stran()
+    % seznam = Racun.seznam(stran=stran, uredi=uredi)
+    % include('strani.html', url=url('racuni'))
+
     <table class="table">
         <tr>
-            <th>Številka</th>
-            <th>Lastnik</th>
+            <th><a href="{{url('racuni')}}?uredi=stevilka">Številka</a></th>
+            <th><a href="{{url('racuni')}}?uredi=lastnik">Lastnik</a></th>
+            <th><a href="{{url('racuni')}}?uredi=stanje">Stanje</a></th>
             <th></th>
         </tr>
-        % for racun in Racun.seznam():
+        % for racun in seznam:
         <tr>
-            <td>{{racun.stevilka}}</td>
-            <td>{{racun.lastnik.ime}} {{racun.lastnik.priimek}} ({{racun.lastnik.emso}})</td>
+            % skupaj += racun.stanje
             <td>
-                <form action="{{url('izbrisi_racun', stevilka=racun.stevilka)}}" method="POST"
-                  onsubmit="return confirm('Ali res želi izbrisati račun s številko {{racun.stevilka}}?')">
+                <a href="{{url('racuni_transakcije', stevilka=racun.stevilka)}}">
+                    {{racun.stevilka}}
+                </a>
+            </td>
+            <td>
+                <a href="{{url('komitenti_racuni', emso=racun.lastnik.emso)}}">
+                    {{racun.lastnik.ime}} {{racun.lastnik.priimek}} ({{racun.lastnik.emso}})
+                </a>
+            </td>
+            <td>{{racun.stanje}}</td>
+            <td>
+                <form action="{{url('racuni_izbrisi_post', stevilka=racun.stevilka)}}" method="POST"
+                  onsubmit="return confirm('Ali res želiš izbrisati račun s številko {{racun.stevilka}}?')">
                     <button class="button is-danger">
                         <span class="icon is-small">
                             <i class="fas fa-trash"></i>
@@ -26,5 +42,13 @@
             </td>
         </tr>
         % end
+        <tr>
+            <th></th>
+            <th>Skupno stanje</th>
+            <th>{{skupaj}}</th>
+            <th></th>
+        </tr>
     </table>
+
+    % include('strani.html', url=url('racuni'))
 </div>

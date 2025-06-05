@@ -1,12 +1,15 @@
 from dataclasses import field, fields
 from datetime import datetime
+from functools import wraps
 from psycopg import connect, sql, errors
+from types import MethodType
 import csv
 
 
 PRAZNO = sql.SQL("")
 PRESLEDEK = sql.SQL(" ")
 VEJICA = sql.SQL(", ")
+STEVILO = 50
 
 TIPI = {
     int: "INTEGER",
@@ -52,6 +55,190 @@ def tip(stolpec):
     while issubclass(t, Entiteta):
         t = t.glavni_kljuc().type
     return TIPI[t]
+
+
+class Rezultat:
+    """
+    Razred za rezultate poizvedb v seznamu.
+    """
+    def __init__(self, gen, stevilo, stran, skupaj):
+        """
+        Konstruktor rezultata.
+        """
+        self.gen = gen
+        self.stevilo = stevilo
+        self.stran = stran
+        self.skupaj = skupaj
+        if stevilo is None:
+            self.dolzina = skupaj
+        elif (stran + 1) * stevilo <= skupaj:
+            self.dolzina = stevilo
+        elif stran * stevilo >= skupaj:
+            self.dolzina = 0
+        else:
+            self.dolzina = skupaj % stevilo
+
+    def __iter__(self):
+        """
+        Iteriraj čez rezultat.
+        """
+        yield from self.gen
+
+    def __len__(self):
+        """
+        Število vnosov v rezultatu.
+        """
+        return self.dolzina
+
+
+class Seznam:
+    """
+    Razred za sezname z deljenjem na strani.
+    """
+    def __init__(self, fun=None, stevilo=STEVILO, stolpci=None, tabela=None,
+                 join=None, pogoji=None, zdruzevanje=None, urejanje=None, podatki=()):
+        """
+        Konstruktor seznama.
+
+        Možno ga je uporabiti kot dekorator.
+        """
+        self.fun = None
+        self.stevilo = stevilo
+        self.stolpci = stolpci
+        self.tabela = tabela
+        self.join = join
+        self.pogoji = pogoji
+        self.zdruzevanje = zdruzevanje
+        self.urejanje = urejanje
+        self.podatki = podatki
+        self.objekt = None
+        if fun:
+            self(fun)
+
+    def __call__(self, *largs, **kwargs):
+        """
+        Klic seznama za uporabo kot dekorator.
+
+        Če je funkcija že nastavljena, jo kliče s podanimi parametri.
+        """
+        if self.fun:
+            return self.fun(*largs, **kwargs)
+        fun, = largs
+        self.tip = type(fun)
+        if isinstance(fun, (classmethod, staticmethod)):
+            fun = fun.__func__
+        @wraps(fun)
+        def wrapper(*largs, stevilo=self.stevilo, stran=0, uredi=None, **kwargs):
+            largs, kwargs = self.obdelaj_argumente(largs, kwargs)
+            stolpci, tabela, join, pogoji, zdruzevanje, urejanje, podatki = \
+                self.vrni_poizvedbo(*largs, uredi=uredi, **kwargs)
+            def generator(podatki=podatki):
+                with conn.transaction():
+                    with conn.cursor() as cur:
+                        cur.execute(sql.SQL("""
+                            SELECT COUNT(*) FROM {tabela} {pogoji};
+                        """).format(tabela=tabela, pogoji=pogoji), podatki)
+                        skupaj, = cur.fetchone()
+                        yield skupaj
+                        if stevilo:
+                            odmik = stran * stevilo
+                            if isinstance(podatki, dict):
+                                __stevilo = '__stevilo'
+                                __odmik = '__odmik'
+                                podatki = dict(**podatki, __stevilo=stevilo,
+                                               __odmik=odmik)
+                            else:
+                                __stevilo = __odmik = ''
+                                podatki = (*podatki, stevilo, odmik)
+                            limit = sql.SQL(
+                                "LIMIT {__stevilo} OFFSET {__odmik}"
+                            ).format(
+                                __stevilo=sql.Placeholder(__stevilo),
+                                __odmik=sql.Placeholder(__odmik)
+                            )
+                        else:
+                            limit = PRAZNO
+                        cur.execute(sql.SQL("""
+                            SELECT {stolpci} FROM {tabela} {join}
+                            {pogoji} {zdruzevanje} {urejanje} {limit};
+                        """).format(
+                            stolpci=stolpci,
+                            tabela=tabela,
+                            join=join,
+                            pogoji=pogoji,
+                            zdruzevanje=zdruzevanje,
+                            urejanje=urejanje,
+                            limit=limit
+                        ), podatki)
+                        yield from fun(*largs, cur=cur, **kwargs)
+            gen = generator()
+            skupaj = next(gen)
+            return Rezultat(gen, stevilo, stran, skupaj)
+        self.fun = wrapper
+        return self
+
+    def __get__(self, instance, owner=None):
+        """
+        Vrni ustrezno metodo glede na način klicanja.
+        """
+        if self.objekt is None:
+            self.objekt = owner
+        if issubclass(self.tip, classmethod):
+            return MethodType(self.fun, owner)
+        elif issubclass(self.tip, staticmethod) or instance is None:
+            return self.fun
+        else:
+            return MethodType(self.fun, instance)
+
+    def obdelaj_argumente(self, largs, kwargs):
+        """
+        Obdelaj argumente za nadaljnje klice.
+
+        Privzeto ne spremeni argumentov, lahko se nadomesti z metodo argumenti.
+        """
+        return (largs, kwargs)
+
+    def sestavi_poizvedbo(self, *largs, **kwargs):
+        """
+        Vrni slovar s specifikacijo stolpcev, glavnega dela stavka SQL in
+        podatkov. Manjkajoči ključi se nadomestijo s privzetimi vrednostmi.
+
+        Privzeto vrača prazen slovar, lahko se nadomesti z metodo poizvedba.
+        """
+        return {}
+
+    def vrni_poizvedbo(self, *largs, uredi=None, **kwargs):
+        """
+        Vrni trojico s specifikacijo stolpcev, glavnega dela stavka SQL in
+        podatkov.
+        """
+        poizvedba = dict(stolpci=self.stolpci, tabela=self.tabela,
+                         join=self.join, pogoji=self.pogoji,
+                         zdruzevanje=self.zdruzevanje, urejanje=self.urejanje,
+                         podatki=self.podatki, objekt=self.objekt)
+        polja = tuple(poizvedba.keys())
+        poizvedba.update(self.sestavi_poizvedbo(*largs, **kwargs))
+        if uredi and any(stolpec.name == uredi
+                         for stolpec in fields(poizvedba['objekt'])):
+            poizvedba['urejanje'] = sql.SQL("""
+                ORDER BY {uredi}
+            """).format(uredi=sql.Identifier(uredi))
+        return tuple(PRAZNO if poizvedba[k] is None else poizvedba[k]
+                     for k in polja if k != 'objekt')
+
+    def argumenti(self, fun):
+        """
+        Nastavi funkcijo za obdelavo argumentov.
+        """
+        self.obdelaj_argumente = fun
+        return self
+
+    def poizvedba(self, fun):
+        """
+        Nastavi funkcijo za sestavljanje poizvedbe.
+        """
+        self.sestavi_poizvedbo = fun
+        return self
 
 
 class Funkcija:
@@ -149,7 +336,7 @@ class Entiteta:
                             ) if issubclass(stolpec.type, Entiteta)
                             else PRAZNO
                         )
-                        for stolpec in fields(cls)
+                        for stolpec in fields(cls) if stolpec.metadata
                     )))
 
     @classmethod
@@ -182,7 +369,7 @@ class Entiteta:
         """
         if not hasattr(cls, "GLAVNI_KLJUC"):
             cls.GLAVNI_KLJUC = next(stolpec for stolpec in fields(cls)
-                                    if stolpec.metadata["glavni_kljuc"])
+                                    if stolpec.metadata.get("glavni_kljuc"))
         return cls.GLAVNI_KLJUC
 
     @classmethod
@@ -224,7 +411,7 @@ class Entiteta:
                          in cls._vrstica_uvoz(stolpci, vrstica)}
                         for vrstica in rd))
                     stevci = [stolpec.name for stolpec in fields(cls)
-                              if stolpec.metadata["stevec"]
+                              if stolpec.metadata.get("stevec")
                               and stolpec.name in stolpci]
                     if stevci:
                         cur.execute(sql.SQL("""
@@ -251,13 +438,16 @@ class Entiteta:
         """
         with conn.cursor() as cur:
             cur.execute(sql.SQL("""
-                SELECT {stolpci} FROM {tabela}
-                WHERE {kljuc} = {id};
+                SELECT {stolpci} FROM {tabela} {join}
+                WHERE {kljuc} = {id}
+                {zdruzevanje};
             """).format(
                 stolpci=VEJICA.join(cls._stolpci()),
                 tabela=cls._tabela(),
+                join=cls._join(),
                 kljuc=sql.Identifier(kljuc),
-                id=sql.Literal(id)
+                id=sql.Literal(id),
+                zdruzevanje=cls._zdruzevanje()
             ))
             vrstica = cur.fetchone()
             if not vrstica:
@@ -279,6 +469,8 @@ class Entiteta:
         podatki = []
         generirani = []
         for stolpec in fields(self):
+            if not stolpec.metadata:
+                continue
             vrednost = self[stolpec.name]
             if vrednost is not None:
                 stolpci.append(stolpec.name)
@@ -336,7 +528,7 @@ class Entiteta:
                                     if isinstance(vrednost, Funkcija)
                                     else sql.Literal(vrednost)
                             )
-                            for stolpec in fields(self)
+                            for stolpec in fields(self) if stolpec.metadata
                             for vrednost in [self[stolpec.name]]
                         ),
                         glavni_kljuc=sql.Identifier(self.glavni_kljuc().name),
@@ -375,26 +567,34 @@ class Entiteta:
         """
         cls.iz_baze(**{cls.glavni_kljuc().name: id}).izbrisi()
 
+    @Seznam
     @classmethod
-    def seznam(cls):
+    def seznam(cls, cur):
         """
         Vrni seznam entitet iz baze.
         """
-        with conn.cursor() as cur:
-            cur.execute(sql.SQL("""
-                SELECT {stolpci} FROM {tabela};
-            """).format(
-                stolpci=VEJICA.join(cls._stolpci()),
-                tabela=cls._tabela()
-            ))
-            yield from (cls._objekt(vrstica) for vrstica in cur)
+        yield from (cls._objekt(vrstica) for vrstica in cur)
+
+    @seznam.poizvedba
+    def seznam(cls):
+        """
+        Sestavi poizvedbo za seznam entitet iz baze.
+        """
+        return dict(
+            stolpci=VEJICA.join(cls._stolpci()),
+            tabela=cls._tabela(),
+            join=cls._join(),
+            zdruzevanje=cls._zdruzevanje(),
+            urejanje=cls._urejanje()
+        )
 
     @classmethod
     def _stolpci(cls):
         """
         Vrni zaporedje stolpcev za branje iz baze.
         """
-        yield from (sql.Identifier(stolpec.name) for stolpec in fields(cls))
+        yield from (sql.Identifier(stolpec.name) for stolpec in fields(cls)
+                    if stolpec.metadata)
 
     @classmethod
     def _tabela(cls):
@@ -402,6 +602,32 @@ class Entiteta:
         Vrni izraz za tabelo za branje iz baze.
         """
         return sql.Identifier(cls.tabela())
+
+    @classmethod
+    def _join(cls):
+        """
+        Vrni izraz za pridruževanje podatkov za združevanje.
+        """
+        return PRAZNO
+
+    @classmethod
+    def _zdruzevanje(cls):
+        """
+        Vrni izraz za združevanje za branje iz baze.
+        """
+        return PRAZNO
+
+    @classmethod
+    def _urejanje(cls):
+        """
+        Vrni izraz za urejanje pri branju iz baze.
+        """
+        return sql.SQL("""
+            ORDER BY {tabela}.{stolpec}
+        """).format(
+            tabela=sql.Identifier(cls.tabela()),
+            stolpec=sql.Identifier(cls.glavni_kljuc().name)
+        )
 
     @classmethod
     def _objekt(cls, vrstica):
@@ -415,7 +641,7 @@ class Entiteta:
         Vrni slovar s polji entitete.
         """
         return {stolpec.name: self[stolpec.name] for stolpec in fields(self)
-                if not stolpec.metadata["skrit"]}
+                if stolpec.metadata and not stolpec.metadata["skrit"]}
 
     def posodobi_polja(self, **polja):
         """

@@ -17,13 +17,17 @@
         </div>
     </div>
 
+    % stran, uredi = vrni_stran()
+    % seznam = Kraj.seznam(stran=stran, uredi=uredi)
+    % include('strani.html', url=url('kraji'))
+
     <table class="table">
         <tr>
-            <th>Poštna številka</th>
-            <th>Kraj</th>
+            <th><a href="{{url('kraji')}}?uredi=posta">Poštna številka</a></th>
+            <th><a href="{{url('kraji')}}?uredi=kraj">Kraj</a></th>
             <th></th>
         </tr>
-        % for kraj in Kraj.seznam():
+        % for kraj in seznam:
         <tr>
             <td>{{kraj.posta}}</td>
             <td>{{kraj.kraj}}</td>
@@ -34,8 +38,8 @@
                             <i class="fas fa-pen"></i>
                         </span>
                     </a>
-                    <form action="{{url('izbrisi_kraj', posta=kraj.posta)}}" method="POST"
-                  onsubmit="return confirm('Ali res želi izbrisati kraj s poštno številko {{kraj.posta}}?')">
+                    <form action="{{url('kraji_izbrisi_post', posta=kraj.posta)}}" method="POST"
+                  onsubmit="return confirm('Ali res želiš izbrisati kraj s poštno številko {{kraj.posta}}?')">
                         <button class="button is-danger">
                             <span class="icon is-small">
                                 <i class="fas fa-trash"></i>
@@ -47,4 +51,6 @@
         </tr>
         % end
     </table>
+
+    % include('strani.html', url=url('kraji'))
 </div>

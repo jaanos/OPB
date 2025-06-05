@@ -17,17 +17,26 @@
         </div>
     </div>
 
+    % stran, uredi = vrni_stran()
+    % seznam = Oseba.seznam(stran=stran, uredi=uredi)
+    % include('strani.html', url=url('komitenti'))
+
     <table class="table">
         <tr>
-            <th>EMŠO</th>
-            <th>Ime in priimek</th>
-            <th>Naslov</th>
+            <th><a href="{{url('komitenti')}}?uredi=emso">EMŠO</a></th>
+            <th><a href="{{url('komitenti')}}?uredi=ime">Ime</a> in
+                <a href="{{url('komitenti')}}?uredi=priimek">priimek</a></th>
+            <th><a href="{{url('komitenti')}}?uredi=naslov">Naslov</a></th>
             <th></th>
         </tr>
-        % for oseba in Oseba.seznam():
+        % for oseba in seznam:
         <tr>
             <td>{{oseba.emso}}</td>
-            <td>{{oseba.ime}} {{oseba.priimek}}</td>
+            <td>
+                <a href="{{url('komitenti_racuni', emso=oseba.emso)}}">
+                    {{oseba.ime}} {{oseba.priimek}}
+                </a>
+            </td>
             <td>{{oseba.naslov}}, {{oseba.kraj.posta}} {{oseba.kraj.kraj}}</td>
             <td>
                 <div class="buttons">
@@ -36,8 +45,8 @@
                             <i class="fas fa-pen"></i>
                         </span>
                     </a>
-                    <form action="{{url('izbrisi_komitenta', emso=oseba.emso)}}" method="POST"
-                     onsubmit="return confirm('Ali res želi izbrisati komitenta z EMŠOm {{oseba.emso}}?')">
+                    <form action="{{url('komitenti_izbrisi_post', emso=oseba.emso)}}" method="POST"
+                     onsubmit="return confirm('Ali res želiš izbrisati komitenta z EMŠOm {{oseba.emso}}?')">
                         <button class="button is-danger">
                             <span class="icon is-small">
                                 <i class="fas fa-trash"></i>
@@ -49,4 +58,6 @@
         </tr>
         % end
     </table>
+
+    % include('strani.html', url=url('komitenti'))
 </div>
