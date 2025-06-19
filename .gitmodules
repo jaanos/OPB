@@ -358,3 +358,6 @@
 [submodule "oddaje/2024/BolderRadar"]
 	path = oddaje/2024/BolderRadar
 	url = https://github.com/KocijanZ21/BolderRadar.git
+[submodule "oddaje/2024/Street-racer"]
+	path = oddaje/2024/Street-racer
+	url = https://github.com/MateoVrtunski/Street-racer.git
