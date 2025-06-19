@@ -50,4 +50,8 @@
 
 ## Bolder Radar
 * Avtorica: Živa Morana Kocijan
-* Repozitorij: <https://github.com/KocijanZ21/BolderRadar.git>
+* Repozitorij: <https://github.com/KocijanZ21/BolderRadar>
+
+## Street Racer
+* Avtorja: Tian Lipovšek, Mateo Vrtunski
+* Repozitorij: <https://github.com/MateoVrtunski/Street-racer>
