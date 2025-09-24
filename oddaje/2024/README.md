@@ -55,3 +55,7 @@
 ## Street Racer
 * Avtorja: Tian Lipovšek, Mateo Vrtunski
 * Repozitorij: <https://github.com/MateoVrtunski/Street-racer>
+
+## Opera
+* Avtorici: Neža Škrbec, Andreja Turk
+* Repozitorij: <https://github.com/TurkAndreja/Osnove-opernih-baz-OOB>
