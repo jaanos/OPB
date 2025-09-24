@@ -10,3 +10,4 @@
 * Projekti iz leta [2022](2022)
 * Projekti iz leta [2023](2023)
 * Projekti iz leta [2024](2024)
+* Projekti iz leta [2025](2025)
