@@ -361,3 +361,39 @@
 [submodule "oddaje/2024/Street-racer"]
 	path = oddaje/2024/Street-racer
 	url = https://github.com/MateoVrtunski/Street-racer.git
+[submodule "oddaje/2025/OPB-skladisce"]
+	path = oddaje/2025/OPB-skladisce
+	url = https://github.com/ninasvigelj/OPB-skladisce.git
+[submodule "oddaje/2025/OPB-HikeBuddy"]
+	path = oddaje/2025/OPB-HikeBuddy
+	url = https://github.com/EvaStrasek/OPB-HikeBuddy.git
+[submodule "oddaje/2025/OPB-pilates_app"]
+	path = oddaje/2025/OPB-pilates_app
+	url = https://github.com/tilenslibar/OPB-pilates_app.git
+[submodule "oddaje/2025/OPB-borza"]
+	path = oddaje/2025/OPB-borza
+	url = https://github.com/MartinIglic/OPB-borza.git
+[submodule "oddaje/2025/OPB-parkiranje"]
+	path = oddaje/2025/OPB-parkiranje
+	url = https://github.com/sarasega1/OPB-parkiranje.git
+[submodule "oddaje/2025/OPB-izmenjevalnica_zapiskov"]
+	path = oddaje/2025/OPB-izmenjevalnica_zapiskov
+	url = https://github.com/zivakurez/OPB-izmenjevalnica_zapiskov.git
+[submodule "oddaje/2025/OPB-ezdravnik"]
+	path = oddaje/2025/OPB-ezdravnik
+	url = https://github.com/mojcabozic/OPB-ezdravnik.git
+[submodule "oddaje/2025/Pripravnistvo"]
+	path = oddaje/2025/Pripravnistvo
+	url = https://github.com/nenasefman/opb_projekt.git
+[submodule "oddaje/2025/OPB-nlp-site"]
+	path = oddaje/2025/OPB-nlp-site
+	url = https://github.com/janhrastnik/OPB-nlp-site.git
+[submodule "oddaje/2025/OPB-trgovalno_zabavna_aplikacija"]
+	path = oddaje/2025/OPB-trgovalno_zabavna_aplikacija
+	url = https://github.com/NeoMistral/OPB-trgovalno_zabavna_aplikacija.git
+[submodule "oddaje/2025/Knjiznica"]
+	path = oddaje/2025/Knjiznica
+	url = https://github.com/masapopovic/Knjiznica.git
+[submodule "oddaje/2024/Osnove-opernih-baz-OOB"]
+	path = oddaje/2024/Osnove-opernih-baz-OOB
+	url = https://github.com/TurkAndreja/Osnove-opernih-baz-OOB.git
