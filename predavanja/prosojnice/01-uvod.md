@@ -7,10 +7,10 @@ style: "@import url('style.css')"
 
 * Predavanja:
   - Janoš Vidali ([janos.vidali@fmf.uni-lj.si](mailto:janos.vidali@fmf.uni-lj.si)), kabinet 1.14
-  - četrtek 10-12 v predavalnici 3.11
+  - ponedeljek 16-18 v predavalnici 3.04
 * Vaje:
   - Gašper Domen Romih ([gasperdomen.romih@fmf.uni-lj.si](mailto:ajda.lampe@fmf.uni-lj.si)), kabinet 4.09
-  - četrtek 12-14 v predavalnici 3.11
+  - četrtek 14-16 v predavalnici P.01
 
 
 ---
