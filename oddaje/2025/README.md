@@ -43,3 +43,7 @@
 ## Knjižnica
 * Avtorici: Tinka Napret-Kaučič, Maša Popovič
 * Repozitorij: <https://github.com/masapopovic/Knjiznica>
+
+## Register ladij
+* Avtorica: Amanda Babič
+* Repozitorij: <https://github.com/AmandaBabic/OPB-projekt>
