@@ -397,3 +397,6 @@
 [submodule "oddaje/2024/Osnove-opernih-baz-OOB"]
 	path = oddaje/2024/Osnove-opernih-baz-OOB
 	url = https://github.com/TurkAndreja/Osnove-opernih-baz-OOB.git
+[submodule "oddaje/2025/Register-ladij"]
+	path = oddaje/2025/Register-ladij
+	url = https://github.com/AmandaBabic/OPB-projekt.git
