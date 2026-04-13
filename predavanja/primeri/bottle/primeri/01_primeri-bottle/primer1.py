@@ -9,5 +9,9 @@ from bottle import route, run
 def index():
     return 'Živjo svet!'
 
+@route('/nekaj')
+def nekaj():
+    return 'Nekaj drugega!'
+
 # Če dopišemo reloader=True, se bo sam restartal vsakič, ko spremenimo datoteko
 run(host='localhost', port=8080, reloader=True)
