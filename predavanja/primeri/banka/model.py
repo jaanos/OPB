@@ -7,6 +7,9 @@ class Kraj:
     posta: int
     kraj: str
 
+    def __str__(self):
+        return f"{self.posta} {self.kraj}"
+
 
 @dataclass
 class Oseba:
