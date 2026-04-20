@@ -1,6 +1,5 @@
 import os
 import bottle
-from bottle import *
 
 
 class Route(bottle.Route):
