@@ -1,3 +1,5 @@
+import bcrypt
+import csv
 from psycopg import connect, sql, errors
 from auth import auth
 from dataclasses import dataclass
@@ -39,6 +41,36 @@ class Kraj:
                         ce_obstaja=sql.SQL("IF EXISTS" if ce_obstaja else "")
                     ))
 
+    @classmethod
+    def uvozi_podatke(cls):
+        with conn.transaction():
+            with conn.cursor() as cur:
+                with open('podatki/kraj.csv') as f:
+                    rd = csv.reader(f)
+                    stolpci = next(rd)
+                    for vrstica in rd:
+                        podatki = dict(zip(stolpci, vrstica))
+                        cur.execute(
+                            """
+                            INSERT INTO kraj (posta, kraj)
+                            VALUES (%(posta)s, %(kraj)s)
+                            """, podatki
+                        )
+
+    @classmethod
+    def z_id(cls, id):
+        with conn.transaction():
+            with conn.cursor() as cur:
+                cur.execute(
+                    """
+                    SELECT posta, kraj FROM kraj
+                    WHERE posta = %s
+                    """, (id, )
+                )
+                vrstica = cur.fetchone()
+                if vrstica is None:
+                    raise ValueError(f"Kraj s pošto {id} ne obstaja!")
+                return Kraj(*vrstica)
 
 @dataclass
 class Oseba:
@@ -47,6 +79,9 @@ class Oseba:
     priimek: str
     naslov: str
     kraj: Kraj
+    uporabnisko_ime: str
+    geslo: bytes = None
+    admin: bool = False
 
     @classmethod
     def ustvari_tabelo(cls, pobrisi=False, ce_ne_obstaja=False):
@@ -61,7 +96,10 @@ class Oseba:
                         ime TEXT NOT NULL,
                         priimek TEXT NOT NULL,
                         naslov TEXT NOT NULL,
-                        kraj INTEGER NOT NULL REFERENCES kraj(posta)
+                        kraj INTEGER NOT NULL REFERENCES kraj(posta),
+                        uporabnisko_ime TEXT NOT NULL UNIQUE,
+                        geslo BYTEA,
+                        admin BOOLEAN NOT NULL DEFAULT (FALSE)
                     );
                     """).format(
                         ce_ne_obstaja=sql.SQL("IF NOT EXISTS" if ce_ne_obstaja else "")
@@ -77,6 +115,63 @@ class Oseba:
                     """).format(
                         ce_obstaja=sql.SQL("IF EXISTS" if ce_obstaja else "")
                     ))
+
+    @classmethod
+    def uvozi_podatke(cls):
+        with conn.transaction():
+            with conn.cursor() as cur:
+                with open('podatki/oseba.csv') as f:
+                    rd = csv.reader(f)
+                    stolpci = next(rd)
+                    for vrstica in rd:
+                        podatki = dict(zip(stolpci, vrstica))
+                        if podatki['geslo']:
+                            podatki['geslo'] = Oseba._nastavi_geslo(podatki['geslo'])
+                        else:
+                            podatki['geslo'] = None
+                        podatki['admin'] = (podatki['emso'] == '1')
+                        cur.execute(
+                            """
+                            INSERT INTO oseba (emso, ime, priimek, naslov, kraj, uporabnisko_ime, geslo, admin)
+                            VALUES (%(emso)s, %(ime)s, %(priimek)s, %(naslov)s, %(kraj)s,
+                                    %(uporabnisko_ime)s, %(geslo)s, %(admin)s)
+                            """, podatki
+                        )
+
+    @classmethod
+    def z_id(cls, id):
+        with conn.transaction():
+            with conn.cursor() as cur:
+                cur.execute(
+                    """
+                    SELECT emso, ime, priimek, naslov, kraj.posta, kraj.kraj, uporabnisko_ime, admin FROM oseba
+                    JOIN kraj ON oseba.kraj = posta
+                    WHERE emso = %s
+                    """, (id, )
+                )
+                vrstica = cur.fetchone()
+                if vrstica is None:
+                    raise ValueError(f"Uporabnik z EMŠOm {id} ne obstaja!")
+                *podatki, posta, kraj, uporabnisko_ime, admin = vrstica
+                return Oseba(*podatki, Kraj(posta, kraj), uporabnisko_ime, admin=admin)
+
+    @staticmethod
+    def _nastavi_geslo(geslo):
+        """
+        Vrni zgostitev podanega gesla.
+        """
+        geslo = geslo.encode("utf-8")
+        sol = bcrypt.gensalt()
+        return bcrypt.hashpw(geslo, sol)
+
+    @staticmethod
+    def _preveri_geslo(geslo, zgostitev):
+        """
+        Preveri podano geslo glede na podano zgostitev.
+        """
+        geslo = geslo.encode("utf-8")
+        return bcrypt.checkpw(geslo, zgostitev)
+
 
 @dataclass
 class Racun:
@@ -110,6 +205,50 @@ class Racun:
                         ce_obstaja=sql.SQL("IF EXISTS" if ce_obstaja else "")
                     ))
 
+    @classmethod
+    def uvozi_podatke(cls):
+        with conn.transaction():
+            with conn.cursor() as cur:
+                with open('podatki/racun.csv') as f:
+                    rd = csv.reader(f)
+                    stolpci = next(rd)
+                    for vrstica in rd:
+                        podatki = dict(zip(stolpci, vrstica))
+                        cur.execute(
+                            """
+                            INSERT INTO racun (stevilka, lastnik)
+                            VALUES (%(stevilka)s, %(lastnik)s)
+                            """, podatki
+                        )
+                cur.execute(
+                    """
+                    SELECT MAX(stevilka) FROM racun
+                    """
+                )
+                stevec, = cur.fetchone()
+                cur.execute(sql.SQL(
+                    """
+                    ALTER SEQUENCE racun_stevilka_seq RESTART WITH {vrednost}
+                    """
+                ).format(vrednost=sql.Literal(stevec + 1)))
+
+    @classmethod
+    def z_id(cls, id):
+        with conn.transaction():
+            with conn.cursor() as cur:
+                cur.execute(
+                    """
+                    SELECT stevilka, emso, ime, priimek, naslov, kraj.posta, kraj.kraj, uporabnisko_ime, admin FROM racun
+                    JOIN oseba ON lastnik = emso
+                    JOIN kraj ON oseba.kraj = posta
+                    WHERE stevilka = %s
+                    """, (id, )
+                )
+                vrstica = cur.fetchone()
+                if vrstica is None:
+                    raise ValueError(f"Račun s številko {id} ne obstaja!")
+                stevilka, *podatki, posta, kraj, uporabnisko_ime, admin = vrstica
+                return Racun(stevilka, Oseba(*podatki, Kraj(posta, kraj), uporabnisko_ime, admin=admin))
 
 @dataclass
 class Transakcija:
@@ -148,6 +287,54 @@ class Transakcija:
                     """).format(
                         ce_obstaja=sql.SQL("IF EXISTS" if ce_obstaja else "")
                     ))
+
+    @classmethod
+    def uvozi_podatke(cls):
+        with conn.transaction():
+            with conn.cursor() as cur:
+                with open('podatki/transakcija.csv') as f:
+                    rd = csv.reader(f)
+                    stolpci = next(rd)
+                    for vrstica in rd:
+                        podatki = dict(zip(stolpci, vrstica))
+                        cur.execute(
+                            """
+                            INSERT INTO transakcija (id, racun, znesek, cas, opis)
+                            VALUES (%(id)s, %(racun)s, %(znesek)s, %(cas)s, %(opis)s)
+                            """, podatki
+                        )
+                cur.execute(
+                    """
+                    SELECT MAX(id) FROM transakcija
+                    """
+                )
+                stevec, = cur.fetchone()
+                cur.execute(sql.SQL(
+                    """
+                    ALTER SEQUENCE transakcija_id_seq RESTART WITH {vrednost}
+                    """
+                ).format(vrednost=sql.Literal(stevec + 1)))
+
+    @classmethod
+    def z_id(cls, id):
+        with conn.transaction():
+            with conn.cursor() as cur:
+                cur.execute(
+                    """
+                    SELECT id, racun, znesek, cas, opis, emso, ime, priimek, naslov,
+                           kraj.posta, kraj.kraj, uporabnisko_ime, admin FROM transakcija
+                    JOIN racun ON racun = stevilka
+                    JOIN oseba ON lastnik = emso
+                    JOIN kraj ON oseba.kraj = posta
+                    WHERE id = %s
+                    """, (id, )
+                )
+                vrstica = cur.fetchone()
+                if vrstica is None:
+                    raise ValueError(f"Transakcija z ID-jem {id} ne obstaja!")
+                id, racun, znesek, cas, opis, *podatki, posta, kraj, uporabnisko_ime, admin = vrstica
+                return Transakcija(id, Racun(racun, Oseba(*podatki, Kraj(posta, kraj), uporabnisko_ime, admin=admin)),
+                                   znesek, cas, opis)
 
 
 RAZREDI = [Kraj, Oseba, Racun, Transakcija]
