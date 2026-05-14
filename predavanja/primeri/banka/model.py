@@ -1,15 +1,46 @@
 import bcrypt
 import csv
-from psycopg import connect, sql, errors
+from psycopg import connect, sql
+from psycopg.errors import IntegrityError
 from auth import auth
 from dataclasses import dataclass
 from datetime import datetime
 
 
-@dataclass
-class Kraj:
-    posta: int
-    kraj: str
+class Entiteta:
+    def __init_subclass__(cls):
+        """
+        Inicializiraj prazen objekt.
+        """
+        dataclass(cls)
+        cls.NULL = cls()
+
+    def __bool__(self):
+        return getattr(self, self.GLAVNI_KLJUC) is not None
+
+    def __getitem__(self, kljuc):
+        """
+        Vrni vrednost v stolpcu v obliki, kot je zapisana v bazi.
+        """
+        vrednost = getattr(self, kljuc)
+        if isinstance(vrednost, Entiteta):
+            return vrednost[vrednost.GLAVNI_KLJUC]
+        else:
+            return vrednost
+
+    def posodobi_polja(self, **polja):
+        """
+        Posodobi podana polja.
+        """
+        for polje, vrednost in polja.items():
+            setattr(self, polje, vrednost)
+
+
+class Kraj(Entiteta):
+    posta: int = None
+    kraj: str = None
+
+    GLAVNI_KLJUC = 'posta'
 
     def __str__(self):
         return f"{self.posta} {self.kraj}"
@@ -118,16 +149,18 @@ class Kraj:
     def kot_slovar(self):
         return dict(posta=self.posta, kraj=self.kraj)
 
-@dataclass
-class Oseba:
-    emso: str
-    ime: str
-    priimek: str
+
+class Oseba(Entiteta):
+    emso: str = None
+    ime: str = None
+    priimek: str = None
     naslov: str = None
     kraj: Kraj = None
     uporabnisko_ime: str = None
     geslo: bytes = None
     admin: bool = False
+
+    GLAVNI_KLJUC = 'emso'
 
     @classmethod
     def ustvari_tabelo(cls, pobrisi=False, ce_ne_obstaja=False):
@@ -202,23 +235,36 @@ class Oseba:
                 return Oseba(*podatki, Kraj(posta, kraj), uporabnisko_ime, admin=admin)
 
     @classmethod
-    def prijavi(cls, uporabnisko_ime, geslo):
+    def z_uporabniskim_imenom(cls, uporabnisko_ime):
         with conn.transaction():
             with conn.cursor() as cur:
                 cur.execute(
                     """
-                    SELECT emso, ime, priimek, naslov, kraj.posta, kraj.kraj, uporabnisko_ime, geslo, admin FROM oseba
+                    SELECT emso, ime, priimek, naslov, kraj.posta, kraj.kraj, uporabnisko_ime, admin FROM oseba
                     JOIN kraj ON oseba.kraj = posta
                     WHERE uporabnisko_ime = %s
                     """, (uporabnisko_ime, )
                 )
                 vrstica = cur.fetchone()
                 if vrstica is None:
-                    raise ValueError(f"Uporabnik z uporabniškim imenom {uporabnisko_ime} ne obstaja!")
-                *podatki, posta, kraj, uporabnisko_ime, zgostitev, admin = vrstica
-                if not Oseba._preveri_geslo(geslo, zgostitev):
-                    raise ValueError(f"Geslo za uporabnika z uporabniškim imenom {uporabnisko_ime} ni pravilno!")
+                    return cls.NULL
+                *podatki, posta, kraj, uporabnisko_ime, admin = vrstica
                 return Oseba(*podatki, Kraj(posta, kraj), uporabnisko_ime, admin=admin)
+
+    def prijavi(self, geslo):
+        with conn.transaction():
+            with conn.cursor() as cur:
+                cur.execute(
+                    """
+                    SELECT geslo FROM oseba
+                    WHERE uporabnisko_ime = %s
+                    """, (self.uporabnisko_ime, )
+                )
+                vrstica = cur.fetchone()
+                if vrstica is None:
+                    return False
+                zgostitev, = vrstica
+                return Oseba._preveri_geslo(geslo, zgostitev)
 
     @classmethod
     def seznam(cls):
@@ -315,10 +361,11 @@ class Oseba:
         return bcrypt.checkpw(geslo, zgostitev)
 
 
-@dataclass
-class Racun:
+class Racun(Entiteta):
     stevilka: int = None
     lastnik: Oseba = None
+
+    GLAVNI_KLJUC = 'stevilka'
 
     @classmethod
     def ustvari_tabelo(cls, pobrisi=False, ce_ne_obstaja=False):
@@ -462,13 +509,14 @@ class Racun:
         return dict(stevilka=self.stevilka, lastnik=lastnik)
 
 
-@dataclass
-class Transakcija:
+class Transakcija(Entiteta):
     id: int = None
     racun: Racun = None
     znesek: int = None
     cas: datetime = None
     opis: str = None
+
+    GLAVNI_KLJUC = 'id'
 
     @classmethod
     def ustvari_tabelo(cls, pobrisi=False, ce_ne_obstaja=False):

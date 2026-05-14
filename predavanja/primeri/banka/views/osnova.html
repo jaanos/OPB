@@ -1,6 +1,8 @@
 % setdefault('naslov', 'Banka')
-% setdefault('uporabnik', None)
-% setdefault('sporocilo', None)
+% sporocilo = preberi_sporocilo()
+% if not defined('uporabnik'):
+%   uporabnik = prijavljeni_uporabnik()
+% end
 
 <!DOCTYPE html>
 <html class="has-navbar-fixed-top">
@@ -87,9 +89,9 @@
                 <div class="navbar-item">
                     <div class="buttons">
                         <a class="button {{'is-warning' if uporabnik.admin else 'is-light'}}">
-                            <strong>{{uporabnik.up_ime}}</strong>
+                            <strong>{{uporabnik.uporabnisko_ime}}</strong>
                         </a>
-                        <form method="POST">
+                        <form method="POST" action="{{url('odjava_post')}}">
                             <button class="button is-primary">
                                 Odjava
                             </button>
@@ -99,10 +101,10 @@
                 % else:
                 <div class="navbar-item">
                     <div class="buttons">
-                        <a class="button is-primary">
+                        <a href="{{url('registracija')}}" class="button is-primary">
                             <strong>Registracija</strong>
                         </a>
-                        <a class="button is-light">
+                        <a href="{{url('prijava')}}" class="button is-light">
                             Prijava
                         </a>
                     </div>
