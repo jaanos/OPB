@@ -21,6 +21,7 @@ def nastavi_piskotek(piskotek, vsebina):
     """
     Nastavi podani piškotek.
     """
+    print(piskotek, vsebina)
     bottle.response.set_cookie(piskotek, vsebina, secret=SKRIVNOST, path='/')
 
 
@@ -95,7 +96,6 @@ def prijavi_uporabnika(uporabnik, geslo, piskotek=None):
         if piskotek:
             nastavi_obrazec(piskotek, uporabnik)
         bottle.redirect(bottle.url('prijava'))
-    print(uporabnik.emso, type(uporabnik.emso))
     nastavi_piskotek('uporabnik', uporabnik.emso)
     bottle.redirect(bottle.url('index'))
 
@@ -195,6 +195,34 @@ def index():
     pass
 
 
+@bottle.get('/kraji/')
+@bottle.view('kraji.html')
+@admin
+def kraji(uporabnik):
+    pass
+
+
+@bottle.get('/komitenti/')
+@bottle.view('komitenti.html')
+@admin
+def komitenti(uporabnik):
+    pass
+
+
+@bottle.get('/racuni/')
+@bottle.view('racuni.html')
+@admin
+def racuni(uporabnik):
+    pass
+
+
+@bottle.get('/transakcije/')
+@bottle.view('transakcije.html')
+@admin
+def transakcije(uporabnik):
+    pass
+
+
 @bottle.get('/prijava/')
 @bottle.view('prijava.html')
 @odjavljen
@@ -225,7 +253,10 @@ def registracija_post():
     ime = bottle.request.forms.getunicode('ime')
     priimek = bottle.request.forms.getunicode('priimek')
     naslov = bottle.request.forms.getunicode('naslov')
-    kraj = bottle.request.forms.getunicode('kraj')
+    try:
+        kraj = int(bottle.request.forms.getunicode('kraj'))
+    except ValueError:
+        kraj = None
     uporabnisko_ime = bottle.request.forms.getunicode('uporabnisko_ime')
     geslo = bottle.request.forms.getunicode('geslo')
     geslo2 = bottle.request.forms.getunicode('geslo2')

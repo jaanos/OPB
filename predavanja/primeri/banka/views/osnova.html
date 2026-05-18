@@ -39,11 +39,11 @@
             % if uporabnik:
             <div class="navbar-start">
                 % if uporabnik.admin:
-                <a class="navbar-item {{'is-selected' if stran == 'kraji' else ''}}">
+                <a href="{{url('kraji')}}" class="navbar-item {{'is-selected' if stran == 'kraji' else ''}}">
                     Kraji
                 </a>
 
-                <a class="navbar-item {{'is-selected' if stran == 'komitenti' else ''}}">
+                <a href="{{url('komitenti')}}" class="navbar-item {{'is-selected' if stran == 'komitenti' else ''}}">
                     Komitenti
                 </a>
                 % end
@@ -58,7 +58,7 @@
                             Moji računi
                         </a>
                         % if uporabnik.admin:
-                        <a class="navbar-item {{'is-selected' if stran == 'racuni' else ''}}">
+                        <a href="{{url('racuni')}}" class="navbar-item {{'is-selected' if stran == 'racuni' else ''}}">
                             Seznam računov
                         </a>
                         % end
@@ -75,7 +75,7 @@
                             Moje transakcije
                         </a>
                         % if uporabnik.admin:
-                        <a class="navbar-item {{'is-selected' if stran == 'transakcije' else ''}}">
+                        <a href="{{url('transakcije')}}" class="navbar-item {{'is-selected' if stran == 'transakcije' else ''}}">
                             Seznam transakcij
                         </a>
                         % end

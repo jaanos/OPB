@@ -285,13 +285,15 @@ class Oseba(Entiteta):
             with conn.cursor() as cur:
                 cur.execute(
                     """
-                    SELECT stevilka FROM racun
+                    SELECT stevilka, SUM(znesek) FROM racun
+                    JOIN transakcija ON stevilka = racun
                     WHERE lastnik = %s
+                    GROUP BY stevilka
                     ORDER BY stevilka
                     """, (self.emso, )
                 )
-                for stevilka, in cur:
-                    yield Racun(stevilka, self)
+                for stevilka, znesek in cur:
+                    yield Racun(stevilka, self, znesek)
 
     def dodaj_racun(self):
         racun = Racun(lastnik=self)
@@ -364,6 +366,7 @@ class Oseba(Entiteta):
 class Racun(Entiteta):
     stevilka: int = None
     lastnik: Oseba = None
+    stanje: int = None
 
     GLAVNI_KLJUC = 'stevilka'
 
@@ -427,17 +430,20 @@ class Racun(Entiteta):
             with conn.cursor() as cur:
                 cur.execute(
                     """
-                    SELECT stevilka, emso, ime, priimek, naslov, kraj.posta, kraj.kraj, uporabnisko_ime, admin FROM racun
+                    SELECT stevilka, emso, ime, priimek, naslov, kraj.posta, kraj.kraj,
+                           uporabnisko_ime, admin, SUM(znesek) FROM racun
                     JOIN oseba ON lastnik = emso
                     JOIN kraj ON oseba.kraj = posta
+                    JOIN transakcija ON stevilka = racun
                     WHERE stevilka = %s
+                    GROUP BY stevilka, emso, kraj.posta
                     """, (id, )
                 )
                 vrstica = cur.fetchone()
                 if vrstica is None:
                     raise ValueError(f"Račun s številko {id} ne obstaja!")
-                stevilka, *podatki, posta, kraj, uporabnisko_ime, admin = vrstica
-                return Racun(stevilka, Oseba(*podatki, Kraj(posta, kraj), uporabnisko_ime, admin=admin))
+                stevilka, *podatki, posta, kraj, uporabnisko_ime, admin, stanje = vrstica
+                return Racun(stevilka, Oseba(*podatki, Kraj(posta, kraj), uporabnisko_ime, admin=admin), stanje)
 
     @classmethod
     def seznam(cls):
@@ -445,13 +451,15 @@ class Racun(Entiteta):
             with conn.cursor() as cur:
                 cur.execute(
                     """
-                    SELECT stevilka, emso, ime, priimek FROM racun
+                    SELECT stevilka, emso, ime, priimek, SUM(znesek) FROM racun
                     JOIN oseba ON lastnik = emso
+                    JOIN transakcija ON stevilka = racun
+                    GROUP BY stevilka, emso
                     ORDER BY stevilka
                     """
                 )
-                for stevilka, *podatki in cur:
-                    yield Racun(stevilka, Oseba(*podatki))
+                for stevilka, *podatki, znesek in cur:
+                    yield Racun(stevilka, Oseba(*podatki), znesek)
 
     def transakcije(self):
         with conn.transaction():
