@@ -295,6 +295,20 @@ class Oseba(Entiteta):
                 for stevilka, znesek in cur:
                     yield Racun(stevilka, self, znesek)
 
+    def transakcije(self):
+        with conn.transaction():
+            with conn.cursor() as cur:
+                cur.execute(
+                    """
+                    SELECT id, stevilka, znesek, cas, opis FROM transakcija
+                    JOIN racun ON racun = stevilka
+                    WHERE lastnik = %s
+                    ORDER BY cas DESC
+                    """, (self.emso, )
+                )
+                for id, stevilka, *podatki in cur:
+                    yield Transakcija(id, Racun(stevilka, self), *podatki)
+
     def dodaj_racun(self):
         racun = Racun(lastnik=self)
         racun.vstavi()
@@ -315,12 +329,16 @@ class Oseba(Entiteta):
     def posodobi(self):
         with conn.transaction():
             with conn.cursor() as cur:
-                cur.execute(
+                podatki = self.kot_slovar()
+                cur.execute(sql.SQL(
                     """
                     UPDATE oseba SET ime = %(ime)s, priimek = %(priimek)s, naslov = %(naslov)s,
                                      kraj = %(kraj)s, uporabnisko_ime = %(uporabnisko_ime)s, admin = %(admin)s
+                                     {geslo}
                     WHERE emso = %(emso)s
-                    """, self.kot_slovar()
+                    """).format(
+                        geslo=sql.SQL(", geslo = %(geslo)s" if podatki['geslo'] else "")
+                    ), podatki
                 )
 
     def izbrisi(self):

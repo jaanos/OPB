@@ -1,28 +1,40 @@
-% rebase('osnova.html', stran='transakcije', naslov='Transakcije')
+% rebase('osnova.html', stran=f'racuni_transakcije-{racun.stevilka}', naslov='Transakcije na računu')
 
 <div class="container">
-    <h1 class="title">Transakcije</h1>
+    <div class="level">
+        <div class="level-left">
+            <div class="level-item">
+                <h1 class="title">
+                    Transakcije na računu {{racun.stevilka}}
+                </h1>
+            </div>
+        </div>
+        <div class="level-right">
+            <div class="level-item">
+                <a class="button is-primary">
+                    Dodaj transakcijo
+                </a>
+            </div>
+        </div>
+    </div>
 
     <table class="table">
         <tr>
             <th>ID</th>
-            <th>Račun</th>
             <th>Znesek</th>
             <th>Čas</th>
             <th>Opis</th>
+            % if uporabnik.admin:
             <th></th>
+            % end
         </tr>
-        % for transakcija in Transakcija.seznam():
+        % for transakcija in racun.transakcije():
         <tr>
             <td>{{transakcija.id}}</td>
-            <td>
-                <a href="{{url('racuni_transakcije', stevilka=transakcija.racun)}}">
-                    {{transakcija.racun}}
-                </a>
-            </td>
             <td>{{transakcija.znesek}}</td>
             <td class="cas">{{transakcija.cas}}</td>
             <td>{{transakcija.opis}}</td>
+            % if uporabnik.admin:
             <td>
                 <div class="buttons">
                     <a class="button is-primary">
@@ -40,6 +52,7 @@
                     </form>
                 </div>
             </td>
+            % end
         </tr>
         % end
     </table>

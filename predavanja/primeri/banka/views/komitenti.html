@@ -11,7 +11,7 @@
         </div>
         <div class="level-right">
             <div class="level-item">
-                <a class="button is-primary">
+                <a href="{{url('komitenti_dodaj')}}" class="button is-primary">
                     Dodaj komitenta
                 </a>
             </div>
@@ -27,17 +27,21 @@
         </tr>
         % for oseba in Oseba.seznam():
         <tr>
-            <td>{{oseba.emso}}</td>
+            <td>
+                <a href="{{url('komitenti_racuni', emso=oseba.emso)}}"">
+                    {{oseba.emso}}
+                </a>
+            </td>
             <td>{{oseba.ime}} {{oseba.priimek}}</td>
             <td>{{oseba.naslov}}, {{oseba.kraj.posta}}, {{oseba.kraj.kraj}}</td>
             <td>
                 <div class="buttons">
-                    <a class="button is-primary">
+                    <a href="{{url('komitenti_uredi', emso=oseba.emso)}}" class="button is-primary">
                         <span class="icon is-small">
                             <i class="fas fa-pen"></i>
                         </span>
                     </a>
-                    <form method="POST"
+                    <form method="POST" action="{{url('komitenti_izbrisi_post', emso=oseba.emso)}}"
                      onsubmit="return confirm('Ali res želiš izbrisati komitenta z EMŠOm {{oseba.emso}}?')">
                         <button class="button is-danger">
                             <span class="icon is-small">

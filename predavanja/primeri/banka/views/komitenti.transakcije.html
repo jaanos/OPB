@@ -1,7 +1,7 @@
-% rebase('osnova.html', stran='transakcije', naslov='Transakcije')
+% rebase('osnova.html', stran=f'komitenti_transakcije-{oseba.emso}', naslov='Transakcije komitenta')
 
 <div class="container">
-    <h1 class="title">Transakcije</h1>
+    <h1 class="title">Transakcije komitenta {{oseba.ime}} {{oseba.priimek}} ({{oseba.emso}})</h1>
 
     <table class="table">
         <tr>
@@ -10,19 +10,22 @@
             <th>Znesek</th>
             <th>Čas</th>
             <th>Opis</th>
+            % if uporabnik.admin:
             <th></th>
+            % end
         </tr>
-        % for transakcija in Transakcija.seznam():
+        % for transakcija in oseba.transakcije():
         <tr>
             <td>{{transakcija.id}}</td>
             <td>
-                <a href="{{url('racuni_transakcije', stevilka=transakcija.racun)}}">
-                    {{transakcija.racun}}
+                <a href="{{url('racuni_transakcije', stevilka=transakcija.racun.stevilka)}}">
+                    {{transakcija.racun.stevilka}}
                 </a>
             </td>
             <td>{{transakcija.znesek}}</td>
             <td class="cas">{{transakcija.cas}}</td>
             <td>{{transakcija.opis}}</td>
+            % if uporabnik.admin:
             <td>
                 <div class="buttons">
                     <a class="button is-primary">
@@ -40,6 +43,7 @@
                     </form>
                 </div>
             </td>
+            % end
         </tr>
         % end
     </table>

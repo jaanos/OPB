@@ -54,7 +54,7 @@
                     </a>
 
                     <div class="navbar-dropdown">
-                        <a class="navbar-item {{'is-selected' if stran == f'komitenti_racuni-{uporabnik.emso}' else ''}}">
+                        <a href="{{url('komitenti_racuni', emso=uporabnik.emso)}}" class="navbar-item {{'is-selected' if stran == f'komitenti_racuni-{uporabnik.emso}' else ''}}">
                             Moji računi
                         </a>
                         % if uporabnik.admin:
@@ -71,7 +71,7 @@
                     </a>
 
                     <div class="navbar-dropdown">
-                        <a class="navbar-item {{'is-selected' if stran == f'komitenti_transakcije-{uporabnik.emso}' else ''}}">
+                        <a href="{{url('komitenti_transakcije', emso=uporabnik.emso)}}" class="navbar-item {{'is-selected' if stran == f'komitenti_transakcije-{uporabnik.emso}' else ''}}">
                             Moje transakcije
                         </a>
                         % if uporabnik.admin:

@@ -209,11 +209,162 @@ def komitenti(uporabnik):
     pass
 
 
+@bottle.get('/komitenti/<emso>/racuni/')
+@bottle.view('komitenti.racuni.html')
+@prijavljen
+def komitenti_racuni(uporabnik, emso):
+    preveri_lastnika(uporabnik, emso)
+    try:
+        return dict(oseba=Oseba.z_id(emso))
+    except ValueError:
+        bottle.abort(404, f'Uporabnik z EMŠOm {emso} ne obstaja!')
+
+
+@bottle.get('/komitenti/<emso>/transakcije/')
+@bottle.view('komitenti.transakcije.html')
+@prijavljen
+def komitenti_transakcije(uporabnik, emso):
+    preveri_lastnika(uporabnik, emso)
+    try:
+        return dict(oseba=Oseba.z_id(emso))
+    except ValueError:
+        bottle.abort(404, f'Uporabnik z EMŠOm {emso} ne obstaja!')
+
+
+@bottle.get('/komitenti/<emso>/uredi/')
+@bottle.view('komitenti.uredi.html')
+@prijavljen
+def komitenti_uredi(uporabnik, emso):
+    preveri_lastnika(uporabnik, emso)
+    try:
+        return dict(oseba=Oseba.z_id(emso))
+    except ValueError:
+        bottle.abort(404, f'Uporabnik z EMŠOm {emso} ne obstaja!')
+
+
+@bottle.post('/komitenti/<emso>/uredi/')
+@prijavljen
+def komitenti_uredi_post(uporabnik, emso):
+    preveri_lastnika(uporabnik, emso)
+    ime = bottle.request.forms.getunicode('ime')
+    priimek = bottle.request.forms.getunicode('priimek')
+    naslov = bottle.request.forms.getunicode('naslov')
+    try:
+        kraj = int(bottle.request.forms.getunicode('kraj'))
+    except ValueError:
+        kraj = None
+    uporabnisko_ime = bottle.request.forms.getunicode('uporabnisko_ime')
+    geslo = bottle.request.forms.getunicode('geslo')
+    geslo2 = bottle.request.forms.getunicode('geslo2')
+    try:
+        oseba = Oseba.z_id(emso)
+    except ValueError:
+        bottle.abort(404, f'Uporabnik z EMŠOm {emso} ne obstaja!')
+    oseba.posodobi_polja(ime=ime, priimek=priimek, naslov=naslov, kraj=kraj, uporabnisko_ime=uporabnisko_ime)
+    if uporabnik.admin:
+        oseba.admin = bool(bottle.request.forms.getunicode('admin'))
+    if geslo:
+        if geslo == geslo2:
+            oseba.geslo = geslo
+        else:
+            nastavi_sporocilo("Gesli se ne ujemata!")
+            nastavi_obrazec(f'komitenti_uredi-{emso}', oseba)
+            bottle.redirect(bottle.url('komitenti_uredi', emso))
+    try:
+        oseba.posodobi()
+        nastavi_sporocilo(f"Uspešno posodobljen komitenta z EMŠOm {emso}!")
+        if uporabnik.admin:
+            bottle.redirect(bottle.url('komitenti'))
+        else:
+            bottle.redirect(bottle.url('index'))
+    except IntegrityError:
+        nastavi_sporocilo(f"Urejanje komitenta z EMŠOm {emso} ni uspelo!")
+        nastavi_obrazec(f'komitenti_uredi-{emso}', oseba)
+        bottle.redirect(bottle.url('komitenti_uredi', emso))
+
+
+@bottle.get('/komitenti/dodaj/')
+@bottle.view('komitenti.dodaj.html')
+@admin
+def komitenti_dodaj(uporabnik):
+    pass
+
+
+@bottle.post('/komitenti/dodaj/')
+@admin
+def komitenti_dodaj_post(uporabnik):
+    emso = bottle.request.forms.getunicode('emso')
+    ime = bottle.request.forms.getunicode('ime')
+    priimek = bottle.request.forms.getunicode('priimek')
+    naslov = bottle.request.forms.getunicode('naslov')
+    try:
+        kraj = int(bottle.request.forms.getunicode('kraj'))
+    except ValueError:
+        kraj = None
+    uporabnisko_ime = bottle.request.forms.getunicode('uporabnisko_ime')
+    geslo = bottle.request.forms.getunicode('geslo')
+    geslo2 = bottle.request.forms.getunicode('geslo2')
+    admin = bool(bottle.request.forms.getunicode('admin'))
+    oseba = Oseba(emso=emso, ime=ime, priimek=priimek, naslov=naslov, kraj=kraj, uporabnisko_ime=uporabnisko_ime, admin=admin)
+    if geslo:
+        if geslo == geslo2:
+            oseba.geslo = geslo
+        else:
+            nastavi_sporocilo("Gesli se ne ujemata!")
+            nastavi_obrazec(f'komitenti_dodaj', oseba)
+            bottle.redirect(bottle.url('komitenti_dodaj'))
+    try:
+        oseba.vstavi()
+        nastavi_sporocilo(f"Uspešno dodan komitent z EMŠOm {emso}!")
+        bottle.redirect(bottle.url('komitenti'))
+    except IntegrityError:
+        nastavi_sporocilo(f"Dodajanje komitenta z EMŠOm {emso} ni uspelo!")
+        nastavi_obrazec(f'komitenti_dodaj', oseba)
+        bottle.redirect(bottle.url('komitenti_dodaj'))
+
+
+@bottle.post('/komitenti/<emso>/izbrisi/')
+@admin
+def komitenti_izbrisi_post(uporabnik, emso):
+    try:
+        Oseba.z_id(emso).izbrisi()
+        nastavi_sporocilo(f'Komitent z EMŠOm {emso} uspešno izbrisan.')
+    except ValueError:
+        bottle.abort(404, f'Uporabnik z EMŠOm {emso} ne obstaja!')
+    except IntegrityError:
+        nastavi_sporocilo(f'Brisanje komitenta z EMŠOm {emso} ni bilo uspešno!')
+    bottle.redirect(bottle.url('komitenti'))
+
+
+@bottle.post('/komitenti/<emso>/dodaj_racun/')
+@admin
+def komitenti_dodaj_racun_post(uporabnik, emso):
+    try:
+        racun = Racun(lastnik=emso)
+        racun.vstavi()
+        nastavi_sporocilo(f'Račun s številko {racun.stevilka} uspešno dodan.')
+    except IntegrityError:
+        nastavi_sporocilo(f'Dodajanje računa za komitenta z EMŠOm {emso} ni bilo uspešno!')
+    bottle.redirect(bottle.url('komitenti_racuni', emso=emso))
+
+
 @bottle.get('/racuni/')
 @bottle.view('racuni.html')
 @admin
 def racuni(uporabnik):
     pass
+
+
+@bottle.get('/racuni/<stevilka:int>/transakcije/')
+@bottle.view('racuni.transakcije.html')
+@prijavljen
+def racuni_transakcije(uporabnik, stevilka):
+    try:
+        racun = Racun.z_id(stevilka)
+    except ValueError:
+        bottle.abort(404, f'Račun s številko {stevilka} ne obstaja!')
+    preveri_lastnika(uporabnik, racun.lastnik.emso)
+    return dict(racun=racun)
 
 
 @bottle.get('/transakcije/')
