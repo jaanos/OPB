@@ -1,0 +1,15 @@
+% rebase('osnova.html', stran=f'komitenti_dodaj', naslov='Dodajanje komitenta')
+% oseba = preberi_obrazec(f'komitenti_dodaj', Oseba)
+
+<h1 class="title">
+    Dodajanje komitenta
+</h1>
+
+<form action="{{url('komitenti_dodaj_post')}}" method="POST">
+    % include('komitenti.obrazec.html', admin=True)
+    <div class="field">
+        <div class="control">
+            <button class="button is-link">Dodaj komitenta</button>
+        </div>
+    </div>
+</form>

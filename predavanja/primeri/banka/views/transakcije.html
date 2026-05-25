@@ -1,0 +1,46 @@
+% rebase('osnova.html', stran='transakcije', naslov='Transakcije')
+
+<div class="container">
+    <h1 class="title">Transakcije</h1>
+
+    <table class="table">
+        <tr>
+            <th>ID</th>
+            <th>Račun</th>
+            <th>Znesek</th>
+            <th>Čas</th>
+            <th>Opis</th>
+            <th></th>
+        </tr>
+        % for transakcija in Transakcija.seznam():
+        <tr>
+            <td>{{transakcija.id}}</td>
+            <td>
+                <a href="{{url('racuni_transakcije', stevilka=transakcija.racun)}}">
+                    {{transakcija.racun}}
+                </a>
+            </td>
+            <td>{{transakcija.znesek}}</td>
+            <td class="cas">{{transakcija.cas}}</td>
+            <td>{{transakcija.opis}}</td>
+            <td>
+                <div class="buttons">
+                    <a class="button is-primary">
+                        <span class="icon is-small">
+                            <i class="fas fa-pen"></i>
+                        </span>
+                    </a>
+                    <form method="POST"
+                     onsubmit="return confirm('Ali res želiš izbrisati transakcijo z ID-jem {{transakcija.id}}?')">
+                        <button class="button is-danger">
+                            <span class="icon is-small">
+                                <i class="fas fa-trash"></i>
+                            </span>
+                        </button>
+                    </form>
+                </div>
+            </td>
+        </tr>
+        % end
+    </table>
+</div>

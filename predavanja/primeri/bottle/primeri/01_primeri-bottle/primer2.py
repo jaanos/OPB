@@ -21,12 +21,13 @@ def banana():
 def hello(name):
     return "Hello {0}".format(name)
 
-@route('/vsota/<a>/<b:int>/')
+@route('/vsota/<a:float>/<b:float>/')
+@route('/vsota/<a:int>/<b:int>/')
 def vsota(a, b):
     # Pozor, a in b sta niza, pretvorimo ju v int
     try:
-        a = int(a) # Sproži izjemo ValueError, če niz a ne predstavlja celega števila
-        b = int(b) # Sproži izjemo ValueError, če niz b ne predstavlja celega števila
+        #a = int(a) # Sproži izjemo ValueError, če niz a ne predstavlja celega števila
+        #b = int(b) # Sproži izjemo ValueError, če niz b ne predstavlja celega števila
         return "Vsota števil {0} in {1} je {2}.".format(a,b,a+b)
     except ValueError:
         # Uporabnik je vpisal čudne podatke, javimo napako

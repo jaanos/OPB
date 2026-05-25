@@ -1,0 +1,50 @@
+% rebase('osnova.html', stran=f'komitenti_transakcije-{oseba.emso}', naslov='Transakcije komitenta')
+
+<div class="container">
+    <h1 class="title">Transakcije komitenta {{oseba.ime}} {{oseba.priimek}} ({{oseba.emso}})</h1>
+
+    <table class="table">
+        <tr>
+            <th>ID</th>
+            <th>Račun</th>
+            <th>Znesek</th>
+            <th>Čas</th>
+            <th>Opis</th>
+            % if uporabnik.admin:
+            <th></th>
+            % end
+        </tr>
+        % for transakcija in oseba.transakcije():
+        <tr>
+            <td>{{transakcija.id}}</td>
+            <td>
+                <a href="{{url('racuni_transakcije', stevilka=transakcija.racun.stevilka)}}">
+                    {{transakcija.racun.stevilka}}
+                </a>
+            </td>
+            <td>{{transakcija.znesek}}</td>
+            <td class="cas">{{transakcija.cas}}</td>
+            <td>{{transakcija.opis}}</td>
+            % if uporabnik.admin:
+            <td>
+                <div class="buttons">
+                    <a class="button is-primary">
+                        <span class="icon is-small">
+                            <i class="fas fa-pen"></i>
+                        </span>
+                    </a>
+                    <form method="POST"
+                     onsubmit="return confirm('Ali res želiš izbrisati transakcijo z ID-jem {{transakcija.id}}?')">
+                        <button class="button is-danger">
+                            <span class="icon is-small">
+                                <i class="fas fa-trash"></i>
+                            </span>
+                        </button>
+                    </form>
+                </div>
+            </td>
+            % end
+        </tr>
+        % end
+    </table>
+</div>

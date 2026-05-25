@@ -1,4 +1,4 @@
-from bottle import run, get, post, request, response, redirect # or route
+from bottle import run, get, post, request, response, redirect, template # or route
 
 skrivnost = 'te skrivnosti ne bo nihče uganil!'
 
@@ -8,19 +8,7 @@ skrivnost = 'te skrivnosti ne bo nihče uganil!'
 def prijavno_okno():
     if request.get_cookie('uime', secret=skrivnost):
         redirect('/dobrodosel/')
-    return """
-<html>
-<head>
-</head>
-<body>
-<form action="/prijava" method="post">
-    <span>Uporabniško ime:</span> <input name="uime" type="text" />
-    <span>Geslo:</span> <input name="geslo" type="password" />
-    <input value="Prijava" type="submit" />
-</form>
-</body>
-</html>
-"""
+    return template("prijava.html")
 
 # zahtevek POST
 @post('/prijava') # or @route('/prijava', method='POST')
@@ -56,7 +44,7 @@ def google():
     <html>
         <form action="/google" method="GET">
             <input name="q" type="text" />
-            <input type="submit" value="Išči" />
+            <input name="isci" type="submit" value="Išči" />
         </form>
 
         <a href="https://www.google.com/search?q={q}">Poguglaj {q}!</iframe>

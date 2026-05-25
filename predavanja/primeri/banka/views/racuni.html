@@ -1,0 +1,37 @@
+% rebase('osnova.html', stran='racuni', naslov='Računi')
+
+<div class="container">
+    <h1 class="title">Računi</h1>
+
+    <table class="table">
+        <tr>
+            <th>Številka</th>
+            <th>Lastnik</th>
+            <th>Stanje</th>
+            <th></th>
+        </tr>
+        % for racun in Racun.seznam():
+        <tr>
+            <td>
+                <a href="{{url('racuni_transakcije', stevilka=racun.stevilka)}}">
+                    {{racun.stevilka}}
+                </a>
+            </td>
+            <td>{{racun.lastnik.ime}} {{racun.lastnik.priimek}} ({{racun.lastnik.emso}})</td>
+            <td>{{racun.stanje}}</td>
+            <td>
+                <div class="buttons">
+                    <form method="POST"
+                     onsubmit="return confirm('Ali res želiš izbrisati račun s številko {{racun.stevilka}}?')">
+                        <button class="button is-danger">
+                            <span class="icon is-small">
+                                <i class="fas fa-trash"></i>
+                            </span>
+                        </button>
+                    </form>
+                </div>
+            </td>
+        </tr>
+        % end
+    </table>
+</div>

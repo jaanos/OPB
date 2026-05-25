@@ -1,0 +1,57 @@
+% rebase('osnova.html', stran='komitenti', naslov='Komitenti')
+
+<div class="container">
+    <div class="level">
+        <div class="level-left">
+            <div class="level-item">
+                <h1 class="title">
+                    Komitenti
+                </h1>
+            </div>
+        </div>
+        <div class="level-right">
+            <div class="level-item">
+                <a href="{{url('komitenti_dodaj')}}" class="button is-primary">
+                    Dodaj komitenta
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <table class="table">
+        <tr>
+            <th>EMŠO</th>
+            <th>Ime in priimek</th>
+            <th>Naslov</th>
+            <th></th>
+        </tr>
+        % for oseba in Oseba.seznam():
+        <tr>
+            <td>
+                <a href="{{url('komitenti_racuni', emso=oseba.emso)}}"">
+                    {{oseba.emso}}
+                </a>
+            </td>
+            <td>{{oseba.ime}} {{oseba.priimek}}</td>
+            <td>{{oseba.naslov}}, {{oseba.kraj.posta}}, {{oseba.kraj.kraj}}</td>
+            <td>
+                <div class="buttons">
+                    <a href="{{url('komitenti_uredi', emso=oseba.emso)}}" class="button is-primary">
+                        <span class="icon is-small">
+                            <i class="fas fa-pen"></i>
+                        </span>
+                    </a>
+                    <form method="POST" action="{{url('komitenti_izbrisi_post', emso=oseba.emso)}}"
+                     onsubmit="return confirm('Ali res želiš izbrisati komitenta z EMŠOm {{oseba.emso}}?')">
+                        <button class="button is-danger">
+                            <span class="icon is-small">
+                                <i class="fas fa-trash"></i>
+                            </span>
+                        </button>
+                    </form>
+                </div>
+            </td>
+        </tr>
+        % end
+    </table>
+</div>
