@@ -5,3 +5,11 @@
 h1 {
     text-decoration: underline;
 }
+
+td div.buttons {
+    min-width: 92px;
+}
+
+td.cas {
+    min-width: 180px;
+}

@@ -285,8 +285,8 @@ class Oseba(Entiteta):
             with conn.cursor() as cur:
                 cur.execute(
                     """
-                    SELECT stevilka, SUM(znesek) FROM racun
-                    JOIN transakcija ON stevilka = racun
+                    SELECT stevilka, COALESCE(SUM(znesek), 0) FROM racun
+                    LEFT JOIN transakcija ON stevilka = racun
                     WHERE lastnik = %s
                     GROUP BY stevilka
                     ORDER BY stevilka
@@ -431,10 +431,10 @@ class Racun(Entiteta):
                 cur.execute(
                     """
                     SELECT stevilka, emso, ime, priimek, naslov, kraj.posta, kraj.kraj,
-                           uporabnisko_ime, admin, SUM(znesek) FROM racun
+                           uporabnisko_ime, admin, COALESCE(SUM(znesek), 0) FROM racun
                     JOIN oseba ON lastnik = emso
                     JOIN kraj ON oseba.kraj = posta
-                    JOIN transakcija ON stevilka = racun
+                    LEFT JOIN transakcija ON stevilka = racun
                     WHERE stevilka = %s
                     GROUP BY stevilka, emso, kraj.posta
                     """, (id, )
@@ -451,9 +451,9 @@ class Racun(Entiteta):
             with conn.cursor() as cur:
                 cur.execute(
                     """
-                    SELECT stevilka, emso, ime, priimek, SUM(znesek) FROM racun
+                    SELECT stevilka, emso, ime, priimek, COALESCE(SUM(znesek), 0) FROM racun
                     JOIN oseba ON lastnik = emso
-                    JOIN transakcija ON stevilka = racun
+                    LEFT JOIN transakcija ON stevilka = racun
                     GROUP BY stevilka, emso
                     ORDER BY stevilka
                     """

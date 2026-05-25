@@ -8,12 +8,30 @@
             <th>Številka</th>
             <th>Lastnik</th>
             <th>Stanje</th>
+            <th></th>
         </tr>
         % for racun in Racun.seznam():
         <tr>
             <td>{{racun.stevilka}}</td>
             <td>{{racun.lastnik.ime}} {{racun.lastnik.priimek}} ({{racun.lastnik.emso}})</td>
             <td>{{racun.stanje}}</td>
+            <td>
+                <div class="buttons">
+                    <a class="button is-primary">
+                        <span class="icon is-small">
+                            <i class="fas fa-pen"></i>
+                        </span>
+                    </a>
+                    <form method="POST"
+                     onsubmit="return confirm('Ali res želiš izbrisati račun s številko {{racun.stevilka}}?')">
+                        <button class="button is-danger">
+                            <span class="icon is-small">
+                                <i class="fas fa-trash"></i>
+                            </span>
+                        </button>
+                    </form>
+                </div>
+            </td>
         </tr>
         % end
     </table>

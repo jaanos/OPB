@@ -1,19 +1,52 @@
 % rebase('osnova.html', stran='komitenti', naslov='Komitenti')
 
 <div class="container">
-    <h1 class="title">Komitenti</h1>
+    <div class="level">
+        <div class="level-left">
+            <div class="level-item">
+                <h1 class="title">
+                    Komitenti
+                </h1>
+            </div>
+        </div>
+        <div class="level-right">
+            <div class="level-item">
+                <a class="button is-primary">
+                    Dodaj komitenta
+                </a>
+            </div>
+        </div>
+    </div>
 
     <table class="table">
         <tr>
             <th>EMŠO</th>
             <th>Ime in priimek</th>
             <th>Naslov</th>
+            <th></th>
         </tr>
         % for oseba in Oseba.seznam():
         <tr>
             <td>{{oseba.emso}}</td>
             <td>{{oseba.ime}} {{oseba.priimek}}</td>
             <td>{{oseba.naslov}}, {{oseba.kraj.posta}}, {{oseba.kraj.kraj}}</td>
+            <td>
+                <div class="buttons">
+                    <a class="button is-primary">
+                        <span class="icon is-small">
+                            <i class="fas fa-pen"></i>
+                        </span>
+                    </a>
+                    <form method="POST"
+                     onsubmit="return confirm('Ali res želiš izbrisati komitenta z EMŠOm {{oseba.emso}}?')">
+                        <button class="button is-danger">
+                            <span class="icon is-small">
+                                <i class="fas fa-trash"></i>
+                            </span>
+                        </button>
+                    </form>
+                </div>
+            </td>
         </tr>
         % end
     </table>

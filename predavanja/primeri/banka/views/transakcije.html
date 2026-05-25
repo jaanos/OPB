@@ -1,33 +1,24 @@
-% rebase('osnova.html', stran='kraji', naslov='Kraji')
+% rebase('osnova.html', stran='transakcije', naslov='Transakcije')
 
 <div class="container">
-    <div class="level">
-        <div class="level-left">
-            <div class="level-item">
-                <h1 class="title">
-                    Kraji
-                </h1>
-            </div>
-        </div>
-        <div class="level-right">
-            <div class="level-item">
-                <a class="button is-primary">
-                    Dodaj kraj
-                </a>
-            </div>
-        </div>
-    </div>
+    <h1 class="title">Transakcije</h1>
 
     <table class="table">
         <tr>
-            <th>Poštna številka</th>
-            <th>Kraj</th>
+            <th>ID</th>
+            <th>Račun</th>
+            <th>Znesek</th>
+            <th>Čas</th>
+            <th>Opis</th>
             <th></th>
         </tr>
-        % for kraj in Kraj.seznam():
+        % for transakcija in Transakcija.seznam():
         <tr>
-            <td>{{kraj.posta}}</td>
-            <td>{{kraj.kraj}}</td>
+            <td>{{transakcija.id}}</td>
+            <td>{{transakcija.racun}}</td>
+            <td>{{transakcija.znesek}}</td>
+            <td class="cas">{{transakcija.cas}}</td>
+            <td>{{transakcija.opis}}</td>
             <td>
                 <div class="buttons">
                     <a class="button is-primary">
@@ -36,7 +27,7 @@
                         </span>
                     </a>
                     <form method="POST"
-                     onsubmit="return confirm('Ali res želiš izbrisati kraj s poštno številko {{kraj.posta}}?')">
+                     onsubmit="return confirm('Ali res želiš izbrisati transakcijo z ID-jem {{transakcija.id}}?')">
                         <button class="button is-danger">
                             <span class="icon is-small">
                                 <i class="fas fa-trash"></i>
