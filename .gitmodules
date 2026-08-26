@@ -400,3 +400,15 @@
 [submodule "oddaje/2025/Register-ladij"]
 	path = oddaje/2025/Register-ladij
 	url = https://github.com/AmandaBabic/OPB-projekt.git
+[submodule "oddaje/2026/MangaSearch"]
+	path = oddaje/2026/MangaSearch
+	url = https://github.com/1chess1/MangaSearch.git
+[submodule "oddaje/2026/Restavracije"]
+	path = oddaje/2026/Restavracije
+	url = https://github.com/elizapecoraro/OPB-projekt.git
+[submodule "oddaje/2026/OPB-RunDuel"]
+	path = oddaje/2026/OPB-RunDuel
+	url = https://github.com/tilenzabkar/OPB-RunDuel.git
+[submodule "oddaje/2025/OPB-Prijave-plesna-tekmovanja"]
+	path = oddaje/2025/OPB-Prijave-plesna-tekmovanja
+	url = https://github.com/MiaCakarova/OPB-Prijave-plesna-tekmovanja.git
