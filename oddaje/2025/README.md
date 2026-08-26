@@ -9,7 +9,7 @@
 * Repozitorij: <https://github.com/EvaStrasek/OPB-HikeBuddy>
 
 ## Parkiranje
-* Avtor: Sara Hardi, Sara Šega
+* Avtorici: Sara Hardi, Sara Šega
 * Repozitorij: <https://github.com/sarasega1/OPB-parkiranje>
 
 ## Pilates
@@ -47,3 +47,7 @@
 ## Register ladij
 * Avtorica: Amanda Babič
 * Repozitorij: <https://github.com/AmandaBabic/OPB-projekt>
+
+## Prijave na plesna tekmovanja
+* Avtorica: Mia Čakarova
+* Repozitorij: <https://github.com/MiaCakarova/OPB-Prijave-plesna-tekmovanja>
