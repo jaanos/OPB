@@ -412,3 +412,18 @@
 [submodule "oddaje/2025/OPB-Prijave-plesna-tekmovanja"]
 	path = oddaje/2025/OPB-Prijave-plesna-tekmovanja
 	url = https://github.com/MiaCakarova/OPB-Prijave-plesna-tekmovanja.git
+[submodule "oddaje/2026/Aplikacija-za-vodenje-pevskega-zbora"]
+	path = oddaje/2026/Aplikacija-za-vodenje-pevskega-zbora
+	url = https://github.com/MarijaJez/Aplikacija-za-vodenje-pevskega-zbora.git
+[submodule "oddaje/2026/OPB-Najem-nepremicnin"]
+	path = oddaje/2026/OPB-Najem-nepremicnin
+	url = https://github.com/UrhVidecnik/OPB-Najem-nepremicnin.git
+[submodule "oddaje/2026/baza-receptov---OPB-projekt"]
+	path = oddaje/2026/baza-receptov---OPB-projekt
+	url = https://github.com/gaseva/baza-receptov---OPB-projekt.git
+[submodule "oddaje/2026/ZeroRisk-Trader"]
+	path = oddaje/2026/ZeroRisk-Trader
+	url = https://github.com/NikUrukalo/ZeroRisk-Trader.git
+[submodule "oddaje/2026/OPB-Cene-goriv"]
+	path = oddaje/2026/OPB-Cene-goriv
+	url = https://github.com/rainman137/OPB-Cene-goriv.git
